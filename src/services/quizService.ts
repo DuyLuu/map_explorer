@@ -1,98 +1,72 @@
 import { QuizQuestion } from '../types/quiz';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useCountryStore } from '../stores/countryStore';
 
 const PROGRESS_KEY = '@quiz_progress';
 
-// Temporary mock data - will be replaced with actual API calls
-const mockCountries = [
-  {
-    id: '1',
-    name: 'United States',
-    flagUrl: 'https://flagcdn.com/w320/us.png',
-  },
-  {
-    id: '2',
-    name: 'United Kingdom',
-    flagUrl: 'https://flagcdn.com/w320/gb.png',
-  },
-  {
-    id: '3',
-    name: 'France',
-    flagUrl: 'https://flagcdn.com/w320/fr.png',
-  },
-  {
-    id: '4',
-    name: 'Germany',
-    flagUrl: 'https://flagcdn.com/w320/de.png',
-  },
-  {
-    id: '5',
-    name: 'Japan',
-    flagUrl: 'https://flagcdn.com/w320/jp.png',
-  },
-  {
-    id: '6',
-    name: 'Italy',
-    flagUrl: 'https://flagcdn.com/w320/it.png',
-  },
-  {
-    id: '7',
-    name: 'Spain',
-    flagUrl: 'https://flagcdn.com/w320/es.png',
-  },
-  {
-    id: '8',
-    name: 'Canada',
-    flagUrl: 'https://flagcdn.com/w320/ca.png',
-  },
-  {
-    id: '9',
-    name: 'Australia',
-    flagUrl: 'https://flagcdn.com/w320/au.png',
-  },
-  {
-    id: '10',
-    name: 'Brazil',
-    flagUrl: 'https://flagcdn.com/w320/br.png',
-  },
-  {
-    id: '11',
-    name: 'China',
-    flagUrl: 'https://flagcdn.com/w320/cn.png',
-  },
-  {
-    id: '12',
-    name: 'India',
-    flagUrl: 'https://flagcdn.com/w320/in.png',
-  },
-  {
-    id: '13',
-    name: 'Russia',
-    flagUrl: 'https://flagcdn.com/w320/ru.png',
-  },
-  {
-    id: '14',
-    name: 'South Africa',
-    flagUrl: 'https://flagcdn.com/w320/za.png',
-  },
-  {
-    id: '15',
-    name: 'Mexico',
-    flagUrl: 'https://flagcdn.com/w320/mx.png',
-  },
-];
+interface Country {
+  id: number;
+  name: string;
+  flagUrl: string;
+}
 
-export const generateQuizQuestion = (): QuizQuestion => {
+interface CountryResponse {
+  name: {
+    common: string;
+  };
+  flags: {
+    svg?: string;
+    png?: string;
+  };
+}
+
+async function fetchCountries(): Promise<Country[]> {
+  const store = useCountryStore.getState();
+  
+  // Return cached countries if available
+  if (store.countries.length > 0) {
+    return store.countries;
+  }
+
+  try {
+    store.setIsLoading(true);
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    const data = await response.json();
+
+    const countries = data.map((country: CountryResponse, index: number) => ({
+      id: index + 1,
+      name: country.name.common,
+      flagUrl: country.flags?.png,
+    }));
+
+    // Cache the countries
+    store.setCountries(countries);
+    return countries;
+  } catch (error) {
+    console.error('Error fetching countries:', error);
+    return [];
+  } finally {
+    store.setIsLoading(false);
+  }
+}
+
+export const generateQuizQuestion = async (): Promise<QuizQuestion> => {
+  const countries = await fetchCountries();
+  
+  if (countries.length === 0) {
+    throw new Error('Failed to fetch countries');
+  }
+
   // Randomly select a country for the correct answer
-  const correctCountryIndex = Math.floor(Math.random() * mockCountries.length);
-  const correctCountry = mockCountries[correctCountryIndex];
+  const correctCountryIndex = Math.floor(Math.random() * countries.length);
+  const correctCountry = countries[correctCountryIndex];
 
   // Generate 3 random wrong answers
-  const wrongAnswers = mockCountries
-    .filter((_, index) => index !== correctCountryIndex)
+  const wrongAnswers = countries
+    .filter((_: Country, index: number) => index !== correctCountryIndex)
     .sort(() => Math.random() - 0.5)
     .slice(0, 3)
-    .map(country => country.name);
+    .map((country: Country) => country.name);
 
   // Combine correct and wrong answers, then shuffle
   const options = [...wrongAnswers, correctCountry.name].sort(
@@ -100,7 +74,7 @@ export const generateQuizQuestion = (): QuizQuestion => {
   );
 
   return {
-    id: correctCountry.id,
+    id: correctCountry.id.toString(),
     flagUrl: correctCountry.flagUrl,
     correctAnswer: correctCountry.name,
     options,

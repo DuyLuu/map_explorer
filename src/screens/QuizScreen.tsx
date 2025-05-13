@@ -6,18 +6,23 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Image,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import { QuizQuestion } from '../types/quiz';
 import { generateQuizQuestion, saveQuizProgress, getQuizProgress } from '../services/quizService';
+import { useCountryStore } from '../stores/countryStore';
+import { useNavigation } from '@react-navigation/native';
 
 const QuizScreen: React.FC = () => {
+  const { questionCount } = useCountryStore();
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadNextQuestion();
@@ -42,24 +47,37 @@ const QuizScreen: React.FC = () => {
     }
   };
 
-  const loadNextQuestion = () => {
+  const loadNextQuestion = async () => {
     setIsImageLoading(true);
-    const newQuestion = generateQuizQuestion();
+    const newQuestion = await generateQuizQuestion();
     setCurrentQuestion(newQuestion);
     setShowFeedback(false);
     setSelectedAnswer(null);
   };
 
   const handleNextQuestion = async () => {
-    await saveQuizProgress(highScore);
-    loadNextQuestion();
+    if (currentQuestionNumber < questionCount) {
+      setCurrentQuestionNumber(prev => prev + 1);
+      await loadNextQuestion();
+    } else {
+      await saveQuizProgress(highScore);
+      navigation.navigate('NameInput', { score, questionCount });
+    }
   };
+
+  console.log(currentQuestion);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.score}>Score: {score}</Text>
         <Text style={styles.highScore}>High Score: {highScore}</Text>
+      </View>
+
+      <View style={styles.progressContainer}>
+        <Text style={styles.progressText}>
+          Question {currentQuestionNumber} of {questionCount}
+        </Text>
       </View>
 
       {currentQuestion && (
@@ -72,13 +90,10 @@ const QuizScreen: React.FC = () => {
                 style={styles.loader}
               />
             )}
-            <FastImage
+            <Image
               style={styles.flagImage}
-              source={{ 
-                uri: currentQuestion.flagUrl,
-                priority: FastImage.priority.high,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
+              source={{ uri: currentQuestion.flagUrl }}
+              resizeMode="contain"
               onLoadEnd={() => setIsImageLoading(false)}
             />
           </View>
@@ -114,7 +129,9 @@ const QuizScreen: React.FC = () => {
           style={styles.nextButton}
           onPress={handleNextQuestion}
         >
-          <Text style={styles.nextButtonText}>Next Question</Text>
+          <Text style={styles.nextButtonText}>
+            {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
+          </Text>
         </TouchableOpacity>
       )}
     </SafeAreaView>
@@ -141,6 +158,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
+  },
+  progressContainer: {
+    padding: 16,
+    alignItems: 'center',
+  },
+  progressText: {
+    fontSize: 16,
+    color: '#666',
   },
   questionContainer: {
     flex: 1,

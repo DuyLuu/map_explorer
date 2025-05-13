@@ -6,10 +6,15 @@
  */
 
 import React from 'react';
-import AppNavigator from './src/navigation/AppNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import RootNavigator from './src/navigation/RootNavigator';
 
 const App = () => {
-  return <AppNavigator />;
+  return (
+    <SafeAreaProvider>
+      <RootNavigator />
+    </SafeAreaProvider>
+  );
 };
 
 export default App;
