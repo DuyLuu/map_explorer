@@ -16,12 +16,11 @@ import {
 } from '../services/quizService'
 import { useCountryStore } from '../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
+import { initializeTts, speakText } from '../services/speechService'
 
 const QuizScreen: React.FC = () => {
   const { questionCount } = useCountryStore()
-  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(
-    null,
-  )
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
   const [showFeedback, setShowFeedback] = useState(false)
@@ -33,6 +32,7 @@ const QuizScreen: React.FC = () => {
   useEffect(() => {
     loadNextQuestion()
     loadHighScore()
+    initializeTts()
   }, [])
 
   const loadHighScore = async () => {
@@ -40,11 +40,16 @@ const QuizScreen: React.FC = () => {
     setHighScore(progress)
   }
 
-  const handleAnswer = (answer: string) => {
+  const handleSelectAnswer = async (answer: string) => {
     setSelectedAnswer(answer)
-    setShowFeedback(true)
+    await speakText(answer)
+  }
 
-    if (answer === currentQuestion?.correctAnswer) {
+  const handleSubmit = () => {
+    if (!selectedAnswer) return
+
+    setShowFeedback(true)
+    if (selectedAnswer === currentQuestion?.correctAnswer) {
       const newScore = score + 1
       setScore(newScore)
       if (newScore > highScore) {
@@ -117,7 +122,7 @@ const QuizScreen: React.FC = () => {
                     option !== currentQuestion.correctAnswer &&
                     styles.wrongOption,
                 ]}
-                onPress={() => handleAnswer(option)}
+                onPress={() => handleSelectAnswer(option)}
                 disabled={showFeedback}>
                 <Text
                   style={[
@@ -135,19 +140,27 @@ const QuizScreen: React.FC = () => {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
-      )}
 
-      {showFeedback && (
-        <TouchableOpacity
-          style={styles.nextButton}
-          onPress={handleNextQuestion}>
-          <Text style={styles.nextButtonText}>
-            {currentQuestionNumber < questionCount
-              ? 'Next Question'
-              : 'Finish Quiz'}
-          </Text>
-        </TouchableOpacity>
+          {selectedAnswer && !showFeedback && (
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={handleSubmit}>
+              <Text style={styles.submitButtonText}>Submit Answer</Text>
+            </TouchableOpacity>
+          )}
+
+          {showFeedback && (
+            <TouchableOpacity
+              style={styles.nextButton}
+              onPress={handleNextQuestion}>
+              <Text style={styles.nextButtonText}>
+                {currentQuestionNumber < questionCount
+                  ? 'Next Question'
+                  : 'Finish Quiz'}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
       )}
     </SafeAreaView>
   )
@@ -230,11 +243,25 @@ const styles = StyleSheet.create({
   wrongText: {
     color: '#fff',
   },
+  submitButton: {
+    backgroundColor: '#007AFF',
+    padding: 16,
+    borderRadius: 8,
+    marginTop: 16,
+    width: '100%',
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
   nextButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 8,
-    margin: 16,
+    marginTop: 16,
+    width: '100%',
   },
   nextButtonText: {
     color: '#fff',

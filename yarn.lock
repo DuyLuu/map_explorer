@@ -5568,6 +5568,11 @@ react-native-screens@^4.10.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-tts@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-tts/-/react-native-tts-4.1.1.tgz#a6caa23f3e955e913195d6342608cb4489dd8ed1"
+  integrity sha512-VL0TgCwkUWggbbFGIXAPKC3rM1baluAYtgOdgnaTm7UYsWf/y8n5VgmVB0J2Wa8qt1dldZ1cSsdQY9iz3evcAg==
+
 react-native-vector-icons@^10.2.0:
   version "10.2.0"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.2.0.tgz"
