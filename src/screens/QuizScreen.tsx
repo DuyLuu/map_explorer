@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -7,65 +7,71 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Image,
-} from 'react-native';
-import { QuizQuestion } from '../types/quiz';
-import { generateQuizQuestion, saveQuizProgress, getQuizProgress } from '../services/quizService';
-import { useCountryStore } from '../stores/countryStore';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import { QuizQuestion } from '../types/quiz'
+import {
+  generateQuizQuestion,
+  saveQuizProgress,
+  getQuizProgress,
+} from '../services/quizService'
+import { useCountryStore } from '../stores/countryStore'
+import { useNavigation } from '@react-navigation/native'
 
 const QuizScreen: React.FC = () => {
-  const { questionCount } = useCountryStore();
-  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
-  const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
-  const navigation = useNavigation();
+  const { questionCount } = useCountryStore()
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(
+    null,
+  )
+  const [score, setScore] = useState(0)
+  const [highScore, setHighScore] = useState(0)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
+  const [isImageLoading, setIsImageLoading] = useState(true)
+  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
+  const navigation = useNavigation()
 
   useEffect(() => {
-    loadNextQuestion();
-    loadHighScore();
-  }, []);
+    loadNextQuestion()
+    loadHighScore()
+  }, [])
 
   const loadHighScore = async () => {
-    const progress = await getQuizProgress();
-    setHighScore(progress);
-  };
+    const progress = await getQuizProgress()
+    setHighScore(progress)
+  }
 
   const handleAnswer = (answer: string) => {
-    setSelectedAnswer(answer);
-    setShowFeedback(true);
-    
+    setSelectedAnswer(answer)
+    setShowFeedback(true)
+
     if (answer === currentQuestion?.correctAnswer) {
-      const newScore = score + 1;
-      setScore(newScore);
+      const newScore = score + 1
+      setScore(newScore)
       if (newScore > highScore) {
-        setHighScore(newScore);
+        setHighScore(newScore)
       }
     }
-  };
+  }
 
   const loadNextQuestion = async () => {
-    setIsImageLoading(true);
-    const newQuestion = await generateQuizQuestion();
-    setCurrentQuestion(newQuestion);
-    setShowFeedback(false);
-    setSelectedAnswer(null);
-  };
+    setIsImageLoading(true)
+    const newQuestion = await generateQuizQuestion()
+    setCurrentQuestion(newQuestion)
+    setShowFeedback(false)
+    setSelectedAnswer(null)
+  }
 
   const handleNextQuestion = async () => {
     if (currentQuestionNumber < questionCount) {
-      setCurrentQuestionNumber(prev => prev + 1);
-      await loadNextQuestion();
+      setCurrentQuestionNumber(prev => prev + 1)
+      await loadNextQuestion()
     } else {
-      await saveQuizProgress(highScore);
-      navigation.navigate('NameInput', { score, questionCount });
+      await saveQuizProgress(highScore)
+      navigation.navigate('NameInput', { score, questionCount })
     }
-  };
+  }
 
-  console.log(currentQuestion);
+  console.log(currentQuestion)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,9 +90,9 @@ const QuizScreen: React.FC = () => {
         <View style={styles.questionContainer}>
           <View style={styles.flagContainer}>
             {isImageLoading && (
-              <ActivityIndicator 
-                size="large" 
-                color="#007AFF" 
+              <ActivityIndicator
+                size="large"
+                color="#007AFF"
                 style={styles.loader}
               />
             )}
@@ -97,7 +103,7 @@ const QuizScreen: React.FC = () => {
               onLoadEnd={() => setIsImageLoading(false)}
             />
           </View>
-          
+
           <View style={styles.optionsContainer}>
             {currentQuestion.options.map((option, index) => (
               <TouchableOpacity
@@ -105,17 +111,27 @@ const QuizScreen: React.FC = () => {
                 style={[
                   styles.optionButton,
                   selectedAnswer === option && styles.selectedOption,
-                  showFeedback && option === currentQuestion.correctAnswer && styles.correctOption,
-                  showFeedback && selectedAnswer === option && option !== currentQuestion.correctAnswer && styles.wrongOption,
+                  showFeedback &&
+                    option === currentQuestion.correctAnswer &&
+                    styles.correctOption,
+                  showFeedback &&
+                    selectedAnswer === option &&
+                    option !== currentQuestion.correctAnswer &&
+                    styles.wrongOption,
                 ]}
                 onPress={() => handleAnswer(option)}
-                disabled={showFeedback}
-              >
-                <Text style={[
-                  styles.optionText,
-                  (showFeedback && option === currentQuestion.correctAnswer) && styles.correctText,
-                  (showFeedback && selectedAnswer === option && option !== currentQuestion.correctAnswer) && styles.wrongText,
-                ]}>
+                disabled={showFeedback}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    showFeedback &&
+                      option === currentQuestion.correctAnswer &&
+                      styles.correctText,
+                    showFeedback &&
+                      selectedAnswer === option &&
+                      option !== currentQuestion.correctAnswer &&
+                      styles.wrongText,
+                  ]}>
                   {option}
                 </Text>
               </TouchableOpacity>
@@ -127,16 +143,17 @@ const QuizScreen: React.FC = () => {
       {showFeedback && (
         <TouchableOpacity
           style={styles.nextButton}
-          onPress={handleNextQuestion}
-        >
+          onPress={handleNextQuestion}>
           <Text style={styles.nextButtonText}>
-            {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
+            {currentQuestionNumber < questionCount
+              ? 'Next Question'
+              : 'Finish Quiz'}
           </Text>
         </TouchableOpacity>
       )}
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -227,6 +244,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-});
+})
 
-export default QuizScreen; 
+export default QuizScreen

@@ -1,25 +1,25 @@
-import { create } from 'zustand';
+import { create } from 'zustand'
 
 interface Country {
-  id: number;
-  name: string;
-  flagUrl: string;
+  id: number
+  name: string
+  flagUrl: string
 }
 
 interface CountryStore {
-  countries: Country[];
-  setCountries: (countries: Country[]) => void;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
-  questionCount: number;
-  setQuestionCount: (count: number) => void;
+  countries: Country[]
+  setCountries: (countries: Country[]) => void
+  isLoading: boolean
+  setIsLoading: (isLoading: boolean) => void
+  questionCount: number
+  setQuestionCount: (count: number) => void
 }
 
-export const useCountryStore = create<CountryStore>((set) => ({
+export const useCountryStore = create<CountryStore>(set => ({
   countries: [],
-  setCountries: (countries) => set({ countries }),
+  setCountries: countries => set({ countries }),
   isLoading: false,
-  setIsLoading: (isLoading) => set({ isLoading }),
+  setIsLoading: isLoading => set({ isLoading }),
   questionCount: 10, // default value
-  setQuestionCount: (count) => set({ questionCount: count }),
-})); 
+  setQuestionCount: count => set({ questionCount: count }),
+}))

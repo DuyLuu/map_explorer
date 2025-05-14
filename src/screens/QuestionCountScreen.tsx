@@ -1,45 +1,45 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-} from 'react-native';
-import { useCountryStore } from '../stores/countryStore';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import { useCountryStore } from '../stores/countryStore'
+import { useNavigation } from '@react-navigation/native'
 
 const QuestionCountScreen: React.FC = () => {
-  const { questionCount, setQuestionCount } = useCountryStore();
-  const navigation = useNavigation();
+  const { questionCount, setQuestionCount } = useCountryStore()
+  const navigation = useNavigation()
 
-  const options = [5, 10, 15, 20];
+  const options = [5, 10, 15, 20]
 
   const handleSelect = (count: number) => {
-    setQuestionCount(count);
-  };
+    setQuestionCount(count)
+  }
 
   const onConfirm = () => {
-    navigation.navigate('Quiz');
-  };
+    navigation.navigate('Quiz')
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Select Number of Questions</Text>
       <View style={styles.optionsContainer}>
-        {options.map((count) => (
+        {options.map(count => (
           <TouchableOpacity
             key={count}
             style={[
               styles.optionButton,
               questionCount === count && styles.selectedOption,
             ]}
-            onPress={() => handleSelect(count)}
-          >
-            <Text style={[
-              styles.optionText,
-              questionCount === count && styles.selectedText,
-            ]}>
+            onPress={() => handleSelect(count)}>
+            <Text
+              style={[
+                styles.optionText,
+                questionCount === count && styles.selectedText,
+              ]}>
               {count} Questions
             </Text>
           </TouchableOpacity>
@@ -49,8 +49,8 @@ const QuestionCountScreen: React.FC = () => {
         <Text style={styles.confirmButtonText}>Confirm</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-});
+})
 
-export default QuestionCountScreen; 
+export default QuestionCountScreen

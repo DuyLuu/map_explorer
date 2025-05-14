@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { getQuizProgress } from '../services/quizService';
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { getQuizProgress } from '../services/quizService'
 
 const HomeScreen: React.FC = () => {
-  const navigation = useNavigation();
-  const [highScore, setHighScore] = useState(0);
+  const navigation = useNavigation()
+  const [highScore, setHighScore] = useState(0)
 
   useEffect(() => {
-    loadHighScore();
-  }, []);
+    loadHighScore()
+  }, [])
 
   const loadHighScore = async () => {
-    const progress = await getQuizProgress();
-    setHighScore(progress);
-  };
+    const progress = await getQuizProgress()
+    setHighScore(progress)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,15 +36,13 @@ const HomeScreen: React.FC = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, styles.primaryButton]}
-            onPress={() => navigation.navigate('QuestionCount')}
-          >
+            onPress={() => navigation.navigate('QuestionCount')}>
             <Text style={styles.buttonText}>Start New Game</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => navigation.navigate('Leaderboard')}
-          >
+            onPress={() => navigation.navigate('Leaderboard')}>
             <Text style={[styles.buttonText, styles.secondaryButtonText]}>
               View Leaderboard
             </Text>
@@ -52,8 +50,8 @@ const HomeScreen: React.FC = () => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -120,6 +118,6 @@ const styles = StyleSheet.create({
   secondaryButtonText: {
     color: '#007AFF',
   },
-});
+})
 
-export default HomeScreen; 
+export default HomeScreen

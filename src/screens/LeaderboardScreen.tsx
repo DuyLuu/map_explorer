@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import {
   View,
   Text,
@@ -6,45 +6,46 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
-} from 'react-native';
-import { useLeaderboardStore } from '../stores/leaderboardStore';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+} from 'react-native'
+import { useLeaderboardStore } from '../stores/leaderboardStore'
+import { useNavigation } from '@react-navigation/native'
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 const LeaderboardScreen: React.FC = () => {
-  const { entries, loadLeaderboard } = useLeaderboardStore();
-  const navigation = useNavigation();
+  const { entries, loadLeaderboard } = useLeaderboardStore()
+  const navigation = useNavigation()
 
   useEffect(() => {
-    loadLeaderboard();
-  }, []);
+    loadLeaderboard()
+  }, [])
 
   const renderItem = ({ item, index }: { item: any; index: number }) => (
     <View style={styles.entryContainer}>
       <Text style={styles.rank}>#{index + 1}</Text>
       <View style={styles.entryDetails}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.score}>Score: {item.score}/{item.questionCount}</Text>
+        <Text style={styles.score}>
+          Score: {item.score}/{item.questionCount}
+        </Text>
         <Text style={styles.date}>
           {new Date(item.date).toLocaleDateString()}
         </Text>
       </View>
     </View>
-  );
+  )
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.navigate('Home')}
-        >
+          onPress={() => navigation.navigate('Home')}>
           <Icon name="arrow-left" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.title}>Leaderboard</Text>
         <TouchableOpacity
           style={styles.newGameButton}
-          onPress={() => navigation.navigate('QuestionCount')}
-        >
+          onPress={() => navigation.navigate('QuestionCount')}>
           <Text style={styles.newGameText}>New Game</Text>
         </TouchableOpacity>
       </View>
@@ -52,15 +53,15 @@ const LeaderboardScreen: React.FC = () => {
       <FlatList
         data={entries}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
         ListEmptyComponent={
           <Text style={styles.emptyText}>No scores yet. Play a game!</Text>
         }
       />
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -129,6 +130,6 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 32,
   },
-});
+})
 
-export default LeaderboardScreen; 
+export default LeaderboardScreen

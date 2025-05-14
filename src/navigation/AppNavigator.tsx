@@ -1,20 +1,20 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import QuizScreen from '../screens/QuizScreen';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import QuizScreen from '../screens/QuizScreen'
 
 export type RootStackParamList = {
-  Quiz: undefined;
-};
+  Quiz: undefined
+}
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Quiz" 
+        <Stack.Screen
+          name="Quiz"
           component={QuizScreen}
           options={{
             title: 'Flag Quiz',
@@ -29,7 +29,7 @@ const AppNavigator = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
 
-export default AppNavigator; 
+export default AppNavigator

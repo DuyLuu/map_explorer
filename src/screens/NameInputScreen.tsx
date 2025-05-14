@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -6,16 +6,19 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
-} from 'react-native';
-import { useLeaderboardStore } from '../stores/leaderboardStore';
-import { useNavigation, useRoute } from '@react-navigation/native';
+} from 'react-native'
+import { useLeaderboardStore } from '../stores/leaderboardStore'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const NameInputScreen: React.FC = () => {
-  const [name, setName] = useState('');
-  const { addEntry } = useLeaderboardStore();
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { score, questionCount } = route.params as { score: number; questionCount: number };
+  const [name, setName] = useState('')
+  const { addEntry } = useLeaderboardStore()
+  const navigation = useNavigation()
+  const route = useRoute()
+  const { score, questionCount } = route.params as {
+    score: number
+    questionCount: number
+  }
 
   const handleSubmit = () => {
     if (name.trim()) {
@@ -23,17 +26,19 @@ const NameInputScreen: React.FC = () => {
         name: name.trim(),
         score,
         questionCount,
-      });
-      navigation.navigate('Leaderboard');
+      })
+      navigation.navigate('Leaderboard')
     }
-  };
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Game Over!</Text>
-        <Text style={styles.score}>Your Score: {score}/{questionCount}</Text>
-        
+        <Text style={styles.score}>
+          Your Score: {score}/{questionCount}
+        </Text>
+
         <Text style={styles.label}>Enter your name:</Text>
         <TextInput
           style={styles.input}
@@ -47,20 +52,18 @@ const NameInputScreen: React.FC = () => {
         <TouchableOpacity
           style={[styles.button, !name.trim() && styles.buttonDisabled]}
           onPress={handleSubmit}
-          disabled={!name.trim()}
-        >
+          disabled={!name.trim()}>
           <Text style={styles.buttonText}>Save Score</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { marginTop: 24 }]}
-          onPress={() => navigation.navigate('Leaderboard')}
-        >
+          onPress={() => navigation.navigate('Leaderboard')}>
           <Text style={styles.buttonText}>Leaderboard</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -110,6 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-});
+})
 
-export default NameInputScreen; 
+export default NameInputScreen
