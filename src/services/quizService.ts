@@ -1,6 +1,6 @@
 import { QuizQuestion } from '../types/quiz'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useCountryStore } from '../stores/countryStore'
+import { getCountries } from './countryService'
 
 const PROGRESS_KEY = '@quiz_progress'
 
@@ -10,50 +10,10 @@ interface Country {
   flagUrl: string
 }
 
-interface CountryResponse {
-  name: {
-    common: string
-  }
-  flags: {
-    svg?: string
-    png?: string
-  }
-}
-
-async function fetchCountries(): Promise<Country[]> {
-  const store = useCountryStore.getState()
-
-  // Return cached countries if available
-  if (store.countries.length > 0) {
-    return store.countries
-  }
-
-  try {
-    store.setIsLoading(true)
-    const response = await fetch('https://restcountries.com/v3.1/all')
-    const data = await response.json()
-
-    const countries = data.map((country: CountryResponse, index: number) => ({
-      id: index + 1,
-      name: country.name.common,
-      flagUrl: country.flags?.png,
-    }))
-
-    // Cache the countries
-    store.setCountries(countries)
-    return countries
-  } catch (error) {
-    console.error('Error fetching countries:', error)
-    return []
-  } finally {
-    store.setIsLoading(false)
-  }
-}
-
 export const generateQuizQuestion = async (): Promise<QuizQuestion> => {
-  const countries = await fetchCountries()
+  const countries = getCountries()
 
-  if (countries.length === 0) {
+  if (!countries || countries.length === 0) {
     throw new Error('Failed to fetch countries')
   }
 

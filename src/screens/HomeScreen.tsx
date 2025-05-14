@@ -5,13 +5,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { getQuizProgress } from '../services/quizService'
+import { useCountries } from '../hooks/useCountries'
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation()
   const [highScore, setHighScore] = useState(0)
+  const { isLoading } = useCountries()
 
   useEffect(() => {
     loadHighScore()
@@ -36,8 +39,13 @@ const HomeScreen: React.FC = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, styles.primaryButton]}
-            onPress={() => navigation.navigate('QuestionCount')}>
-            <Text style={styles.buttonText}>Start New Game</Text>
+            onPress={() => navigation.navigate('QuestionCount')}
+            disabled={isLoading}>
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Start New Game</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity

@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
-  Image,
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import { QuizQuestion } from '../types/quiz'
 import {
   generateQuizQuestion,
@@ -71,8 +71,6 @@ const QuizScreen: React.FC = () => {
     }
   }
 
-  console.log(currentQuestion)
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -96,10 +94,10 @@ const QuizScreen: React.FC = () => {
                 style={styles.loader}
               />
             )}
-            <Image
+            <FastImage
               style={styles.flagImage}
               source={{ uri: currentQuestion.flagUrl }}
-              resizeMode="contain"
+              resizeMode={FastImage.resizeMode.contain}
               onLoadEnd={() => setIsImageLoading(false)}
             />
           </View>
