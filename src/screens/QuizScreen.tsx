@@ -16,7 +16,14 @@ import {
 } from '../services/quizService'
 import { useCountryStore } from '../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { initializeTts, speakText } from '../services/speechService'
+
+type RootStackParamList = {
+  NameInput: { score: number; questionCount: number }
+}
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const QuizScreen: React.FC = () => {
   const { questionCount } = useCountryStore()
@@ -27,13 +34,47 @@ const QuizScreen: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [isImageLoading, setIsImageLoading] = useState(true)
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
-  const navigation = useNavigation()
+  const [timeLeft, setTimeLeft] = useState(10)
+  const [isTimeout, setIsTimeout] = useState(false)
+  const navigation = useNavigation<NavigationProp>()
 
   useEffect(() => {
     loadNextQuestion()
     loadHighScore()
     initializeTts()
   }, [])
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+    if (!showFeedback && !isTimeout) {
+      timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer)
+            handleTimeout()
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+    }
+    return () => clearInterval(timer)
+  }, [showFeedback, isTimeout])
+
+  const handleTimeout = () => {
+    setShowFeedback(true)
+    setIsTimeout(true)
+  }
+
+  const restartGame = () => {
+    setScore(0)
+    setCurrentQuestionNumber(1)
+    setShowFeedback(false)
+    setSelectedAnswer(null)
+    setIsTimeout(false)
+    setTimeLeft(10)
+    loadNextQuestion()
+  }
 
   const loadHighScore = async () => {
     const progress = await getQuizProgress()
@@ -67,8 +108,14 @@ const QuizScreen: React.FC = () => {
   }
 
   const handleNextQuestion = async () => {
+    if (isTimeout) {
+      restartGame()
+      return
+    }
+    
     if (currentQuestionNumber < questionCount) {
       setCurrentQuestionNumber(prev => prev + 1)
+      setTimeLeft(10)
       await loadNextQuestion()
     } else {
       await saveQuizProgress(highScore)
@@ -86,6 +133,9 @@ const QuizScreen: React.FC = () => {
       <View style={styles.progressContainer}>
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
+        </Text>
+        <Text style={[styles.timer, timeLeft <= 3 && styles.timerWarning]}>
+          Time: {timeLeft}s
         </Text>
       </View>
 
@@ -154,7 +204,9 @@ const QuizScreen: React.FC = () => {
               style={styles.nextButton}
               onPress={handleNextQuestion}>
               <Text style={styles.nextButtonText}>
-                {currentQuestionNumber < questionCount
+                {isTimeout
+                  ? 'Restart Game'
+                  : currentQuestionNumber < questionCount
                   ? 'Next Question'
                   : 'Finish Quiz'}
               </Text>
@@ -267,6 +319,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  timer: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 8,
+  },
+  timerWarning: {
+    color: '#F44336',
     fontWeight: 'bold',
   },
 })
