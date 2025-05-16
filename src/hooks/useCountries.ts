@@ -32,6 +32,5 @@ export function useCountries() {
     queryKey: ['countries'],
     queryFn: fetchCountriesData,
     staleTime: Infinity, // Countries data rarely changes
-    cacheTime: Infinity, // Keep the data cached indefinitely
   })
 } 

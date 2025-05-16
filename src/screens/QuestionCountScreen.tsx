@@ -20,7 +20,7 @@ const QuestionCountScreen: React.FC = () => {
   }
 
   const onConfirm = () => {
-    navigation.navigate('Quiz')
+    navigation.navigate('LevelSelection')
   }
 
   return (

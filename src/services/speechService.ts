@@ -4,7 +4,12 @@ import { Platform } from 'react-native'
 export const initializeTts = async () => {
   try {
     await Tts.setDefaultLanguage('en-US')
-    await Tts.setDefaultRate(0.5) // Slower rate for better pronunciation
+    // Set rate differently for iOS and Android
+    if (Platform.OS === 'ios') {
+      await Tts.setDefaultRate(0.5)
+    } else {
+      await Tts.setDefaultRate(0.5)
+    }
     await Tts.setDefaultPitch(1.0)
   } catch (error) {
     console.error('Failed to initialize TTS:', error)

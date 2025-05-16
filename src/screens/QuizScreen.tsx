@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -7,121 +7,25 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native'
-import FastImage from 'react-native-fast-image'
-import { QuizQuestion } from '../types/quiz'
-import {
-  generateQuizQuestion,
-  saveQuizProgress,
-  getQuizProgress,
-} from '../services/quizService'
-import { useCountryStore } from '../stores/countryStore'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { initializeTts, speakText } from '../services/speechService'
-
-type RootStackParamList = {
-  NameInput: { score: number; questionCount: number }
-}
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>
+import { useQuiz } from '../hooks/useQuiz'
+import Flag from '../components/Flag'
 
 const QuizScreen: React.FC = () => {
-  const { questionCount } = useCountryStore()
-  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
-  const [score, setScore] = useState(0)
-  const [highScore, setHighScore] = useState(0)
-  const [showFeedback, setShowFeedback] = useState(false)
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
-  const [isImageLoading, setIsImageLoading] = useState(true)
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
-  const [timeLeft, setTimeLeft] = useState(10)
-  const [isTimeout, setIsTimeout] = useState(false)
-  const navigation = useNavigation<NavigationProp>()
-
-  useEffect(() => {
-    loadNextQuestion()
-    loadHighScore()
-    initializeTts()
-  }, [])
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (!showFeedback && !isTimeout) {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer)
-            handleTimeout()
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
-    }
-    return () => clearInterval(timer)
-  }, [showFeedback, isTimeout])
-
-  const handleTimeout = () => {
-    setShowFeedback(true)
-    setIsTimeout(true)
-  }
-
-  const restartGame = () => {
-    setScore(0)
-    setCurrentQuestionNumber(1)
-    setShowFeedback(false)
-    setSelectedAnswer(null)
-    setIsTimeout(false)
-    setTimeLeft(10)
-    loadNextQuestion()
-  }
-
-  const loadHighScore = async () => {
-    const progress = await getQuizProgress()
-    setHighScore(progress)
-  }
-
-  const handleSelectAnswer = async (answer: string) => {
-    setSelectedAnswer(answer)
-    await speakText(answer)
-  }
-
-  const handleSubmit = () => {
-    if (!selectedAnswer) return
-
-    setShowFeedback(true)
-    if (selectedAnswer === currentQuestion?.correctAnswer) {
-      const newScore = score + 1
-      setScore(newScore)
-      if (newScore > highScore) {
-        setHighScore(newScore)
-      }
-    }
-  }
-
-  const loadNextQuestion = async () => {
-    setIsImageLoading(true)
-    const newQuestion = await generateQuizQuestion()
-    setCurrentQuestion(newQuestion)
-    setShowFeedback(false)
-    setSelectedAnswer(null)
-  }
-
-  const handleNextQuestion = async () => {
-    if (isTimeout) {
-      restartGame()
-      return
-    }
-    
-    if (currentQuestionNumber < questionCount) {
-      setCurrentQuestionNumber(prev => prev + 1)
-      setTimeLeft(10)
-      await loadNextQuestion()
-    } else {
-      await saveQuizProgress(highScore)
-      navigation.navigate('NameInput', { score, questionCount })
-    }
-  }
+  const {
+    currentQuestion,
+    score,
+    highScore,
+    showFeedback,
+    selectedAnswer,
+    currentQuestionNumber,
+    timeLeft,
+    isTimeout,
+    questionCount,
+    handleSelectAnswer,
+    handleSubmit,
+    handleNextQuestion,
+    setIsImageLoading,
+  } = useQuiz()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -134,28 +38,12 @@ const QuizScreen: React.FC = () => {
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <Text style={[styles.timer, timeLeft <= 3 && styles.timerWarning]}>
-          Time: {timeLeft}s
-        </Text>
+        <Text style={[styles.timer, timeLeft <= 3 && styles.timerWarning]}>Time: {timeLeft}s</Text>
       </View>
 
       {currentQuestion && (
         <View style={styles.questionContainer}>
-          <View style={styles.flagContainer}>
-            {isImageLoading && (
-              <ActivityIndicator
-                size="large"
-                color="#007AFF"
-                style={styles.loader}
-              />
-            )}
-            <FastImage
-              style={styles.flagImage}
-              source={{ uri: currentQuestion.flagUrl }}
-              resizeMode={FastImage.resizeMode.contain}
-              onLoadEnd={() => setIsImageLoading(false)}
-            />
-          </View>
+          <Flag flagUrl={currentQuestion.flagUrl} />
 
           <View style={styles.optionsContainer}>
             {currentQuestion.options.map((option, index) => (
@@ -164,27 +52,25 @@ const QuizScreen: React.FC = () => {
                 style={[
                   styles.optionButton,
                   selectedAnswer === option && styles.selectedOption,
-                  showFeedback &&
-                    option === currentQuestion.correctAnswer &&
-                    styles.correctOption,
+                  showFeedback && option === currentQuestion.correctAnswer && styles.correctOption,
                   showFeedback &&
                     selectedAnswer === option &&
                     option !== currentQuestion.correctAnswer &&
                     styles.wrongOption,
                 ]}
                 onPress={() => handleSelectAnswer(option)}
-                disabled={showFeedback}>
+                disabled={showFeedback}
+              >
                 <Text
                   style={[
                     styles.optionText,
-                    showFeedback &&
-                      option === currentQuestion.correctAnswer &&
-                      styles.correctText,
+                    showFeedback && option === currentQuestion.correctAnswer && styles.correctText,
                     showFeedback &&
                       selectedAnswer === option &&
                       option !== currentQuestion.correctAnswer &&
                       styles.wrongText,
-                  ]}>
+                  ]}
+                >
                   {option}
                 </Text>
               </TouchableOpacity>
@@ -192,17 +78,13 @@ const QuizScreen: React.FC = () => {
           </View>
 
           {selectedAnswer && !showFeedback && (
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handleSubmit}>
+            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
               <Text style={styles.submitButtonText}>Submit Answer</Text>
             </TouchableOpacity>
           )}
 
           {showFeedback && (
-            <TouchableOpacity
-              style={styles.nextButton}
-              onPress={handleNextQuestion}>
+            <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
               <Text style={styles.nextButtonText}>
                 {isTimeout
                   ? 'Restart Game'
@@ -251,20 +133,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     alignItems: 'center',
-  },
-  flagContainer: {
-    width: 300,
-    height: 200,
-    marginBottom: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  flagImage: {
-    width: '100%',
-    height: '100%',
-  },
-  loader: {
-    position: 'absolute',
   },
   optionsContainer: {
     width: '100%',

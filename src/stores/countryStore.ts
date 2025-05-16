@@ -13,6 +13,8 @@ interface CountryStore {
   setIsLoading: (isLoading: boolean) => void
   questionCount: number
   setQuestionCount: (count: number) => void
+  selectedLevel: number
+  setSelectedLevel: (level: number) => void
 }
 
 export const useCountryStore = create<CountryStore>(set => ({
@@ -22,4 +24,6 @@ export const useCountryStore = create<CountryStore>(set => ({
   setIsLoading: isLoading => set({ isLoading }),
   questionCount: 10, // default value
   setQuestionCount: count => set({ questionCount: count }),
+  selectedLevel: 1, // default to easy level
+  setSelectedLevel: level => set({ selectedLevel: level }),
 }))

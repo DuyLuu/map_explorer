@@ -2,27 +2,42 @@ import { QuizQuestion } from '../types/quiz'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getCountries } from './countryService'
 
-const PROGRESS_KEY = '@quiz_progress'
+const PROGRESS_KEY_PREFIX = '@quiz_progress_level_'
 
 interface Country {
   id: number
   name: string
   flagUrl: string
+  level: number
 }
 
-export const generateQuizQuestion = async (): Promise<QuizQuestion> => {
+export const generateQuizQuestion = async (
+  level: number,
+  usedFlags: string[] = []
+): Promise<QuizQuestion> => {
   const countries = getCountries()
 
   if (!countries || countries.length === 0) {
     throw new Error('Failed to fetch countries')
   }
 
-  // Randomly select a country for the correct answer
-  const correctCountryIndex = Math.floor(Math.random() * countries.length)
-  const correctCountry = countries[correctCountryIndex]
+  // Filter countries by level and exclude used flags
+  const levelCountries = countries.filter(
+    (country: Country) => 
+      country.level === level && 
+      !usedFlags.includes(country.id.toString())
+  )
 
-  // Generate 3 random wrong answers
-  const wrongAnswers = countries
+  if (levelCountries.length === 0) {
+    throw new Error(`No countries available for level ${level}`)
+  }
+
+  // Randomly select a country for the correct answer
+  const correctCountryIndex = Math.floor(Math.random() * levelCountries.length)
+  const correctCountry = levelCountries[correctCountryIndex]
+
+  // Generate 3 random wrong answers from the same level
+  const wrongAnswers = levelCountries
     .filter((_: Country, index: number) => index !== correctCountryIndex)
     .sort(() => Math.random() - 0.5)
     .slice(0, 3)
@@ -41,19 +56,19 @@ export const generateQuizQuestion = async (): Promise<QuizQuestion> => {
   }
 }
 
-export const saveQuizProgress = async (score: number): Promise<void> => {
+export const saveQuizProgress = async (level: number, score: number): Promise<void> => {
   try {
-    const currentProgress = await getQuizProgress()
+    const currentProgress = await getQuizProgress(level)
     const newProgress = Math.max(currentProgress, score)
-    await AsyncStorage.setItem(PROGRESS_KEY, newProgress.toString())
+    await AsyncStorage.setItem(`${PROGRESS_KEY_PREFIX}${level}`, newProgress.toString())
   } catch (error) {
     console.error('Error saving quiz progress:', error)
   }
 }
 
-export const getQuizProgress = async (): Promise<number> => {
+export const getQuizProgress = async (level: number): Promise<number> => {
   try {
-    const progress = await AsyncStorage.getItem(PROGRESS_KEY)
+    const progress = await AsyncStorage.getItem(`${PROGRESS_KEY_PREFIX}${level}`)
     return progress ? parseInt(progress, 10) : 0
   } catch (error) {
     console.error('Error getting quiz progress:', error)

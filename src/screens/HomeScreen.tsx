@@ -8,11 +8,19 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { getQuizProgress } from '../services/quizService'
 import { useCountries } from '../hooks/useCountries'
 
+type RootStackParamList = {
+  QuestionCount: undefined
+  Leaderboard: undefined
+}
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
+
 const HomeScreen: React.FC = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp>()
   const [highScore, setHighScore] = useState(0)
   const { isLoading } = useCountries()
 
@@ -21,7 +29,7 @@ const HomeScreen: React.FC = () => {
   }, [])
 
   const loadHighScore = async () => {
-    const progress = await getQuizProgress()
+    const progress = await getQuizProgress(1)
     setHighScore(progress)
   }
 
@@ -50,7 +58,7 @@ const HomeScreen: React.FC = () => {
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => navigation.navigate('Leaderboard')}>
+            onPress={() => navigation.navigate("Leaderboard")}>
             <Text style={[styles.buttonText, styles.secondaryButtonText]}>
               View Leaderboard
             </Text>

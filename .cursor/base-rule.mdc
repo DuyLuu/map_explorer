@@ -1,0 +1,100 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Base Rules for React Components and Custom Hooks
+
+## Custom Hook Pattern
+When a React component contains complex logic, state management, or side effects, follow these rules:
+
+1. **Extract Logic to Custom Hook**
+   - Create a custom hook in `src/hooks/use[ComponentName].ts`
+   - Move all state declarations, effects, and business logic to the hook
+   - Keep the component focused on rendering and UI concerns
+
+2. **Hook Naming Convention**
+   - Name hooks with the `use` prefix followed by the component name
+   - Example: `useQuiz` for `QuizScreen` component
+
+3. **Hook Structure**
+   ```typescript
+   // src/hooks/use[ComponentName].ts
+   export const use[ComponentName] = () => {
+     // State declarations
+     // Effects
+     // Business logic
+     // Event handlers
+     
+     return {
+       // Return only what the component needs
+       state,
+       handlers,
+       // etc.
+     }
+   }
+   ```
+
+4. **Component Structure**
+   ```typescript
+   // src/screens/[ComponentName].tsx
+   const [ComponentName]: React.FC = () => {
+     const {
+       state,
+       handlers,
+       // etc.
+     } = use[ComponentName]()
+     
+     return (
+       // JSX
+     )
+   }
+   ```
+
+## When to Create a Custom Hook
+Create a custom hook when the component has:
+- Multiple state declarations
+- Complex side effects
+- Business logic
+- Data fetching
+- Event handlers
+- Timer management
+- Navigation logic
+- Form handling
+- API calls
+
+## Benefits
+- Better separation of concerns
+- Reusable logic
+- Easier testing
+- Cleaner component code
+- Better maintainability
+- Improved code organization
+
+## Example
+```typescript
+// Before
+const Component = () => {
+  const [state1, setState1] = useState()
+  const [state2, setState2] = useState()
+  // Complex logic
+  // Effects
+  // Handlers
+  return <div>...</div>
+}
+
+// After
+const useComponent = () => {
+  const [state1, setState1] = useState()
+  const [state2, setState2] = useState()
+  // Complex logic
+  // Effects
+  // Handlers
+  return { state1, state2, handlers }
+}
+
+const Component = () => {
+  const { state1, state2, handlers } = useComponent()
+  return <div>...</div>
+}
+```
