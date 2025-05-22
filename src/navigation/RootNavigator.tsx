@@ -10,7 +10,7 @@ import NameInputScreen from '../screens/NameInputScreen'
 import LeaderboardScreen from '../screens/LeaderboardScreen'
 import { RootStackParamList } from './types'
 import { setQueryClient } from '../services/countryService'
-
+import SettingsScreen from '../screens/SettingsScreen'
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const queryClient = new QueryClient()
 
@@ -26,13 +26,15 @@ const RootNavigator: React.FC = () => {
           initialRouteName="Home"
           screenOptions={{
             headerShown: false,
-          }}>
+          }}
+        >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="QuestionCount" component={QuestionCountScreen} />
           <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
           <Stack.Screen name="Quiz" component={QuizScreen} />
           <Stack.Screen name="NameInput" component={NameInputScreen} />
           <Stack.Screen name="Leaderboard" component={LeaderboardScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

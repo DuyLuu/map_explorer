@@ -8,4 +8,5 @@ export type RootStackParamList = {
     questionCount: number
   }
   Leaderboard: undefined
+  Settings: undefined
 }

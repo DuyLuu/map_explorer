@@ -1,14 +1,8 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
 import Flag from '../components/Flag'
+import { ActivityIndicator } from 'react-native'
 
 const QuizScreen: React.FC = () => {
   const {

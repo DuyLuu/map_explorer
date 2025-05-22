@@ -11,10 +11,12 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { getQuizProgress } from '../services/quizService'
 import { useCountries } from '../hooks/useCountries'
+import SettingsButton from '../components/SettingsButton'
 
 type RootStackParamList = {
   QuestionCount: undefined
   Leaderboard: undefined
+  Settings: undefined
 }
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
@@ -35,6 +37,9 @@ const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <SettingsButton />
+      </View>
       <View style={styles.content}>
         <Text style={styles.title}>World Explorer</Text>
         <Text style={styles.subtitle}>Test your knowledge of world flags!</Text>
@@ -48,7 +53,8 @@ const HomeScreen: React.FC = () => {
           <TouchableOpacity
             style={[styles.button, styles.primaryButton]}
             onPress={() => navigation.navigate('QuestionCount')}
-            disabled={isLoading}>
+            disabled={isLoading}
+          >
             {isLoading ? (
               <ActivityIndicator color="#fff" />
             ) : (
@@ -58,10 +64,9 @@ const HomeScreen: React.FC = () => {
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => navigation.navigate("Leaderboard")}>
-            <Text style={[styles.buttonText, styles.secondaryButtonText]}>
-              View Leaderboard
-            </Text>
+            onPress={() => navigation.navigate('Leaderboard')}
+          >
+            <Text style={[styles.buttonText, styles.secondaryButtonText]}>View Leaderboard</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -73,6 +78,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: 16,
+  },
+  settingsButton: {
+    padding: 8,
   },
   content: {
     flex: 1,

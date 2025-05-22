@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView } from 'react-native'
 import { useLeaderboardStore } from '../stores/leaderboardStore'
 import { useNavigation } from '@react-navigation/native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../navigation/types'
+import BackButton from '../components/BackButton'
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const LeaderboardScreen: React.FC = () => {
   const { entries, loadLeaderboard } = useLeaderboardStore()
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp>()
 
   useEffect(() => {
     loadLeaderboard()
@@ -27,9 +24,7 @@ const LeaderboardScreen: React.FC = () => {
         <Text style={styles.score}>
           Score: {item.score}/{item.questionCount}
         </Text>
-        <Text style={styles.date}>
-          {new Date(item.date).toLocaleDateString()}
-        </Text>
+        <Text style={styles.date}>{new Date(item.date).toLocaleDateString()}</Text>
       </View>
     </View>
   )
@@ -37,15 +32,12 @@ const LeaderboardScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate('Home')}>
-          <Icon name="arrow-left" size={24} color="#000" />
-        </TouchableOpacity>
+        <BackButton />
         <Text style={styles.title}>Leaderboard</Text>
         <TouchableOpacity
           style={styles.newGameButton}
-          onPress={() => navigation.navigate('QuestionCount')}>
+          onPress={() => navigation.navigate('QuestionCount')}
+        >
           <Text style={styles.newGameText}>New Game</Text>
         </TouchableOpacity>
       </View>
@@ -55,9 +47,7 @@ const LeaderboardScreen: React.FC = () => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>No scores yet. Play a game!</Text>
-        }
+        ListEmptyComponent={<Text style={styles.emptyText}>No scores yet. Play a game!</Text>}
       />
     </SafeAreaView>
   )
