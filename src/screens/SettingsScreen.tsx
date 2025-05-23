@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-na
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import BackButton from '../components/BackButton'
+
+import { Box } from '@duyluu/rn-ui-kit'
+
 type RootStackParamList = {
   Home: undefined
 }
@@ -14,7 +17,7 @@ const SettingsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <Box padding="lg" style={styles.content}>
         <View style={styles.header}>
           <BackButton />
           <Text style={styles.title}>Settings</Text>
@@ -31,7 +34,7 @@ const SettingsScreen: React.FC = () => {
             <Text style={styles.sectionDescription}>Learn more about World Explorer</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </Box>
     </SafeAreaView>
   )
 }
@@ -43,7 +46,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 24,
   },
   title: {
     fontSize: 24,
