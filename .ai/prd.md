@@ -1,114 +1,109 @@
-# PRD: Moneta Mobile SDK
+# World Explorer - Product Requirements Document (PRD)
 
-## Status: Draft
+## 1. Product Overview
 
-## Introduction
-The Moneta Mobile SDK is a native library that provides financial services functionality for integration into iOS and Android applications. This SDK will encapsulate the core financial features of the Moneta mobile app, exposing them through a clean, consistent API that can be used by third-party developers.
+World Explorer is an interactive mobile application designed to help students learn about countries and cities around the world through an engaging map-based interface. The application aims to make geography learning fun, interactive, and effective, optimized for mobile devices.
 
-The SDK will be implemented natively in Swift for iOS and Kotlin for Android to provide optimal performance, security, and platform-specific user experiences while maintaining feature parity with the existing Flutter application.
+## 2. Target Users
 
-## Goals
-- Provide a secure, performant native SDK for financial services
-- Enable third-party developers to integrate Moneta's financial capabilities
-- Maintain feature parity with the existing Moneta mobile application
-- Follow platform-specific design guidelines and best practices
-- Create a developer-friendly API with comprehensive documentation
-- Ensure robust security, privacy, and compliance with financial regulations
+- Primary: Students aged 10-18
+- Secondary: Geography teachers and homeschooling parents
+- Tertiary: General users interested in learning about world geography
 
-## Features/Requirements
+## 3. Core Features
 
-### Core SDK Features
-1. **Authentication & Authorization**
-   - Secure login/registration mechanisms
-   - Biometric authentication support
-   - OAuth 2.0 and token management
-   - Session handling and renewal
+### 3.1 Quiz Map - User can guest the country or city based on location on map
 
-2. **Network Layer**
-   - RESTful API client
-   - Secure communication (TLS)
-   - Request/response interceptors
-   - Retry and error handling strategies
-   - Offline operation support
+- Interactive globe/map view with touch gestures (pinch-to-zoom, pan)
+- Color-coded regions for easy identification
+- Basic animations for better user experience
+- Separate region to play (Europe, Asia, North America, South America, Africa, Australia and Oceania, World)
+- No time limit
+- Making a progress, mark for country have learnt in the specific region.
 
-3. **Data Management**
-   - Secure local storage
-   - Data encryption at rest
-   - Caching mechanisms
-   - Model synchronization
+### 3.2 Quiz Flag Game
 
-4. **Analytics & Monitoring**
-   - Usage analytics
-   - Error reporting
-   - Performance metrics
-   - Compliance auditing
+- Multiple choice questions (4 options)
+- 3 wrong answer accepted
+- Separate region to play (Europe, Asia, North America, South America, Africa, Australia and Oceania, World)
+- Making a progress, mark for flag of country have learnt in the specific region.
 
-### Functional Modules
+### 3.3 Challenge Mode
 
-1. **User Management**
-   - User profile management
-   - Preferences and settings
-   - User policy and agreements
+- Mix 2 type of quiz above (map and flag).
+- 300 questions randomly
+- No Wrong answer accepted.
+- Create Top Score in challenge mode.
 
-2. **Transaction Services**
-   - Payment processing
-   - Transaction history
-   - Receipt generation
-   - Transaction status tracking
+### 3.4 Learning Modules
 
-3. **Dashboard & Reporting**
-   - Account balances
-   - Financial summaries
-   - Transaction analytics
-   - Spending categories
+- Country Profiles
+  - Basic information (capital, population, languages)
+  - Cultural facts
+  - Historical highlights
+  - Geographic features
+  - Flag and national symbols
+- City/Capital Explorer
+  - Major cities with population data
+  - Landmarks and attractions
+  - Cultural significance
+  - Historical importance
 
-4. **Notifications**
-   - Push notification handling
-   - In-app notifications
-   - Transaction alerts
-   - Security alerts
+## 4. User Experience
 
-## Epic Structure
+### 4.1 User Interface
 
-## Epic-1: SDK Foundation (Current)
-- Story-1: Project Setup & Architecture
-- Story-2: Build System & CI/CD Pipeline
-- Story-3: Core SDK Infrastructure
-- Story-4: Sample Applications
-- Story-5: Documentation Framework
+- Clean, native mobile design
+- Touch-optimized interactions
+- Responsive layout for different screen sizes
+- Basic accessibility support
 
-## Epic-2: Authentication & Security (Future)
-- Story-6: User Authentication Implementation
-- Story-7: Biometric Integration
-- Story-8: Token Management
-- Story-9: Secure Storage
-- Story-10: Security Testing & Auditing
+### 4.2 User Flow
 
-## Epic-3: Network & Data (Future)
-- Story-11: API Client Implementation
-- Story-12: Request/Response Handling
-- Story-13: Offline Support
-- Story-14: Data Models & Serialization
-- Story-15: Caching Strategy
+1. User registration/login
+2. Basic tutorial
+3. Map exploration
+4. Learning content consumption
+5. Quiz participation
+6. Progress tracking
 
-## Epic-4: Financial Features (Future)
-- Story-16: User Profile Module
-- Story-17: Transaction Module
-- Story-18: Dashboard Module
-- Story-19: Notification Module
-- Story-20: Integration Testing
+## 5. Technical Requirements
 
-## Epic-5: Developer Experience (Future)
-- Story-21: API Documentation
-- Story-22: Sample Code & Tutorials
-- Story-23: Error Handling & Debugging Tools
-- Story-24: Integration Guide
-- Story-25: Developer Portal
+### 5.1 Mobile Application
 
-## Future Enhancements
-- Real-time data synchronization
-- Advanced fraud detection
-- Machine learning-based financial insights
-- Cross-platform WebAssembly support
-- Plugin architecture for extensibility
-- Custom UI components library 
+- React Native for cross-platform development
+- React Native Maps for interactive maps
+- Native UI components for better performance
+- Basic local storage for user data
+
+### 5.2 Backend
+
+- Firestore for user data storage (progress of learning and top score in challenge mode)
+
+### 5.3 Data Requirements
+
+- Country and city databases
+- Geographic coordinates
+- Cultural and historical information
+- Basic quiz question bank
+- User progress data
+
+## 6. Success Metrics
+
+- User engagement metrics
+  - Daily active users
+  - Average session duration
+  - Feature usage statistics
+- Learning effectiveness
+  - Quiz completion rates
+  - Average quiz scores
+  - Progress tracking data
+
+## 7. Future Enhancements
+
+- Multi-language support
+- Advanced quiz types
+- Social features
+- AR features
+- Offline mode
+- Custom learning paths
