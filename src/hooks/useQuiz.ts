@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { QuizQuestion } from '../types/quiz'
-import { generateQuizQuestion, saveQuizProgress, getQuizProgress } from '../services/quizService'
+import {
+  generateQuizQuestion,
+  saveQuizProgress,
+  getQuizProgress,
+  recordLearnedCountry,
+} from '../services/quizService'
 import { useCountryStore } from '../stores/countryStore'
 import { initializeTts, speakText } from '../services/speechService'
 
@@ -13,7 +18,7 @@ type RootStackParamList = {
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 export const useQuiz = () => {
-  const { questionCount, selectedLevel } = useCountryStore()
+  const { questionCount, selectedLevel, selectedRegion } = useCountryStore()
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -53,7 +58,7 @@ export const useQuiz = () => {
     await speakText(answer)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedAnswer) return
 
     setShowFeedback(true)
@@ -63,12 +68,23 @@ export const useQuiz = () => {
       if (newScore > highScore) {
         setHighScore(newScore)
       }
+
+      // Record the learned country for progress tracking
+      if (currentQuestion?.id) {
+        try {
+          const countryId = parseInt(currentQuestion.id, 10)
+          await recordLearnedCountry(selectedRegion, selectedLevel, countryId)
+        } catch (error) {
+          console.error('Error recording learned country:', error)
+          // Don't break the quiz flow if progress tracking fails
+        }
+      }
     }
   }
 
   const loadNextQuestion = async () => {
     setIsImageLoading(true)
-    const newQuestion = await generateQuizQuestion(selectedLevel, usedFlags)
+    const newQuestion = await generateQuizQuestion(selectedLevel, selectedRegion, usedFlags)
     setCurrentQuestion(newQuestion)
     setUsedFlags(prev => [...prev, newQuestion.id])
     setShowFeedback(false)

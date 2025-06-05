@@ -3,6 +3,7 @@ export type RootStackParamList = {
   QuestionCount: undefined
   LevelSelection: undefined
   Quiz: undefined
+  MapRegionSelection: undefined
   MapQuiz: undefined
   NameInput: {
     score: number

@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../types/region'
 import { getSelectableRegions } from '../services/regionService'
+import RegionProgressCard from '../components/RegionProgressCard'
+import ProgressStats from '../components/ProgressStats'
 
 const LevelSelectionScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
   const navigation = useNavigation<any>()
+  const [showProgressStats, setShowProgressStats] = useState(false)
 
   const levels = [
     { id: 1, name: 'Easy', description: 'Most popular countries' },
@@ -39,6 +42,27 @@ const LevelSelectionScreen: React.FC = () => {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Quiz Settings</Text>
 
+        {/* Progress Overview Toggle */}
+        <TouchableOpacity
+          style={styles.toggleButton}
+          onPress={() => setShowProgressStats(!showProgressStats)}
+        >
+          <Text style={styles.toggleButtonText}>
+            {showProgressStats ? '📊 Hide Progress Overview' : '📈 Show Progress Overview'}
+          </Text>
+        </TouchableOpacity>
+
+        {/* Progress Stats Overview */}
+        {showProgressStats && (
+          <View style={styles.progressSection}>
+            <ProgressStats
+              showOverallProgress={true}
+              showRegionBreakdown={true}
+              level={selectedLevel || 1}
+            />
+          </View>
+        )}
+
         {/* Region Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Select Region</Text>
@@ -58,6 +82,27 @@ const LevelSelectionScreen: React.FC = () => {
             ))}
           </View>
         </View>
+
+        {/* Progress for Selected Region */}
+        {selectedRegion && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>
+              Your Progress in {REGION_INFO[selectedRegion].displayName}
+            </Text>
+            <View style={styles.progressCardsContainer}>
+              {levels.map(level => (
+                <RegionProgressCard
+                  key={level.id}
+                  region={selectedRegion}
+                  level={level.id}
+                  size="small"
+                  showDetailedStats={false}
+                  onPress={() => handleLevelSelect(level.id)}
+                />
+              ))}
+            </View>
+          </View>
+        )}
 
         {/* Difficulty Level Selection */}
         <View style={styles.section}>
@@ -86,6 +131,22 @@ const LevelSelectionScreen: React.FC = () => {
             ))}
           </View>
         </View>
+
+        {/* Detailed Progress for Selected Level */}
+        {selectedRegion && selectedLevel && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>
+              {REGION_INFO[selectedRegion].displayName} -{' '}
+              {levels.find(l => l.id === selectedLevel)?.name} Level
+            </Text>
+            <RegionProgressCard
+              region={selectedRegion}
+              level={selectedLevel}
+              size="large"
+              showDetailedStats={true}
+            />
+          </View>
+        )}
       </ScrollView>
 
       <TouchableOpacity
@@ -112,11 +173,29 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: 16,
     marginTop: 16,
   },
+  toggleButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  toggleButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333',
+  },
+  progressSection: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 12,
+    marginBottom: 24,
+    padding: 4,
+  },
   section: {
-    marginBottom: 32,
+    marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 18,
@@ -128,6 +207,9 @@ const styles = StyleSheet.create({
   optionsContainer: {
     gap: 12,
     marginHorizontal: 8,
+  },
+  progressCardsContainer: {
+    gap: 8,
   },
   optionButton: {
     backgroundColor: '#f0f0f0',

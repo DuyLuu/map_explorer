@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen'
 import QuestionCountScreen from '../screens/QuestionCountScreen'
 import LevelSelectionScreen from '../screens/LevelSelectionScreen'
 import QuizScreen from '../screens/QuizScreen'
+import MapRegionSelectionScreen from '../screens/MapRegionSelectionScreen'
 import MapQuizScreen from '../screens/MapQuizScreen'
 import NameInputScreen from '../screens/NameInputScreen'
 import LeaderboardScreen from '../screens/LeaderboardScreen'
@@ -33,6 +34,7 @@ const RootNavigator: React.FC = () => {
           <Stack.Screen name="QuestionCount" component={QuestionCountScreen} />
           <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
           <Stack.Screen name="Quiz" component={QuizScreen} />
+          <Stack.Screen name="MapRegionSelection" component={MapRegionSelectionScreen} />
           <Stack.Screen name="MapQuiz" component={MapQuizScreen} />
           <Stack.Screen name="NameInput" component={NameInputScreen} />
           <Stack.Screen name="Leaderboard" component={LeaderboardScreen} />

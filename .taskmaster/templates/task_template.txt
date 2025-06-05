@@ -1,0 +1,23 @@
+# Task ID: {ID}
+# Title: {TITLE}
+# Status: {STATUS} | Dependencies: {DEPENDENCIES_DISPLAY} | Priority: {PRIORITY_ICON} {PRIORITY}
+# Dependencies: {DEPENDENCIES}
+# Priority: {priority}
+
+📊 Subtask Progress: {PROGRESS_BAR} {PERCENTAGE}% ({COMPLETED}/{TOTAL})
+
+🔗 Subtask Flow & Status:
+
+{SUBTASK_FLOW_DIAGRAM}
+
+🚀 Summary: {COMPLETION_SUMMARY}
+
+# Description: {DESCRIPTION}
+# Details:
+{DETAILS}
+
+# Test Strategy:
+{TEST_STRATEGY}
+
+# Subtasks:
+{SUBTASKS_DETAILED} 

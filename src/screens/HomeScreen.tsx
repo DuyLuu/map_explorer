@@ -16,7 +16,7 @@ import SettingsButton from '../components/SettingsButton'
 
 type RootStackParamList = {
   QuestionCount: undefined
-  MapQuiz: undefined
+  MapRegionSelection: undefined
   Leaderboard: undefined
   Settings: undefined
 }
@@ -64,11 +64,11 @@ const HomeScreen: React.FC = () => {
             )}
           </TouchableOpacity>
 
-          {/* Map Quiz button - Android only */}
+          {/* Map Quiz button - iOS only */}
           {Platform.OS === 'ios' && (
             <TouchableOpacity
               style={[styles.button, styles.mapButton]}
-              onPress={() => navigation.navigate('MapQuiz')}
+              onPress={() => navigation.navigate('MapRegionSelection')}
               disabled={isLoading}
             >
               {isLoading ? (
