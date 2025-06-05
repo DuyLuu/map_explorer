@@ -8,7 +8,6 @@ import ProgressBar from './ProgressBar'
 interface ProgressStatsProps {
   showOverallProgress?: boolean
   showRegionBreakdown?: boolean
-  level?: number
 }
 
 interface OverallStats {
@@ -22,7 +21,6 @@ interface OverallStats {
 const ProgressStats: React.FC<ProgressStatsProps> = ({
   showOverallProgress = true,
   showRegionBreakdown = true,
-  level = 1,
 }) => {
   const [overallStats, setOverallStats] = useState<OverallStats>({
     totalLearned: 0,
@@ -31,14 +29,14 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({
     regionsStarted: 0,
     regionsCompleted: 0,
   })
-  const [regionProgress, setRegionProgress] = useState<Record<Region, RegionLevelProgress>>(
-    {} as Record<Region, RegionLevelProgress>
+  const [regionProgress, setRegionProgress] = useState<Record<Region, RegionLevelProgress[]>>(
+    {} as Record<Region, RegionLevelProgress[]>
   )
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     loadProgressStats()
-  }, [level])
+  }, [])
 
   const loadProgressStats = async () => {
     try {
@@ -50,33 +48,53 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({
       let totalCompletion = 0
       let regionsStarted = 0
       let regionsCompleted = 0
-      const progressByRegion: Record<Region, RegionLevelProgress> = {} as Record<
+      const progressByRegion: Record<Region, RegionLevelProgress[]> = {} as Record<
         Region,
-        RegionLevelProgress
+        RegionLevelProgress[]
       >
 
-      // Calculate stats for all regions
+      // Get all unique levels from the progress keys
+      const allLevels = Array.from(
+        new Set(
+          Object.keys(allProgress)
+            .map(key => key.split('_')[1])
+            .filter(Boolean)
+        )
+      )
+
       Object.values(Region).forEach(region => {
-        const progressKey = `${region}_${level}`
-        const progress = allProgress[progressKey]
+        // Gather all progress objects for this region across all levels
+        const regionLevelProgress: RegionLevelProgress[] = allLevels
+          .map(level => allProgress[`${region}_${level}`])
+          .filter(Boolean)
+        progressByRegion[region] = regionLevelProgress
 
-        if (progress) {
-          progressByRegion[region] = progress
-          totalLearned += progress.learnedCountries.length
-          totalCountries += progress.totalCountries
-          totalCompletion += progress.completionPercentage
+        // Aggregate stats for this region
+        let regionLearned = 0
+        let regionTotal = 0
+        let regionCompletionSum = 0
+        let regionLevelsWithProgress = 0
+        let regionLevelsCompleted = 0
 
-          if (progress.learnedCountries.length > 0) {
-            regionsStarted++
-          }
-          if (progress.completionPercentage === 100) {
-            regionsCompleted++
-          }
-        }
+        regionLevelProgress.forEach(progress => {
+          regionLearned += progress.learnedCountries.length
+          regionTotal += progress.totalCountries
+          regionCompletionSum += progress.completionPercentage
+          if (progress.learnedCountries.length > 0) regionLevelsWithProgress++
+          if (progress.completionPercentage === 100) regionLevelsCompleted++
+        })
+
+        totalLearned += regionLearned
+        totalCountries += regionTotal
+        totalCompletion += regionCompletionSum
+        if (regionLevelsWithProgress > 0) regionsStarted++
+        if (regionLevelsCompleted === allLevels.length && allLevels.length > 0) regionsCompleted++
       })
 
+      const totalLevels = allLevels.length
       const regionCount = Object.values(Region).length
-      const averageCompletion = regionCount > 0 ? totalCompletion / regionCount : 0
+      const averageCompletion =
+        regionCount > 0 && totalLevels > 0 ? totalCompletion / (regionCount * totalLevels) : 0
 
       setOverallStats({
         totalLearned,
@@ -93,11 +111,6 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({
     }
   }
 
-  const getDifficultyName = (level: number): string => {
-    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
-    return levels[level as keyof typeof levels] || `Level ${level}`
-  }
-
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -110,7 +123,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({
     <View style={styles.container}>
       {showOverallProgress && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Overall Progress - {getDifficultyName(level)}</Text>
+          <Text style={styles.sectionTitle}>Overall Progress</Text>
 
           <View style={styles.statsGrid}>
             <View style={styles.statCard}>
@@ -148,11 +161,19 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({
           <Text style={styles.sectionTitle}>Region Breakdown</Text>
           <View style={styles.regionsList}>
             {Object.values(Region).map(region => {
-              const progress = regionProgress[region]
+              const progressArr = regionProgress[region] || []
               const regionInfo = REGION_INFO[region]
-              const percentage = progress?.completionPercentage || 0
-              const learned = progress?.learnedCountries?.length || 0
-              const total = progress?.totalCountries || 0
+              const learned = progressArr.reduce(
+                (sum, p) => sum + (p?.learnedCountries?.length || 0),
+                0
+              )
+              const total = progressArr.reduce((sum, p) => sum + (p?.totalCountries || 0), 0)
+              const completionSum = progressArr.reduce(
+                (sum, p) => sum + (p?.completionPercentage || 0),
+                0
+              )
+              const levelsCount = progressArr.length
+              const percentage = levelsCount > 0 ? completionSum / levelsCount : 0
 
               return (
                 <View key={region} style={styles.regionItem}>

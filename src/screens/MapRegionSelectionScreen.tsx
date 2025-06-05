@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../types/region'
 import { getSelectableRegions } from '../services/regionService'
 import ProgressRing from '../components/ProgressRing'
-import { getRegionLevelProgress } from '../services/quizService'
+import { getRegionLevelProgress, isLevelUnlocked } from '../services/quizService'
+import RegionProgressCard from '../components/RegionProgressCard'
 
 interface RegionOptionProps {
   region: Region
@@ -24,7 +25,7 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
 
   const loadProgress = async () => {
     try {
-      const progressData = await getRegionLevelProgress(region, 1) // Level 1 (Easy) for map quiz
+      const progressData = await getRegionLevelProgress(region, 1) // Level 1 (Easy) for overview
       setProgress(progressData.completionPercentage)
       setLearned(progressData.learnedCountries.length)
       setTotal(progressData.totalCountries)
@@ -54,7 +55,7 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
           </Text>
           {progress > 0 && (
             <Text style={[styles.progressText, isSelected && styles.selectedText]}>
-              {learned}/{total} countries learned
+              {learned}/{total} countries learned (Easy)
             </Text>
           )}
         </View>
@@ -78,15 +79,35 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
 }
 
 const MapRegionSelectionScreen: React.FC = () => {
-  const { selectedRegion, setSelectedRegion, setSelectedLevel, setQuestionCount } =
+  const { selectedRegion, setSelectedRegion, selectedLevel, setSelectedLevel, setQuestionCount } =
     useCountryStore()
   const navigation = useNavigation<any>()
+  const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
+    1: true, // Easy is always unlocked
+    2: false,
+    3: false,
+  })
+
+  const levels = [
+    { id: 1, name: 'Easy', description: 'Most popular countries' },
+    { id: 2, name: 'Medium', description: 'Moderately known countries' },
+    { id: 3, name: 'Hard', description: 'Less known countries' },
+  ]
 
   // Set default values for map quiz when screen loads
   useEffect(() => {
-    setSelectedLevel(1) // Default to easy level for map quiz
+    if (!selectedLevel) {
+      setSelectedLevel(1) // Default to easy level for map quiz
+    }
     setQuestionCount(10) // Default to 10 questions for map quiz
-  }, [setSelectedLevel, setQuestionCount])
+  }, [setSelectedLevel, setQuestionCount, selectedLevel])
+
+  // Check level unlock status when region changes
+  useEffect(() => {
+    if (selectedRegion) {
+      checkLevelUnlockStatus()
+    }
+  }, [selectedRegion])
 
   // All 7 regions for map quiz
   const regions = [
@@ -94,26 +115,56 @@ const MapRegionSelectionScreen: React.FC = () => {
     ...getSelectableRegions().map(region => REGION_INFO[region]),
   ]
 
+  const checkLevelUnlockStatus = async () => {
+    if (!selectedRegion) return
+
+    const unlockStatus: Record<number, boolean> = {
+      1: true, // Easy is always unlocked
+      2: await isLevelUnlocked(selectedRegion, 2),
+      3: await isLevelUnlocked(selectedRegion, 3),
+    }
+
+    setUnlockedLevels(unlockStatus)
+
+    // If currently selected level is now locked, reset to level 1
+    if (selectedLevel && !unlockStatus[selectedLevel]) {
+      setSelectedLevel(1)
+    }
+  }
+
   const handleRegionSelect = (region: Region) => {
     setSelectedRegion(region)
+  }
+
+  const handleLevelSelect = (level: number) => {
+    if (unlockedLevels[level]) {
+      setSelectedLevel(level)
+    }
   }
 
   const onConfirm = () => {
     navigation.navigate('MapQuiz')
   }
 
-  const canStart = selectedRegion !== undefined
+  const canStart = selectedRegion && selectedLevel && unlockedLevels[selectedLevel]
+
+  const getLevelLockMessage = (level: number): string => {
+    if (level === 1) return ''
+    if (level === 2) return 'Complete Easy level to unlock'
+    if (level === 3) return 'Complete Medium level to unlock'
+    return ''
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Map Quiz</Text>
-        <Text style={styles.subtitle}>Select a region to explore</Text>
+        <Text style={styles.subtitle}>Select region and difficulty level</Text>
         <Text style={styles.infoText}>
-          Progress shows your learning on Easy level. Challenge yourself with countries you haven't
-          mastered yet!
+          Progressive difficulty: complete easier levels to unlock harder ones!
         </Text>
 
+        {/* Region Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Choose Your Region</Text>
           <View style={styles.optionsContainer}>
@@ -127,6 +178,95 @@ const MapRegionSelectionScreen: React.FC = () => {
             ))}
           </View>
         </View>
+
+        {/* Progress for Selected Region */}
+        {selectedRegion && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>
+              Your Progress in {REGION_INFO[selectedRegion].displayName}
+            </Text>
+            <View style={styles.progressCardsContainer}>
+              {levels.map(level => (
+                <RegionProgressCard
+                  key={level.id}
+                  region={selectedRegion}
+                  level={level.id}
+                  size="small"
+                  showDetailedStats={false}
+                  onPress={() => handleLevelSelect(level.id)}
+                />
+              ))}
+            </View>
+          </View>
+        )}
+
+        {/* Difficulty Level Selection */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Select Difficulty</Text>
+          <Text style={styles.sectionSubtitle}>
+            Complete easier levels to unlock harder difficulties
+          </Text>
+          <View style={styles.optionsContainer}>
+            {levels.map(level => {
+              const isUnlocked = unlockedLevels[level.id]
+              const isSelected = selectedLevel === level.id
+
+              return (
+                <TouchableOpacity
+                  key={level.id}
+                  style={[
+                    styles.levelOptionButton,
+                    isSelected && styles.selectedLevelOption,
+                    !isUnlocked && styles.lockedOption,
+                  ]}
+                  onPress={() => handleLevelSelect(level.id)}
+                  disabled={!isUnlocked}
+                >
+                  <View style={styles.levelHeader}>
+                    <Text
+                      style={[
+                        styles.levelOptionName,
+                        isSelected && styles.selectedText,
+                        !isUnlocked && styles.lockedText,
+                      ]}
+                    >
+                      {level.name} {!isUnlocked && '🔒'}
+                    </Text>
+                    {isUnlocked && isSelected && <Text style={styles.checkmark}>✓</Text>}
+                  </View>
+                  <Text
+                    style={[
+                      styles.levelOptionDescription,
+                      isSelected && styles.selectedText,
+                      !isUnlocked && styles.lockedText,
+                    ]}
+                  >
+                    {level.description}
+                  </Text>
+                  {!isUnlocked && (
+                    <Text style={styles.lockMessage}>{getLevelLockMessage(level.id)}</Text>
+                  )}
+                </TouchableOpacity>
+              )
+            })}
+          </View>
+        </View>
+
+        {/* Detailed Progress for Selected Level */}
+        {selectedRegion && selectedLevel && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>
+              {REGION_INFO[selectedRegion].displayName} -{' '}
+              {levels.find(l => l.id === selectedLevel)?.name} Level
+            </Text>
+            <RegionProgressCard
+              region={selectedRegion}
+              level={selectedLevel}
+              size="large"
+              showDetailedStats={true}
+            />
+          </View>
+        )}
       </ScrollView>
 
       <TouchableOpacity
@@ -282,6 +422,72 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  progressCardsContainer: {
+    gap: 12,
+    marginHorizontal: 8,
+  },
+  levelOptionButton: {
+    backgroundColor: '#f8f8f8',
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 3,
+    borderColor: 'transparent',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  selectedLevelOption: {
+    backgroundColor: '#FF6B35',
+    borderColor: '#E55A2B',
+  },
+  lockedOption: {
+    backgroundColor: '#ccc',
+    shadowOpacity: 0,
+    elevation: 0,
+  },
+  levelHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  levelOptionName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
+    textAlign: 'left',
+  },
+  levelOptionDescription: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'left',
+    marginBottom: 2,
+  },
+  lockMessage: {
+    fontSize: 12,
+    color: '#888',
+    textAlign: 'left',
+  },
+  checkmark: {
+    fontSize: 12,
+    color: '#fff',
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  sectionSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  lockedText: {
+    color: '#999',
   },
 })
 

@@ -23,7 +23,8 @@ interface Country {
 export const generateQuizQuestion = async (
   level: number,
   region: Region,
-  usedFlags: string[] = []
+  usedFlags: string[] = [],
+  learnedCountryIds: number[] = []
 ): Promise<QuizQuestion> => {
   // Get countries filtered by both region and level
   const countries = getCountriesByRegionAndLevel(region, level)
@@ -33,7 +34,10 @@ export const generateQuizQuestion = async (
   }
 
   // Filter out countries that have already been used in this quiz session
-  const availableCountries = countries.filter(country => !usedFlags.includes(country.id.toString()))
+  // AND countries that have already been learned
+  const availableCountries = countries.filter(
+    country => !usedFlags.includes(country.id.toString()) && !learnedCountryIds.includes(country.id)
+  )
 
   if (availableCountries.length === 0) {
     throw new Error(`No unused countries available for level ${level} in region ${region}`)
@@ -212,6 +216,107 @@ export const resetRegionLevelProgress = async (region: Region, level: number): P
     await saveRegionLevelProgress(region, level, emptyProgress)
   } catch (error) {
     console.error('Error resetting region level progress:', error)
+  }
+}
+
+/**
+ * Get aggregated progress data for a region across all levels
+ */
+export const getRegionProgress = async (region: Region): Promise<RegionLevelProgress> => {
+  try {
+    let allLearnedCountries: number[] = []
+    let totalCountries = 0
+
+    // Aggregate progress across all levels (1, 2, 3)
+    for (let level = 1; level <= 3; level++) {
+      const levelProgress = await getRegionLevelProgress(region, level)
+      allLearnedCountries = [...allLearnedCountries, ...levelProgress.learnedCountries]
+      totalCountries += levelProgress.totalCountries
+    }
+
+    // Remove duplicates in case a country appears in multiple levels (shouldn't happen but safety check)
+    const uniqueLearnedCountries = [...new Set(allLearnedCountries)]
+    const completionPercentage =
+      totalCountries > 0 ? (uniqueLearnedCountries.length / totalCountries) * 100 : 0
+
+    return {
+      learnedCountries: uniqueLearnedCountries,
+      totalCountries,
+      completionPercentage,
+      lastUpdated: new Date().toISOString(),
+    }
+  } catch (error) {
+    console.error('Error getting region progress:', error)
+    // Return empty progress as fallback
+    return createEmptyProgress(0)
+  }
+}
+
+/**
+ * Check if a specific level is completed for a region (e.g., 80% or more countries learned)
+ */
+export const isLevelCompleted = async (
+  region: Region,
+  level: number,
+  completionThreshold: number = 80
+): Promise<boolean> => {
+  try {
+    const progress = await getRegionLevelProgress(region, level)
+    return progress.completionPercentage >= completionThreshold
+  } catch (error) {
+    console.error('Error checking level completion:', error)
+    return false
+  }
+}
+
+/**
+ * Check if a level is unlocked (previous level must be completed)
+ */
+export const isLevelUnlocked = async (region: Region, level: number): Promise<boolean> => {
+  try {
+    // Level 1 (Easy) is always unlocked
+    if (level <= 1) return true
+
+    // Check if previous level is completed
+    const previousLevelCompleted = await isLevelCompleted(region, level - 1)
+    return previousLevelCompleted
+  } catch (error) {
+    console.error('Error checking level unlock status:', error)
+    return level <= 1 // Default to unlocking only level 1 on error
+  }
+}
+
+/**
+ * Get the next available level for progression within a quiz
+ */
+export const getNextQuizLevel = async (
+  region: Region,
+  currentLevel: number,
+  questionsAnsweredAtLevel: number,
+  minQuestionsPerLevel: number = 3
+): Promise<number> => {
+  try {
+    // If we haven't answered enough questions at current level, stay at current level
+    if (questionsAnsweredAtLevel < minQuestionsPerLevel) {
+      return currentLevel
+    }
+
+    // Check if current level is completed and next level is unlocked
+    const currentLevelCompleted = await isLevelCompleted(region, currentLevel)
+    const nextLevel = currentLevel + 1
+
+    // If current level is completed and we haven't reached max level (3), progress
+    if (currentLevelCompleted && nextLevel <= 3) {
+      const nextLevelUnlocked = await isLevelUnlocked(region, nextLevel)
+      if (nextLevelUnlocked) {
+        return nextLevel
+      }
+    }
+
+    return currentLevel
+  } catch (error) {
+    console.error('Error determining next quiz level:', error)
+    return currentLevel
   }
 }
 

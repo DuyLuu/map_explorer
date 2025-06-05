@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
+import { useNavigation } from '@react-navigation/native'
 import Flag from '../components/Flag'
-import { ActivityIndicator } from 'react-native'
 
 const QuizScreen: React.FC = () => {
+  const navigation = useNavigation<any>()
   const {
     currentQuestion,
     score,
@@ -13,23 +14,48 @@ const QuizScreen: React.FC = () => {
     selectedAnswer,
     currentQuestionNumber,
     questionCount,
+    currentLevel,
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,
     setIsImageLoading,
   } = useQuiz()
 
+  const getLevelName = (level: number): string => {
+    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
+    return levels[level as keyof typeof levels] || `Level ${level}`
+  }
+
+  const getLevelColor = (level: number): string => {
+    const colors = { 1: '#4CAF50', 2: '#FF9800', 3: '#F44336' }
+    return colors[level as keyof typeof colors] || '#666'
+  }
+
+  const handleProgressOverview = () => {
+    navigation.navigate('Progress')
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.score}>Score: {score}</Text>
-        <Text style={styles.highScore}>High Score: {highScore}</Text>
+        <View style={styles.scoreContainer}>
+          <Text style={styles.score}>Score: {score}</Text>
+          <Text style={styles.highScore}>High Score: {highScore}</Text>
+        </View>
+        <TouchableOpacity style={styles.progressButton} onPress={handleProgressOverview}>
+          <Text style={styles.progressButtonText}>📊</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.progressContainer}>
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
+        <View style={styles.levelIndicator}>
+          <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
+            {getLevelName(currentLevel)}
+          </Text>
+        </View>
       </View>
 
       {currentQuestion && (
@@ -98,6 +124,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  scoreContainer: {
+    flex: 1,
   },
   score: {
     fontSize: 18,
@@ -107,6 +137,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
+  },
+  progressButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 48,
+    height: 48,
+  },
+  progressButtonText: {
+    fontSize: 20,
   },
   progressContainer: {
     padding: 16,
@@ -183,6 +225,16 @@ const styles = StyleSheet.create({
   },
   timerWarning: {
     color: '#F44336',
+    fontWeight: 'bold',
+  },
+  levelIndicator: {
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+  levelText: {
+    fontSize: 16,
     fontWeight: 'bold',
   },
 })

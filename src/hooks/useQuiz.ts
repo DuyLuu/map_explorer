@@ -7,6 +7,8 @@ import {
   saveQuizProgress,
   getQuizProgress,
   recordLearnedCountry,
+  getRegionLevelProgress,
+  getNextQuizLevel,
 } from '../services/quizService'
 import { useCountryStore } from '../stores/countryStore'
 import { initializeTts, speakText } from '../services/speechService'
@@ -18,7 +20,7 @@ type RootStackParamList = {
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 export const useQuiz = () => {
-  const { questionCount, selectedLevel, selectedRegion } = useCountryStore()
+  const { selectedRegion } = useCountryStore()
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -27,35 +29,82 @@ export const useQuiz = () => {
   const [isImageLoading, setIsImageLoading] = useState(true)
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
   const [usedFlags, setUsedFlags] = useState<string[]>([])
+  const [learnedCountryIds, setLearnedCountryIds] = useState<number[]>([])
+  const [currentLevel, setCurrentLevel] = useState(1) // Start with Easy level
+  const [questionsAnsweredAtLevel, setQuestionsAnsweredAtLevel] = useState(0)
   const navigation = useNavigation<NavigationProp>()
 
+  // Fixed question count of 10
+  const questionCount = 10
+
   useEffect(() => {
-    loadNextQuestion()
-    loadHighScore()
-    initializeTts()
+    const initializeQuiz = async () => {
+      await loadLearnedCountries()
+      await loadNextQuestion()
+      await loadHighScore()
+      await initializeTts()
+    }
+
+    initializeQuiz()
   }, [])
+
+  const loadLearnedCountries = async () => {
+    try {
+      // Load learned countries for current level
+      const progress = await getRegionLevelProgress(selectedRegion, currentLevel)
+      setLearnedCountryIds(progress.learnedCountries)
+    } catch (error) {
+      console.error('Error loading learned countries:', error)
+      setLearnedCountryIds([])
+    }
+  }
 
   const handleTimeout = () => {
     setShowFeedback(true)
   }
 
-  const restartGame = () => {
+  const restartGame = async () => {
     setScore(0)
     setCurrentQuestionNumber(1)
     setShowFeedback(false)
     setSelectedAnswer(null)
     setUsedFlags([])
-    loadNextQuestion()
+    setCurrentLevel(1) // Reset to Easy level
+    setQuestionsAnsweredAtLevel(0)
+    await loadLearnedCountries()
+    await loadNextQuestion()
   }
 
   const loadHighScore = async () => {
-    const progress = await getQuizProgress(selectedLevel)
+    const progress = await getQuizProgress(currentLevel)
     setHighScore(progress)
   }
 
   const handleSelectAnswer = async (answer: string) => {
     setSelectedAnswer(answer)
     await speakText(answer)
+  }
+
+  const checkLevelProgression = async () => {
+    const nextLevel = await getNextQuizLevel(
+      selectedRegion,
+      currentLevel,
+      questionsAnsweredAtLevel,
+      3 // Minimum 3 questions per level
+    )
+
+    if (nextLevel !== currentLevel) {
+      console.log(`Progressing from level ${currentLevel} to level ${nextLevel}`)
+      setCurrentLevel(nextLevel)
+      setQuestionsAnsweredAtLevel(0)
+
+      // Reload learned countries for the new level
+      const newLevelProgress = await getRegionLevelProgress(selectedRegion, nextLevel)
+      setLearnedCountryIds(newLevelProgress.learnedCountries)
+
+      // Clear used flags since we're moving to a new level
+      setUsedFlags([])
+    }
   }
 
   const handleSubmit = async () => {
@@ -73,7 +122,12 @@ export const useQuiz = () => {
       if (currentQuestion?.id) {
         try {
           const countryId = parseInt(currentQuestion.id, 10)
-          await recordLearnedCountry(selectedRegion, selectedLevel, countryId)
+          await recordLearnedCountry(selectedRegion, currentLevel, countryId)
+          // Update local learned countries list to prevent this country from appearing again
+          setLearnedCountryIds(prev => [...prev, countryId])
+
+          // Increment questions answered at current level
+          setQuestionsAnsweredAtLevel(prev => prev + 1)
         } catch (error) {
           console.error('Error recording learned country:', error)
           // Don't break the quiz flow if progress tracking fails
@@ -83,12 +137,30 @@ export const useQuiz = () => {
   }
 
   const loadNextQuestion = async () => {
-    setIsImageLoading(true)
-    const newQuestion = await generateQuizQuestion(selectedLevel, selectedRegion, usedFlags)
-    setCurrentQuestion(newQuestion)
-    setUsedFlags(prev => [...prev, newQuestion.id])
-    setShowFeedback(false)
-    setSelectedAnswer(null)
+    try {
+      setIsImageLoading(true)
+
+      // Check if we should progress to next level before generating question
+      await checkLevelProgression()
+
+      const newQuestion = await generateQuizQuestion(
+        currentLevel,
+        selectedRegion,
+        usedFlags,
+        learnedCountryIds
+      )
+      setCurrentQuestion(newQuestion)
+      setUsedFlags(prev => [...prev, newQuestion.id])
+      setShowFeedback(false)
+      setSelectedAnswer(null)
+    } catch (error) {
+      console.error('Error loading next question:', error)
+      // If we can't generate more questions (all countries learned or used), end the quiz
+      if (currentQuestionNumber > 1) {
+        await saveQuizProgress(currentLevel, highScore)
+        navigation.navigate('NameInput', { score, questionCount: currentQuestionNumber - 1 })
+      }
+    }
   }
 
   const handleNextQuestion = async () => {
@@ -96,7 +168,7 @@ export const useQuiz = () => {
       setCurrentQuestionNumber(prev => prev + 1)
       await loadNextQuestion()
     } else {
-      await saveQuizProgress(selectedLevel, highScore)
+      await saveQuizProgress(currentLevel, highScore)
       navigation.navigate('NameInput', { score, questionCount })
     }
   }
@@ -110,9 +182,11 @@ export const useQuiz = () => {
     isImageLoading,
     currentQuestionNumber,
     questionCount,
+    currentLevel, // Expose current level for UI
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,
+    restartGame,
     setIsImageLoading,
   }
 }

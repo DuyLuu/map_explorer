@@ -23,6 +23,7 @@ const MapQuizScreen: React.FC = () => {
     selectedAnswer,
     currentQuestionNumber,
     questionCount,
+    currentLevel,
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,
@@ -43,44 +44,40 @@ const MapQuizScreen: React.FC = () => {
   // Use default provider for iOS simulator, Google for others
   const mapProvider = Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE
 
+  const getLevelName = (level: number): string => {
+    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
+    return levels[level as keyof typeof levels] || `Level ${level}`
+  }
+
+  const getLevelColor = (level: number): string => {
+    const colors = { 1: '#4CAF50', 2: '#FF9800', 3: '#F44336' }
+    return colors[level as keyof typeof colors] || '#666'
+  }
+
   const handleMapPress = async (event: any) => {
     const { latitude, longitude } = event.nativeEvent.coordinate
-
-    // Don't allow new selections while feedback is showing
-    if (showFeedback) {
-      return
-    }
-
     setIsDetecting(true)
+    setSelectedCountry(null)
 
     try {
       const detectedCountry = await detectCountryFromCoordinates(latitude, longitude)
-
       if (detectedCountry) {
-        handleCountrySelect(detectedCountry)
+        setSelectedCountry(detectedCountry)
+        await handleSelectAnswer(detectedCountry)
       } else {
-        Alert.alert(
-          'Location Not Found',
-          'Could not detect a country at this location. Please try clicking on a land area.',
-          [{ text: 'OK' }]
-        )
+        Alert.alert('Error', 'Could not detect country at this location')
       }
     } catch (error) {
       console.error('Error detecting country:', error)
-      Alert.alert('Error', 'Failed to detect country. Please try again.', [{ text: 'OK' }])
+      Alert.alert('Error', 'Could not detect country at this location')
     } finally {
       setIsDetecting(false)
     }
   }
 
-  const handleCountrySelect = (countryName: string) => {
-    setSelectedCountry(countryName)
-    handleSelectAnswer(countryName)
-  }
-
-  const handleMapSubmit = () => {
+  const handleMapSubmit = async () => {
     if (selectedCountry) {
-      handleSubmit()
+      await handleSubmit()
     }
   }
 
@@ -95,6 +92,11 @@ const MapQuizScreen: React.FC = () => {
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
+        <View style={styles.levelIndicator}>
+          <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
+            {getLevelName(currentLevel)}
+          </Text>
+        </View>
       </View>
 
       {currentQuestion && (
@@ -247,6 +249,16 @@ const styles = StyleSheet.create({
   },
   nextButtonText: {
     color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  levelIndicator: {
+    backgroundColor: '#eee',
+    padding: 4,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+  levelText: {
     fontSize: 16,
     fontWeight: 'bold',
   },

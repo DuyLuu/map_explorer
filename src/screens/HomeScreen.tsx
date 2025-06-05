@@ -15,7 +15,7 @@ import { useCountries } from '../hooks/useCountries'
 import SettingsButton from '../components/SettingsButton'
 
 type RootStackParamList = {
-  QuestionCount: undefined
+  FlagRegionSelection: undefined
   MapRegionSelection: undefined
   Leaderboard: undefined
   Settings: undefined
@@ -54,7 +54,7 @@ const HomeScreen: React.FC = () => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, styles.primaryButton]}
-            onPress={() => navigation.navigate('QuestionCount')}
+            onPress={() => navigation.navigate('FlagRegionSelection')}
             disabled={isLoading}
           >
             {isLoading ? (

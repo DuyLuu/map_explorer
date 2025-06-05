@@ -1,8 +1,9 @@
 export type RootStackParamList = {
   Home: undefined
-  QuestionCount: undefined
+  FlagRegionSelection: undefined
   LevelSelection: undefined
   Quiz: undefined
+  Progress: undefined
   MapRegionSelection: undefined
   MapQuiz: undefined
   NameInput: {

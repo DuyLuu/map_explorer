@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../types/region'
 import { getSelectableRegions } from '../services/regionService'
 import RegionProgressCard from '../components/RegionProgressCard'
-import ProgressStats from '../components/ProgressStats'
+import { isLevelUnlocked } from '../services/quizService'
 
 const LevelSelectionScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
   const navigation = useNavigation<any>()
-  const [showProgressStats, setShowProgressStats] = useState(false)
+  const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
+    1: true, // Easy is always unlocked
+    2: false,
+    3: false,
+  })
 
   const levels = [
     { id: 1, name: 'Easy', description: 'Most popular countries' },
@@ -23,8 +27,34 @@ const LevelSelectionScreen: React.FC = () => {
     ...getSelectableRegions().map(region => REGION_INFO[region]),
   ]
 
+  // Check level unlock status when region changes
+  useEffect(() => {
+    if (selectedRegion) {
+      checkLevelUnlockStatus()
+    }
+  }, [selectedRegion])
+
+  const checkLevelUnlockStatus = async () => {
+    if (!selectedRegion) return
+
+    const unlockStatus: Record<number, boolean> = {
+      1: true, // Easy is always unlocked
+      2: await isLevelUnlocked(selectedRegion, 2),
+      3: await isLevelUnlocked(selectedRegion, 3),
+    }
+
+    setUnlockedLevels(unlockStatus)
+
+    // If currently selected level is now locked, reset to level 1
+    if (selectedLevel && !unlockStatus[selectedLevel]) {
+      setSelectedLevel(1)
+    }
+  }
+
   const handleLevelSelect = (level: number) => {
-    setSelectedLevel(level)
+    if (unlockedLevels[level]) {
+      setSelectedLevel(level)
+    }
   }
 
   const handleRegionSelect = (region: Region) => {
@@ -35,53 +65,19 @@ const LevelSelectionScreen: React.FC = () => {
     navigation.navigate('Quiz')
   }
 
-  const canStart = selectedLevel && selectedRegion
+  const canStart = selectedLevel && selectedRegion && unlockedLevels[selectedLevel]
+
+  const getLevelLockMessage = (level: number): string => {
+    if (level === 1) return ''
+    if (level === 2) return 'Complete Easy level to unlock'
+    if (level === 3) return 'Complete Medium level to unlock'
+    return ''
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Quiz Settings</Text>
-
-        {/* Progress Overview Toggle */}
-        <TouchableOpacity
-          style={styles.toggleButton}
-          onPress={() => setShowProgressStats(!showProgressStats)}
-        >
-          <Text style={styles.toggleButtonText}>
-            {showProgressStats ? '📊 Hide Progress Overview' : '📈 Show Progress Overview'}
-          </Text>
-        </TouchableOpacity>
-
-        {/* Progress Stats Overview */}
-        {showProgressStats && (
-          <View style={styles.progressSection}>
-            <ProgressStats
-              showOverallProgress={true}
-              showRegionBreakdown={true}
-              level={selectedLevel || 1}
-            />
-          </View>
-        )}
-
-        {/* Region Selection */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Region</Text>
-          <View style={styles.optionsContainer}>
-            {regions.map(region => (
-              <TouchableOpacity
-                key={region.id}
-                style={[styles.optionButton, selectedRegion === region.id && styles.selectedOption]}
-                onPress={() => handleRegionSelect(region.id)}
-              >
-                <Text
-                  style={[styles.optionName, selectedRegion === region.id && styles.selectedText]}
-                >
-                  {region.displayName}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
 
         {/* Progress for Selected Region */}
         {selectedRegion && (
@@ -107,28 +103,52 @@ const LevelSelectionScreen: React.FC = () => {
         {/* Difficulty Level Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Select Difficulty</Text>
+          <Text style={styles.sectionSubtitle}>
+            Complete easier levels to unlock harder difficulties
+          </Text>
           <View style={styles.optionsContainer}>
-            {levels.map(level => (
-              <TouchableOpacity
-                key={level.id}
-                style={[styles.optionButton, selectedLevel === level.id && styles.selectedOption]}
-                onPress={() => handleLevelSelect(level.id)}
-              >
-                <Text
-                  style={[styles.optionName, selectedLevel === level.id && styles.selectedText]}
-                >
-                  {level.name}
-                </Text>
-                <Text
+            {levels.map(level => {
+              const isUnlocked = unlockedLevels[level.id]
+              const isSelected = selectedLevel === level.id
+
+              return (
+                <TouchableOpacity
+                  key={level.id}
                   style={[
-                    styles.optionDescription,
-                    selectedLevel === level.id && styles.selectedText,
+                    styles.optionButton,
+                    isSelected && styles.selectedOption,
+                    !isUnlocked && styles.lockedOption,
                   ]}
+                  onPress={() => handleLevelSelect(level.id)}
+                  disabled={!isUnlocked}
                 >
-                  {level.description}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <View style={styles.levelHeader}>
+                    <Text
+                      style={[
+                        styles.optionName,
+                        isSelected && styles.selectedText,
+                        !isUnlocked && styles.lockedText,
+                      ]}
+                    >
+                      {level.name} {!isUnlocked && '🔒'}
+                    </Text>
+                    {isUnlocked && isSelected && <Text style={styles.checkmark}>✓</Text>}
+                  </View>
+                  <Text
+                    style={[
+                      styles.optionDescription,
+                      isSelected && styles.selectedText,
+                      !isUnlocked && styles.lockedText,
+                    ]}
+                  >
+                    {level.description}
+                  </Text>
+                  {!isUnlocked && (
+                    <Text style={styles.lockMessage}>{getLevelLockMessage(level.id)}</Text>
+                  )}
+                </TouchableOpacity>
+              )
+            })}
           </View>
         </View>
 
@@ -176,24 +196,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 16,
   },
-  toggleButton: {
-    backgroundColor: '#f0f0f0',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  toggleButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-  },
-  progressSection: {
-    backgroundColor: '#f9f9f9',
-    borderRadius: 12,
-    marginBottom: 24,
-    padding: 4,
-  },
   section: {
     marginBottom: 24,
   },
@@ -203,6 +205,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 16,
     textAlign: 'center',
+  },
+  sectionSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 16,
   },
   optionsContainer: {
     gap: 12,
@@ -223,6 +231,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#25A278',
     borderColor: '#1a8c63',
   },
+  lockedOption: {
+    backgroundColor: '#ccc',
+  },
   optionName: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -236,6 +247,24 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     color: '#fff',
+  },
+  lockedText: {
+    color: '#999',
+  },
+  levelHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  checkmark: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  lockMessage: {
+    fontSize: 12,
+    color: '#999',
+    textAlign: 'center',
   },
   confirmButton: {
     backgroundColor: '#F47D42',
