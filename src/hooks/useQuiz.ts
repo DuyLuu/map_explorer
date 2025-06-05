@@ -21,8 +21,6 @@ export const useQuiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [isImageLoading, setIsImageLoading] = useState(true)
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1)
-  const [timeLeft, setTimeLeft] = useState(10)
-  const [isTimeout, setIsTimeout] = useState(false)
   const [usedFlags, setUsedFlags] = useState<string[]>([])
   const navigation = useNavigation<NavigationProp>()
 
@@ -32,26 +30,8 @@ export const useQuiz = () => {
     initializeTts()
   }, [])
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (!showFeedback && !isTimeout) {
-      timer = setInterval(() => {
-        setTimeLeft(prev => {
-          if (prev <= 1) {
-            clearInterval(timer)
-            handleTimeout()
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
-    }
-    return () => clearInterval(timer)
-  }, [showFeedback, isTimeout])
-
   const handleTimeout = () => {
     setShowFeedback(true)
-    setIsTimeout(true)
   }
 
   const restartGame = () => {
@@ -59,8 +39,6 @@ export const useQuiz = () => {
     setCurrentQuestionNumber(1)
     setShowFeedback(false)
     setSelectedAnswer(null)
-    setIsTimeout(false)
-    setTimeLeft(10)
     setUsedFlags([])
     loadNextQuestion()
   }
@@ -98,14 +76,8 @@ export const useQuiz = () => {
   }
 
   const handleNextQuestion = async () => {
-    if (isTimeout) {
-      restartGame()
-      return
-    }
-
     if (currentQuestionNumber < questionCount) {
       setCurrentQuestionNumber(prev => prev + 1)
-      setTimeLeft(10)
       await loadNextQuestion()
     } else {
       await saveQuizProgress(selectedLevel, highScore)
@@ -121,8 +93,6 @@ export const useQuiz = () => {
     selectedAnswer,
     isImageLoading,
     currentQuestionNumber,
-    timeLeft,
-    isTimeout,
     questionCount,
     handleSelectAnswer,
     handleSubmit,

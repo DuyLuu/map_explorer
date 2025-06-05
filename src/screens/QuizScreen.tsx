@@ -12,8 +12,6 @@ const QuizScreen: React.FC = () => {
     showFeedback,
     selectedAnswer,
     currentQuestionNumber,
-    timeLeft,
-    isTimeout,
     questionCount,
     handleSelectAnswer,
     handleSubmit,
@@ -32,7 +30,6 @@ const QuizScreen: React.FC = () => {
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <Text style={[styles.timer, timeLeft <= 3 && styles.timerWarning]}>Time: {timeLeft}s</Text>
       </View>
 
       {currentQuestion && (
@@ -80,11 +77,7 @@ const QuizScreen: React.FC = () => {
           {showFeedback && (
             <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
               <Text style={styles.nextButtonText}>
-                {isTimeout
-                  ? 'Restart Game'
-                  : currentQuestionNumber < questionCount
-                  ? 'Next Question'
-                  : 'Finish Quiz'}
+                {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
               </Text>
             </TouchableOpacity>
           )}

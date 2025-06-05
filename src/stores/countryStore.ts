@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { Region, CountryWithRegion } from '../types/region'
 
 interface Country {
   id: number
@@ -7,14 +8,16 @@ interface Country {
 }
 
 interface CountryStore {
-  countries: Country[]
-  setCountries: (countries: Country[]) => void
+  countries: CountryWithRegion[]
+  setCountries: (countries: CountryWithRegion[]) => void
   isLoading: boolean
   setIsLoading: (isLoading: boolean) => void
   questionCount: number
   setQuestionCount: (count: number) => void
   selectedLevel: number
   setSelectedLevel: (level: number) => void
+  selectedRegion: Region
+  setSelectedRegion: (region: Region) => void
 }
 
 export const useCountryStore = create<CountryStore>(set => ({
@@ -26,4 +29,9 @@ export const useCountryStore = create<CountryStore>(set => ({
   setQuestionCount: count => set({ questionCount: count }),
   selectedLevel: 1, // default to easy level
   setSelectedLevel: level => set({ selectedLevel: level }),
+  selectedRegion: Region.WORLD, // default to world region
+  setSelectedRegion: region => set({ selectedRegion: region }),
 }))
+
+// Backward compatibility export
+export type { Country }

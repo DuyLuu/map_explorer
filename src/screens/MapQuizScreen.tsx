@@ -11,6 +11,8 @@ import {
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
 import { useQuiz } from '../hooks/useQuiz'
 import { detectCountryFromCoordinates } from '../services/geocodingService'
+import { useCountryStore } from '../stores/countryStore'
+import { REGION_INFO } from '../types/region'
 
 const MapQuizScreen: React.FC = () => {
   const {
@@ -26,15 +28,16 @@ const MapQuizScreen: React.FC = () => {
     handleNextQuestion,
   } = useQuiz()
 
+  const { selectedRegion } = useCountryStore()
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [isDetecting, setIsDetecting] = useState(false)
 
-  // Initial map region - world view
+  // Get region-specific map bounds instead of hardcoded world view
   const initialRegion: Region = {
-    latitude: 20,
-    longitude: 0,
-    latitudeDelta: 100,
-    longitudeDelta: 100,
+    latitude: REGION_INFO[selectedRegion].mapBounds.latitude,
+    longitude: REGION_INFO[selectedRegion].mapBounds.longitude,
+    latitudeDelta: REGION_INFO[selectedRegion].mapBounds.latitudeDelta,
+    longitudeDelta: REGION_INFO[selectedRegion].mapBounds.longitudeDelta,
   }
 
   // Use default provider for iOS simulator, Google for others
