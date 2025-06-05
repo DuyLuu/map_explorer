@@ -32,7 +32,7 @@ const LeaderboardScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <BackButton />
+        <BackButton onBack={() => navigation.navigate('Home')} />
         <Text style={styles.title}>Leaderboard</Text>
         <TouchableOpacity
           style={styles.newGameButton}

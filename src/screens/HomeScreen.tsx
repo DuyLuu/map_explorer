@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Platform,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -15,6 +16,7 @@ import SettingsButton from '../components/SettingsButton'
 
 type RootStackParamList = {
   QuestionCount: undefined
+  MapQuiz: undefined
   Leaderboard: undefined
   Settings: undefined
 }
@@ -42,7 +44,7 @@ const HomeScreen: React.FC = () => {
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>World Explorer</Text>
-        <Text style={styles.subtitle}>Test your knowledge of world flags!</Text>
+        <Text style={styles.subtitle}>Test your knowledge of world geography!</Text>
 
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreLabel}>Highest Score</Text>
@@ -58,9 +60,24 @@ const HomeScreen: React.FC = () => {
             {isLoading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Start New Game</Text>
+              <Text style={styles.buttonText}>Flag Quiz</Text>
             )}
           </TouchableOpacity>
+
+          {/* Map Quiz button - Android only */}
+          {Platform.OS === 'ios' && (
+            <TouchableOpacity
+              style={[styles.button, styles.mapButton]}
+              onPress={() => navigation.navigate('MapQuiz')}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.buttonText}>Map Quiz (Beta)</Text>
+              )}
+            </TouchableOpacity>
+          )}
 
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
@@ -135,6 +152,9 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     backgroundColor: '#007AFF',
+  },
+  mapButton: {
+    backgroundColor: '#FF6B35',
   },
   secondaryButton: {
     backgroundColor: '#f0f0f0',
