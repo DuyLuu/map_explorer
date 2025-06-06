@@ -17,7 +17,8 @@ import SettingsButton from '../components/SettingsButton'
 type RootStackParamList = {
   FlagRegionSelection: undefined
   MapRegionSelection: undefined
-  Leaderboard: undefined
+  ChallengeQuiz: undefined
+  PersonalRecords: undefined
   Settings: undefined
 }
 
@@ -25,16 +26,16 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>()
-  const [highScore, setHighScore] = useState(0)
+  const [challengeHighScore, setChallengeHighScore] = useState(0)
   const { isLoading } = useCountries()
 
   useEffect(() => {
-    loadHighScore()
+    loadHighScores()
   }, [])
 
-  const loadHighScore = async () => {
-    const progress = await getQuizProgress(1)
-    setHighScore(progress)
+  const loadHighScores = async () => {
+    const challengeProgress = await getQuizProgress(-1) // -1 for challenge mode
+    setChallengeHighScore(challengeProgress)
   }
 
   return (
@@ -47,8 +48,12 @@ const HomeScreen: React.FC = () => {
         <Text style={styles.subtitle}>Test your knowledge of world geography!</Text>
 
         <View style={styles.scoreContainer}>
-          <Text style={styles.scoreLabel}>Highest Score</Text>
-          <Text style={styles.scoreValue}>{highScore}</Text>
+          {challengeHighScore > 0 && (
+            <>
+              <Text style={styles.challengeScoreLabel}>Challenge Best</Text>
+              <Text style={styles.challengeScoreValue}>{challengeHighScore}</Text>
+            </>
+          )}
         </View>
 
         <View style={styles.buttonContainer}>
@@ -79,11 +84,24 @@ const HomeScreen: React.FC = () => {
             </TouchableOpacity>
           )}
 
+          {/* Challenge Mode Button */}
+          <TouchableOpacity
+            style={[styles.button, styles.challengeButton]}
+            onPress={() => navigation.navigate('ChallengeQuiz')}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>🏆 Challenge Mode</Text>
+            )}
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={[styles.button, styles.secondaryButton]}
-            onPress={() => navigation.navigate('Leaderboard')}
+            onPress={() => navigation.navigate('PersonalRecords')}
           >
-            <Text style={[styles.buttonText, styles.secondaryButtonText]}>View Leaderboard</Text>
+            <Text style={[styles.buttonText, styles.secondaryButtonText]}>🏆 Personal Records</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -139,6 +157,17 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     color: '#4CAF50',
+    marginBottom: 16,
+  },
+  challengeScoreLabel: {
+    fontSize: 14,
+    color: '#FF6B35',
+    marginBottom: 4,
+  },
+  challengeScoreValue: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#FF6B35',
   },
   buttonContainer: {
     width: '100%',
@@ -155,6 +184,11 @@ const styles = StyleSheet.create({
   },
   mapButton: {
     backgroundColor: '#FF6B35',
+  },
+  challengeButton: {
+    backgroundColor: '#FF6B35',
+    borderWidth: 2,
+    borderColor: '#FFD700',
   },
   secondaryButton: {
     backgroundColor: '#f0f0f0',

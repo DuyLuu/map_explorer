@@ -67,19 +67,69 @@ export const generateQuizQuestion = async (
 
     // Generate 3 random wrong answers from the same region and level
     const wrongAnswers = availableCountries
-      .filter((_, index) => index !== correctCountryIndex)
+      .filter(
+        (country, index) => index !== correctCountryIndex && country.name !== correctCountry.name
+      )
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
       .map(country => country.name)
+      // Remove any duplicate names that might still exist
+      .filter((name, index, arr) => arr.indexOf(name) === index)
 
-    // If we don't have enough countries in this region/level for 4 options,
-    // fill with correct answer duplicates (this shouldn't happen in practice)
+    // If we don't have enough unique countries in this region/level for 4 options,
+    // try to get countries from other levels in the same region
+    if (wrongAnswers.length < 3) {
+      try {
+        // Get all countries from the region (all levels) as backup
+        const allRegionCountries = [1, 2, 3]
+          .flatMap(lvl => getCountriesByRegionAndLevel(region, lvl))
+          .filter(
+            country => country.name !== correctCountry.name && !wrongAnswers.includes(country.name)
+          )
+
+        const additionalAnswers = allRegionCountries
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3 - wrongAnswers.length)
+          .map(country => country.name)
+          // Ensure no duplicates
+          .filter((name, index, arr) => arr.indexOf(name) === index)
+
+        wrongAnswers.push(...additionalAnswers)
+      } catch (error) {
+        console.warn('Could not get backup countries for wrong answers:', error)
+      }
+    }
+
+    // If we still don't have enough unique options (very rare edge case),
+    // generate placeholder options to ensure we always have 4 total options
+    const placeholderIndex = wrongAnswers.length
     while (wrongAnswers.length < 3) {
-      wrongAnswers.push(correctCountry.name)
+      const placeholder = `Option ${placeholderIndex + wrongAnswers.length + 1}`
+      if (!wrongAnswers.includes(placeholder)) {
+        wrongAnswers.push(placeholder)
+      } else {
+        wrongAnswers.push(`Option ${Date.now()}`) // Fallback with timestamp
+      }
     }
 
     // Combine correct and wrong answers, then shuffle
-    const options = [...wrongAnswers, correctCountry.name].sort(() => Math.random() - 0.5)
+    const options = [...wrongAnswers, correctCountry.name]
+      // Final deduplication check
+      .filter((name, index, arr) => arr.indexOf(name) === index)
+      .sort(() => Math.random() - 0.5)
+
+    // Ensure we have exactly 4 unique options
+    if (options.length !== 4) {
+      console.warn(`Expected 4 options but got ${options.length}:`, options)
+      // Add the correct answer back if it was filtered out
+      if (!options.includes(correctCountry.name)) {
+        options.push(correctCountry.name)
+      }
+      // Trim to 4 options if we somehow have more
+      while (options.length > 4) {
+        options.pop()
+      }
+    }
 
     return {
       id: correctCountry.id.toString(),

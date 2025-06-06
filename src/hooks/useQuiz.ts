@@ -14,12 +14,6 @@ import { useCountryStore } from '../stores/countryStore'
 import { initializeTts, speakText } from '../services/speechService'
 import { useCountries } from './useCountries'
 
-type RootStackParamList = {
-  NameInput: { score: number; questionCount: number }
-}
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>
-
 export const useQuiz = () => {
   const { selectedRegion } = useCountryStore()
   const {
@@ -39,7 +33,7 @@ export const useQuiz = () => {
   const [currentLevel, setCurrentLevel] = useState(1) // Start with Easy level
   const [questionsAnsweredAtLevel, setQuestionsAnsweredAtLevel] = useState(0)
   const [isInitializing, setIsInitializing] = useState(true)
-  const navigation = useNavigation<NavigationProp>()
+  const navigation = useNavigation<any>()
 
   // Fixed question count of 10
   const questionCount = 10
@@ -183,7 +177,7 @@ export const useQuiz = () => {
       // If we can't generate more questions (all countries learned or used), end the quiz
       if (currentQuestionNumber > 1) {
         await saveQuizProgress(currentLevel, highScore)
-        navigation.navigate('NameInput', { score, questionCount: currentQuestionNumber - 1 })
+        navigation.navigate('FlagRegionSelection')
       }
     }
   }
@@ -194,7 +188,7 @@ export const useQuiz = () => {
       await loadNextQuestion()
     } else {
       await saveQuizProgress(currentLevel, highScore)
-      navigation.navigate('NameInput', { score, questionCount })
+      navigation.navigate('FlagRegionSelection')
     }
   }
 
