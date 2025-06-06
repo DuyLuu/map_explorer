@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
 import { Region, CountryWithRegion } from '../types/region'
-import { getCountryRegion, getCountriesForRegion, isCountryInRegion } from './regionService'
+import { getCountryRegion, isCountryInRegion } from './regionService'
 
 interface Country {
   id: number
@@ -214,7 +214,6 @@ export function getCountries(): CountryWithRegion[] | undefined {
  */
 export function getCountriesByRegion(region: Region): CountryWithRegion[] {
   const allCountries = getCountries()
-  console.log('--- getCountries', allCountries)
 
   if (!allCountries) {
     return []
@@ -223,7 +222,6 @@ export function getCountriesByRegion(region: Region): CountryWithRegion[] {
   if (region === Region.WORLD) {
     return allCountries
   }
-  console.log('--- getCountriesByRegion', allCountries)
 
   return allCountries.filter(country => isCountryInRegion(country.name, region))
 }
