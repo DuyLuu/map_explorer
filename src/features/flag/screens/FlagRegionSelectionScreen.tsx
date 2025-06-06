@@ -8,13 +8,8 @@ import RegionOption from '../../../components/RegionOption'
 import BackButton from '../../../components/BackButton'
 
 const FlagRegionSelectionScreen: React.FC = () => {
-  const { selectedRegion, setSelectedRegion, setQuestionCount } = useCountryStore()
+  const { selectedRegion, setSelectedRegion } = useCountryStore()
   const navigation = useNavigation<any>()
-
-  // Set default values for flag quiz when screen loads
-  useEffect(() => {
-    setQuestionCount(10) // Default to 10 questions
-  }, [setQuestionCount])
 
   // All 7 regions for flag quiz
   const regions = getSelectableRegions().map(region => REGION_INFO[region])

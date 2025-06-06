@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Alert,
   Platform,
+  ActivityIndicator,
 } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
 import { useQuiz } from '../../../hooks/useQuiz'
@@ -24,6 +25,9 @@ const MapQuizScreen: React.FC = () => {
     currentQuestionNumber,
     questionCount,
     currentLevel,
+    isLoadingCountries,
+    isInitializing,
+    countriesError,
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,
@@ -34,11 +38,19 @@ const MapQuizScreen: React.FC = () => {
   const [isDetecting, setIsDetecting] = useState(false)
 
   // Get region-specific map bounds instead of hardcoded world view
-  const initialRegion: Region = {
-    latitude: REGION_INFO[selectedRegion].mapBounds.latitude,
-    longitude: REGION_INFO[selectedRegion].mapBounds.longitude,
-    latitudeDelta: REGION_INFO[selectedRegion].mapBounds.latitudeDelta,
-    longitudeDelta: REGION_INFO[selectedRegion].mapBounds.longitudeDelta,
+  let initialRegion: Region | null = null
+  if (selectedRegion && REGION_INFO[selectedRegion]) {
+    initialRegion = {
+      latitude: REGION_INFO[selectedRegion].mapBounds.latitude,
+      longitude: REGION_INFO[selectedRegion].mapBounds.longitude,
+      latitudeDelta: REGION_INFO[selectedRegion].mapBounds.latitudeDelta,
+      longitudeDelta: REGION_INFO[selectedRegion].mapBounds.longitudeDelta,
+    }
+  } else {
+    console.warn(
+      'MapQuizScreen: selectedRegion or REGION_INFO[selectedRegion] is missing',
+      selectedRegion
+    )
   }
 
   // Use default provider for iOS simulator, Google for others
@@ -52,6 +64,34 @@ const MapQuizScreen: React.FC = () => {
   const getLevelColor = (level: number): string => {
     const colors = { 1: '#4CAF50', 2: '#FF9800', 3: '#F44336' }
     return colors[level as keyof typeof colors] || '#666'
+  }
+
+  // Show loading screen while countries are loading or quiz is initializing
+  if (isLoadingCountries || isInitializing) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2196F3" />
+          <Text style={styles.loadingText}>
+            {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
+          </Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+  // Show error screen if there was an error loading countries
+  if (countriesError) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Error loading countries data</Text>
+          <Text style={styles.errorSubtext}>
+            Please check your internet connection and try again
+          </Text>
+        </View>
+      </SafeAreaView>
+    )
   }
 
   const handleMapPress = async (event: any) => {
@@ -104,15 +144,21 @@ const MapQuizScreen: React.FC = () => {
           <Text style={styles.questionText}>Find the country: {currentQuestion.correctAnswer}</Text>
 
           <View style={styles.mapContainer}>
-            <MapView
-              style={styles.map}
-              provider={mapProvider}
-              initialRegion={initialRegion}
-              onPress={handleMapPress}
-              showsUserLocation={false}
-              showsMyLocationButton={false}
-              toolbarEnabled={false}
-            />
+            {initialRegion ? (
+              <MapView
+                style={styles.map}
+                provider={mapProvider}
+                initialRegion={initialRegion}
+                onPress={handleMapPress}
+                showsUserLocation={false}
+                showsMyLocationButton={false}
+                toolbarEnabled={false}
+              />
+            ) : (
+              <Text style={{ color: 'red', textAlign: 'center', marginTop: 20 }}>
+                Map cannot be displayed: Region info is missing or invalid.
+              </Text>
+            )}
           </View>
 
           <View style={styles.feedbackContainer}>
@@ -261,6 +307,30 @@ const styles = StyleSheet.create({
   levelText: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 16,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  errorSubtext: {
+    fontSize: 16,
+    color: '#666',
   },
 })
 

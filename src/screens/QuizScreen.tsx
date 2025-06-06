@@ -1,11 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
-import { useNavigation } from '@react-navigation/native'
 import Flag from '../components/Flag'
 
 const QuizScreen: React.FC = () => {
-  const navigation = useNavigation<any>()
   const {
     currentQuestion,
     score,
@@ -15,10 +20,12 @@ const QuizScreen: React.FC = () => {
     currentQuestionNumber,
     questionCount,
     currentLevel,
+    isLoadingCountries,
+    isInitializing,
+    countriesError,
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,
-    setIsImageLoading,
   } = useQuiz()
 
   const getLevelName = (level: number): string => {
@@ -31,8 +38,32 @@ const QuizScreen: React.FC = () => {
     return colors[level as keyof typeof colors] || '#666'
   }
 
-  const handleProgressOverview = () => {
-    navigation.navigate('Progress')
+  // Show loading screen while countries are loading or quiz is initializing
+  if (isLoadingCountries || isInitializing) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#2196F3" />
+          <Text style={styles.loadingText}>
+            {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
+          </Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
+
+  // Show error screen if there was an error loading countries
+  if (countriesError) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>Error loading countries data</Text>
+          <Text style={styles.errorSubtext}>
+            Please check your internet connection and try again
+          </Text>
+        </View>
+      </SafeAreaView>
+    )
   }
 
   return (
@@ -42,9 +73,6 @@ const QuizScreen: React.FC = () => {
           <Text style={styles.score}>Score: {score}</Text>
           <Text style={styles.highScore}>High Score: {highScore}</Text>
         </View>
-        <TouchableOpacity style={styles.progressButton} onPress={handleProgressOverview}>
-          <Text style={styles.progressButtonText}>📊</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.progressContainer}>
@@ -116,7 +144,36 @@ const QuizScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5f5f5',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 16,
+    textAlign: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 18,
+    color: '#F44336',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  errorSubtext: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
   },
   header: {
     padding: 16,
@@ -137,18 +194,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
-  },
-  progressButton: {
-    backgroundColor: '#f0f0f0',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 48,
-    height: 48,
-  },
-  progressButtonText: {
-    fontSize: 20,
   },
   progressContainer: {
     padding: 16,

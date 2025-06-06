@@ -180,7 +180,7 @@ const LEVEL_2_COUNTRIES = [
 ]
 
 export async function fetchCountriesData(): Promise<CountryWithRegion[]> {
-  const response = await fetch('https://restcountries.com/v3.1/all')
+  const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags')
   const data = await response.json()
   return data.map((country: CountryResponse, index: number) => {
     const countryName = country.name.common
@@ -214,6 +214,8 @@ export function getCountries(): CountryWithRegion[] | undefined {
  */
 export function getCountriesByRegion(region: Region): CountryWithRegion[] {
   const allCountries = getCountries()
+  console.log('--- getCountries', allCountries)
+
   if (!allCountries) {
     return []
   }
@@ -221,6 +223,7 @@ export function getCountriesByRegion(region: Region): CountryWithRegion[] {
   if (region === Region.WORLD) {
     return allCountries
   }
+  console.log('--- getCountriesByRegion', allCountries)
 
   return allCountries.filter(country => isCountryInRegion(country.name, region))
 }

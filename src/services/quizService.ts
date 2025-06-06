@@ -26,48 +26,78 @@ export const generateQuizQuestion = async (
   usedFlags: string[] = [],
   learnedCountryIds: number[] = []
 ): Promise<QuizQuestion> => {
-  // Get countries filtered by both region and level
-  const countries = getCountriesByRegionAndLevel(region, level)
+  try {
+    // Get countries filtered by both region and level
+    const countries = getCountriesByRegionAndLevel(region, level)
 
-  if (!countries || countries.length === 0) {
-    throw new Error(`No countries available for level ${level} in region ${region}`)
-  }
+    if (!countries || countries.length === 0) {
+      // Provide more specific error messages
+      const regionName = region.charAt(0).toUpperCase() + region.slice(1).replace('_', ' ')
+      const levelNames = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
+      const levelName = levelNames[level as keyof typeof levelNames] || `Level ${level}`
 
-  // Filter out countries that have already been used in this quiz session
-  // AND countries that have already been learned
-  const availableCountries = countries.filter(
-    country => !usedFlags.includes(country.id.toString()) && !learnedCountryIds.includes(country.id)
-  )
+      throw new Error(
+        `No countries available for ${levelName} level in ${regionName}. ` +
+          `This might be because the countries data hasn't loaded yet or ` +
+          `there are no countries assigned to this difficulty level in this region.`
+      )
+    }
 
-  if (availableCountries.length === 0) {
-    throw new Error(`No unused countries available for level ${level} in region ${region}`)
-  }
+    // Filter out countries that have already been used in this quiz session
+    // AND countries that have already been learned
+    const availableCountries = countries.filter(
+      country =>
+        !usedFlags.includes(country.id.toString()) && !learnedCountryIds.includes(country.id)
+    )
 
-  // Randomly select a country for the correct answer
-  const correctCountryIndex = Math.floor(Math.random() * availableCountries.length)
-  const correctCountry = availableCountries[correctCountryIndex]
+    if (availableCountries.length === 0) {
+      const regionName = region.charAt(0).toUpperCase() + region.slice(1).replace('_', ' ')
+      const levelNames = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
+      const levelName = levelNames[level as keyof typeof levelNames] || `Level ${level}`
 
-  // Generate 3 random wrong answers from the same region and level
-  const wrongAnswers = availableCountries
-    .filter((_, index) => index !== correctCountryIndex)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3)
-    .map(country => country.name)
+      throw new Error(
+        `All countries for ${levelName} level in ${regionName} have been used or learned. ` +
+          `Try restarting the quiz or selecting a different region/level.`
+      )
+    }
 
-  // If we don't have enough countries in this region/level for 4 options,
-  // fill with correct answer duplicates (this shouldn't happen in practice)
-  while (wrongAnswers.length < 3) {
-    wrongAnswers.push(correctCountry.name)
-  }
+    // Randomly select a country for the correct answer
+    const correctCountryIndex = Math.floor(Math.random() * availableCountries.length)
+    const correctCountry = availableCountries[correctCountryIndex]
 
-  // Combine correct and wrong answers, then shuffle
-  const options = [...wrongAnswers, correctCountry.name].sort(() => Math.random() - 0.5)
+    // Generate 3 random wrong answers from the same region and level
+    const wrongAnswers = availableCountries
+      .filter((_, index) => index !== correctCountryIndex)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map(country => country.name)
 
-  return {
-    id: correctCountry.id.toString(),
-    flagUrl: correctCountry.flagUrl,
-    correctAnswer: correctCountry.name,
-    options,
+    // If we don't have enough countries in this region/level for 4 options,
+    // fill with correct answer duplicates (this shouldn't happen in practice)
+    while (wrongAnswers.length < 3) {
+      wrongAnswers.push(correctCountry.name)
+    }
+
+    // Combine correct and wrong answers, then shuffle
+    const options = [...wrongAnswers, correctCountry.name].sort(() => Math.random() - 0.5)
+
+    return {
+      id: correctCountry.id.toString(),
+      flagUrl: correctCountry.flagUrl,
+      correctAnswer: correctCountry.name,
+      options,
+    }
+  } catch (error) {
+    // Re-throw with additional context if it's our custom error
+    if (error instanceof Error) {
+      throw error
+    }
+
+    // Handle unexpected errors
+    throw new Error(
+      `Unexpected error generating quiz question: ${error}. ` +
+        `Please try restarting the app or check your internet connection.`
+    )
   }
 }
 
@@ -114,9 +144,9 @@ export const getRegionLevelProgress = async (
     return createEmptyProgress(totalCountries)
   } catch (error) {
     console.error('Error getting region level progress:', error)
-    // Return empty progress as fallback
+    // Return empty progress as fallback - use 0 as totalCountries if countries data isn't loaded
     const countries = getCountriesByRegionAndLevel(region, level)
-    return createEmptyProgress(countries.length)
+    return createEmptyProgress(countries.length || 0)
   }
 }
 
@@ -212,7 +242,7 @@ export const getAllRegionProgress = async (): Promise<Record<string, RegionLevel
 export const resetRegionLevelProgress = async (region: Region, level: number): Promise<void> => {
   try {
     const countries = getCountriesByRegionAndLevel(region, level)
-    const emptyProgress = createEmptyProgress(countries.length)
+    const emptyProgress = createEmptyProgress(countries.length || 0)
     await saveRegionLevelProgress(region, level, emptyProgress)
   } catch (error) {
     console.error('Error resetting region level progress:', error)

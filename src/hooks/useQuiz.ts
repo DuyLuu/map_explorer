@@ -12,6 +12,7 @@ import {
 } from '../services/quizService'
 import { useCountryStore } from '../stores/countryStore'
 import { initializeTts, speakText } from '../services/speechService'
+import { useCountries } from './useCountries'
 
 type RootStackParamList = {
   NameInput: { score: number; questionCount: number }
@@ -21,6 +22,11 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 export const useQuiz = () => {
   const { selectedRegion } = useCountryStore()
+  const {
+    data: countriesData,
+    isLoading: isLoadingCountries,
+    error: countriesError,
+  } = useCountries()
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
@@ -32,21 +38,34 @@ export const useQuiz = () => {
   const [learnedCountryIds, setLearnedCountryIds] = useState<number[]>([])
   const [currentLevel, setCurrentLevel] = useState(1) // Start with Easy level
   const [questionsAnsweredAtLevel, setQuestionsAnsweredAtLevel] = useState(0)
+  const [isInitializing, setIsInitializing] = useState(true)
   const navigation = useNavigation<NavigationProp>()
 
   // Fixed question count of 10
   const questionCount = 10
 
   useEffect(() => {
-    const initializeQuiz = async () => {
-      await loadLearnedCountries()
-      await loadNextQuestion()
-      await loadHighScore()
-      await initializeTts()
-    }
+    // Only initialize quiz when countries data is loaded
+    if (!isLoadingCountries && countriesData && !countriesError) {
+      const initializeQuiz = async () => {
+        try {
+          await loadLearnedCountries()
+          await loadNextQuestion()
+          await loadHighScore()
+          await initializeTts()
+        } catch (error) {
+          console.error('Error initializing quiz:', error)
+        } finally {
+          setIsInitializing(false)
+        }
+      }
 
-    initializeQuiz()
-  }, [])
+      initializeQuiz()
+    } else if (countriesError) {
+      console.error('Error loading countries:', countriesError)
+      setIsInitializing(false)
+    }
+  }, [isLoadingCountries, countriesData, countriesError])
 
   const loadLearnedCountries = async () => {
     try {
@@ -138,6 +157,12 @@ export const useQuiz = () => {
 
   const loadNextQuestion = async () => {
     try {
+      // Don't proceed if countries data isn't loaded yet
+      if (!countriesData) {
+        console.warn('Countries data not loaded yet, cannot generate question')
+        return
+      }
+
       setIsImageLoading(true)
 
       // Check if we should progress to next level before generating question
@@ -183,6 +208,9 @@ export const useQuiz = () => {
     currentQuestionNumber,
     questionCount,
     currentLevel, // Expose current level for UI
+    isLoadingCountries, // Expose loading state
+    isInitializing, // Expose initialization state
+    countriesError, // Expose any errors
     handleSelectAnswer,
     handleSubmit,
     handleNextQuestion,

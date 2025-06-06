@@ -1,86 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
-import { isLevelUnlocked } from '../../../services/quizService'
 import BackButton from '../../../components/BackButton'
 
 import MapRegionOption from '../components/MapRegionOption'
 
 const MapRegionSelectionScreen: React.FC = () => {
-  const { selectedRegion, setSelectedRegion, selectedLevel, setSelectedLevel, setQuestionCount } =
-    useCountryStore()
+  const { selectedRegion, setSelectedRegion } = useCountryStore()
   const navigation = useNavigation<any>()
-  const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
-    1: true, // Easy is always unlocked
-    2: false,
-    3: false,
-  })
-
-  const levels = [
-    { id: 1, name: 'Easy', description: 'Most popular countries' },
-    { id: 2, name: 'Medium', description: 'Moderately known countries' },
-    { id: 3, name: 'Hard', description: 'Less known countries' },
-  ]
-
-  // Set default values for map quiz when screen loads
-  useEffect(() => {
-    if (!selectedLevel) {
-      setSelectedLevel(1) // Default to easy level for map quiz
-    }
-    setQuestionCount(10) // Default to 10 questions for map quiz
-  }, [setSelectedLevel, setQuestionCount, selectedLevel])
-
-  // Check level unlock status when region changes
-  useEffect(() => {
-    if (selectedRegion) {
-      checkLevelUnlockStatus()
-    }
-  }, [selectedRegion])
 
   // All 7 regions for map quiz
   const regions = getSelectableRegions().map(region => REGION_INFO[region])
-
-  const checkLevelUnlockStatus = async () => {
-    if (!selectedRegion) return
-
-    const unlockStatus: Record<number, boolean> = {
-      1: true, // Easy is always unlocked
-      2: await isLevelUnlocked(selectedRegion, 2),
-      3: await isLevelUnlocked(selectedRegion, 3),
-    }
-
-    setUnlockedLevels(unlockStatus)
-
-    // If currently selected level is now locked, reset to level 1
-    if (selectedLevel && !unlockStatus[selectedLevel]) {
-      setSelectedLevel(1)
-    }
-  }
 
   const handleRegionSelect = (region: Region) => {
     setSelectedRegion(region)
   }
 
-  const handleLevelSelect = (level: number) => {
-    if (unlockedLevels[level]) {
-      setSelectedLevel(level)
-    }
-  }
-
   const onConfirm = () => {
     navigation.navigate('MapQuiz')
-  }
-
-  const canStart = selectedRegion && selectedLevel && unlockedLevels[selectedLevel]
-
-  const getLevelLockMessage = (level: number): string => {
-    if (level === 1) return ''
-    if (level === 2) return 'Complete Easy level to unlock'
-    if (level === 3) return 'Complete Medium level to unlock'
-    return ''
   }
 
   return (
@@ -123,29 +63,11 @@ const MapRegionSelectionScreen: React.FC = () => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity
-        style={[styles.confirmButton, !canStart && styles.disabledButton]}
-        onPress={onConfirm}
-        disabled={!canStart}
-      >
+      <TouchableOpacity style={[styles.confirmButton]} onPress={onConfirm}>
         <Text style={styles.confirmButtonText}>Start Map Quiz</Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
-}
-
-// Helper function to get region descriptions
-const getRegionDescription = (region: Region): string => {
-  const descriptions: Record<Region, string> = {
-    [Region.WORLD]: 'All countries worldwide',
-    [Region.EUROPE]: '47 European countries',
-    [Region.AFRICA]: '54 African countries',
-    [Region.ASIA]: '48 Asian countries',
-    [Region.NORTH_AMERICA]: '23 North American countries',
-    [Region.SOUTH_AMERICA]: '12 South American countries',
-    [Region.OCEANIA]: '14 Oceanian countries',
-  }
-  return descriptions[region] || 'Explore this region'
 }
 
 const styles = StyleSheet.create({
@@ -307,10 +229,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-  },
-  selectedLevelOption: {
-    backgroundColor: '#FF6B35',
-    borderColor: '#E55A2B',
   },
   lockedOption: {
     backgroundColor: '#ccc',
