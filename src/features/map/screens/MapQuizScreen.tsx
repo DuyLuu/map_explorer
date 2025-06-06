@@ -9,10 +9,10 @@ import {
   Platform,
 } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
-import { useQuiz } from '../hooks/useQuiz'
-import { detectCountryFromCoordinates } from '../services/geocodingService'
-import { useCountryStore } from '../stores/countryStore'
-import { REGION_INFO } from '../types/region'
+import { useQuiz } from '../../../hooks/useQuiz'
+import { detectCountryFromCoordinates } from '../../../services/geocodingService'
+import { useCountryStore } from '../../../stores/countryStore'
+import { REGION_INFO } from '../../../types/region'
 
 const MapQuizScreen: React.FC = () => {
   const {

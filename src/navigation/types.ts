@@ -1,7 +1,7 @@
 export type RootStackParamList = {
   Home: undefined
   FlagRegionSelection: undefined
-  LevelSelection: undefined
+  FlagProgressDetail: undefined
   Quiz: undefined
   Progress: undefined
   MapRegionSelection: undefined
@@ -12,4 +12,5 @@ export type RootStackParamList = {
   }
   Leaderboard: undefined
   Settings: undefined
+  MapProgressDetail: undefined
 }

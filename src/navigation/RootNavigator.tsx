@@ -3,17 +3,17 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import HomeScreen from '../screens/HomeScreen'
-import FlagRegionSelectionScreen from '../screens/FlagRegionSelectionScreen'
-import LevelSelectionScreen from '../screens/LevelSelectionScreen'
+import FlagRegionSelectionScreen from '../features/flag/screens/FlagRegionSelectionScreen'
+import FlagProgressDetailScreen from '../features/flag/screens/FlagProgressDetailScreen'
 import QuizScreen from '../screens/QuizScreen'
-import ProgressScreen from '../screens/ProgressScreen'
-import MapRegionSelectionScreen from '../screens/MapRegionSelectionScreen'
-import MapQuizScreen from '../screens/MapQuizScreen'
+import MapRegionSelectionScreen from '../features/map/screens/MapRegionSelectionScreen'
+import MapQuizScreen from '../features/map/screens/MapQuizScreen'
 import NameInputScreen from '../screens/NameInputScreen'
 import LeaderboardScreen from '../screens/LeaderboardScreen'
 import { RootStackParamList } from './types'
 import { setQueryClient } from '../services/countryService'
 import SettingsScreen from '../screens/SettingsScreen'
+import MapProgressDetailScreen from '../features/map/screens/MapProgressDetailScreen'
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const queryClient = new QueryClient()
 
@@ -33,14 +33,14 @@ const RootNavigator: React.FC = () => {
         >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="FlagRegionSelection" component={FlagRegionSelectionScreen} />
-          <Stack.Screen name="LevelSelection" component={LevelSelectionScreen} />
+          <Stack.Screen name="FlagProgressDetail" component={FlagProgressDetailScreen} />
           <Stack.Screen name="Quiz" component={QuizScreen} />
-          <Stack.Screen name="Progress" component={ProgressScreen} />
           <Stack.Screen name="MapRegionSelection" component={MapRegionSelectionScreen} />
           <Stack.Screen name="MapQuiz" component={MapQuizScreen} />
           <Stack.Screen name="NameInput" component={NameInputScreen} />
           <Stack.Screen name="Leaderboard" component={LeaderboardScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
-import { useCountryStore } from '../stores/countryStore'
+import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
-import { Region, REGION_INFO } from '../types/region'
-import { getSelectableRegions } from '../services/regionService'
-import RegionProgressCard from '../components/RegionProgressCard'
-import { isLevelUnlocked } from '../services/quizService'
+import { Region, REGION_INFO } from '../../../types/region'
+import { getSelectableRegions } from '../../../services/regionService'
+import RegionProgressCard from '../../../components/RegionProgressCard'
+import { isLevelUnlocked } from '../../../services/quizService'
+import BackButton from '../../../components/BackButton'
+import { Box } from '@duyluu/rn-ui-kit'
 
-const LevelSelectionScreen: React.FC = () => {
+const FlagProgressDetailScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
   const navigation = useNavigation<any>()
   const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
@@ -77,11 +79,16 @@ const LevelSelectionScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Quiz Settings</Text>
+        <View style={styles.header}>
+          <BackButton />
+          <View style={styles.headerTitleContainer}>
+            <Text style={styles.title}>Progress Detail</Text>
+          </View>
+        </View>
 
         {/* Progress for Selected Region */}
         {selectedRegion && (
-          <View style={styles.section}>
+          <Box marginTop="md" style={styles.section}>
             <Text style={styles.sectionTitle}>
               Your Progress in {REGION_INFO[selectedRegion].displayName}
             </Text>
@@ -97,7 +104,7 @@ const LevelSelectionScreen: React.FC = () => {
                 />
               ))}
             </View>
-          </View>
+          </Box>
         )}
 
         {/* Difficulty Level Selection */}
@@ -184,6 +191,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  headerTitleContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   scrollView: {
     flex: 1,
@@ -283,4 +302,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LevelSelectionScreen
+export default FlagProgressDetailScreen

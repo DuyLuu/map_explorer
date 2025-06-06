@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
-import { useCountryStore } from '../stores/countryStore'
+import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
-import { Region, REGION_INFO } from '../types/region'
-import { getSelectableRegions } from '../services/regionService'
-import RegionOption from '../components/RegionOption'
+import { Region, REGION_INFO } from '../../../types/region'
+import { getSelectableRegions } from '../../../services/regionService'
+import RegionOption from '../../../components/RegionOption'
+import BackButton from '../../../components/BackButton'
 
 const FlagRegionSelectionScreen: React.FC = () => {
   const { selectedRegion, setSelectedRegion, setQuestionCount } = useCountryStore()
@@ -16,32 +17,28 @@ const FlagRegionSelectionScreen: React.FC = () => {
   }, [setQuestionCount])
 
   // All 7 regions for flag quiz
-  const regions = [
-    REGION_INFO[Region.WORLD],
-    ...getSelectableRegions().map(region => REGION_INFO[region]),
-  ]
+  const regions = getSelectableRegions().map(region => REGION_INFO[region])
 
   const handleRegionSelect = (region: Region) => {
     setSelectedRegion(region)
   }
 
   const onConfirm = () => {
-    navigation.navigate('LevelSelection')
-  }
-
-  const handleProgressOverview = () => {
-    navigation.navigate('Progress')
+    navigation.navigate('FlagProgressDetail')
   }
 
   const canStart = selectedRegion !== undefined
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <BackButton />
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.title}>Flag Quiz</Text>
+        </View>
+        <View style={{ width: 40 }} />
+      </View>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Flag Quiz</Text>
-        <TouchableOpacity style={styles.progressButton} onPress={handleProgressOverview}>
-          <Text style={styles.progressButtonText}>📊 Progress Overview</Text>
-        </TouchableOpacity>
         <Text style={styles.subtitle}>Select a region to get started</Text>
         <Text style={styles.infoText}>
           Choose your region, then select difficulty level with progressive unlocking!
@@ -79,6 +76,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  headerTitleContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  placeholder: {
+    width: 60, // Same width as back button to center title
+  },
   scrollView: {
     flex: 1,
     padding: 16,
@@ -86,9 +98,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
-    marginTop: 16,
     color: '#007AFF',
   },
   progressButton: {
