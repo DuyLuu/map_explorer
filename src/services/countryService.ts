@@ -1,6 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { Region, CountryWithRegion } from '../types/region'
 import { getCountryRegion, isCountryInRegion } from './regionService'
+import { getBundledCountries } from './bundledDataService'
 
 interface Country {
   id: number
@@ -25,7 +26,8 @@ export function setQueryClient(client: QueryClient) {
   queryClient = client
 }
 
-// List of most popular countries (Level 1)
+// Legacy level arrays - kept for compatibility but no longer used in bundled data approach
+// The levels are now stored directly in the bundled data from countries.json
 const LEVEL_1_COUNTRIES = [
   // North America
   'United States',
@@ -179,27 +181,33 @@ const LEVEL_2_COUNTRIES = [
   'Madagascar',
 ]
 
+/**
+ * Fetch countries data from bundled local data instead of external API
+ * This replaces the previous REST Countries API call with offline data
+ *
+ * Note: This function returns countries with their original flagUrl from the bundled data.
+ * Components that need to display flags should use flagAssetService.getFlagAssetByName()
+ * to get local flag assets for offline functionality.
+ */
 export async function fetchCountriesData(): Promise<CountryWithRegion[]> {
-  const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags')
-  const data = await response.json()
-  return data.map((country: CountryResponse, index: number) => {
-    const countryName = country.name.common
-    let level = 3 // Default level for less known countries
+  try {
+    console.log('🔄 Loading countries from bundled data...')
 
-    if (LEVEL_1_COUNTRIES.includes(countryName)) {
-      level = 1
-    } else if (LEVEL_2_COUNTRIES.includes(countryName)) {
-      level = 2
-    }
+    // Load bundled country data (which already includes proper structure)
+    const bundledCountries = await getBundledCountries()
 
-    return {
-      id: index + 1,
-      name: countryName,
-      flagUrl: country.flags?.png,
-      level,
-      region: getCountryRegion(countryName),
-    }
-  })
+    console.log(`✅ Loaded ${bundledCountries.length} countries from bundled data`)
+    console.log(`🏁 Countries ready for use (flagAssetService provides local flag assets)`)
+
+    return bundledCountries
+  } catch (error) {
+    console.error('❌ Failed to load countries from bundled data:', error)
+
+    // Throw error to be handled by the calling code
+    throw new Error(
+      `Failed to load countries data: ${error instanceof Error ? error.message : 'Unknown error'}`
+    )
+  }
 }
 
 export function getCountries(): CountryWithRegion[] | undefined {
