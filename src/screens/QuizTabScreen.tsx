@@ -15,7 +15,6 @@ import { useCountries } from '../hooks/useCountries'
 type RootStackParamList = {
   FlagRegionSelection: undefined
   MapRegionSelection: undefined
-  ChallengeQuiz: undefined
 }
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
@@ -65,23 +64,6 @@ const QuizTabScreen: React.FC = () => {
               )}
             </TouchableOpacity>
           )}
-
-          {/* Challenge Mode Button */}
-          <TouchableOpacity
-            style={[styles.button, styles.challengeButton]}
-            onPress={() => navigation.navigate('ChallengeQuiz')}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <>
-                <Text style={styles.buttonIcon}>🏆</Text>
-                <Text style={styles.buttonText}>Challenge Mode</Text>
-                <Text style={styles.buttonSubtext}>Ultimate geography test</Text>
-              </>
-            )}
-          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -134,11 +116,6 @@ const styles = StyleSheet.create({
   },
   mapButton: {
     backgroundColor: '#FF6B35',
-  },
-  challengeButton: {
-    backgroundColor: '#FF6B35',
-    borderWidth: 2,
-    borderColor: '#FFD700',
   },
   buttonIcon: {
     fontSize: 24,

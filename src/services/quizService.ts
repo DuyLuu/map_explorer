@@ -1,6 +1,7 @@
 import { QuizQuestion } from '../types/quiz'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getCountriesByRegionAndLevel } from './countryService'
+import { getFlagAssetByName } from './flagAssetService'
 import { Region } from '../types/region'
 import {
   RegionLevelProgress,
@@ -65,52 +66,49 @@ export const generateQuizQuestion = async (
     const correctCountryIndex = Math.floor(Math.random() * availableCountries.length)
     const correctCountry = availableCountries[correctCountryIndex]
 
-    // Generate 3 random wrong answers from the same region and level
-    const wrongAnswers = availableCountries
-      .filter(
-        (country, index) => index !== correctCountryIndex && country.name !== correctCountry.name
-      )
+    // Get local flag asset for the correct country
+    const flagAsset = getFlagAssetByName(correctCountry.name)
+    if (!flagAsset) {
+      throw new Error(`Flag asset not found for country: ${correctCountry.name}`)
+    }
+
+    // Generate wrong answers from the same region and level to make it challenging
+    const wrongAnswerCountries = availableCountries
+      .filter(country => country.name !== correctCountry.name)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
-      .map(country => country.name)
-      // Remove any duplicate names that might still exist
-      .filter((name, index, arr) => arr.indexOf(name) === index)
 
-    // If we don't have enough unique countries in this region/level for 4 options,
-    // try to get countries from other levels in the same region
-    if (wrongAnswers.length < 3) {
-      try {
-        // Get all countries from the region (all levels) as backup
-        const allRegionCountries = [1, 2, 3]
-          .flatMap(lvl => getCountriesByRegionAndLevel(region, lvl))
-          .filter(
-            country => country.name !== correctCountry.name && !wrongAnswers.includes(country.name)
-          )
+    // If we don't have enough wrong answers from the same level, fill with any countries from same region
+    if (wrongAnswerCountries.length < 3) {
+      const allRegionCountries = getCountriesByRegionAndLevel(region)
+      const additionalWrongAnswers = allRegionCountries
+        .filter(
+          country =>
+            country.name !== correctCountry.name &&
+            !wrongAnswerCountries.some(wac => wac.name === country.name)
+        )
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3 - wrongAnswerCountries.length)
 
-        const additionalAnswers = allRegionCountries
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 3 - wrongAnswers.length)
-          .map(country => country.name)
-          // Ensure no duplicates
-          .filter((name, index, arr) => arr.indexOf(name) === index)
-
-        wrongAnswers.push(...additionalAnswers)
-      } catch (error) {
-        console.warn('Could not get backup countries for wrong answers:', error)
-      }
+      wrongAnswerCountries.push(...additionalWrongAnswers)
     }
 
-    // If we still don't have enough unique options (very rare edge case),
-    // generate placeholder options to ensure we always have 4 total options
-    const placeholderIndex = wrongAnswers.length
-    while (wrongAnswers.length < 3) {
-      const placeholder = `Option ${placeholderIndex + wrongAnswers.length + 1}`
-      if (!wrongAnswers.includes(placeholder)) {
-        wrongAnswers.push(placeholder)
-      } else {
-        wrongAnswers.push(`Option ${Date.now()}`) // Fallback with timestamp
-      }
+    // If still not enough, fall back to any available countries from world region
+    if (wrongAnswerCountries.length < 3) {
+      const allAvailableCountries = getCountriesByRegionAndLevel(Region.WORLD)
+      const fallbackWrongAnswers = allAvailableCountries
+        .filter(
+          country =>
+            country.name !== correctCountry.name &&
+            !wrongAnswerCountries.some(wac => wac.name === country.name)
+        )
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3 - wrongAnswerCountries.length)
+
+      wrongAnswerCountries.push(...fallbackWrongAnswers)
     }
+
+    const wrongAnswers = wrongAnswerCountries.map(country => country.name)
 
     // Combine correct and wrong answers, then shuffle
     const options = [...wrongAnswers, correctCountry.name]
@@ -133,7 +131,7 @@ export const generateQuizQuestion = async (
 
     return {
       id: correctCountry.id.toString(),
-      flagUrl: correctCountry.flagUrl,
+      flagAsset,
       correctAnswer: correctCountry.name,
       options,
     }

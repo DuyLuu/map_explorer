@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, ActivityIndicator, StyleSheet } from 'react-native'
-import FastImage from 'react-native-fast-image'
+import { View, ActivityIndicator, StyleSheet, ImageSourcePropType } from 'react-native'
+import FastImage, { Source } from 'react-native-fast-image'
 
 interface FlagProps {
-  flagUrl: string
+  flagAsset: ImageSourcePropType
   onLoadEnd?: () => void
 }
 
 const Flag: React.FC<FlagProps> = React.memo(
-  ({ flagUrl, onLoadEnd }) => {
+  ({ flagAsset, onLoadEnd }) => {
     const [isImageLoading, setIsImageLoading] = useState(true)
 
     useEffect(() => {
@@ -22,20 +22,34 @@ const Flag: React.FC<FlagProps> = React.memo(
       onLoadEnd?.()
     }
 
+    // Convert ImageSourcePropType to FastImage compatible source
+    const getFastImageSource = (): Source => {
+      if (typeof flagAsset === 'number') {
+        // Local asset (require'd image)
+        return flagAsset as Source
+      } else if (typeof flagAsset === 'object' && flagAsset !== null && 'uri' in flagAsset) {
+        // URI-based source
+        return {
+          uri: flagAsset.uri,
+          priority: FastImage.priority.high,
+          cache: FastImage.cacheControl.immutable,
+        }
+      } else {
+        // Fallback for local assets
+        return flagAsset as Source
+      }
+    }
+
     return (
       <View style={styles.flagContainer}>
         {isImageLoading && <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />}
         <FastImage
           style={styles.flagImage}
-          source={{
-            uri: flagUrl,
-            priority: FastImage.priority.high,
-            cache: FastImage.cacheControl.immutable,
-          }}
+          source={getFastImageSource()}
           resizeMode={FastImage.resizeMode.contain}
           onLoadEnd={handleLoadEnd}
           onError={() => {
-            console.error('Failed to load image:', flagUrl)
+            console.error('Failed to load flag asset')
             handleLoadEnd()
           }}
         />
@@ -43,7 +57,8 @@ const Flag: React.FC<FlagProps> = React.memo(
     )
   },
   (prevProps, nextProps) => {
-    return prevProps.flagUrl === nextProps.flagUrl
+    // Compare the asset objects
+    return prevProps.flagAsset === nextProps.flagAsset
   }
 )
 

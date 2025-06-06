@@ -18,7 +18,6 @@ type RootStackParamList = {
   FlagRegionSelection: undefined
   MapRegionSelection: undefined
   ChallengeQuiz: undefined
-  PersonalRecords: undefined
   Settings: undefined
 }
 
@@ -95,13 +94,6 @@ const HomeScreen: React.FC = () => {
             ) : (
               <Text style={styles.buttonText}>🏆 Challenge Mode</Text>
             )}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.button, styles.secondaryButton]}
-            onPress={() => navigation.navigate('PersonalRecords')}
-          >
-            <Text style={[styles.buttonText, styles.secondaryButtonText]}>🏆 Personal Records</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -190,16 +182,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FFD700',
   },
-  secondaryButton: {
-    backgroundColor: '#f0f0f0',
-  },
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-  },
-  secondaryButtonText: {
-    color: '#007AFF',
   },
 })
 

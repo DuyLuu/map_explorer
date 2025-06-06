@@ -88,7 +88,7 @@ const QuizScreen: React.FC = () => {
 
       {currentQuestion && (
         <View style={styles.questionContainer}>
-          <Flag flagUrl={currentQuestion.flagUrl} />
+          <Flag flagAsset={currentQuestion.flagAsset} />
 
           <View style={styles.optionsContainer}>
             {currentQuestion.options.map((option, index) => (

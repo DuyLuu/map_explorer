@@ -1,6 +1,8 @@
+import { ImageSourcePropType } from 'react-native'
+
 export interface QuizQuestion {
   id: string
-  flagUrl: string
+  flagAsset: ImageSourcePropType
   correctAnswer: string
   options: string[]
 }

@@ -10,7 +10,6 @@ import QuizScreen from '../screens/QuizScreen'
 import MapRegionSelectionScreen from '../features/map/screens/MapRegionSelectionScreen'
 import MapQuizScreen from '../features/map/screens/MapQuizScreen'
 import ChallengeQuizScreen from '../features/challenge/screens/ChallengeQuizScreen'
-import PersonalRecordsScreen from '../screens/PersonalRecordsScreen'
 import { RootStackParamList } from './types'
 import { setQueryClient } from '../services/countryService'
 import SettingsScreen from '../screens/SettingsScreen'
@@ -139,7 +138,6 @@ const RootNavigator: React.FC = () => {
           <Stack.Screen name="MapRegionSelection" component={MapRegionSelectionScreen} />
           <Stack.Screen name="MapQuiz" component={MapQuizScreen} />
           <Stack.Screen name="ChallengeQuiz" component={ChallengeQuizScreen} />
-          <Stack.Screen name="PersonalRecords" component={PersonalRecordsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
           <Stack.Screen name="CountryDetail" component={CountryDetailScreen} />

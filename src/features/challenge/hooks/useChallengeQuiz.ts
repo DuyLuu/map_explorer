@@ -17,7 +17,7 @@ import {
 } from '../../../services/challengeScoringService'
 
 type RootStackParamList = {
-  Home: undefined
+  ChallengeQuiz: undefined
 }
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
@@ -253,7 +253,7 @@ export const useChallengeQuiz = () => {
 
   const handleNextQuestion = async () => {
     if (gameOver) {
-      navigation.navigate('Home')
+      navigation.goBack()
       return
     }
 
@@ -310,7 +310,7 @@ export const useChallengeQuiz = () => {
     })
     setIsNewRecord(false)
     setFinalChallengeScore(null)
-    navigation.navigate('Home')
+    navigation.goBack()
   }
 
   return {

@@ -10,7 +10,6 @@ export type RootStackParamList = {
   MapRegionSelection: undefined
   MapQuiz: undefined
   ChallengeQuiz: undefined
-  PersonalRecords: undefined
   Settings: undefined
   MapProgressDetail: undefined
   CountryDetail: { country: CountryWithRegion }

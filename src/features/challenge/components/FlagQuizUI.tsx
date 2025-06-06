@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
 import Flag from '../../../components/Flag'
 
 interface Question {
-  flagUrl: string
+  flagAsset: ImageSourcePropType
   correctAnswer: string
   options: string[]
 }
@@ -25,7 +25,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
 }) => {
   return (
     <>
-      <Flag flagUrl={currentQuestion.flagUrl} />
+      <Flag flagAsset={currentQuestion.flagAsset} />
 
       <View style={styles.optionsContainer}>
         {currentQuestion.options.map((option, index) => (

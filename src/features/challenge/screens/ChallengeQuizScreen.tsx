@@ -68,7 +68,7 @@ const ChallengeQuizScreen: React.FC = () => {
 
   const handleViewRecords = () => {
     setShowNewRecordModal(false)
-    navigation.navigate('PersonalRecords')
+    navigation.goBack()
   }
 
   // Show loading screen while countries are loading or quiz is initializing
