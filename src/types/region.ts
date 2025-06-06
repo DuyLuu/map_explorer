@@ -26,6 +26,13 @@ export interface CountryWithRegion {
   flagUrl: string
   level: number
   region: Region
+  // New fields from updated countries.json v2.0.0
+  countryCode?: string
+  population?: number
+  area?: number
+  capital?: string
+  apiRegion?: string
+  subregion?: string
 }
 
 // Region display information and map bounds

@@ -1,4 +1,7 @@
+import { CountryWithRegion } from '../types/region'
+
 export type RootStackParamList = {
+  MainTabs: undefined
   Home: undefined
   FlagRegionSelection: undefined
   FlagProgressDetail: undefined
@@ -10,4 +13,5 @@ export type RootStackParamList = {
   PersonalRecords: undefined
   Settings: undefined
   MapProgressDetail: undefined
+  CountryDetail: { country: CountryWithRegion }
 }

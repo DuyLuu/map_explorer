@@ -17,6 +17,8 @@ import SettingsScreen from '../screens/SettingsScreen'
 import MapProgressDetailScreen from '../features/map/screens/MapProgressDetailScreen'
 import { loadBundledCountryData, isBundledDataLoaded } from '../services/bundledDataService'
 import { preloadCommonFlags } from '../services/flagAssetService'
+import TabNavigator from './TabNavigator'
+import CountryDetailScreen from '../features/learning/screens/CountryDetailScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const queryClient = new QueryClient()
@@ -124,11 +126,12 @@ const RootNavigator: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="MainTabs"
           screenOptions={{
             headerShown: false,
           }}
         >
+          <Stack.Screen name="MainTabs" component={TabNavigator} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="FlagRegionSelection" component={FlagRegionSelectionScreen} />
           <Stack.Screen name="FlagProgressDetail" component={FlagProgressDetailScreen} />
@@ -139,6 +142,7 @@ const RootNavigator: React.FC = () => {
           <Stack.Screen name="PersonalRecords" component={PersonalRecordsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
+          <Stack.Screen name="CountryDetail" component={CountryDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

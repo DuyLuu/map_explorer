@@ -4,6 +4,9 @@ interface CountryDataFile {
   version: string
   generatedAt: string
   totalCountries: number
+  source?: string
+  lastUpdated?: string
+  metadata?: any
   countries: Array<{
     id: number
     name: string
@@ -12,6 +15,11 @@ interface CountryDataFile {
     countryCode: string
     flagUrl: string
     originalFlagUrl: string
+    population?: number
+    area?: number
+    capital?: string
+    apiRegion?: string
+    subregion?: string
   }>
 }
 
@@ -83,6 +91,13 @@ export function loadBundledCountryData(): Promise<CountryWithRegion[]> {
         flagUrl: country.flagUrl, // Will be replaced with local path by flagAssetService
         level: country.level,
         region: country.region as any, // Cast to Region enum
+        // Include new fields from v2.0.0
+        countryCode: country.countryCode,
+        population: country.population,
+        area: country.area,
+        capital: country.capital,
+        apiRegion: country.apiRegion,
+        subregion: country.subregion,
       }))
 
       // Validate each country has required fields
