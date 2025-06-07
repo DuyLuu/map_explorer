@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import {
   ChallengeScore,
   formatTime,
@@ -31,11 +32,17 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
 
   return (
     <Modal visible={visible} transparent animationType="fade">
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
+      <Box flex center backgroundColor="rgba(0, 0, 0, 0.85)" padding="ml">
+        <Box
+          backgroundColor="white"
+          borderRadius="xl"
+          padding="xl"
+          fullWidth
+          style={styles.modalConstraints}
+        >
           <ScrollView showsVerticalScrollIndicator={false}>
             {/* Header */}
-            <View style={styles.header}>
+            <Box centerItems marginBottom="ml">
               {isPerfectScore ? (
                 <>
                   <Text style={styles.perfectTitle}>🏆 PERFECT SCORE! 🏆</Text>
@@ -52,33 +59,40 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
                   <Text style={styles.subtitle}>One wrong answer ends the challenge</Text>
                 </>
               )}
-            </View>
+            </Box>
 
             {/* New Record Banner */}
             {isNewRecord && (
-              <View style={styles.newRecordBanner}>
+              <Box
+                backgroundColor="#4CAF50"
+                paddingVertical="sm"
+                paddingHorizontal="m"
+                borderRadius="lg"
+                marginBottom="m"
+                centerItems
+              >
                 <Text style={styles.newRecordText}>🆕 NEW PERSONAL RECORD! 🆕</Text>
-              </View>
+              </Box>
             )}
 
             {/* Score Section */}
-            <View style={styles.scoreSection}>
-              <View style={styles.mainScore}>
+            <Box>
+              <Box centerItems marginBottom="m">
                 <Text style={styles.scoreLabel}>Base Score</Text>
                 <Text style={styles.scoreValue}>{score}</Text>
                 <Text style={styles.questionsLabel}>
                   Questions Answered: {questionsAnswered} / 300
                 </Text>
-              </View>
+              </Box>
 
               {finalChallengeScore && (
                 <>
                   {/* Bonus Points */}
                   {finalChallengeScore.bonusPoints > 0 && (
-                    <View style={styles.bonusSection}>
+                    <Box marginBottom="m">
                       <Text style={styles.bonusLabel}>Bonus Points</Text>
                       <Text style={styles.bonusValue}>+{finalChallengeScore.bonusPoints}</Text>
-                      <View style={styles.bonusBreakdown}>
+                      <Box marginTop="xs">
                         {finalChallengeScore.breakdown.mediumCorrect > 0 && (
                           <Text style={styles.bonusItem}>
                             Medium Level: +
@@ -97,67 +111,67 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
                           <Text style={styles.bonusItem}>Hard Level Reached: +20</Text>
                         )}
                         {score === 300 && <Text style={styles.bonusItem}>Perfect Score: +50</Text>}
-                      </View>
-                    </View>
+                      </Box>
+                    </Box>
                   )}
 
                   {/* Final Score */}
-                  <View style={styles.finalScoreSection}>
+                  <Box centerItems marginBottom="m">
                     <Text style={styles.finalScoreLabel}>Final Score</Text>
                     <Text style={styles.finalScoreValue}>{finalChallengeScore.finalScore}</Text>
                     <Text style={styles.performanceText}>{getScoreDescription(score)}</Text>
-                  </View>
+                  </Box>
 
                   {/* Stats Breakdown */}
-                  <View style={styles.statsSection}>
+                  <Box marginBottom="m">
                     <Text style={styles.statsTitle}>Performance Breakdown</Text>
-                    <View style={styles.statsGrid}>
-                      <View style={styles.statItem}>
+                    <Box row spaceAround marginBottom="xs">
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {finalChallengeScore.breakdown.easyCorrect}
                         </Text>
                         <Text style={styles.statLabel}>Easy</Text>
-                      </View>
-                      <View style={styles.statItem}>
+                      </Box>
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {finalChallengeScore.breakdown.mediumCorrect}
                         </Text>
                         <Text style={styles.statLabel}>Medium</Text>
-                      </View>
-                      <View style={styles.statItem}>
+                      </Box>
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {finalChallengeScore.breakdown.hardCorrect}
                         </Text>
                         <Text style={styles.statLabel}>Hard</Text>
-                      </View>
-                    </View>
-                    <View style={styles.statsGrid}>
-                      <View style={styles.statItem}>
+                      </Box>
+                    </Box>
+                    <Box row spaceAround>
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {finalChallengeScore.breakdown.flagQuestions}
                         </Text>
                         <Text style={styles.statLabel}>🏳️ Flags</Text>
-                      </View>
-                      <View style={styles.statItem}>
+                      </Box>
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {finalChallengeScore.breakdown.mapQuestions}
                         </Text>
                         <Text style={styles.statLabel}>🗺️ Maps</Text>
-                      </View>
-                      <View style={styles.statItem}>
+                      </Box>
+                      <Box centerItems>
                         <Text style={styles.statValue}>
                           {formatTime(finalChallengeScore.timeSpent)}
                         </Text>
                         <Text style={styles.statLabel}>Time</Text>
-                      </View>
-                    </View>
-                  </View>
+                      </Box>
+                    </Box>
+                  </Box>
                 </>
               )}
-            </View>
+            </Box>
 
             {/* Buttons */}
-            <View style={styles.buttonContainer}>
+            <Box marginTop="m">
               <TouchableOpacity style={[styles.button, styles.primaryButton]} onPress={onRestart}>
                 <Text style={styles.buttonText}>
                   {isPerfectScore ? 'Can You Do It Again?' : 'Try Again'}
@@ -167,201 +181,157 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
               <TouchableOpacity style={[styles.button, styles.secondaryButton]} onPress={onExit}>
                 <Text style={[styles.buttonText, styles.secondaryButtonText]}>Exit Challenge</Text>
               </TouchableOpacity>
-            </View>
+            </Box>
           </ScrollView>
-        </View>
-      </View>
+        </Box>
+      </Box>
     </Modal>
   )
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modal: {
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 24,
-    width: '100%',
+  modalConstraints: {
     maxWidth: 380,
     maxHeight: '90%',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#F44336',
-    marginBottom: 8,
+    color: '#333',
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
+    marginTop: 8,
   },
   perfectTitle: {
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#FFD700',
-    marginBottom: 8,
     textAlign: 'center',
+    textShadowColor: '#FFA500',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   perfectSubtitle: {
-    fontSize: 16,
-    color: '#FF6B35',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  completeTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
-    marginBottom: 8,
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  completeTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#4CAF50',
     textAlign: 'center',
   },
   completeSubtitle: {
     fontSize: 16,
-    color: '#4CAF50',
+    color: '#666',
     textAlign: 'center',
-  },
-  newRecordBanner: {
-    backgroundColor: '#FFD700',
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 20,
-    alignItems: 'center',
+    marginTop: 8,
   },
   newRecordText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
-  },
-  scoreSection: {
-    marginBottom: 24,
-  },
-  mainScore: {
-    alignItems: 'center',
-    marginBottom: 16,
+    color: '#fff',
+    textAlign: 'center',
   },
   scoreLabel: {
     fontSize: 16,
     color: '#666',
+    textAlign: 'center',
     marginBottom: 8,
   },
   scoreValue: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 8,
+    color: '#333',
+    textAlign: 'center',
   },
   questionsLabel: {
     fontSize: 14,
     color: '#888',
-  },
-  bonusSection: {
-    backgroundColor: '#f8f9fa',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    alignItems: 'center',
+    textAlign: 'center',
+    marginTop: 8,
   },
   bonusLabel: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 4,
-  },
-  bonusValue: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
+    textAlign: 'center',
     marginBottom: 8,
   },
-  bonusBreakdown: {
-    alignItems: 'center',
-  },
-  bonusItem: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 2,
-  },
-  finalScoreSection: {
-    alignItems: 'center',
-    backgroundColor: '#e3f2fd',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-  },
-  finalScoreLabel: {
-    fontSize: 16,
-    color: '#1976d2',
-    marginBottom: 4,
-  },
-  finalScoreValue: {
-    fontSize: 36,
+  bonusValue: {
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#1976d2',
-    marginBottom: 8,
-  },
-  performanceText: {
-    fontSize: 14,
-    color: '#1976d2',
-    fontWeight: 'bold',
-  },
-  statsSection: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    padding: 16,
-  },
-  statsTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 12,
+    color: '#4CAF50',
     textAlign: 'center',
   },
-  statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 12,
+  bonusItem: {
+    fontSize: 14,
+    color: '#4CAF50',
+    textAlign: 'center',
+    marginVertical: 2,
+  },
+  finalScoreLabel: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  finalScoreValue: {
+    fontSize: 56,
+    fontWeight: 'bold',
+    color: '#FF6B35',
+    textAlign: 'center',
+  },
+  performanceText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 8,
+    fontStyle: 'italic',
+  },
+  statsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 16,
   },
   statItem: {
     alignItems: 'center',
-    flex: 1,
+    minWidth: 80,
   },
   statValue: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 4,
+    color: '#333',
   },
   statLabel: {
     fontSize: 12,
     color: '#666',
+    marginTop: 4,
     textAlign: 'center',
-  },
-  buttonContainer: {
-    width: '100%',
-    gap: 12,
-    marginTop: 8,
   },
   button: {
     padding: 16,
     borderRadius: 12,
+    marginVertical: 6,
     alignItems: 'center',
   },
   primaryButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#FF6B35',
   },
   secondaryButton: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderColor: '#ddd',
   },
   buttonText: {
     fontSize: 16,
@@ -369,7 +339,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   secondaryButtonText: {
-    color: '#007AFF',
+    color: '#666',
   },
 })
 

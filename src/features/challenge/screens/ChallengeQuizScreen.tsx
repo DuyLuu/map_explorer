@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useChallengeQuiz } from '../hooks/useChallengeQuiz'
 import ChallengeGameOverModal from '../components/ChallengeGameOverModal'
 import NewRecordModal from '../components/NewRecordModal'
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/types'
 import Text from '../../../components'
+import { Box } from '../../../components/Box'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
@@ -56,12 +57,12 @@ const ChallengeQuizScreen: React.FC = () => {
   if (isLoadingCountries || isInitializing) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
+        <Box flex center padding="ml">
           <ActivityIndicator size="large" color="#FF6B35" />
           <Text variant="body" weight="bold" center marginTop="m">
             {isLoadingCountries ? 'Loading countries...' : 'Initializing Challenge...'}
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -70,12 +71,12 @@ const ChallengeQuizScreen: React.FC = () => {
   if (countriesError) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.errorContainer}>
+        <Box flex center padding="ml">
           <Text style={styles.errorText}>Error loading countries data</Text>
           <Text style={styles.errorSubtext}>
             Please check your internet connection and try again
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -98,38 +99,49 @@ const ChallengeQuizScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.challengeIndicator}>
+      <Box padding="m" backgroundColor="white" style={styles.headerBorder}>
+        <Box centerItems marginBottom="sm">
           <Text style={styles.challengeLabel}>🏆 CHALLENGE MODE</Text>
           <Text style={styles.challengeSubtext}>Zero tolerance - One mistake ends it all!</Text>
-        </View>
+        </Box>
 
-        <View style={styles.scoreContainer}>
-          <View style={styles.scoreRow}>
-            <View style={styles.currentScoreSection}>
+        <Box row spaceBetween centerItems>
+          <Box row spaceBetween centerItems fullWidth>
+            <Box alignStart>
               <Text style={styles.score}>Score: {score}</Text>
               <Text style={styles.potentialScore}>
                 +Bonus: {getCurrentPotentialScore() - score} = {getCurrentPotentialScore()}
               </Text>
-            </View>
-            <View style={styles.bestScoreSection}>
+            </Box>
+            <Box alignEnd>
               <Text style={styles.highScore}>Best: {highScore}</Text>
               <Text style={styles.timeDisplay}>{formatTime(timeSpent)}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
 
-      <View style={styles.progressContainer}>
+      <Box padding="m" centerItems backgroundColor="white" style={styles.progressBorder}>
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <View style={styles.levelIndicator}>
+        <Box
+          backgroundColor="#f8f8f8"
+          paddingHorizontal="sm"
+          paddingVertical="xs"
+          borderRadius="xl"
+          marginBottom="xs"
+        >
           <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
             {getLevelProgress(currentQuestionNumber)}
           </Text>
-        </View>
-        <View style={styles.quizTypeIndicator}>
+        </Box>
+        <Box
+          backgroundColor="#f8f8f8"
+          paddingHorizontal="sm"
+          paddingVertical="xs"
+          borderRadius="xl"
+        >
           <Text
             style={[
               styles.quizTypeText,
@@ -138,11 +150,11 @@ const ChallengeQuizScreen: React.FC = () => {
           >
             {currentQuizType === 'flag' ? '🏳️ Flag Quiz' : '🗺️ Map Quiz'}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
       {currentQuestion && (
-        <View style={styles.questionContainer}>
+        <Box flex padding="ml">
           {currentQuizType === 'flag' ? (
             // Flag Quiz UI
             <FlagQuizUI
@@ -171,7 +183,7 @@ const ChallengeQuizScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           )}
-        </View>
+        </Box>
       )}
 
       {/* Game Over Modal - Only show if no new record */}
@@ -203,18 +215,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+  headerBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
-
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+  progressBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   errorText: {
     fontSize: 18,
@@ -227,16 +234,6 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
-  header: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    backgroundColor: '#fff',
-  },
-  challengeIndicator: {
-    alignItems: 'center',
-    marginBottom: 12,
-  },
   challengeLabel: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -246,23 +243,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
     marginTop: 2,
-  },
-  scoreContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  scoreRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-  },
-  currentScoreSection: {
-    alignItems: 'flex-start',
-  },
-  bestScoreSection: {
-    alignItems: 'flex-end',
   },
   score: {
     fontSize: 16,
@@ -283,42 +263,18 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 2,
   },
-  progressContainer: {
-    padding: 16,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
   progressText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  levelIndicator: {
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
     marginBottom: 8,
   },
   levelText: {
     fontSize: 14,
     fontWeight: 'bold',
   },
-  quizTypeIndicator: {
-    backgroundColor: '#f8f8f8',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
   quizTypeText: {
     fontSize: 14,
     fontWeight: 'bold',
-  },
-  questionContainer: {
-    flex: 1,
-    padding: 20,
   },
   nextButton: {
     backgroundColor: '#4CAF50',

@@ -1,11 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import BackButton from '../components/BackButton'
 import { Text } from '../components/Text'
-
-import { Box } from '@duyluu/rn-ui-kit'
+import { Box } from '../components/Box'
 
 type RootStackParamList = {
   Home: undefined
@@ -18,15 +17,15 @@ const SettingsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Box padding="lg" style={styles.content}>
-        <View style={styles.header}>
+      <Box padding="l" flex>
+        <Box row centerItems justifyStart marginBottom="l">
           <BackButton />
           <Text variant="h3" primary style={styles.title}>
             Settings
           </Text>
-        </View>
+        </Box>
 
-        <View style={styles.sectionContainer}>
+        <Box style={styles.sectionContainer}>
           <TouchableOpacity style={styles.section}>
             <Text variant="h6" weight="bold" primary>
               Purchase Pro
@@ -44,7 +43,7 @@ const SettingsScreen: React.FC = () => {
               Learn more about World Explorer
             </Text>
           </TouchableOpacity>
-        </View>
+        </Box>
       </Box>
     </SafeAreaView>
   )
@@ -54,9 +53,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  content: {
-    flex: 1,
   },
   title: {
     marginLeft: 16,
@@ -68,12 +64,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     padding: 20,
     borderRadius: 12,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginBottom: 24,
   },
 })
 

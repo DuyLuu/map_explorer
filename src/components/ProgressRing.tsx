@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
 import { Text } from './Text'
+import { Box } from './Box'
 
 interface ProgressRingProps {
   percentage: number
@@ -29,7 +30,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
   const strokeDashoffset = circumference - (percentage / 100) * circumference
 
   return (
-    <View style={[styles.container, { width: size, height: size }]}>
+    <Box center style={{ width: size, height: size }}>
       <Svg width={size} height={size} style={styles.svg}>
         {/* Background circle */}
         <Circle
@@ -55,27 +56,19 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
         />
       </Svg>
       {showPercentage && (
-        <View style={styles.textContainer}>
+        <Box center>
           <Text variant="label" weight="bold" size={textSize} color={textColor} center>
             {Math.round(percentage)}%
           </Text>
-        </View>
+        </Box>
       )}
-    </View>
+    </Box>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   svg: {
     position: 'absolute',
-  },
-  textContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
 

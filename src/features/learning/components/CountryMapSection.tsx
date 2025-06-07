@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 import { getCountryMapRegion } from '../../../services/countryCoordinatesService'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 interface CountryDetailData {
   coordinates: { latitude: number; longitude: number }
@@ -64,19 +65,27 @@ const CountryMapSection: React.FC<CountryMapSectionProps> = ({ country, countryD
   // Show error state if no region could be loaded
   if (!mapRegion) {
     return (
-      <View style={styles.mapSection}>
+      <Box padding="ml">
         <Text style={styles.sectionTitle}>Location</Text>
-        <View style={[styles.mapContainer, styles.errorContainer]}>
+        <Box
+          marginTop="sm"
+          borderRadius="sm"
+          hidden
+          shadow="light"
+          center
+          backgroundColor="#f5f5f5"
+          style={[styles.errorContainer, { height: 200 }]}
+        >
           <Text style={styles.errorText}>Unable to load map for this location</Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
     )
   }
 
   return (
-    <View style={styles.mapSection}>
+    <Box padding="ml">
       <Text style={styles.sectionTitle}>Location</Text>
-      <View style={styles.mapContainer}>
+      <Box marginTop="sm" borderRadius="sm" hidden shadow="light">
         <MapView
           provider={PROVIDER_DEFAULT}
           style={styles.map}
@@ -95,39 +104,19 @@ const CountryMapSection: React.FC<CountryMapSectionProps> = ({ country, countryD
             description={`Located in ${regionInfo?.displayName || country.region}`}
           />
         </MapView>
-      </View>
-    </View>
+      </Box>
+    </Box>
   )
 }
 
 const styles = StyleSheet.create({
-  mapSection: {
-    padding: 20,
-  },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 16,
   },
-  mapContainer: {
-    marginTop: 12,
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   errorContainer: {
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
     borderWidth: 1,
     borderColor: '#ddd',
     borderStyle: 'dashed',

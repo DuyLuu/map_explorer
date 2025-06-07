@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
 import { Text } from './Text'
+import { Box } from './Box'
 
 interface ProgressBarProps {
   percentage: number
@@ -28,9 +28,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   const clampedPercentage = Math.max(0, Math.min(100, percentage))
 
   return (
-    <View style={styles.container}>
+    <Box alignStart>
       {showLabel && (
-        <View style={styles.labelContainer}>
+        <Box row spaceBetween fullWidth marginBottom="xs">
           <Text variant="label" muted>
             {label}
           </Text>
@@ -39,51 +39,29 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
               {Math.round(clampedPercentage)}%
             </Text>
           )}
-        </View>
+        </Box>
       )}
-      <View
-        style={[
-          styles.progressTrack,
-          {
-            width,
-            height,
-            backgroundColor,
-          },
-        ]}
+      <Box
+        borderRadius="xs"
+        hidden
+        style={{
+          width,
+          height,
+          backgroundColor,
+        }}
       >
-        <View
-          style={[
-            styles.progressFill,
-            {
-              width: `${clampedPercentage}%`,
-              height: '100%',
-              backgroundColor: color,
-            },
-          ]}
+        <Box
+          borderRadius="xs"
+          style={{
+            width: `${clampedPercentage}%`,
+            height: '100%',
+            backgroundColor: color,
+            minWidth: 2, // Ensure minimum visible progress
+          }}
         />
-      </View>
-    </View>
+      </Box>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-start',
-  },
-  labelContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 4,
-  },
-  progressTrack: {
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    borderRadius: 4,
-    minWidth: 2, // Ensure minimum visible progress
-  },
-})
 
 export default ProgressBar

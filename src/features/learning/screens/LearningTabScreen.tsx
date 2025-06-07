@@ -1,20 +1,20 @@
 import React, { useState, useMemo } from 'react'
 import {
-  View,
   StyleSheet,
-  SafeAreaView,
   FlatList,
+  SafeAreaView,
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useCountries } from '../../../hooks/useCountries'
-import { CountryWithRegion, Region } from '../../../types/region'
-import CountryCard from '../components/CountryCard'
+import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import SearchBar from '../components/SearchBar'
 import RegionFilter from '../components/RegionFilter'
-import Text from '../../../components'
+import CountryCard from '../components/CountryCard'
+import { CountryWithRegion, Region } from '../../../types/region'
+import { useCountries } from '../../../hooks/useCountries'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -29,7 +29,7 @@ const LearningTabScreen: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedRegion, setSelectedRegion] = useState<Region | 'all' | 'territories'>('all')
 
-  // Filter and sort countries
+  // Filter and sort countries based on current selections
   const filteredCountries = useMemo(() => {
     if (!countries) return []
 
@@ -38,14 +38,18 @@ const LearningTabScreen: React.FC = () => {
     // Handle special filters first
     if (selectedRegion === 'all') {
       // Show only countries (no territories)
-      filtered = filtered.filter(country => (country.entityType || 'country') === 'country')
+      filtered = filtered.filter(
+        (country: CountryWithRegion) => (country.entityType || 'country') === 'country'
+      )
     } else if (selectedRegion === 'territories') {
       // Show only territories
-      filtered = filtered.filter(country => (country.entityType || 'country') === 'territory')
+      filtered = filtered.filter(
+        (country: CountryWithRegion) => (country.entityType || 'country') === 'territory'
+      )
     } else {
       // Filter by specific region (only countries, not territories)
       filtered = filtered.filter(
-        country =>
+        (country: CountryWithRegion) =>
           country.region === selectedRegion && (country.entityType || 'country') === 'country'
       )
     }
@@ -53,11 +57,15 @@ const LearningTabScreen: React.FC = () => {
     // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim()
-      filtered = filtered.filter(country => country.name.toLowerCase().includes(query))
+      filtered = filtered.filter((country: CountryWithRegion) =>
+        country.name.toLowerCase().includes(query)
+      )
     }
 
     // Sort alphabetically
-    return filtered.sort((a, b) => a.name.localeCompare(b.name))
+    return filtered.sort((a: CountryWithRegion, b: CountryWithRegion) =>
+      a.name.localeCompare(b.name)
+    )
   }, [countries, searchQuery, selectedRegion])
 
   const handleCountryPress = (country: CountryWithRegion) => {
@@ -77,23 +85,23 @@ const LearningTabScreen: React.FC = () => {
   }
 
   const EmptyState = () => (
-    <View style={styles.emptyContainer}>
+    <Box paddingVertical="xl" centerItems>
       <Text variant="body" weight="bold" center marginTop="m">
         {selectedRegion === 'territories' ? 'No territories found' : 'No countries found'}
       </Text>
       <Text variant="body" center marginTop="m">
         Try adjusting your search or filter
       </Text>
-    </View>
+    </Box>
   )
 
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
+        <Box flex center>
           <ActivityIndicator size="large" color="#007AFF" />
           <Text style={styles.loadingText}>Loading countries...</Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -101,25 +109,33 @@ const LearningTabScreen: React.FC = () => {
   if (error) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.errorContainer}>
+        <Box flex center>
           <Text style={styles.errorText}>Failed to load countries</Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
+      <Box
+        row
+        centerItems
+        spaceBetween
+        paddingHorizontal="m"
+        paddingVertical="m"
+        backgroundColor="white"
+        style={styles.headerBorder}
+      >
+        <Box flex>
           <Text style={styles.title}>Learning Center</Text>
           <Text style={styles.subtitle}>{getSubtitle()}</Text>
-        </View>
+        </Box>
         <TouchableOpacity style={styles.topCountriesButton} onPress={handleTopCountriesPress}>
           <Text style={styles.topCountriesIcon}>🏆</Text>
           <Text style={styles.topCountriesText}>Top Countries</Text>
         </TouchableOpacity>
-      </View>
+      </Box>
 
       <SearchBar
         value={searchQuery}
@@ -148,18 +164,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8f9fa',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
+  headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: '#e1e1e1',
-  },
-  headerContent: {
-    flex: 1,
   },
   title: {
     fontSize: 24,
@@ -193,42 +200,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 20,
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   loadingText: {
     marginTop: 12,
     fontSize: 16,
     color: '#666',
   },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   errorText: {
     fontSize: 16,
     color: '#f44336',
-  },
-  emptyContainer: {
-    paddingVertical: 40,
-    alignItems: 'center',
-  },
-  emptyIcon: {
-    fontSize: 48,
-    marginBottom: 16,
-  },
-  emptyText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
-  },
-  emptySubtext: {
-    fontSize: 14,
-    color: '#666',
   },
 })
 

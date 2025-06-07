@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 
 interface CountryDetailData {
@@ -40,75 +41,75 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
     switch (selectedTab) {
       case 'overview':
         return (
-          <View style={styles.tabContent}>
-            <View style={styles.infoSection}>
+          <Box padding="ml">
+            <Box backgroundColor="#f8f9fa" padding="m" borderRadius="sm">
               <Text style={styles.sectionTitle}>Basic Information</Text>
-              <View style={styles.infoRow}>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Capital:</Text>
                 <Text style={styles.infoValue}>{countryDetails.capital}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Population:</Text>
                 <Text style={styles.infoValue}>{countryDetails.population}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Languages:</Text>
                 <Text style={styles.infoValue}>{countryDetails.languages.join(', ')}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Currency:</Text>
                 <Text style={styles.infoValue}>{countryDetails.currency}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Area:</Text>
                 <Text style={styles.infoValue}>{countryDetails.area}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Region:</Text>
                 <Text style={styles.infoValue}>{regionInfo?.displayName || country.region}</Text>
-              </View>
-              <View style={styles.infoRow}>
+              </Box>
+              <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
                 <Text style={styles.infoLabel}>Difficulty Level:</Text>
                 <Text style={styles.infoValue}>Level {country.level}</Text>
-              </View>
-            </View>
-          </View>
+              </Box>
+            </Box>
+          </Box>
         )
       case 'culture':
         return (
-          <View style={styles.tabContent}>
+          <Box padding="ml">
             <Text style={styles.sectionTitle}>Cultural Facts</Text>
             {countryDetails.culturalFacts.map((fact: string, index: number) => (
-              <View key={index} style={styles.factItem}>
+              <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>
                 <Text style={styles.factText}>{fact}</Text>
-              </View>
+              </Box>
             ))}
-          </View>
+          </Box>
         )
       case 'history':
         return (
-          <View style={styles.tabContent}>
+          <Box padding="ml">
             <Text style={styles.sectionTitle}>Historical Highlights</Text>
             {countryDetails.historicalHighlights.map((highlight: string, index: number) => (
-              <View key={index} style={styles.factItem}>
+              <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>
                 <Text style={styles.factText}>{highlight}</Text>
-              </View>
+              </Box>
             ))}
-          </View>
+          </Box>
         )
       case 'geography':
         return (
-          <View style={styles.tabContent}>
+          <Box padding="ml">
             <Text style={styles.sectionTitle}>Geographic Features</Text>
             {countryDetails.geographicFeatures.map((feature: string, index: number) => (
-              <View key={index} style={styles.factItem}>
+              <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>
                 <Text style={styles.factText}>{feature}</Text>
-              </View>
+              </Box>
             ))}
-          </View>
+          </Box>
         )
       default:
         return null
@@ -118,7 +119,7 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
   return (
     <>
       {/* Tabs */}
-      <View style={styles.tabsContainer}>
+      <Box paddingVertical="m" style={styles.tabsContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {tabs.map(tab => (
             <TouchableOpacity
@@ -137,7 +138,7 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
             </TouchableOpacity>
           ))}
         </ScrollView>
-      </View>
+      </Box>
 
       {/* Tab Content */}
       {renderTabContent()}
@@ -147,7 +148,6 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
 
 const styles = StyleSheet.create({
   tabsContainer: {
-    paddingVertical: 16,
     borderBottomWidth: 0.5,
     borderBottomColor: '#E1E1E1',
   },
@@ -169,25 +169,13 @@ const styles = StyleSheet.create({
   selectedTabText: {
     color: '#fff',
   },
-  tabContent: {
-    padding: 20,
-  },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 16,
   },
-  infoSection: {
-    backgroundColor: '#f8f9fa',
-    padding: 16,
-    borderRadius: 12,
-  },
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
+  infoRowBorder: {
     borderBottomWidth: 0.5,
     borderBottomColor: '#E1E1E1',
   },
@@ -203,11 +191,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     flex: 1,
     marginLeft: 12,
-  },
-  factItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 12,
   },
   factBullet: {
     fontSize: 16,

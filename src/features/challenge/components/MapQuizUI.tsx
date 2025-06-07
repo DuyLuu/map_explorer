@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Alert, Platform, TouchableOpacity } from 'react-native'
+import { StyleSheet, Alert, Platform, TouchableOpacity } from 'react-native'
 import { Text } from '../../../components/Text'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
 import { detectCountryFromCoordinates } from '../../../services/geocodingService'
 import { getCountryMapRegion } from '../../../services/countryCoordinatesService'
+import { Box } from '../../../components/Box'
 
 interface Question {
   correctAnswer: string
@@ -89,7 +90,7 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
     <>
       <Text style={styles.mapQuestionText}>Find the country: {currentQuestion.correctAnswer}</Text>
 
-      <View style={styles.mapContainer}>
+      <Box borderRadius="sm" hidden marginBottom="m" style={{ height: 300 }}>
         <MapView
           key={currentQuestion?.correctAnswer}
           style={styles.map}
@@ -100,9 +101,9 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
           showsMyLocationButton={false}
           toolbarEnabled={false}
         />
-      </View>
+      </Box>
 
-      <View style={styles.mapFeedbackContainer}>
+      <Box center style={{ minHeight: 60 }}>
         {isDetecting && <Text style={styles.detectingText}>Detecting country...</Text>}
 
         {selectedCountry && !isDetecting && (
@@ -123,7 +124,7 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
               : `Wrong! It was ${currentQuestion.correctAnswer}`}
           </Text>
         )}
-      </View>
+      </Box>
 
       {/* Submit Button for Map Quiz */}
       {selectedCountry && !showFeedback && !isDetecting && (
@@ -143,19 +144,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: '#333',
   },
-  mapContainer: {
-    height: 300,
-    borderRadius: 12,
-    overflow: 'hidden',
-    marginBottom: 16,
-  },
   map: {
     flex: 1,
-  },
-  mapFeedbackContainer: {
-    minHeight: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   detectingText: {
     fontSize: 16,

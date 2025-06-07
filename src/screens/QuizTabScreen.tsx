@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  View,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -11,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from '../hooks/useCountries'
 import { Text } from '../components/Text'
+import { Box } from '../components/Box'
 
 type RootStackParamList = {
   FlagRegionSelection: undefined
@@ -25,7 +25,7 @@ const QuizTabScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <Box flex padding="xl" center>
         <Text variant="h1" primary center>
           Quiz Mode
         </Text>
@@ -33,7 +33,7 @@ const QuizTabScreen: React.FC = () => {
           Test your geography knowledge!
         </Text>
 
-        <View style={styles.buttonContainer}>
+        <Box style={[styles.buttonContainer, { width: '100%' }]}>
           <TouchableOpacity
             style={[styles.button, styles.flagButton]}
             onPress={() => navigation.navigate('FlagRegionSelection')}
@@ -80,8 +80,8 @@ const QuizTabScreen: React.FC = () => {
               )}
             </TouchableOpacity>
           )}
-        </View>
-      </View>
+        </Box>
+      </Box>
     </SafeAreaView>
   )
 }
@@ -101,14 +101,13 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   buttonContainer: {
-    width: '100%',
     gap: 20,
   },
   button: {
     padding: 24,
     borderRadius: 16,
     alignItems: 'center',
-    width: '100%',
+    width: 300,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

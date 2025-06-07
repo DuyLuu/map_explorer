@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
@@ -7,6 +7,7 @@ import { getSelectableRegions } from '../../../services/regionService'
 import RegionOption from '../../../components/RegionOption'
 import BackButton from '../../../components/BackButton'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 const FlagRegionSelectionScreen: React.FC = () => {
   const { selectedRegion, setSelectedRegion } = useCountryStore()
@@ -27,15 +28,15 @@ const FlagRegionSelectionScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <Box row centerItems spaceBetween padding="m" style={styles.headerBorder}>
         <BackButton onBack={() => navigation.navigate('MainTabs')} />
-        <View style={styles.headerTitleContainer}>
+        <Box flex centerItems>
           <Text variant="h3" weight="bold" style={styles.titleColor}>
             Flag Quiz
           </Text>
-        </View>
-        <View style={{ width: 40 }} />
-      </View>
+        </Box>
+        <Box style={{ width: 40 }} />
+      </Box>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <Text variant="body" muted center marginBottom="s">
           Select a region to get started
@@ -52,7 +53,7 @@ const FlagRegionSelectionScreen: React.FC = () => {
         </Text>
 
         {/* Region Selection */}
-        <View style={styles.section}>
+        <Box marginBottom="xl">
           <Text
             variant="h5"
             weight="semi-bold"
@@ -62,7 +63,7 @@ const FlagRegionSelectionScreen: React.FC = () => {
           >
             Choose Your Region
           </Text>
-          <View style={styles.optionsContainer}>
+          <Box marginHorizontal="xs" style={{ gap: 12 }}>
             {regions.map(region => (
               <RegionOption
                 key={region.id}
@@ -71,8 +72,8 @@ const FlagRegionSelectionScreen: React.FC = () => {
                 onPress={() => handleRegionSelect(region.id)}
               />
             ))}
-          </View>
-        </View>
+          </Box>
+        </Box>
       </ScrollView>
 
       <TouchableOpacity
@@ -93,17 +94,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
+  headerBorder: {
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-  },
-  headerTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
   placeholder: {
     width: 60, // Same width as back button to center title
@@ -132,15 +125,8 @@ const styles = StyleSheet.create({
   infoTextStyle: {
     fontStyle: 'italic',
   },
-  section: {
-    marginBottom: 24,
-  },
   sectionTitleColor: {
     color: '#333',
-  },
-  optionsContainer: {
-    gap: 12,
-    marginHorizontal: 8,
   },
   confirmButton: {
     backgroundColor: '#007AFF',

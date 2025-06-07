@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {
-  View,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -19,6 +18,7 @@ import {
   ChallengeScore,
 } from '../services/challengeScoringService'
 import Text from '../components'
+import { Box } from '../components/Box'
 
 type RootStackParamList = {
   ChallengeQuiz: undefined
@@ -56,31 +56,31 @@ const ChallengeTabScreen: React.FC = () => {
   const renderBestScore = () => {
     if (!stats?.bestScore) {
       return (
-        <View style={styles.emptyCard}>
+        <Box style={styles.emptyCard}>
           <Text variant="body" weight="bold" center marginTop="m">
             No Records Yet
           </Text>
           <Text variant="body" center marginTop="m">
             Complete a challenge to see your best score!
           </Text>
-        </View>
+        </Box>
       )
     }
 
     const bestScore = stats.bestScore
     return (
-      <View style={styles.bestScoreCard}>
-        <View style={styles.cardHeader}>
+      <Box style={styles.bestScoreCard}>
+        <Box style={styles.cardHeader}>
           <Text variant="body" weight="bold" center marginTop="m">
             🏆 Personal Best
           </Text>
           <Text variant="body" center marginTop="m">
             {new Date(bestScore.achievedAt).toLocaleDateString()}
           </Text>
-        </View>
+        </Box>
 
-        <View style={styles.scoreDisplayContainer}>
-          <View style={styles.mainScoreDisplay}>
+        <Box style={styles.scoreDisplayContainer}>
+          <Box style={styles.mainScoreDisplay}>
             <Text variant="body" weight="bold" center marginTop="m">
               Final Score
             </Text>
@@ -90,34 +90,34 @@ const ChallengeTabScreen: React.FC = () => {
             <Text variant="body" weight="bold" center marginTop="m">
               {getScoreDescription(bestScore.score)}
             </Text>
-          </View>
+          </Box>
 
-          <View style={styles.scoreBreakdown}>
-            <View style={styles.breakdownRow}>
+          <Box style={styles.scoreBreakdown}>
+            <Box style={styles.breakdownRow}>
               <Text variant="body" weight="bold" center marginTop="m">
                 Base Score:
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 {bestScore.score}
               </Text>
-            </View>
-            <View style={styles.breakdownRow}>
+            </Box>
+            <Box style={styles.breakdownRow}>
               <Text variant="body" weight="bold" center marginTop="m">
                 Bonus Points:
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 +{bestScore.bonusPoints}
               </Text>
-            </View>
-            <View style={styles.breakdownRow}>
+            </Box>
+            <Box style={styles.breakdownRow}>
               <Text variant="body" weight="bold" center marginTop="m">
                 Time Spent:
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 {formatTime(bestScore.timeSpent)}
               </Text>
-            </View>
-            <View style={styles.breakdownRow}>
+            </Box>
+            <Box style={styles.breakdownRow}>
               <Text variant="body" weight="bold" center marginTop="m">
                 Level Reached:
               </Text>
@@ -128,53 +128,53 @@ const ChallengeTabScreen: React.FC = () => {
                   ? 'Medium'
                   : 'Hard'}
               </Text>
-            </View>
-          </View>
-        </View>
+            </Box>
+          </Box>
+        </Box>
 
-        <View style={styles.performanceGrid}>
-          <View style={styles.performanceItem}>
+        <Box style={styles.performanceGrid}>
+          <Box style={styles.performanceItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {bestScore.breakdown.easyCorrect}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Easy
             </Text>
-          </View>
-          <View style={styles.performanceItem}>
+          </Box>
+          <Box style={styles.performanceItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {bestScore.breakdown.mediumCorrect}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Medium
             </Text>
-          </View>
-          <View style={styles.performanceItem}>
+          </Box>
+          <Box style={styles.performanceItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {bestScore.breakdown.hardCorrect}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Hard
             </Text>
-          </View>
-          <View style={styles.performanceItem}>
+          </Box>
+          <Box style={styles.performanceItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {bestScore.breakdown.flagQuestions}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               🏳️ Flags
             </Text>
-          </View>
-          <View style={styles.performanceItem}>
+          </Box>
+          <Box style={styles.performanceItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {bestScore.breakdown.mapQuestions}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               🗺️ Maps
             </Text>
-          </View>
-        </View>
-      </View>
+          </Box>
+        </Box>
+      </Box>
     )
   }
 
@@ -182,109 +182,109 @@ const ChallengeTabScreen: React.FC = () => {
     if (!stats) return null
 
     return (
-      <View style={styles.statsCard}>
+      <Box style={styles.statsCard}>
         <Text style={styles.cardTitle}>📊 Overall Statistics</Text>
 
-        <View style={styles.statsGrid}>
-          <View style={styles.statItem}>
+        <Box style={styles.statsGrid}>
+          <Box style={styles.statItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {stats.totalAttempts}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Total Attempts
             </Text>
-          </View>
-          <View style={styles.statItem}>
+          </Box>
+          <Box style={styles.statItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {stats.averageScore}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Average Score
             </Text>
-          </View>
-          <View style={styles.statItem}>
+          </Box>
+          <Box style={styles.statItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {stats.bestStreak}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Best Streak
             </Text>
-          </View>
-          <View style={styles.statItem}>
+          </Box>
+          <Box style={styles.statItem}>
             <Text variant="body" weight="bold" center marginTop="m">
               {formatTime(stats.totalTimeSpent)}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
               Total Time
             </Text>
-          </View>
-        </View>
+          </Box>
+        </Box>
 
-        <View style={styles.completionStats}>
+        <Box style={styles.completionStats}>
           <Text variant="body" weight="bold" center marginTop="m">
             Level Completions
           </Text>
-          <View style={styles.completionGrid}>
-            <View style={styles.completionItem}>
+          <Box style={styles.completionGrid}>
+            <Box style={styles.completionItem}>
               <Text variant="body" weight="bold" center marginTop="m">
                 {stats.completionStats.completedEasy}
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 Easy Reached
               </Text>
-            </View>
-            <View style={styles.completionItem}>
+            </Box>
+            <Box style={styles.completionItem}>
               <Text variant="body" weight="bold" center marginTop="m">
                 {stats.completionStats.completedMedium}
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 Medium Reached
               </Text>
-            </View>
-            <View style={styles.completionItem}>
+            </Box>
+            <Box style={styles.completionItem}>
               <Text variant="body" weight="bold" center marginTop="m">
                 {stats.completionStats.completedHard}
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 Hard Reached
               </Text>
-            </View>
-            <View style={styles.completionItem}>
+            </Box>
+            <Box style={styles.completionItem}>
               <Text variant="body" weight="bold" center marginTop="m">
                 {stats.completionStats.perfect300}
               </Text>
               <Text variant="body" weight="bold" center marginTop="m">
                 Perfect Scores
               </Text>
-            </View>
-          </View>
-        </View>
-      </View>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     )
   }
 
   const renderRecentAttempts = () => {
     if (history.length === 0) {
       return (
-        <View style={styles.historyCard}>
+        <Box style={styles.historyCard}>
           <Text style={styles.cardTitle}>📈 Recent Attempts</Text>
           <Text style={styles.emptyText}>No attempts yet</Text>
-        </View>
+        </Box>
       )
     }
 
     return (
-      <View style={styles.historyCard}>
+      <Box style={styles.historyCard}>
         <Text style={styles.cardTitle}>📈 Recent Attempts</Text>
         {history.slice(0, 5).map((attempt, index) => (
-          <View key={index} style={styles.historyItem}>
-            <View style={styles.historyHeader}>
+          <Box key={index} style={styles.historyItem}>
+            <Box style={styles.historyHeader}>
               <Text style={styles.historyScore}>{attempt.finalScore}</Text>
               <Text style={styles.historyDate}>
                 {new Date(attempt.achievedAt).toLocaleDateString()}
               </Text>
-            </View>
-            <View style={styles.historyDetails}>
+            </Box>
+            <Box style={styles.historyDetails}>
               <Text style={styles.historyDetail}>
                 Base: {attempt.score} + Bonus: {attempt.bonusPoints}
               </Text>
@@ -296,22 +296,22 @@ const ChallengeTabScreen: React.FC = () => {
                   ? 'Medium'
                   : 'Hard'}
               </Text>
-            </View>
-          </View>
+            </Box>
+          </Box>
         ))}
-      </View>
+      </Box>
     )
   }
 
   if (loadingStats) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
+        <Box style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#007AFF" />
           <Text variant="body" weight="bold" center marginTop="m">
             Loading challenge data...
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -319,7 +319,7 @@ const ChallengeTabScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
+        <Box style={styles.header}>
           <Text variant="h1" weight="bold" center marginTop="m" primary>
             Challenge Mode
           </Text>
@@ -349,13 +349,13 @@ const ChallengeTabScreen: React.FC = () => {
               </>
             )}
           </TouchableOpacity>
-        </View>
+        </Box>
 
-        <View style={styles.content}>
+        <Box style={styles.content}>
           {renderBestScore()}
           {renderOverallStats()}
           {renderRecentAttempts()}
-        </View>
+        </Box>
       </ScrollView>
     </SafeAreaView>
   )

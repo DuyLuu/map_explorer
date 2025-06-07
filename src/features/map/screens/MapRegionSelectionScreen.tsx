@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
 import BackButton from '../../../components/BackButton'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 import MapRegionOption from '../components/MapRegionOption'
 
@@ -26,9 +27,15 @@ const MapRegionSelectionScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <Box
+        row
+        centerItems
+        spaceBetween
+        padding="m"
+        style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}
+      >
         <BackButton />
-        <View style={styles.headerTitleContainer}>
+        <Box flex centerItems>
           <Text
             variant="h3"
             weight="bold"
@@ -39,9 +46,9 @@ const MapRegionSelectionScreen: React.FC = () => {
           >
             Map Quiz
           </Text>
-        </View>
-        <View style={{ width: 40 }} />
-      </View>
+        </Box>
+        <Box style={{ width: 40 }} />
+      </Box>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <Text variant="body" muted center marginBottom="s">
           Select region and difficulty level
@@ -58,7 +65,7 @@ const MapRegionSelectionScreen: React.FC = () => {
         </Text>
 
         {/* Region Selection */}
-        <View style={styles.section}>
+        <Box marginBottom="xl">
           <Text
             variant="h5"
             weight="semi-bold"
@@ -68,16 +75,19 @@ const MapRegionSelectionScreen: React.FC = () => {
           >
             Choose Your Region
           </Text>
-          <View style={styles.optionsContainer}>
+          <Box style={styles.optionsContainer}>
             {regions.map(region => (
               <MapRegionOption
                 key={region.id}
                 region={region.id}
                 isSelected={selectedRegion === region.id}
                 onPress={() => handleRegionSelect(region.id)}
+                correctAnswers={0}
+                totalQuestions={0}
+                isUnlocked={true}
               />
             ))}
-          </View>
+          </Box>
           {/* Add View Progress Detail button */}
           {selectedRegion && (
             <TouchableOpacity
@@ -89,7 +99,7 @@ const MapRegionSelectionScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           )}
-        </View>
+        </Box>
       </ScrollView>
 
       <TouchableOpacity style={[styles.confirmButton]} onPress={onConfirm}>
@@ -106,18 +116,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  headerTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
   scrollView: {
     flex: 1,
     padding: 16,
@@ -127,9 +125,6 @@ const styles = StyleSheet.create({
   },
   infoTextStyle: {
     fontStyle: 'italic',
-  },
-  section: {
-    marginBottom: 32,
   },
   sectionTitleColor: {
     color: '#333',

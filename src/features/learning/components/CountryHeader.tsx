@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 import { getFlagAssetByName } from '../../../services/flagAssetService'
 
@@ -30,77 +31,56 @@ const CountryHeader: React.FC<CountryHeaderProps> = ({ country }) => {
   }
 
   return (
-    <View style={styles.countryHeader}>
-      <View style={styles.flagContainer}>
+    <Box centerItems padding="xl" backgroundColor="#f8f9fa">
+      <Box
+        marginBottom="m"
+        borderRadius="xs"
+        hidden
+        shadow="light"
+        style={{ width: 80, height: 54 }}
+      >
         {flagAsset ? (
           <Image source={flagAsset} style={styles.flagImage} resizeMode="cover" />
         ) : (
-          <View style={styles.flagPlaceholder}>
+          <Box fullWidth fullHeight backgroundColor="#f0f0f0" center>
             <Text style={styles.flagPlaceholderText}>🏳️</Text>
-          </View>
+          </Box>
         )}
-      </View>
+      </Box>
       <Text style={styles.countryName}>{country.name}</Text>
       <Text style={styles.countryRegion}>{regionInfo?.displayName || country.region}</Text>
 
       {/* Enhanced: Show new data from updated countries.json */}
       {country.capital && (
-        <View style={styles.infoRow}>
+        <Box row centerItems marginBottom="sm">
           <Text style={styles.infoLabel}>Capital:</Text>
           <Text style={styles.infoValue}>{country.capital}</Text>
-        </View>
+        </Box>
       )}
 
-      <View style={styles.statsContainer}>
+      <Box row spaceAround fullWidth marginTop="xs">
         {country.population && (
-          <View style={styles.statItem}>
+          <Box centerItems flex>
             <Text style={styles.statLabel}>Population</Text>
             <Text style={styles.statValue}>{formatPopulation(country.population)}</Text>
-          </View>
+          </Box>
         )}
 
         {country.area && (
-          <View style={styles.statItem}>
+          <Box centerItems flex>
             <Text style={styles.statLabel}>Area</Text>
             <Text style={styles.statValue}>{formatArea(country.area)}</Text>
-          </View>
+          </Box>
         )}
-      </View>
-    </View>
+      </Box>
+    </Box>
   )
 }
 
 const styles = StyleSheet.create({
-  countryHeader: {
-    alignItems: 'center',
-    padding: 24,
-    backgroundColor: '#f8f9fa',
-  },
-  flagContainer: {
-    width: 80,
-    height: 54,
-    marginBottom: 16,
-    borderRadius: 8,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
   flagImage: {
     width: '100%',
     height: '100%',
-  },
-  flagPlaceholder: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   flagPlaceholderText: {
     fontSize: 24,
@@ -118,11 +98,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 16,
   },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
   infoLabel: {
     fontSize: 16,
     color: '#666',
@@ -133,16 +108,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     fontWeight: '600',
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginTop: 8,
-  },
-  statItem: {
-    alignItems: 'center',
-    flex: 1,
   },
   statLabel: {
     fontSize: 14,

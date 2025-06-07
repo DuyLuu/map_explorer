@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { View, ActivityIndicator, StyleSheet } from 'react-native'
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import { Text } from '../components/Text'
+import { Box } from '../components/Box'
 import { ThemeProvider } from '../theme/context'
 import FlagRegionSelectionScreen from '../features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from '../features/flag/screens/FlagProgressDetailScreen'
@@ -31,8 +32,8 @@ interface AppLoadingState {
 }
 
 const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
-  <View style={styles.loadingContainer}>
-    <View style={styles.loadingContent}>
+  <Box flex center backgroundColor="#000">
+    <Box centerItems paddingHorizontal="xl">
       <ActivityIndicator size="large" color="#007AFF" style={styles.spinner} />
       <Text variant="h2" color="#fff" weight="bold" center style={styles.loadingTitle}>
         World Explorer
@@ -45,7 +46,7 @@ const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
       </Text>
 
       {state.error && (
-        <View style={styles.errorContainer}>
+        <Box style={styles.errorContainer}>
           <Text variant="h6" color="#ff3b30" weight="bold" style={styles.errorTitle}>
             Loading Error
           </Text>
@@ -55,10 +56,10 @@ const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
           <Text variant="caption" color="#888" style={styles.retryText}>
             Please restart the app to try again
           </Text>
-        </View>
+        </Box>
       )}
-    </View>
-  </View>
+    </Box>
+  </Box>
 )
 
 const AppNavigator: React.FC = () => {

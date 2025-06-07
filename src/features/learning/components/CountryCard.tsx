@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 import { getFlagAssetByName } from '../../../services/flagAssetService'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 interface CountryCardProps {
   country: CountryWithRegion
@@ -19,31 +20,36 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
       onPress={() => onPress(country)}
       activeOpacity={0.7}
     >
-      <View style={styles.flagContainer}>
+      <Box marginRight="m" borderRadius="xs" hidden style={{ width: 48, height: 32 }}>
         {flagAsset ? (
           <Image source={flagAsset} style={styles.flagImage} resizeMode="cover" />
         ) : (
-          <View style={styles.flagPlaceholder}>
+          <Box fullWidth fullHeight backgroundColor="#f0f0f0" center>
             <Text size={16}>🏳️</Text>
-          </View>
+          </Box>
         )}
-      </View>
+      </Box>
 
-      <View style={styles.countryInfo}>
+      <Box flex>
         <Text variant="h6" weight="semi-bold" style={styles.countryName}>
           {country.name}
         </Text>
         <Text variant="bodySmall" muted style={styles.countryRegion}>
           {REGION_INFO[country.region]?.displayName || country.region}
         </Text>
-        <View style={styles.levelContainer}>
-          <View style={[styles.levelBadge, country.level === 1 ? styles.level1 : styles.level2]}>
+        <Box row>
+          <Box
+            paddingHorizontal="xs"
+            paddingVertical="xxs"
+            borderRadius="sm"
+            style={country.level === 1 ? styles.level1 : styles.level2}
+          >
             <Text variant="caption" weight="semi-bold" primary>
               Level {country.level}
             </Text>
-          </View>
-        </View>
-      </View>
+          </Box>
+        </Box>
+      </Box>
 
       <Icon name="chevron-forward" size={20} color="#999" />
     </TouchableOpacity>
@@ -67,40 +73,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  flagContainer: {
-    width: 48,
-    height: 32,
-    marginRight: 16,
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
   flagImage: {
     width: '100%',
     height: '100%',
-  },
-  flagPlaceholder: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  countryInfo: {
-    flex: 1,
   },
   countryName: {
     marginBottom: 4,
   },
   countryRegion: {
     marginBottom: 8,
-  },
-  levelContainer: {
-    flexDirection: 'row',
-  },
-  levelBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
   },
   level1: {
     backgroundColor: '#E3F2FD',

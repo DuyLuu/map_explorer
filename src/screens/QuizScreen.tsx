@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
 import Flag from '../components/Flag'
 import { Text } from '../components/Text'
+import { Box } from '../components/Box'
 
 const QuizScreen: React.FC = () => {
   const {
@@ -36,12 +37,12 @@ const QuizScreen: React.FC = () => {
   if (isLoadingCountries || isInitializing) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
+        <Box flex center padding="l">
           <ActivityIndicator size="large" color="#2196F3" />
           <Text style={styles.loadingText}>
             {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -50,41 +51,47 @@ const QuizScreen: React.FC = () => {
   if (countriesError) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.errorContainer}>
+        <Box flex center padding="l">
           <Text style={styles.errorText}>Error loading countries data</Text>
           <Text style={styles.errorSubtext}>
             Please check your internet connection and try again
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.scoreContainer}>
+      <Box
+        padding="m"
+        row
+        spaceBetween
+        centerItems
+        style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}
+      >
+        <Box flex>
           <Text style={styles.score}>Score: {score}</Text>
           <Text style={styles.highScore}>High Score: {highScore}</Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
-      <View style={styles.progressContainer}>
+      <Box padding="m" centerItems>
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <View style={styles.levelIndicator}>
+        <Box style={styles.levelIndicator}>
           <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
             {getLevelName(currentLevel)}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
       {currentQuestion && (
-        <View style={styles.questionContainer}>
+        <Box style={styles.questionContainer}>
           <Flag flagAsset={currentQuestion.flagAsset} />
 
-          <View style={styles.optionsContainer}>
+          <Box style={styles.optionsContainer}>
             {currentQuestion.options.map((option, index) => (
               <TouchableOpacity
                 key={index}
@@ -117,7 +124,7 @@ const QuizScreen: React.FC = () => {
                 </Text>
               </TouchableOpacity>
             ))}
-          </View>
+          </Box>
 
           {selectedAnswer && !showFeedback && (
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -132,7 +139,7 @@ const QuizScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           )}
-        </View>
+        </Box>
       )}
     </SafeAreaView>
   )

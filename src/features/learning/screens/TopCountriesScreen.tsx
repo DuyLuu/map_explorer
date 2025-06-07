@@ -1,17 +1,19 @@
 import React, { useState, useMemo } from 'react'
 import {
-  View,
   StyleSheet,
-  SafeAreaView,
   FlatList,
+  SafeAreaView,
+  ActivityIndicator,
   TouchableOpacity,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useCountries } from '../../../hooks/useCountries'
+import Icon from 'react-native-vector-icons/Ionicons'
+import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import { CountryWithRegion } from '../../../types/region'
+import { useCountries } from '../../../hooks/useCountries'
 import {
   getRankedCountries,
   RankingCategory,
@@ -19,8 +21,6 @@ import {
   RANKING_CATEGORIES,
   getCategoryInfo,
 } from '../../../utils/countryRankings'
-import BackButton from '../../../components/BackButton'
-import Text from '../../../components'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -31,12 +31,12 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 const TopCountriesScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>()
   const { data: countries, isLoading, error } = useCountries()
-  const [selectedCategory, setSelectedCategory] = useState<RankingCategory>('largest_area')
+  const [selectedCategory, setSelectedCategory] = useState<RankingCategory>('most_populous')
 
   // Get ranked countries for the selected category
   const rankedCountries = useMemo(() => {
     if (!countries) return []
-    return getRankedCountries(countries, selectedCategory, 20)
+    return getRankedCountries(countries, selectedCategory, 50)
   }, [countries, selectedCategory])
 
   const categoryInfo = getCategoryInfo(selectedCategory)
@@ -55,13 +55,11 @@ const TopCountriesScreen: React.FC = () => {
         style={[styles.categoryTab, isSelected && styles.selectedCategoryTab]}
         onPress={() => setSelectedCategory(category)}
       >
-        <Text variant="body" weight="bold" center marginTop="m">
-          {info.icon}
-        </Text>
-        <Text variant="body" weight="bold" center marginTop="m">
+        <Text style={styles.categoryIcon}>{info.icon}</Text>
+        <Text style={isSelected ? styles.selectedCategoryTitle : styles.categoryTitle}>
           {info.title}
         </Text>
-        <Text variant="body" center marginTop="m">
+        <Text style={isSelected ? styles.selectedCategoryDescription : styles.categoryDescription}>
           {info.description}
         </Text>
       </TouchableOpacity>
@@ -70,7 +68,7 @@ const TopCountriesScreen: React.FC = () => {
 
   const renderCountryItem = ({ item }: { item: RankedCountry }) => (
     <TouchableOpacity style={styles.countryItem} onPress={() => handleCountryPress(item)}>
-      <View style={styles.rankContainer}>
+      <Box centerItems style={{ minWidth: 50 }}>
         <Text variant="body" weight="bold" center marginTop="m">
           #{item.rank}
         </Text>
@@ -79,28 +77,41 @@ const TopCountriesScreen: React.FC = () => {
             {item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : '🥉'}
           </Text>
         )}
-      </View>
+      </Box>
 
-      <View style={styles.countryInfo}>
+      <Box flex marginLeft="m">
         <Text style={styles.countryName}>{item.name}</Text>
         <Text style={styles.countryValue}>{item.formattedValue}</Text>
-      </View>
+      </Box>
 
       <Text style={styles.chevron}>›</Text>
+    </TouchableOpacity>
+  )
+
+  const BackButton = () => (
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      <Icon name="arrow-back" size={24} color="#007AFF" />
     </TouchableOpacity>
   )
 
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
+        <Box
+          row
+          centerItems
+          paddingHorizontal="m"
+          paddingVertical="sm"
+          backgroundColor="white"
+          style={styles.headerBorder}
+        >
           <BackButton />
           <Text style={styles.title}>Top Countries</Text>
-        </View>
-        <View style={styles.loadingContainer}>
+        </Box>
+        <Box flex center>
           <ActivityIndicator size="large" color="#007AFF" />
           <Text style={styles.loadingText}>Loading rankings...</Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -108,23 +119,37 @@ const TopCountriesScreen: React.FC = () => {
   if (error) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
+        <Box
+          row
+          centerItems
+          paddingHorizontal="m"
+          paddingVertical="sm"
+          backgroundColor="white"
+          style={styles.headerBorder}
+        >
           <BackButton />
           <Text style={styles.title}>Top Countries</Text>
-        </View>
-        <View style={styles.errorContainer}>
+        </Box>
+        <Box flex center>
           <Text style={styles.errorText}>Failed to load country data</Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <Box
+        row
+        centerItems
+        paddingHorizontal="m"
+        paddingVertical="sm"
+        backgroundColor="white"
+        style={styles.headerBorder}
+      >
         <BackButton />
         <Text style={styles.title}>Top Countries</Text>
-      </View>
+      </Box>
 
       {/* Category Tabs */}
       <ScrollView
@@ -137,13 +162,20 @@ const TopCountriesScreen: React.FC = () => {
       </ScrollView>
 
       {/* Current Category Info */}
-      <View style={styles.currentCategoryContainer}>
+      <Box
+        row
+        centerItems
+        paddingHorizontal="m"
+        paddingVertical="m"
+        backgroundColor="white"
+        marginBottom="xs"
+      >
         <Text style={styles.currentCategoryIcon}>{categoryInfo.icon}</Text>
-        <View style={styles.currentCategoryInfo}>
+        <Box flex marginLeft="sm">
           <Text style={styles.currentCategoryTitle}>{categoryInfo.title}</Text>
           <Text style={styles.currentCategoryDescription}>{categoryInfo.description}</Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
       {/* Rankings List */}
       <FlatList
@@ -153,9 +185,9 @@ const TopCountriesScreen: React.FC = () => {
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
-          <View style={styles.emptyContainer}>
+          <Box paddingVertical="xl" centerItems>
             <Text style={styles.emptyText}>No data available for this category</Text>
-          </View>
+          </Box>
         }
       />
     </SafeAreaView>
@@ -334,6 +366,10 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     color: '#666',
+  },
+  headerBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#e1e1e1',
   },
 })
 

@@ -1,153 +1,134 @@
 import React from 'react'
-import { View, TouchableOpacity, StyleSheet } from 'react-native'
-import { Text } from '../../../components/Text'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Region, REGION_INFO } from '../../../types/region'
 import ProgressRing from '../../../components/ProgressRing'
-import { getRegionLevelProgress } from '../../../services/quizService'
+import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 interface MapRegionOptionProps {
   region: Region
   isSelected: boolean
   onPress: () => void
+  correctAnswers: number
+  totalQuestions: number
+  isUnlocked: boolean
 }
 
-const getRegionDescription = (region: Region): string => {
-  const descriptions: Record<Region, string> = {
-    [Region.WORLD]: 'All countries worldwide',
-    [Region.EUROPE]: '47 European countries',
-    [Region.AFRICA]: '54 African countries',
-    [Region.ASIA]: '48 Asian countries',
-    [Region.NORTH_AMERICA]: '23 North American countries',
-    [Region.SOUTH_AMERICA]: '12 South American countries',
-    [Region.OCEANIA]: '14 Oceanian countries',
-    [Region.TERRITORIES]: 'Territories and dependencies',
-  }
-  return descriptions[region] || 'Explore this region'
-}
+const MapRegionOption: React.FC<MapRegionOptionProps> = ({
+  region,
+  isSelected,
+  onPress,
+  correctAnswers,
+  totalQuestions,
+  isUnlocked,
+}) => {
+  const regionInfo = REGION_INFO[region]
+  const completion = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0
 
-const MapRegionOption: React.FC<MapRegionOptionProps> = ({ region, isSelected, onPress }) => {
-  const [progress, setProgress] = React.useState<number>(0)
-  const [learned, setLearned] = React.useState<number>(0)
-  const [total, setTotal] = React.useState<number>(0)
-
-  React.useEffect(() => {
-    loadProgress()
-  }, [region])
-
-  const loadProgress = async () => {
-    try {
-      const progressData = await getRegionLevelProgress(region, 1) // Level 1 (Easy) for overview
-      setProgress(progressData.completionPercentage)
-      setLearned(progressData.learnedCountries.length)
-      setTotal(progressData.totalCountries)
-    } catch (error) {
-      console.error('Error loading progress for region:', region, error)
-    }
-  }
-
-  const getProgressColor = (percentage: number): string => {
-    if (percentage === 100) return '#4CAF50' // Green for complete
-    if (percentage > 0) return '#FF9800' // Orange for in progress
-    return '#f0f0f0' // Gray for not started
+  // If it's locked (map quiz), show locked state
+  if (!isUnlocked) {
+    return (
+      <TouchableOpacity style={[styles.option, styles.lockedOption]} disabled>
+        <Text style={styles.regionName}>{regionInfo.displayName}</Text>
+        <Box centerItems>
+          <Text style={styles.lockText}>🔒</Text>
+          <Text style={styles.lockSubtext}>Complete previous regions</Text>
+        </Box>
+      </TouchableOpacity>
+    )
   }
 
   return (
     <TouchableOpacity
-      style={[styles.optionButton, isSelected && styles.selectedOption]}
+      style={[
+        styles.option,
+        isSelected && styles.selectedOption,
+        completion === 100 && styles.completedOption,
+      ]}
       onPress={onPress}
     >
-      <View style={styles.regionHeader}>
-        <View style={styles.regionTextContainer}>
-          <Text style={[styles.optionName, ...(isSelected ? [styles.selectedText] : [])]}>
-            {REGION_INFO[region].displayName}
-          </Text>
-          <Text style={[styles.optionDescription, ...(isSelected ? [styles.selectedText] : [])]}>
-            {getRegionDescription(region)}
-          </Text>
-          {progress > 0 && (
-            <Text style={[styles.progressText, ...(isSelected ? [styles.selectedText] : [])]}>
-              {learned}/{total} countries learned (Easy)
-            </Text>
-          )}
-        </View>
-        <View style={styles.progressContainer}>
+      {/* Region Info and Progress Ring */}
+      <Box row centerItems flex>
+        <Box flex>
+          <Box row centerItems marginBottom="xs">
+            <Text style={styles.regionName}>{regionInfo.displayName}</Text>
+          </Box>
+        </Box>
+
+        <Box centerItems marginLeft="m">
           <ProgressRing
-            percentage={progress}
+            percentage={completion}
             size={50}
             strokeWidth={4}
-            color={getProgressColor(progress)}
+            color={completion === 100 ? '#4CAF50' : '#2196F3'}
+            backgroundColor="#E0E0E0"
             showPercentage={false}
           />
-          {progress > 0 && (
-            <Text style={[styles.progressPercentage, ...(isSelected ? [styles.selectedText] : [])]}>
-              {Math.round(progress)}%
-            </Text>
-          )}
-        </View>
-      </View>
+          <Text style={styles.progressText}>{Math.round(completion)}%</Text>
+        </Box>
+      </Box>
+
+      {completion === 100 && <Text style={styles.completionBadge}>✅ Completed</Text>}
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  optionButton: {
-    backgroundColor: '#f8f8f8',
-    padding: 20,
-    borderRadius: 16,
-    borderWidth: 3,
-    borderColor: 'transparent',
+  option: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   selectedOption: {
-    backgroundColor: '#FF6B35',
-    borderColor: '#E55A2B',
+    borderColor: '#007AFF',
+    backgroundColor: '#f0f8ff',
   },
-  regionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  lockedOption: {
+    backgroundColor: '#f5f5f5',
+    borderColor: '#ccc',
+    opacity: 0.6,
   },
-  regionTextContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
+  completedOption: {
+    borderColor: '#4CAF50',
+    backgroundColor: '#f8fff8',
   },
-  progressContainer: {
-    alignItems: 'center',
-    marginLeft: 16,
-  },
-  optionName: {
+  regionName: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 4,
-    textAlign: 'left',
-  },
-  optionDescription: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'left',
-    marginBottom: 2,
   },
   progressText: {
     fontSize: 12,
-    color: '#888',
-    textAlign: 'left',
-  },
-  progressPercentage: {
-    fontSize: 10,
     color: '#666',
-    fontWeight: 'bold',
-    marginTop: 2,
+    marginTop: 4,
+    textAlign: 'center',
   },
-  selectedText: {
-    color: '#fff',
+  completionBadge: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#4CAF50',
+    textAlign: 'center',
+    marginTop: 8,
+  },
+  lockText: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
+  lockSubtext: {
+    fontSize: 12,
+    color: '#999',
+    textAlign: 'center',
   },
 })
 

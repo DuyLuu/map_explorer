@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
@@ -70,20 +71,26 @@ const MapProgressDetailScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
+        <Box
+          row
+          centerItems
+          spaceBetween
+          padding="m"
+          style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}
+        >
           <BackButton />
-          <View style={styles.headerTitleContainer}>
+          <Box flex centerItems>
             <Text style={styles.title}>Progress Detail</Text>
-          </View>
-        </View>
+          </Box>
+        </Box>
 
         {/* Progress for Selected Region */}
         {selectedRegion && (
-          <View style={styles.section}>
+          <Box marginBottom="xl">
             <Text style={styles.sectionTitle}>
               Your Progress in {REGION_INFO[selectedRegion].displayName}
             </Text>
-            <View style={styles.progressCardsContainer}>
+            <Box style={styles.progressCardsContainer}>
               {levels.map(level => (
                 <RegionProgressCard
                   key={level.id}
@@ -94,17 +101,17 @@ const MapProgressDetailScreen: React.FC = () => {
                   onPress={() => handleLevelSelect(level.id)}
                 />
               ))}
-            </View>
-          </View>
+            </Box>
+          </Box>
         )}
 
         {/* Difficulty Level Selection */}
-        <View style={styles.section}>
+        <Box marginBottom="xl">
           <Text style={styles.sectionTitle}>Select Difficulty</Text>
           <Text style={styles.sectionSubtitle}>
             Complete easier levels to unlock harder difficulties
           </Text>
-          <View style={styles.optionsContainer}>
+          <Box style={styles.optionsContainer}>
             {levels.map(level => {
               const isUnlocked = unlockedLevels[level.id]
               const isSelected = selectedLevel === level.id
@@ -120,7 +127,7 @@ const MapProgressDetailScreen: React.FC = () => {
                   onPress={() => handleLevelSelect(level.id)}
                   disabled={!isUnlocked}
                 >
-                  <View style={styles.levelHeader}>
+                  <Box row spaceBetween centerItems>
                     <Text
                       style={[
                         styles.levelOptionName,
@@ -131,7 +138,7 @@ const MapProgressDetailScreen: React.FC = () => {
                       {level.name} {!isUnlocked && '🔒'}
                     </Text>
                     {isUnlocked && isSelected && <Text style={styles.checkmark}>✓</Text>}
-                  </View>
+                  </Box>
                   <Text
                     style={[
                       styles.levelOptionDescription,
@@ -147,12 +154,12 @@ const MapProgressDetailScreen: React.FC = () => {
                 </TouchableOpacity>
               )
             })}
-          </View>
-        </View>
+          </Box>
+        </Box>
 
         {/* Detailed Progress for Selected Level */}
         {selectedRegion && selectedLevel && (
-          <View style={styles.section}>
+          <Box marginBottom="xl">
             <Text style={styles.sectionTitle}>
               {REGION_INFO[selectedRegion].displayName} -{' '}
               {levels.find(l => l.id === selectedLevel)?.name} Level
@@ -163,7 +170,7 @@ const MapProgressDetailScreen: React.FC = () => {
               size="large"
               showDetailedStats={true}
             />
-          </View>
+          </Box>
         )}
       </ScrollView>
 
@@ -183,18 +190,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  headerTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
   scrollView: {
     flex: 1,
     padding: 16,
@@ -209,9 +204,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 16,
     color: '#FF6B35',
-  },
-  section: {
-    marginBottom: 32,
   },
   sectionTitle: {
     fontSize: 20,
@@ -251,11 +243,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     shadowOpacity: 0,
     elevation: 0,
-  },
-  levelHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   levelOptionName: {
     fontSize: 18,

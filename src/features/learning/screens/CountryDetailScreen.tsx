@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -9,6 +9,7 @@ import CountryHeader from '../components/CountryHeader'
 import CountryMapSection from '../components/CountryMapSection'
 import CountryTabs from '../components/CountryTabs'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data
@@ -46,13 +47,20 @@ const CountryDetailScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <Box
+        row
+        centerItems
+        spaceBetween
+        paddingHorizontal="ml"
+        paddingVertical="m"
+        style={styles.headerBorder}
+      >
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Icon name="arrow-back" size={24} color="#007AFF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{country.name}</Text>
-        <View style={styles.headerRight} />
-      </View>
+        <Box style={{ width: 32 }} />
+      </Box>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <CountryHeader country={country} />
@@ -75,12 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+  headerBorder: {
     borderBottomWidth: 0.5,
     borderBottomColor: '#E1E1E1',
   },
@@ -91,9 +94,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#333',
-  },
-  headerRight: {
-    width: 32,
   },
   content: {
     flex: 1,

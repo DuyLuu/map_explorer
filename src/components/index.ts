@@ -7,6 +7,9 @@ export { default as RegionProgressCard } from './RegionProgressCard'
 export { default as ProgressBar } from './ProgressBar'
 export { default as BackButton } from './BackButton'
 
+// Export Box component
+export { Box, default as BoxComponent, type BoxProps } from './Box'
+
 // Export new Text component and convenience components
 export {
   Text,
@@ -22,8 +25,5 @@ export {
   DisplayText,
   type TextProps,
 } from './Text'
-
-// Export Text example
-export { TextExample } from './TextExample'
 
 export { default } from './Text'

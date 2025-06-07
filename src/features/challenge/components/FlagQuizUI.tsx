@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
+import { TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
 import { Text } from '../../../components/Text'
 import Flag from '../../../components/Flag'
+import { Box } from '../../../components/Box'
 
 interface Question {
   flagAsset: ImageSourcePropType
@@ -28,7 +29,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
     <>
       <Flag flagAsset={currentQuestion.flagAsset} />
 
-      <View style={styles.optionsContainer}>
+      <Box marginTop="ml" style={{ gap: 12 }}>
         {currentQuestion.options.map((option, index) => (
           <TouchableOpacity
             key={index}
@@ -61,7 +62,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </Box>
 
       {/* Submit Button for Flag Quiz */}
       {selectedAnswer && !showFeedback && (
@@ -74,10 +75,6 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
 }
 
 const styles = StyleSheet.create({
-  optionsContainer: {
-    marginTop: 20,
-    gap: 12,
-  },
   optionButton: {
     backgroundColor: '#fff',
     padding: 16,

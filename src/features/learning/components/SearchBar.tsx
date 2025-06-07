@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 interface SearchBarProps {
@@ -15,7 +16,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search countries...',
 }) => {
   return (
-    <View style={styles.searchContainer}>
+    <Box
+      row
+      centerItems
+      marginHorizontal="ml"
+      marginBottom="m"
+      backgroundColor="#f5f5f5"
+      borderRadius="sm"
+      paddingHorizontal="m"
+      paddingVertical="sm"
+    >
       <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
       <TextInput
         style={styles.searchInput}
@@ -29,21 +39,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <Icon name="close-circle" size={20} color="#999" />
         </TouchableOpacity>
       )}
-    </View>
+    </Box>
   )
 }
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    marginBottom: 16,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
   searchIcon: {
     marginRight: 12,
   },

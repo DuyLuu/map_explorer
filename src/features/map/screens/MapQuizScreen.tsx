@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  View,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -14,6 +13,7 @@ import { detectCountryFromCoordinates } from '../../../services/geocodingService
 import { useCountryStore } from '../../../stores/countryStore'
 import { REGION_INFO } from '../../../types/region'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 
 const MapQuizScreen: React.FC = () => {
   const {
@@ -70,12 +70,12 @@ const MapQuizScreen: React.FC = () => {
   if (isLoadingCountries || isInitializing) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.loadingContainer}>
+        <Box flex center>
           <ActivityIndicator size="large" color="#2196F3" />
           <Text variant="h6" weight="bold" marginTop="m">
             {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -84,14 +84,14 @@ const MapQuizScreen: React.FC = () => {
   if (countriesError) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.errorContainer}>
+        <Box flex center>
           <Text variant="h6" weight="bold" marginBottom="m">
             Error loading countries data
           </Text>
           <Text variant="body" muted>
             Please check your internet connection and try again
           </Text>
-        </View>
+        </Box>
       </SafeAreaView>
     )
   }
@@ -125,33 +125,33 @@ const MapQuizScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <Box row spaceBetween padding="m" style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}>
         <Text variant="h6" weight="bold">
           Score: {score}
         </Text>
         <Text variant="h6" weight="bold" success>
           High Score: {highScore}
         </Text>
-      </View>
+      </Box>
 
-      <View style={styles.progressContainer}>
+      <Box padding="m" centerItems>
         <Text variant="body" muted>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <View style={styles.levelIndicator}>
+        <Box backgroundColor="#eee" padding="xxs" borderRadius={8} marginTop="xxs">
           <Text variant="body" weight="bold" style={{ color: getLevelColor(currentLevel) }}>
             {getLevelName(currentLevel)}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
       {currentQuestion && (
-        <View style={styles.questionContainer}>
+        <Box flex padding="m">
           <Text variant="h5" weight="bold" center marginBottom="m" style={styles.questionTextColor}>
             Find the country: {currentQuestion.correctAnswer}
           </Text>
 
-          <View style={styles.mapContainer}>
+          <Box flex borderRadius={12} style={{ overflow: 'hidden' }} marginBottom="m">
             {initialRegion ? (
               <MapView
                 style={styles.map}
@@ -167,9 +167,9 @@ const MapQuizScreen: React.FC = () => {
                 Map cannot be displayed: Region info is missing or invalid.
               </Text>
             )}
-          </View>
+          </Box>
 
-          <View style={styles.feedbackContainer}>
+          <Box centerItems marginBottom="m">
             {isDetecting && (
               <Text variant="body" muted marginBottom="s">
                 Detecting country...
@@ -193,7 +193,7 @@ const MapQuizScreen: React.FC = () => {
                   : `Wrong! It was ${currentQuestion.correctAnswer}`}
               </Text>
             )}
-          </View>
+          </Box>
 
           {selectedCountry && !showFeedback && !isDetecting && (
             <TouchableOpacity style={styles.submitButton} onPress={handleMapSubmit}>
@@ -210,7 +210,7 @@ const MapQuizScreen: React.FC = () => {
               </Text>
             </TouchableOpacity>
           )}
-        </View>
+        </Box>
       )}
     </SafeAreaView>
   )
@@ -221,36 +221,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  progressContainer: {
-    padding: 16,
-    alignItems: 'center',
-  },
-  questionContainer: {
-    flex: 1,
-    padding: 16,
-  },
   questionTextColor: {
     color: '#333',
   },
-  mapContainer: {
-    flex: 1,
-    borderRadius: 12,
-    overflow: 'hidden',
-    marginBottom: 16,
-  },
   map: {
     flex: 1,
-  },
-  feedbackContainer: {
-    alignItems: 'center',
-    marginBottom: 16,
   },
   submitButton: {
     backgroundColor: '#007AFF',
@@ -266,22 +241,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-  },
-  levelIndicator: {
-    backgroundColor: '#eee',
-    padding: 4,
-    borderRadius: 8,
-    marginTop: 8,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
 

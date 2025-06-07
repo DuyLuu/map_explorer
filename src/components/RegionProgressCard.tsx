@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
 import { getRegionLevelProgress } from '../services/quizService'
 import ProgressRing from './ProgressRing'
 import ProgressBar from './ProgressBar'
 import { Text } from './Text'
+import { Box } from './Box'
 
 interface RegionProgressCardProps {
   region: Region
@@ -69,26 +70,32 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
   const totalCount = progress?.totalCountries || 0
 
   const CardContent = () => (
-    <View style={[styles.card, { padding: cardSize.padding }]}>
-      <View style={styles.header}>
-        <View style={styles.titleContainer}>
+    <Box
+      backgroundColor="white"
+      borderRadius="lg"
+      shadow="light"
+      marginBottom="sm"
+      style={{ padding: cardSize.padding }}
+    >
+      <Box row spaceBetween centerItems marginBottom="m">
+        <Box flex>
           <Text variant="h6" weight="bold" marginBottom="xs">
             {regionInfo.displayName}
           </Text>
           <Text variant="bodySmall" weight="semi-bold" color={getDifficultyColor(level)}>
             {getDifficultyName(level)}
           </Text>
-        </View>
+        </Box>
         <ProgressRing
           percentage={percentage}
           size={cardSize.progressSize}
           color={getDifficultyColor(level)}
           textSize={size === 'small' ? 12 : 14}
         />
-      </View>
+      </Box>
 
       {showDetailedStats && !isLoading && (
-        <View style={styles.statsContainer}>
+        <Box style={{ gap: 12 }}>
           <ProgressBar
             percentage={percentage}
             width={150}
@@ -99,97 +106,56 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
             showPercentage={false}
           />
 
-          <View style={styles.statsRow}>
-            <View style={styles.statItem}>
+          <Box row spaceAround paddingTop="xs">
+            <Box centerItems>
               <Text variant="body" weight="bold">
                 {learnedCount}
               </Text>
               <Text variant="caption" muted marginTop="xs">
                 Learned
               </Text>
-            </View>
-            <View style={styles.statItem}>
+            </Box>
+            <Box centerItems>
               <Text variant="body" weight="bold">
                 {totalCount - learnedCount}
               </Text>
               <Text variant="caption" muted marginTop="xs">
                 Remaining
               </Text>
-            </View>
-            <View style={styles.statItem}>
+            </Box>
+            <Box centerItems>
               <Text variant="body" weight="bold">
                 {totalCount}
               </Text>
               <Text variant="caption" muted marginTop="xs">
                 Total
               </Text>
-            </View>
-          </View>
-        </View>
+            </Box>
+          </Box>
+        </Box>
       )}
 
       {isLoading && (
-        <View style={styles.loadingContainer}>
+        <Box centerItems paddingVertical="m">
           <Text variant="bodySmall" muted>
             Loading progress...
           </Text>
-        </View>
+        </Box>
       )}
-    </View>
+    </Box>
   )
 
   if (onPress) {
     return (
-      <TouchableOpacity onPress={onPress} style={styles.touchable}>
-        <CardContent />
-      </TouchableOpacity>
+      <Box marginBottom="sm">
+        <TouchableOpacity onPress={onPress}>
+          <CardContent />
+        </TouchableOpacity>
+      </Box>
     )
   }
 
   return <CardContent />
 }
-
-const styles = StyleSheet.create({
-  touchable: {
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    marginBottom: 12,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  titleContainer: {
-    flex: 1,
-  },
-  statsContainer: {
-    gap: 12,
-  },
-  statsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 8,
-  },
-  statItem: {
-    alignItems: 'center',
-  },
-  loadingContainer: {
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-})
 
 export default RegionProgressCard

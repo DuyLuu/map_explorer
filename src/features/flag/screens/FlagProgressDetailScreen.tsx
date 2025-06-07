@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
@@ -7,7 +7,7 @@ import { getSelectableRegions } from '../../../services/regionService'
 import RegionProgressCard from '../../../components/RegionProgressCard'
 import { isLevelUnlocked } from '../../../services/quizService'
 import BackButton from '../../../components/BackButton'
-import { Box } from '@duyluu/rn-ui-kit'
+import { Box } from '../../../components/Box'
 import { Text } from '../../../components/Text'
 
 const FlagProgressDetailScreen: React.FC = () => {
@@ -80,20 +80,26 @@ const FlagProgressDetailScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
+        <Box
+          row
+          centerItems
+          spaceBetween
+          padding="m"
+          style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}
+        >
           <BackButton />
-          <View style={styles.headerTitleContainer}>
+          <Box flex centerItems>
             <Text style={styles.title}>Progress Detail</Text>
-          </View>
-        </View>
+          </Box>
+        </Box>
 
         {/* Progress for Selected Region */}
         {selectedRegion && (
-          <Box marginTop="md" style={styles.section}>
+          <Box marginTop="m" marginBottom="xl">
             <Text style={styles.sectionTitle}>
               Your Progress in {REGION_INFO[selectedRegion].displayName}
             </Text>
-            <View style={styles.progressCardsContainer}>
+            <Box style={styles.progressCardsContainer}>
               {levels.map(level => (
                 <RegionProgressCard
                   key={level.id}
@@ -104,17 +110,17 @@ const FlagProgressDetailScreen: React.FC = () => {
                   onPress={() => handleLevelSelect(level.id)}
                 />
               ))}
-            </View>
+            </Box>
           </Box>
         )}
 
         {/* Difficulty Level Selection */}
-        <View style={styles.section}>
+        <Box marginBottom="xl">
           <Text style={styles.sectionTitle}>Select Difficulty</Text>
           <Text style={styles.sectionSubtitle}>
             Complete easier levels to unlock harder difficulties
           </Text>
-          <View style={styles.optionsContainer}>
+          <Box style={styles.optionsContainer}>
             {levels.map(level => {
               const isUnlocked = unlockedLevels[level.id]
               const isSelected = selectedLevel === level.id
@@ -130,7 +136,7 @@ const FlagProgressDetailScreen: React.FC = () => {
                   onPress={() => handleLevelSelect(level.id)}
                   disabled={!isUnlocked}
                 >
-                  <View style={styles.levelHeader}>
+                  <Box row spaceBetween centerItems>
                     <Text
                       style={[
                         styles.optionName,
@@ -141,7 +147,7 @@ const FlagProgressDetailScreen: React.FC = () => {
                       {level.name} {!isUnlocked && '🔒'}
                     </Text>
                     {isUnlocked && isSelected && <Text style={styles.checkmark}>✓</Text>}
-                  </View>
+                  </Box>
                   <Text
                     style={[
                       styles.optionDescription,
@@ -157,12 +163,12 @@ const FlagProgressDetailScreen: React.FC = () => {
                 </TouchableOpacity>
               )
             })}
-          </View>
-        </View>
+          </Box>
+        </Box>
 
         {/* Detailed Progress for Selected Level */}
         {selectedRegion && selectedLevel && (
-          <View style={styles.section}>
+          <Box marginBottom="xl">
             <Text style={styles.sectionTitle}>
               {REGION_INFO[selectedRegion].displayName} -{' '}
               {levels.find(l => l.id === selectedLevel)?.name} Level
@@ -173,7 +179,7 @@ const FlagProgressDetailScreen: React.FC = () => {
               size="large"
               showDetailedStats={true}
             />
-          </View>
+          </Box>
         )}
       </ScrollView>
 
@@ -192,18 +198,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  headerTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
   scrollView: {
     flex: 1,
@@ -270,11 +264,6 @@ const styles = StyleSheet.create({
   },
   lockedText: {
     color: '#999',
-  },
-  levelHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
   checkmark: {
     fontSize: 14,

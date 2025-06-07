@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Text } from '../../../components/Text'
+import { Box } from '../../../components/Box'
 import { Region } from '../../../types/region'
 
 interface RegionFilterProps {
@@ -21,7 +22,7 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
   ]
 
   return (
-    <View style={styles.filterContainer}>
+    <Box marginBottom="m">
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -47,14 +48,11 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
         )}
         contentContainerStyle={styles.regionList}
       />
-    </View>
+    </Box>
   )
 }
 
 const styles = StyleSheet.create({
-  filterContainer: {
-    marginBottom: 16,
-  },
   regionList: {
     paddingHorizontal: 16,
   },

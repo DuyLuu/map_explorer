@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import ProgressRing from './ProgressRing'
 import { getRegionProgress } from '../services/quizService'
 import { getRegionDescription } from '../utils/regionUtils'
 import { Text } from './Text'
+import { Box } from './Box'
 
 interface RegionOptionProps {
   region: Region
@@ -45,8 +46,8 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
       style={[styles.optionButton, isSelected && styles.selectedOption]}
       onPress={onPress}
     >
-      <View style={styles.regionHeader}>
-        <View style={styles.regionTextContainer}>
+      <Box row spaceBetween centerItems>
+        <Box flex alignStart>
           <Text
             variant="h6"
             weight="bold"
@@ -71,8 +72,8 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
               {learned}/{total} countries learned
             </Text>
           )}
-        </View>
-        <View style={styles.progressContainer}>
+        </Box>
+        <Box centerItems marginLeft="m">
           <ProgressRing
             percentage={progress}
             size={50}
@@ -90,8 +91,8 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
               {Math.round(progress)}%
             </Text>
           )}
-        </View>
-      </View>
+        </Box>
+      </Box>
     </TouchableOpacity>
   )
 }
@@ -115,19 +116,6 @@ const styles = StyleSheet.create({
   selectedOption: {
     backgroundColor: '#007AFF',
     borderColor: '#0056CC',
-  },
-  regionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  regionTextContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
-  progressContainer: {
-    alignItems: 'center',
-    marginLeft: 16,
   },
   optionName: {
     marginBottom: 4,

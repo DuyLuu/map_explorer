@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, ActivityIndicator, StyleSheet, ImageSourcePropType } from 'react-native'
+import { ActivityIndicator, StyleSheet, ImageSourcePropType } from 'react-native'
 import FastImage, { Source } from 'react-native-fast-image'
+import { Box } from './Box'
 
 interface FlagProps {
   flagAsset: ImageSourcePropType
@@ -41,7 +42,7 @@ const Flag: React.FC<FlagProps> = React.memo(
     }
 
     return (
-      <View style={styles.flagContainer}>
+      <Box center marginBottom="xl" style={{ width: 300, height: 200 }}>
         {isImageLoading && <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />}
         <FastImage
           style={styles.flagImage}
@@ -53,7 +54,7 @@ const Flag: React.FC<FlagProps> = React.memo(
             handleLoadEnd()
           }}
         />
-      </View>
+      </Box>
     )
   },
   (prevProps, nextProps) => {
@@ -63,13 +64,6 @@ const Flag: React.FC<FlagProps> = React.memo(
 )
 
 const styles = StyleSheet.create({
-  flagContainer: {
-    width: 300,
-    height: 200,
-    marginBottom: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   flagImage: {
     width: '100%',
     height: '100%',
