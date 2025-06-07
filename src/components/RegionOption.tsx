@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import ProgressRing from './ProgressRing'
 import { getRegionProgress } from '../services/quizService'
 import { getRegionDescription } from '../utils/regionUtils'
+import { Text } from './Text'
 
 interface RegionOptionProps {
   region: Region
@@ -46,14 +47,27 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
     >
       <View style={styles.regionHeader}>
         <View style={styles.regionTextContainer}>
-          <Text style={[styles.optionName, isSelected && styles.selectedText]}>
+          <Text
+            variant="h6"
+            weight="bold"
+            color={isSelected ? '#fff' : '#333'}
+            style={styles.optionName}
+          >
             {REGION_INFO[region].displayName}
           </Text>
-          <Text style={[styles.optionDescription, isSelected && styles.selectedText]}>
+          <Text
+            variant="bodySmall"
+            color={isSelected ? '#fff' : '#666'}
+            style={styles.optionDescription}
+          >
             {getRegionDescription(region)}
           </Text>
           {progress > 0 && (
-            <Text style={[styles.progressText, isSelected && styles.selectedText]}>
+            <Text
+              variant="caption"
+              color={isSelected ? '#fff' : '#888'}
+              style={styles.progressText}
+            >
               {learned}/{total} countries learned
             </Text>
           )}
@@ -67,7 +81,12 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
             showPercentage={false}
           />
           {progress > 0 && (
-            <Text style={[styles.progressPercentage, isSelected && styles.selectedText]}>
+            <Text
+              variant="caption"
+              weight="bold"
+              color={isSelected ? '#fff' : '#666'}
+              style={styles.progressPercentage}
+            >
               {Math.round(progress)}%
             </Text>
           )}
@@ -111,31 +130,18 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   optionName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
     marginBottom: 4,
     textAlign: 'left',
   },
   optionDescription: {
-    fontSize: 14,
-    color: '#666',
     textAlign: 'left',
     marginBottom: 2,
   },
   progressText: {
-    fontSize: 12,
-    color: '#888',
     textAlign: 'left',
   },
   progressPercentage: {
-    fontSize: 10,
-    color: '#666',
-    fontWeight: 'bold',
     marginTop: 2,
-  },
-  selectedText: {
-    color: '#fff',
   },
 })
 

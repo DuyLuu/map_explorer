@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text } from '../../../components/Text'
 import { Region, REGION_INFO } from '../../../types/region'
 import ProgressRing from '../../../components/ProgressRing'
 import { getRegionLevelProgress } from '../../../services/quizService'
@@ -19,6 +20,7 @@ const getRegionDescription = (region: Region): string => {
     [Region.NORTH_AMERICA]: '23 North American countries',
     [Region.SOUTH_AMERICA]: '12 South American countries',
     [Region.OCEANIA]: '14 Oceanian countries',
+    [Region.TERRITORIES]: 'Territories and dependencies',
   }
   return descriptions[region] || 'Explore this region'
 }
@@ -56,14 +58,14 @@ const MapRegionOption: React.FC<MapRegionOptionProps> = ({ region, isSelected, o
     >
       <View style={styles.regionHeader}>
         <View style={styles.regionTextContainer}>
-          <Text style={[styles.optionName, isSelected && styles.selectedText]}>
+          <Text style={[styles.optionName, ...(isSelected ? [styles.selectedText] : [])]}>
             {REGION_INFO[region].displayName}
           </Text>
-          <Text style={[styles.optionDescription, isSelected && styles.selectedText]}>
+          <Text style={[styles.optionDescription, ...(isSelected ? [styles.selectedText] : [])]}>
             {getRegionDescription(region)}
           </Text>
           {progress > 0 && (
-            <Text style={[styles.progressText, isSelected && styles.selectedText]}>
+            <Text style={[styles.progressText, ...(isSelected ? [styles.selectedText] : [])]}>
               {learned}/{total} countries learned (Easy)
             </Text>
           )}
@@ -77,7 +79,7 @@ const MapRegionOption: React.FC<MapRegionOptionProps> = ({ region, isSelected, o
             showPercentage={false}
           />
           {progress > 0 && (
-            <Text style={[styles.progressPercentage, isSelected && styles.selectedText]}>
+            <Text style={[styles.progressPercentage, ...(isSelected ? [styles.selectedText] : [])]}>
               {Math.round(progress)}%
             </Text>
           )}

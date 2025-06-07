@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Text } from '../../../components/Text'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 
 interface CountryDetailData {
@@ -125,7 +126,12 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
               style={[styles.tab, selectedTab === tab.key && styles.selectedTab]}
               onPress={() => onTabSelect(tab.key as any)}
             >
-              <Text style={[styles.tabText, selectedTab === tab.key && styles.selectedTabText]}>
+              <Text
+                style={[
+                  styles.tabText,
+                  ...(selectedTab === tab.key ? [styles.selectedTabText] : []),
+                ]}
+              >
                 {tab.label}
               </Text>
             </TouchableOpacity>

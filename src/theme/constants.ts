@@ -234,3 +234,21 @@ export const ThemeModeArray = ['light', 'dark'] as const
 export type ThemeMode = (typeof ThemeModeArray)[number]
 export type ThemeModeConfig = ThemeMode | 'system'
 export type ThemeSource = 'mode' | 'tabMode'
+
+export enum BoxKey {
+  margin = 'margin',
+  marginHorizontal = 'marginHorizontal',
+  marginVertical = 'marginVertical',
+  marginTop = 'marginTop',
+  marginBottom = 'marginBottom',
+  marginRight = 'marginRight',
+  marginLeft = 'marginLeft',
+
+  padding = 'padding',
+  paddingHorizontal = 'paddingHorizontal',
+  paddingVertical = 'paddingVertical',
+  paddingTop = 'paddingTop',
+  paddingBottom = 'paddingBottom',
+  paddingRight = 'paddingRight',
+  paddingLeft = 'paddingLeft',
+}

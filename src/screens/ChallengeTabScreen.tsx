@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -19,6 +18,7 @@ import {
   ChallengeStats,
   ChallengeScore,
 } from '../services/challengeScoringService'
+import Text from '../components'
 
 type RootStackParamList = {
   ChallengeQuiz: undefined
@@ -57,8 +57,12 @@ const ChallengeTabScreen: React.FC = () => {
     if (!stats?.bestScore) {
       return (
         <View style={styles.emptyCard}>
-          <Text style={styles.emptyTitle}>No Records Yet</Text>
-          <Text style={styles.emptySubtitle}>Complete a challenge to see your best score!</Text>
+          <Text variant="body" weight="bold" center marginTop="m">
+            No Records Yet
+          </Text>
+          <Text variant="body" center marginTop="m">
+            Complete a challenge to see your best score!
+          </Text>
         </View>
       )
     }
@@ -67,35 +71,57 @@ const ChallengeTabScreen: React.FC = () => {
     return (
       <View style={styles.bestScoreCard}>
         <View style={styles.cardHeader}>
-          <Text style={styles.cardTitle}>🏆 Personal Best</Text>
-          <Text style={styles.recordDate}>
+          <Text variant="body" weight="bold" center marginTop="m">
+            🏆 Personal Best
+          </Text>
+          <Text variant="body" center marginTop="m">
             {new Date(bestScore.achievedAt).toLocaleDateString()}
           </Text>
         </View>
 
         <View style={styles.scoreDisplayContainer}>
           <View style={styles.mainScoreDisplay}>
-            <Text style={styles.finalScoreLabel}>Final Score</Text>
-            <Text style={styles.finalScoreValue}>{bestScore.finalScore}</Text>
-            <Text style={styles.scoreDescription}>{getScoreDescription(bestScore.score)}</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Final Score
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.finalScore}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {getScoreDescription(bestScore.score)}
+            </Text>
           </View>
 
           <View style={styles.scoreBreakdown}>
             <View style={styles.breakdownRow}>
-              <Text style={styles.breakdownLabel}>Base Score:</Text>
-              <Text style={styles.breakdownValue}>{bestScore.score}</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Base Score:
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {bestScore.score}
+              </Text>
             </View>
             <View style={styles.breakdownRow}>
-              <Text style={styles.breakdownLabel}>Bonus Points:</Text>
-              <Text style={styles.breakdownValue}>+{bestScore.bonusPoints}</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Bonus Points:
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                +{bestScore.bonusPoints}
+              </Text>
             </View>
             <View style={styles.breakdownRow}>
-              <Text style={styles.breakdownLabel}>Time Spent:</Text>
-              <Text style={styles.breakdownValue}>{formatTime(bestScore.timeSpent)}</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Time Spent:
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {formatTime(bestScore.timeSpent)}
+              </Text>
             </View>
             <View style={styles.breakdownRow}>
-              <Text style={styles.breakdownLabel}>Level Reached:</Text>
-              <Text style={styles.breakdownValue}>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Level Reached:
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
                 {bestScore.levelReached === 1
                   ? 'Easy'
                   : bestScore.levelReached === 2
@@ -108,24 +134,44 @@ const ChallengeTabScreen: React.FC = () => {
 
         <View style={styles.performanceGrid}>
           <View style={styles.performanceItem}>
-            <Text style={styles.performanceValue}>{bestScore.breakdown.easyCorrect}</Text>
-            <Text style={styles.performanceLabel}>Easy</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.breakdown.easyCorrect}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Easy
+            </Text>
           </View>
           <View style={styles.performanceItem}>
-            <Text style={styles.performanceValue}>{bestScore.breakdown.mediumCorrect}</Text>
-            <Text style={styles.performanceLabel}>Medium</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.breakdown.mediumCorrect}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Medium
+            </Text>
           </View>
           <View style={styles.performanceItem}>
-            <Text style={styles.performanceValue}>{bestScore.breakdown.hardCorrect}</Text>
-            <Text style={styles.performanceLabel}>Hard</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.breakdown.hardCorrect}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Hard
+            </Text>
           </View>
           <View style={styles.performanceItem}>
-            <Text style={styles.performanceValue}>{bestScore.breakdown.flagQuestions}</Text>
-            <Text style={styles.performanceLabel}>🏳️ Flags</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.breakdown.flagQuestions}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              🏳️ Flags
+            </Text>
           </View>
           <View style={styles.performanceItem}>
-            <Text style={styles.performanceValue}>{bestScore.breakdown.mapQuestions}</Text>
-            <Text style={styles.performanceLabel}>🗺️ Maps</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {bestScore.breakdown.mapQuestions}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              🗺️ Maps
+            </Text>
           </View>
         </View>
       </View>
@@ -141,41 +187,75 @@ const ChallengeTabScreen: React.FC = () => {
 
         <View style={styles.statsGrid}>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{stats.totalAttempts}</Text>
-            <Text style={styles.statLabel}>Total Attempts</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {stats.totalAttempts}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Total Attempts
+            </Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{stats.averageScore}</Text>
-            <Text style={styles.statLabel}>Average Score</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {stats.averageScore}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Average Score
+            </Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{stats.bestStreak}</Text>
-            <Text style={styles.statLabel}>Best Streak</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {stats.bestStreak}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Best Streak
+            </Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{formatTime(stats.totalTimeSpent)}</Text>
-            <Text style={styles.statLabel}>Total Time</Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              {formatTime(stats.totalTimeSpent)}
+            </Text>
+            <Text variant="body" weight="bold" center marginTop="m">
+              Total Time
+            </Text>
           </View>
         </View>
 
         <View style={styles.completionStats}>
-          <Text style={styles.completionTitle}>Level Completions</Text>
+          <Text variant="body" weight="bold" center marginTop="m">
+            Level Completions
+          </Text>
           <View style={styles.completionGrid}>
             <View style={styles.completionItem}>
-              <Text style={styles.completionValue}>{stats.completionStats.completedEasy}</Text>
-              <Text style={styles.completionLabel}>Easy Reached</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {stats.completionStats.completedEasy}
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Easy Reached
+              </Text>
             </View>
             <View style={styles.completionItem}>
-              <Text style={styles.completionValue}>{stats.completionStats.completedMedium}</Text>
-              <Text style={styles.completionLabel}>Medium Reached</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {stats.completionStats.completedMedium}
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Medium Reached
+              </Text>
             </View>
             <View style={styles.completionItem}>
-              <Text style={styles.completionValue}>{stats.completionStats.completedHard}</Text>
-              <Text style={styles.completionLabel}>Hard Reached</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {stats.completionStats.completedHard}
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Hard Reached
+              </Text>
             </View>
             <View style={styles.completionItem}>
-              <Text style={styles.completionValue}>{stats.completionStats.perfect300}</Text>
-              <Text style={styles.completionLabel}>Perfect Scores</Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                {stats.completionStats.perfect300}
+              </Text>
+              <Text variant="body" weight="bold" center marginTop="m">
+                Perfect Scores
+              </Text>
             </View>
           </View>
         </View>
@@ -228,7 +308,9 @@ const ChallengeTabScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#007AFF" />
-          <Text style={styles.loadingText}>Loading challenge data...</Text>
+          <Text variant="body" weight="bold" center marginTop="m">
+            Loading challenge data...
+          </Text>
         </View>
       </SafeAreaView>
     )
@@ -238,8 +320,12 @@ const ChallengeTabScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.title}>Challenge Mode</Text>
-          <Text style={styles.subtitle}>Test your ultimate geography knowledge!</Text>
+          <Text variant="h1" weight="bold" center marginTop="m" primary>
+            Challenge Mode
+          </Text>
+          <Text variant="body" center marginVertical="m">
+            Test your ultimate geography knowledge!
+          </Text>
 
           {/* Challenge Mode Button */}
           <TouchableOpacity
@@ -251,9 +337,13 @@ const ChallengeTabScreen: React.FC = () => {
               <ActivityIndicator color="#fff" />
             ) : (
               <>
-                <Text style={styles.buttonIcon}>🏆</Text>
-                <Text style={styles.buttonText}>Ultimate Challenge</Text>
-                <Text style={styles.buttonSubtext}>
+                <Text variant="body" weight="bold" center marginTop="m">
+                  🏆
+                </Text>
+                <Text variant="body" weight="bold" center marginTop="m">
+                  Ultimate Challenge
+                </Text>
+                <Text variant="body" center marginTop="m">
                   300 questions across all regions and difficulties
                 </Text>
               </>

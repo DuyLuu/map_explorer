@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { Text } from '../../../components/Text'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 interface SearchBarProps {

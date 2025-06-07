@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
@@ -8,6 +8,7 @@ import RegionProgressCard from '../../../components/RegionProgressCard'
 import { isLevelUnlocked } from '../../../services/quizService'
 import BackButton from '../../../components/BackButton'
 import { Box } from '@duyluu/rn-ui-kit'
+import { Text } from '../../../components/Text'
 
 const FlagProgressDetailScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
@@ -133,8 +134,8 @@ const FlagProgressDetailScreen: React.FC = () => {
                     <Text
                       style={[
                         styles.optionName,
-                        isSelected && styles.selectedText,
-                        !isUnlocked && styles.lockedText,
+                        ...(isSelected ? [styles.selectedText] : []),
+                        ...(!isUnlocked ? [styles.lockedText] : []),
                       ]}
                     >
                       {level.name} {!isUnlocked && '🔒'}
@@ -144,8 +145,8 @@ const FlagProgressDetailScreen: React.FC = () => {
                   <Text
                     style={[
                       styles.optionDescription,
-                      isSelected && styles.selectedText,
-                      !isUnlocked && styles.lockedText,
+                      ...(isSelected ? [styles.selectedText] : []),
+                      ...(!isUnlocked ? [styles.lockedText] : []),
                     ]}
                   >
                     {level.description}

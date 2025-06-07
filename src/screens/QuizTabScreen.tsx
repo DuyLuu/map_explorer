@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -11,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from '../hooks/useCountries'
+import { Text } from '../components/Text'
 
 type RootStackParamList = {
   FlagRegionSelection: undefined
@@ -26,8 +26,12 @@ const QuizTabScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Quiz Mode</Text>
-        <Text style={styles.subtitle}>Test your geography knowledge!</Text>
+        <Text variant="h1" primary center>
+          Quiz Mode
+        </Text>
+        <Text variant="body" muted center style={styles.subtitle}>
+          Test your geography knowledge!
+        </Text>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -39,9 +43,15 @@ const QuizTabScreen: React.FC = () => {
               <ActivityIndicator color="#fff" />
             ) : (
               <>
-                <Text style={styles.buttonIcon}>🏳️</Text>
-                <Text style={styles.buttonText}>Flag Quiz</Text>
-                <Text style={styles.buttonSubtext}>Identify country flags</Text>
+                <Text size={24} style={styles.buttonIcon}>
+                  🏳️
+                </Text>
+                <Text variant="h6" weight="bold" color="#fff" style={styles.buttonText}>
+                  Flag Quiz
+                </Text>
+                <Text variant="bodySmall" color="rgba(255, 255, 255, 0.8)" center>
+                  Identify country flags
+                </Text>
               </>
             )}
           </TouchableOpacity>
@@ -57,9 +67,15 @@ const QuizTabScreen: React.FC = () => {
                 <ActivityIndicator color="#fff" />
               ) : (
                 <>
-                  <Text style={styles.buttonIcon}>🗺️</Text>
-                  <Text style={styles.buttonText}>Map Quiz</Text>
-                  <Text style={styles.buttonSubtext}>Locate countries on map</Text>
+                  <Text size={24} style={styles.buttonIcon}>
+                    🗺️
+                  </Text>
+                  <Text variant="h6" weight="bold" color="#fff" style={styles.buttonText}>
+                    Map Quiz
+                  </Text>
+                  <Text variant="bodySmall" color="rgba(255, 255, 255, 0.8)" center>
+                    Locate countries on map
+                  </Text>
                 </>
               )}
             </TouchableOpacity>
@@ -81,17 +97,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 8,
-  },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
     marginBottom: 48,
-    textAlign: 'center',
   },
   buttonContainer: {
     width: '100%',
@@ -118,19 +125,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF6B35',
   },
   buttonIcon: {
-    fontSize: 24,
     marginBottom: 8,
   },
   buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
     marginBottom: 4,
-  },
-  buttonSubtext: {
-    fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
   },
 })
 

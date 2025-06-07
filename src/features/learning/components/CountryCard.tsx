@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 import { getFlagAssetByName } from '../../../services/flagAssetService'
+import { Text } from '../../../components/Text'
 
 interface CountryCardProps {
   country: CountryWithRegion
@@ -23,19 +24,23 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
           <Image source={flagAsset} style={styles.flagImage} resizeMode="cover" />
         ) : (
           <View style={styles.flagPlaceholder}>
-            <Text style={styles.flagPlaceholderText}>🏳️</Text>
+            <Text size={16}>🏳️</Text>
           </View>
         )}
       </View>
 
       <View style={styles.countryInfo}>
-        <Text style={styles.countryName}>{country.name}</Text>
-        <Text style={styles.countryRegion}>
+        <Text variant="h6" weight="semi-bold" style={styles.countryName}>
+          {country.name}
+        </Text>
+        <Text variant="bodySmall" muted style={styles.countryRegion}>
           {REGION_INFO[country.region]?.displayName || country.region}
         </Text>
         <View style={styles.levelContainer}>
           <View style={[styles.levelBadge, country.level === 1 ? styles.level1 : styles.level2]}>
-            <Text style={styles.levelText}>Level {country.level}</Text>
+            <Text variant="caption" weight="semi-bold" primary>
+              Level {country.level}
+            </Text>
           </View>
         </View>
       </View>
@@ -80,21 +85,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  flagPlaceholderText: {
-    fontSize: 16,
-  },
   countryInfo: {
     flex: 1,
   },
   countryName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
     marginBottom: 4,
   },
   countryRegion: {
-    fontSize: 14,
-    color: '#666',
     marginBottom: 8,
   },
   levelContainer: {
@@ -110,11 +107,6 @@ const styles = StyleSheet.create({
   },
   level2: {
     backgroundColor: '#FFF3E0',
-  },
-  levelText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#007AFF',
   },
 })
 

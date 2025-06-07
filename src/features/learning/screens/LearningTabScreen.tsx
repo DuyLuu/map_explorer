@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   FlatList,
@@ -12,10 +11,10 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from '../../../hooks/useCountries'
 import { CountryWithRegion, Region } from '../../../types/region'
-import { getCountriesByEntityType } from '../../../services/countryService'
 import CountryCard from '../components/CountryCard'
 import SearchBar from '../components/SearchBar'
 import RegionFilter from '../components/RegionFilter'
+import Text from '../../../components'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -79,11 +78,12 @@ const LearningTabScreen: React.FC = () => {
 
   const EmptyState = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyIcon}>🔍</Text>
-      <Text style={styles.emptyText}>
+      <Text variant="body" weight="bold" center marginTop="m">
         {selectedRegion === 'territories' ? 'No territories found' : 'No countries found'}
       </Text>
-      <Text style={styles.emptySubtext}>Try adjusting your search or filter</Text>
+      <Text variant="body" center marginTop="m">
+        Try adjusting your search or filter
+      </Text>
     </View>
   )
 

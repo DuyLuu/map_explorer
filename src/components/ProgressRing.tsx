@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
+import { Text } from './Text'
 
 interface ProgressRingProps {
   percentage: number
@@ -55,7 +56,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
       </Svg>
       {showPercentage && (
         <View style={styles.textContainer}>
-          <Text style={[styles.percentageText, { fontSize: textSize, color: textColor }]}>
+          <Text variant="label" weight="bold" size={textSize} color={textColor} center>
             {Math.round(percentage)}%
           </Text>
         </View>
@@ -75,9 +76,6 @@ const styles = StyleSheet.create({
   textContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  percentageText: {
-    fontWeight: 'bold',
   },
 })
 

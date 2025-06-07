@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
 import { getRegionLevelProgress } from '../services/quizService'
 import ProgressRing from './ProgressRing'
 import ProgressBar from './ProgressBar'
+import { Text } from './Text'
 
 interface RegionProgressCardProps {
   region: Region
@@ -71,8 +72,10 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
     <View style={[styles.card, { padding: cardSize.padding }]}>
       <View style={styles.header}>
         <View style={styles.titleContainer}>
-          <Text style={styles.regionName}>{regionInfo.displayName}</Text>
-          <Text style={[styles.difficulty, { color: getDifficultyColor(level) }]}>
+          <Text variant="h6" weight="bold" marginBottom="xs">
+            {regionInfo.displayName}
+          </Text>
+          <Text variant="bodySmall" weight="semi-bold" color={getDifficultyColor(level)}>
             {getDifficultyName(level)}
           </Text>
         </View>
@@ -98,16 +101,28 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
 
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{learnedCount}</Text>
-              <Text style={styles.statLabel}>Learned</Text>
+              <Text variant="body" weight="bold">
+                {learnedCount}
+              </Text>
+              <Text variant="caption" muted marginTop="xs">
+                Learned
+              </Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{totalCount - learnedCount}</Text>
-              <Text style={styles.statLabel}>Remaining</Text>
+              <Text variant="body" weight="bold">
+                {totalCount - learnedCount}
+              </Text>
+              <Text variant="caption" muted marginTop="xs">
+                Remaining
+              </Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{totalCount}</Text>
-              <Text style={styles.statLabel}>Total</Text>
+              <Text variant="body" weight="bold">
+                {totalCount}
+              </Text>
+              <Text variant="caption" muted marginTop="xs">
+                Total
+              </Text>
             </View>
           </View>
         </View>
@@ -115,7 +130,9 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
 
       {isLoading && (
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>Loading progress...</Text>
+          <Text variant="bodySmall" muted>
+            Loading progress...
+          </Text>
         </View>
       )}
     </View>
@@ -158,16 +175,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
   },
-  regionName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
-  },
-  difficulty: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
   statsContainer: {
     gap: 12,
   },
@@ -179,23 +186,9 @@ const styles = StyleSheet.create({
   statItem: {
     alignItems: 'center',
   },
-  statValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 2,
-  },
   loadingContainer: {
     paddingVertical: 16,
     alignItems: 'center',
-  },
-  loadingText: {
-    fontSize: 14,
-    color: '#666',
   },
 })
 

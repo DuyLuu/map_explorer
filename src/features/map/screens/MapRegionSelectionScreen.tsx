@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
 import BackButton from '../../../components/BackButton'
+import { Text } from '../../../components/Text'
 
 import MapRegionOption from '../components/MapRegionOption'
 
@@ -28,19 +29,45 @@ const MapRegionSelectionScreen: React.FC = () => {
       <View style={styles.header}>
         <BackButton />
         <View style={styles.headerTitleContainer}>
-          <Text style={styles.title}>Map Quiz</Text>
+          <Text
+            variant="h3"
+            weight="bold"
+            center
+            marginBottom="s"
+            marginTop="m"
+            style={styles.titleColor}
+          >
+            Map Quiz
+          </Text>
         </View>
         <View style={{ width: 40 }} />
       </View>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.subtitle}>Select region and difficulty level</Text>
-        <Text style={styles.infoText}>
+        <Text variant="body" muted center marginBottom="s">
+          Select region and difficulty level
+        </Text>
+        <Text
+          variant="bodySmall"
+          muted
+          center
+          marginBottom="xl"
+          paddingHorizontal="m"
+          style={styles.infoTextStyle}
+        >
           Progressive difficulty: complete easier levels to unlock harder ones!
         </Text>
 
         {/* Region Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Choose Your Region</Text>
+          <Text
+            variant="h5"
+            weight="semi-bold"
+            center
+            marginBottom="l"
+            style={styles.sectionTitleColor}
+          >
+            Choose Your Region
+          </Text>
           <View style={styles.optionsContainer}>
             {regions.map(region => (
               <MapRegionOption
@@ -54,17 +81,21 @@ const MapRegionSelectionScreen: React.FC = () => {
           {/* Add View Progress Detail button */}
           {selectedRegion && (
             <TouchableOpacity
-              style={[styles.confirmButton, { marginTop: 12, marginBottom: 0 }]}
+              style={[styles.confirmButton, styles.progressButton]}
               onPress={() => navigation.navigate('MapProgressDetail')}
             >
-              <Text style={styles.confirmButtonText}>View Progress Detail</Text>
+              <Text variant="body" weight="bold" style={styles.buttonText}>
+                View Progress Detail
+              </Text>
             </TouchableOpacity>
           )}
         </View>
       </ScrollView>
 
       <TouchableOpacity style={[styles.confirmButton]} onPress={onConfirm}>
-        <Text style={styles.confirmButtonText}>Start Map Quiz</Text>
+        <Text variant="body" weight="bold" style={styles.buttonText}>
+          Start Map Quiz
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
@@ -91,37 +122,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
-    marginTop: 16,
+  titleColor: {
     color: '#FF6B35',
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  infoText: {
-    fontSize: 14,
-    color: '#888',
-    textAlign: 'center',
-    marginBottom: 24,
-    paddingHorizontal: 16,
+  infoTextStyle: {
     fontStyle: 'italic',
   },
   section: {
     marginBottom: 32,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+  sectionTitleColor: {
     color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
   },
   optionsContainer: {
     gap: 12,
@@ -199,79 +210,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 4,
   },
-  disabledButton: {
-    backgroundColor: '#ccc',
-    shadowOpacity: 0,
-    elevation: 0,
+  progressButton: {
+    marginTop: 12,
+    marginBottom: 0,
   },
-  confirmButtonText: {
+  buttonText: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  progressCardsContainer: {
-    gap: 12,
-    marginHorizontal: 8,
-  },
-  levelOptionButton: {
-    backgroundColor: '#f8f8f8',
-    padding: 20,
-    borderRadius: 16,
-    borderWidth: 3,
-    borderColor: 'transparent',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  lockedOption: {
-    backgroundColor: '#ccc',
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  levelHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  levelOptionName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
-    textAlign: 'left',
-  },
-  levelOptionDescription: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'left',
-    marginBottom: 2,
-  },
-  lockMessage: {
-    fontSize: 12,
-    color: '#888',
-    textAlign: 'left',
-  },
-  checkmark: {
-    fontSize: 12,
-    color: '#fff',
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-  sectionSubtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  lockedText: {
-    color: '#999',
   },
 })
 

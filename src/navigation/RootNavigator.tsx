@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { View, ActivityIndicator, StyleSheet } from 'react-native'
+import { Text } from '../components/Text'
+import { ThemeProvider } from '../theme/context'
 import FlagRegionSelectionScreen from '../features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from '../features/flag/screens/FlagProgressDetailScreen'
 import QuizScreen from '../screens/QuizScreen'
@@ -32,22 +34,34 @@ const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
   <View style={styles.loadingContainer}>
     <View style={styles.loadingContent}>
       <ActivityIndicator size="large" color="#007AFF" style={styles.spinner} />
-      <Text style={styles.loadingTitle}>World Explorer</Text>
-      <Text style={styles.loadingSubtitle}>Preparing your world journey...</Text>
-      <Text style={styles.progressText}>{state.progress}</Text>
+      <Text variant="h2" color="#fff" weight="bold" center style={styles.loadingTitle}>
+        World Explorer
+      </Text>
+      <Text variant="body" color="#ccc" center style={styles.loadingSubtitle}>
+        Preparing your world journey...
+      </Text>
+      <Text variant="bodySmall" color="#007AFF" center weight="medium">
+        {state.progress}
+      </Text>
 
       {state.error && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorTitle}>Loading Error</Text>
-          <Text style={styles.errorText}>{state.error}</Text>
-          <Text style={styles.retryText}>Please restart the app to try again</Text>
+          <Text variant="h6" color="#ff3b30" weight="bold" style={styles.errorTitle}>
+            Loading Error
+          </Text>
+          <Text variant="bodySmall" color="#ccc" style={styles.errorText}>
+            {state.error}
+          </Text>
+          <Text variant="caption" color="#888" style={styles.retryText}>
+            Please restart the app to try again
+          </Text>
         </View>
       )}
     </View>
   </View>
 )
 
-const RootNavigator: React.FC = () => {
+const AppNavigator: React.FC = () => {
   const [loadingState, setLoadingState] = useState<AppLoadingState>({
     isLoading: true,
     error: null,
@@ -122,28 +136,36 @@ const RootNavigator: React.FC = () => {
 
   // Show main app once initialization is complete
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="MainTabs"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="MainTabs" component={TabNavigator} />
-          <Stack.Screen name="FlagRegionSelection" component={FlagRegionSelectionScreen} />
-          <Stack.Screen name="FlagProgressDetail" component={FlagProgressDetailScreen} />
-          <Stack.Screen name="Quiz" component={QuizScreen} />
-          <Stack.Screen name="MapRegionSelection" component={MapRegionSelectionScreen} />
-          <Stack.Screen name="MapQuiz" component={MapQuizScreen} />
-          <Stack.Screen name="ChallengeQuiz" component={ChallengeQuizScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
-          <Stack.Screen name="CountryDetail" component={CountryDetailScreen} />
-          <Stack.Screen name="TopCountries" component={TopCountriesScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="MainTabs"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="MainTabs" component={TabNavigator} />
+        <Stack.Screen name="FlagRegionSelection" component={FlagRegionSelectionScreen} />
+        <Stack.Screen name="FlagProgressDetail" component={FlagProgressDetailScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
+        <Stack.Screen name="MapRegionSelection" component={MapRegionSelectionScreen} />
+        <Stack.Screen name="MapQuiz" component={MapQuizScreen} />
+        <Stack.Screen name="ChallengeQuiz" component={ChallengeQuizScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
+        <Stack.Screen name="CountryDetail" component={CountryDetailScreen} />
+        <Stack.Screen name="TopCountries" component={TopCountriesScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+const RootNavigator: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppNavigator />
+      </QueryClientProvider>
+    </ThemeProvider>
   )
 }
 
@@ -162,23 +184,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   loadingTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#fff',
     marginBottom: 8,
-    textAlign: 'center',
   },
   loadingSubtitle: {
-    fontSize: 16,
-    color: '#ccc',
     marginBottom: 24,
-    textAlign: 'center',
-  },
-  progressText: {
-    fontSize: 14,
-    color: '#007AFF',
-    textAlign: 'center',
-    fontWeight: '500',
   },
   errorContainer: {
     marginTop: 32,
@@ -189,20 +198,13 @@ const styles = StyleSheet.create({
     borderLeftColor: '#ff3b30',
   },
   errorTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#ff3b30',
     marginBottom: 8,
   },
   errorText: {
-    fontSize: 14,
-    color: '#ccc',
     marginBottom: 8,
     lineHeight: 20,
   },
   retryText: {
-    fontSize: 12,
-    color: '#888',
     fontStyle: 'italic',
   },
 })

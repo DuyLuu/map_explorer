@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
+import { Text } from '../../../components/Text'
 import Flag from '../../../components/Flag'
 
 interface Question {
@@ -46,11 +47,14 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
             <Text
               style={[
                 styles.optionText,
-                showFeedback && option === currentQuestion.correctAnswer && styles.correctText,
-                showFeedback &&
-                  selectedAnswer === option &&
-                  option !== currentQuestion.correctAnswer &&
-                  styles.wrongText,
+                ...(showFeedback && option === currentQuestion.correctAnswer
+                  ? [styles.correctText]
+                  : []),
+                ...(showFeedback &&
+                selectedAnswer === option &&
+                option !== currentQuestion.correctAnswer
+                  ? [styles.wrongText]
+                  : []),
               ]}
             >
               {option}

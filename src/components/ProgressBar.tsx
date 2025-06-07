@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { Text } from './Text'
 
 interface ProgressBarProps {
   percentage: number
@@ -30,9 +31,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <View style={styles.container}>
       {showLabel && (
         <View style={styles.labelContainer}>
-          <Text style={styles.label}>{label}</Text>
+          <Text variant="label" muted>
+            {label}
+          </Text>
           {showPercentage && (
-            <Text style={styles.percentage}>{Math.round(clampedPercentage)}%</Text>
+            <Text variant="label" weight="bold">
+              {Math.round(clampedPercentage)}%
+            </Text>
           )}
         </View>
       )}
@@ -70,16 +75,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     marginBottom: 4,
-  },
-  label: {
-    fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
-  },
-  percentage: {
-    fontSize: 14,
-    color: '#333',
-    fontWeight: 'bold',
   },
   progressTrack: {
     borderRadius: 4,

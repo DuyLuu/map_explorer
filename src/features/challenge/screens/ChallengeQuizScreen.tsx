@@ -1,12 +1,5 @@
-import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-} from 'react-native'
+import React from 'react'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useChallengeQuiz } from '../hooks/useChallengeQuiz'
 import ChallengeGameOverModal from '../components/ChallengeGameOverModal'
 import NewRecordModal from '../components/NewRecordModal'
@@ -16,6 +9,7 @@ import { calculateChallengeScore, formatTime } from '../../../services/challenge
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../navigation/types'
+import Text from '../../../components'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
@@ -64,7 +58,7 @@ const ChallengeQuizScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#FF6B35" />
-          <Text style={styles.loadingText}>
+          <Text variant="body" weight="bold" center marginTop="m">
             {isLoadingCountries ? 'Loading countries...' : 'Initializing Challenge...'}
           </Text>
         </View>
@@ -215,12 +209,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  loadingText: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 16,
-    textAlign: 'center',
-  },
+
   errorContainer: {
     flex: 1,
     justifyContent: 'center',

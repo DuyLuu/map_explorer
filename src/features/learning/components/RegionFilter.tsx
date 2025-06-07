@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Text } from '../../../components/Text'
 import { Region } from '../../../types/region'
 
 interface RegionFilterProps {
@@ -37,7 +38,7 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
             <Text
               style={[
                 styles.regionButtonText,
-                selectedRegion === item.key && styles.selectedRegionButtonText,
+                ...(selectedRegion === item.key ? [styles.selectedRegionButtonText] : []),
               ]}
             >
               {item.label}

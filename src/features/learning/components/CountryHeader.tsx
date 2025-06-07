@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
+import { Text } from '../../../components/Text'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 import { getFlagAssetByName } from '../../../services/flagAssetService'
 

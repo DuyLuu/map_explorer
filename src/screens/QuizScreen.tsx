@@ -1,14 +1,8 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
 import Flag from '../components/Flag'
+import { Text } from '../components/Text'
 
 const QuizScreen: React.FC = () => {
   const {
@@ -109,11 +103,14 @@ const QuizScreen: React.FC = () => {
                 <Text
                   style={[
                     styles.optionText,
-                    showFeedback && option === currentQuestion.correctAnswer && styles.correctText,
-                    showFeedback &&
-                      selectedAnswer === option &&
-                      option !== currentQuestion.correctAnswer &&
-                      styles.wrongText,
+                    ...(showFeedback && option === currentQuestion.correctAnswer
+                      ? [styles.correctText]
+                      : []),
+                    ...(showFeedback &&
+                    selectedAnswer === option &&
+                    option !== currentQuestion.correctAnswer
+                      ? [styles.wrongText]
+                      : []),
                   ]}
                 >
                   {option}

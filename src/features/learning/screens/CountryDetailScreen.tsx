@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -8,6 +8,7 @@ import { getCountryDetails } from '../services/countryDataService'
 import CountryHeader from '../components/CountryHeader'
 import CountryMapSection from '../components/CountryMapSection'
 import CountryTabs from '../components/CountryTabs'
+import { Text } from '../../../components/Text'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data

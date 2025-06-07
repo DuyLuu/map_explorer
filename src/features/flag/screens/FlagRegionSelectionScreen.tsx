@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
 import RegionOption from '../../../components/RegionOption'
 import BackButton from '../../../components/BackButton'
+import { Text } from '../../../components/Text'
 
 const FlagRegionSelectionScreen: React.FC = () => {
   const { selectedRegion, setSelectedRegion } = useCountryStore()
@@ -29,19 +30,38 @@ const FlagRegionSelectionScreen: React.FC = () => {
       <View style={styles.header}>
         <BackButton onBack={() => navigation.navigate('MainTabs')} />
         <View style={styles.headerTitleContainer}>
-          <Text style={styles.title}>Flag Quiz</Text>
+          <Text variant="h3" weight="bold" style={styles.titleColor}>
+            Flag Quiz
+          </Text>
         </View>
         <View style={{ width: 40 }} />
       </View>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.subtitle}>Select a region to get started</Text>
-        <Text style={styles.infoText}>
+        <Text variant="body" muted center marginBottom="s">
+          Select a region to get started
+        </Text>
+        <Text
+          variant="bodySmall"
+          muted
+          center
+          marginBottom="xl"
+          paddingHorizontal="m"
+          style={styles.infoTextStyle}
+        >
           Choose your region, then select difficulty level with progressive unlocking!
         </Text>
 
         {/* Region Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Choose Your Region</Text>
+          <Text
+            variant="h5"
+            weight="semi-bold"
+            center
+            marginBottom="m"
+            style={styles.sectionTitleColor}
+          >
+            Choose Your Region
+          </Text>
           <View style={styles.optionsContainer}>
             {regions.map(region => (
               <RegionOption
@@ -60,7 +80,9 @@ const FlagRegionSelectionScreen: React.FC = () => {
         onPress={onConfirm}
         disabled={!canStart}
       >
-        <Text style={styles.confirmButtonText}>Start Flag Quiz</Text>
+        <Text variant="h6" weight="bold" style={styles.buttonText}>
+          Start Flag Quiz
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   )
@@ -90,9 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
+  titleColor: {
     color: '#007AFF',
   },
   progressButton: {
@@ -109,29 +129,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  infoText: {
-    fontSize: 14,
-    color: '#888',
-    textAlign: 'center',
-    marginBottom: 24,
-    paddingHorizontal: 16,
+  infoTextStyle: {
     fontStyle: 'italic',
   },
   section: {
     marginBottom: 24,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+  sectionTitleColor: {
     color: '#333',
-    marginBottom: 16,
-    textAlign: 'center',
   },
   optionsContainer: {
     gap: 12,
@@ -157,10 +162,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
     elevation: 0,
   },
-  confirmButtonText: {
+  buttonText: {
     color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
 })
 

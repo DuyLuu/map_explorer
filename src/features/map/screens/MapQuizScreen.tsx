@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
@@ -14,6 +13,7 @@ import { useQuiz } from '../../../hooks/useQuiz'
 import { detectCountryFromCoordinates } from '../../../services/geocodingService'
 import { useCountryStore } from '../../../stores/countryStore'
 import { REGION_INFO } from '../../../types/region'
+import { Text } from '../../../components/Text'
 
 const MapQuizScreen: React.FC = () => {
   const {
@@ -72,7 +72,7 @@ const MapQuizScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#2196F3" />
-          <Text style={styles.loadingText}>
+          <Text variant="h6" weight="bold" marginTop="m">
             {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
           </Text>
         </View>
@@ -85,8 +85,10 @@ const MapQuizScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Error loading countries data</Text>
-          <Text style={styles.errorSubtext}>
+          <Text variant="h6" weight="bold" marginBottom="m">
+            Error loading countries data
+          </Text>
+          <Text variant="body" muted>
             Please check your internet connection and try again
           </Text>
         </View>
@@ -124,16 +126,20 @@ const MapQuizScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.score}>Score: {score}</Text>
-        <Text style={styles.highScore}>High Score: {highScore}</Text>
+        <Text variant="h6" weight="bold">
+          Score: {score}
+        </Text>
+        <Text variant="h6" weight="bold" success>
+          High Score: {highScore}
+        </Text>
       </View>
 
       <View style={styles.progressContainer}>
-        <Text style={styles.progressText}>
+        <Text variant="body" muted>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
         <View style={styles.levelIndicator}>
-          <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
+          <Text variant="body" weight="bold" style={{ color: getLevelColor(currentLevel) }}>
             {getLevelName(currentLevel)}
           </Text>
         </View>
@@ -141,7 +147,9 @@ const MapQuizScreen: React.FC = () => {
 
       {currentQuestion && (
         <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>Find the country: {currentQuestion.correctAnswer}</Text>
+          <Text variant="h5" weight="bold" center marginBottom="m" style={styles.questionTextColor}>
+            Find the country: {currentQuestion.correctAnswer}
+          </Text>
 
           <View style={styles.mapContainer}>
             {initialRegion ? (
@@ -155,27 +163,30 @@ const MapQuizScreen: React.FC = () => {
                 toolbarEnabled={false}
               />
             ) : (
-              <Text style={{ color: 'red', textAlign: 'center', marginTop: 20 }}>
+              <Text danger center marginTop="l">
                 Map cannot be displayed: Region info is missing or invalid.
               </Text>
             )}
           </View>
 
           <View style={styles.feedbackContainer}>
-            {isDetecting && <Text style={styles.detectingText}>Detecting country...</Text>}
+            {isDetecting && (
+              <Text variant="body" muted marginBottom="s">
+                Detecting country...
+              </Text>
+            )}
 
             {selectedCountry && !isDetecting && (
-              <Text style={styles.selectedText}>Selected: {selectedCountry}</Text>
+              <Text variant="body" primary marginBottom="s">
+                Selected: {selectedCountry}
+              </Text>
             )}
 
             {showFeedback && (
               <Text
-                style={[
-                  styles.feedbackText,
-                  selectedAnswer === currentQuestion.correctAnswer
-                    ? styles.correctFeedback
-                    : styles.wrongFeedback,
-                ]}
+                variant="h6"
+                weight="bold"
+                color={selectedAnswer === currentQuestion.correctAnswer ? '#4CAF50' : '#F44336'}
               >
                 {selectedAnswer === currentQuestion.correctAnswer
                   ? 'Correct!'
@@ -186,13 +197,15 @@ const MapQuizScreen: React.FC = () => {
 
           {selectedCountry && !showFeedback && !isDetecting && (
             <TouchableOpacity style={styles.submitButton} onPress={handleMapSubmit}>
-              <Text style={styles.submitButtonText}>Submit Answer</Text>
+              <Text variant="body" weight="bold" style={styles.buttonText}>
+                Submit Answer
+              </Text>
             </TouchableOpacity>
           )}
 
           {showFeedback && (
             <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
-              <Text style={styles.nextButtonText}>
+              <Text variant="body" weight="bold" style={styles.buttonText}>
                 {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
               </Text>
             </TouchableOpacity>
@@ -215,32 +228,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  score: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  highScore: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#4CAF50',
-  },
   progressContainer: {
     padding: 16,
     alignItems: 'center',
-  },
-  progressText: {
-    fontSize: 16,
-    color: '#666',
   },
   questionContainer: {
     flex: 1,
     padding: 16,
   },
-  questionText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
+  questionTextColor: {
     color: '#333',
   },
   mapContainer: {
@@ -256,36 +252,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-  detectingText: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 8,
-  },
-  selectedText: {
-    fontSize: 16,
-    color: '#007AFF',
-    marginBottom: 8,
-  },
-  feedbackText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  correctFeedback: {
-    color: '#4CAF50',
-  },
-  wrongFeedback: {
-    color: '#F44336',
-  },
   submitButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   nextButton: {
     backgroundColor: '#007AFF',
@@ -293,10 +264,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
-  nextButtonText: {
+  buttonText: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   levelIndicator: {
     backgroundColor: '#eee',
@@ -304,33 +273,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 8,
   },
-  levelText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loadingText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 16,
-  },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  errorText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  errorSubtext: {
-    fontSize: 16,
-    color: '#666',
   },
 })
 

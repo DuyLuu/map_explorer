@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { Text } from '../../../components/Text'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
 import { Region, REGION_INFO } from '../../../types/region'
@@ -123,8 +124,8 @@ const MapProgressDetailScreen: React.FC = () => {
                     <Text
                       style={[
                         styles.levelOptionName,
-                        isSelected && styles.selectedText,
-                        !isUnlocked && styles.lockedText,
+                        ...(isSelected ? [styles.selectedText] : []),
+                        ...(!isUnlocked ? [styles.lockedText] : []),
                       ]}
                     >
                       {level.name} {!isUnlocked && '🔒'}
@@ -134,8 +135,8 @@ const MapProgressDetailScreen: React.FC = () => {
                   <Text
                     style={[
                       styles.levelOptionDescription,
-                      isSelected && styles.selectedText,
-                      !isUnlocked && styles.lockedText,
+                      ...(isSelected ? [styles.selectedText] : []),
+                      ...(!isUnlocked ? [styles.lockedText] : []),
                     ]}
                   >
                     {level.description}

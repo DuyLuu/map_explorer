@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Alert, Platform, TouchableOpacity } from 'react-native'
+import { Text } from '../../../components/Text'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
 import { detectCountryFromCoordinates } from '../../../services/geocodingService'
 import { getCountryMapRegion } from '../../../services/countryCoordinatesService'

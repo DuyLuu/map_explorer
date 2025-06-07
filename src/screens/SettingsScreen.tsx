@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import BackButton from '../components/BackButton'
+import { Text } from '../components/Text'
 
 import { Box } from '@duyluu/rn-ui-kit'
 
@@ -20,18 +21,28 @@ const SettingsScreen: React.FC = () => {
       <Box padding="lg" style={styles.content}>
         <View style={styles.header}>
           <BackButton />
-          <Text style={styles.title}>Settings</Text>
+          <Text variant="h3" primary style={styles.title}>
+            Settings
+          </Text>
         </View>
 
         <View style={styles.sectionContainer}>
           <TouchableOpacity style={styles.section}>
-            <Text style={styles.sectionTitle}>Purchase Pro</Text>
-            <Text style={styles.sectionDescription}>Unlock all features and remove ads</Text>
+            <Text variant="h6" weight="bold" primary>
+              Purchase Pro
+            </Text>
+            <Text variant="bodySmall" muted>
+              Unlock all features and remove ads
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.section}>
-            <Text style={styles.sectionTitle}>About</Text>
-            <Text style={styles.sectionDescription}>Learn more about World Explorer</Text>
+            <Text variant="h6" weight="bold" primary>
+              About
+            </Text>
+            <Text variant="bodySmall" muted>
+              Learn more about World Explorer
+            </Text>
           </TouchableOpacity>
         </View>
       </Box>
@@ -48,9 +59,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
     marginLeft: 16,
   },
   sectionContainer: {
@@ -60,16 +68,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     padding: 20,
     borderRadius: 12,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 4,
-  },
-  sectionDescription: {
-    fontSize: 14,
-    color: '#666',
   },
   header: {
     flexDirection: 'row',

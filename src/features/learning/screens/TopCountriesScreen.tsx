@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   FlatList,
@@ -21,6 +20,7 @@ import {
   getCategoryInfo,
 } from '../../../utils/countryRankings'
 import BackButton from '../../../components/BackButton'
+import Text from '../../../components'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -55,13 +55,13 @@ const TopCountriesScreen: React.FC = () => {
         style={[styles.categoryTab, isSelected && styles.selectedCategoryTab]}
         onPress={() => setSelectedCategory(category)}
       >
-        <Text style={styles.categoryIcon}>{info.icon}</Text>
-        <Text style={[styles.categoryTitle, isSelected && styles.selectedCategoryTitle]}>
+        <Text variant="body" weight="bold" center marginTop="m">
+          {info.icon}
+        </Text>
+        <Text variant="body" weight="bold" center marginTop="m">
           {info.title}
         </Text>
-        <Text
-          style={[styles.categoryDescription, isSelected && styles.selectedCategoryDescription]}
-        >
+        <Text variant="body" center marginTop="m">
           {info.description}
         </Text>
       </TouchableOpacity>
@@ -71,9 +71,11 @@ const TopCountriesScreen: React.FC = () => {
   const renderCountryItem = ({ item }: { item: RankedCountry }) => (
     <TouchableOpacity style={styles.countryItem} onPress={() => handleCountryPress(item)}>
       <View style={styles.rankContainer}>
-        <Text style={[styles.rankText, item.rank <= 3 && styles.topRankText]}>#{item.rank}</Text>
+        <Text variant="body" weight="bold" center marginTop="m">
+          #{item.rank}
+        </Text>
         {item.rank <= 3 && (
-          <Text style={styles.medalEmoji}>
+          <Text variant="body" weight="bold" center marginTop="m">
             {item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : '🥉'}
           </Text>
         )}

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native'
+import { Text } from '../../../components/Text'
 import {
   ChallengeScore,
   formatTime,
@@ -105,7 +106,7 @@ const NewRecordModal: React.FC<NewRecordModalProps> = ({
 
           {/* Header */}
           <View style={styles.header}>
-            <Text style={[styles.title, isPerfectScore && styles.perfectTitle]}>
+            <Text style={[styles.title, ...(isPerfectScore ? [styles.perfectTitle] : [])]}>
               {getRecordTitle()}
             </Text>
             <Text style={styles.subtitle}>{getRecordSubtitle()}</Text>
@@ -119,7 +120,9 @@ const NewRecordModal: React.FC<NewRecordModalProps> = ({
 
             <View style={styles.mainScoreDisplay}>
               <Text style={styles.scoreLabel}>Final Score</Text>
-              <Text style={[styles.scoreValue, isPerfectScore && styles.perfectScoreValue]}>
+              <Text
+                style={[styles.scoreValue, ...(isPerfectScore ? [styles.perfectScoreValue] : [])]}
+              >
                 {challengeScore.finalScore}
               </Text>
               <Text style={styles.performanceText}>
