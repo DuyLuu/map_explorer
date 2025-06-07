@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
-import HomeScreen from '../screens/HomeScreen'
 import FlagRegionSelectionScreen from '../features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from '../features/flag/screens/FlagProgressDetailScreen'
 import QuizScreen from '../screens/QuizScreen'
@@ -18,6 +17,7 @@ import { loadBundledCountryData, isBundledDataLoaded } from '../services/bundled
 import { preloadCommonFlags } from '../services/flagAssetService'
 import TabNavigator from './TabNavigator'
 import CountryDetailScreen from '../features/learning/screens/CountryDetailScreen'
+import TopCountriesScreen from '../features/learning/screens/TopCountriesScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const queryClient = new QueryClient()
@@ -131,7 +131,6 @@ const RootNavigator: React.FC = () => {
           }}
         >
           <Stack.Screen name="MainTabs" component={TabNavigator} />
-          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="FlagRegionSelection" component={FlagRegionSelectionScreen} />
           <Stack.Screen name="FlagProgressDetail" component={FlagProgressDetailScreen} />
           <Stack.Screen name="Quiz" component={QuizScreen} />
@@ -141,6 +140,7 @@ const RootNavigator: React.FC = () => {
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="MapProgressDetail" component={MapProgressDetailScreen} />
           <Stack.Screen name="CountryDetail" component={CountryDetailScreen} />
+          <Stack.Screen name="TopCountries" component={TopCountriesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>

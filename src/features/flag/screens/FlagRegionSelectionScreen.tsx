@@ -27,7 +27,7 @@ const FlagRegionSelectionScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <BackButton onBack={() => navigation.goBack()} />
+        <BackButton onBack={() => navigation.navigate('MainTabs')} />
         <View style={styles.headerTitleContainer}>
           <Text style={styles.title}>Flag Quiz</Text>
         </View>

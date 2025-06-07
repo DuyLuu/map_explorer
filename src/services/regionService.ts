@@ -265,6 +265,11 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     'French Polynesia',
   ],
 
+  [Region.TERRITORIES]: [
+    // Note: This is handled dynamically based on entityType in bundled data
+    // Listed here for reference but actual filtering is done by entityType field
+  ],
+
   [Region.WORLD]: [], // Will be populated with all countries
 }
 
@@ -315,6 +320,21 @@ export function getSelectableRegions(): Region[] {
     Region.SOUTH_AMERICA,
     Region.AFRICA,
     Region.OCEANIA,
+    Region.TERRITORIES, // Add territories as selectable region
+  ]
+}
+
+/**
+ * Get selectable regions for countries only (excludes territories)
+ */
+export function getSelectableCountryRegions(): Region[] {
+  return [
+    Region.EUROPE,
+    Region.ASIA,
+    Region.NORTH_AMERICA,
+    Region.SOUTH_AMERICA,
+    Region.AFRICA,
+    Region.OCEANIA,
   ]
 }
 
@@ -324,6 +344,12 @@ export function getSelectableRegions(): Region[] {
 export function isCountryInRegion(countryName: string, region: Region): boolean {
   if (region === Region.WORLD) {
     return true // All countries are in the world region
+  }
+
+  if (region === Region.TERRITORIES) {
+    // This should be handled by checking entityType in the bundled data
+    // Fallback: return false, let the calling code handle territories properly
+    return false
   }
 
   return REGION_COUNTRIES[region]?.includes(countryName) || false

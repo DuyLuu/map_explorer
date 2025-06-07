@@ -3,19 +3,20 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 import { Region } from '../../../types/region'
 
 interface RegionFilterProps {
-  selectedRegion: Region | 'all'
-  onRegionSelect: (region: Region | 'all') => void
+  selectedRegion: Region | 'all' | 'territories'
+  onRegionSelect: (region: Region | 'all' | 'territories') => void
 }
 
 const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSelect }) => {
   const regions = [
-    { key: 'all', label: 'All Regions' },
+    { key: 'all', label: 'All Countries' },
     { key: Region.EUROPE, label: 'Europe' },
     { key: Region.ASIA, label: 'Asia' },
     { key: Region.NORTH_AMERICA, label: 'North America' },
     { key: Region.SOUTH_AMERICA, label: 'South America' },
     { key: Region.AFRICA, label: 'Africa' },
     { key: Region.OCEANIA, label: 'Oceania' },
+    { key: 'territories', label: 'Territories' },
   ]
 
   return (
@@ -31,7 +32,7 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
               styles.regionButton,
               selectedRegion === item.key && styles.selectedRegionButton,
             ]}
-            onPress={() => onRegionSelect(item.key as Region | 'all')}
+            onPress={() => onRegionSelect(item.key as Region | 'all' | 'territories')}
           >
             <Text
               style={[

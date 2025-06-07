@@ -6,6 +6,7 @@ export enum Region {
   SOUTH_AMERICA = 'south_america',
   AFRICA = 'africa',
   OCEANIA = 'oceania',
+  TERRITORIES = 'territories',
 }
 
 export interface RegionInfo {
@@ -26,6 +27,7 @@ export interface CountryWithRegion {
   flagUrl: string
   level: number
   region: Region
+  entityType?: 'country' | 'territory'
   // New fields from updated countries.json v2.0.0
   countryCode?: string
   population?: number
@@ -112,6 +114,17 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       longitude: 140,
       latitudeDelta: 40,
       longitudeDelta: 60,
+    },
+  },
+  [Region.TERRITORIES]: {
+    id: Region.TERRITORIES,
+    name: 'territories',
+    displayName: 'Territories & Dependencies',
+    mapBounds: {
+      latitude: 20,
+      longitude: 0,
+      latitudeDelta: 100,
+      longitudeDelta: 180,
     },
   },
 }

@@ -1,9 +1,9 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "generatedAt": "2025-06-06T08:55:06.878Z",
   "totalCountries": 250,
   "source": "REST Countries API v3.1",
-  "lastUpdated": "2025-06-06T08:55:06.880Z",
+  "lastUpdated": "2025-06-07T02:14:47.685Z",
   "metadata": {
     "totalCountries": 250,
     "byLevel": {
@@ -26,6 +26,10 @@
       "averageArea": 600585,
       "totalArea": 150146201.65999997,
       "countriesWithCapital": 246
+    },
+    "byEntityType": {
+      "countries": 197,
+      "territories": 53
     }
   },
   "countries": [
@@ -41,7 +45,8 @@
       "area": 652230,
       "capital": "Kabul",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 240,
@@ -55,7 +60,8 @@
       "area": 1580,
       "capital": "Mariehamn",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 144,
@@ -69,7 +75,8 @@
       "area": 28748,
       "capital": "Tirana",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 167,
@@ -83,7 +90,8 @@
       "area": 2381741,
       "capital": "Algiers",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 87,
@@ -97,7 +105,8 @@
       "area": 199,
       "capital": "Pago Pago",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 126,
@@ -111,7 +120,8 @@
       "area": 468,
       "capital": "Andorra la Vella",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 45,
@@ -125,7 +135,8 @@
       "area": 1246700,
       "capital": "Luanda",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 165,
@@ -139,7 +150,8 @@
       "area": 91,
       "capital": "The Valley",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 244,
@@ -153,7 +165,8 @@
       "area": 14000000,
       "capital": "N/A",
       "apiRegion": "Antarctic",
-      "subregion": ""
+      "subregion": "",
+      "entityType": "territory"
     },
     {
       "id": 239,
@@ -167,7 +180,8 @@
       "area": 442,
       "capital": "Saint John's",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 70,
@@ -181,7 +195,8 @@
       "area": 2780400,
       "capital": "Buenos Aires",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 201,
@@ -195,7 +210,8 @@
       "area": 29743,
       "capital": "Yerevan",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 50,
@@ -209,7 +225,8 @@
       "area": 180,
       "capital": "Oranjestad",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 179,
@@ -223,7 +240,8 @@
       "area": 7692024,
       "capital": "Canberra",
       "apiRegion": "Oceania",
-      "subregion": "Australia and New Zealand"
+      "subregion": "Australia and New Zealand",
+      "entityType": "country"
     },
     {
       "id": 159,
@@ -237,7 +255,8 @@
       "area": 83871,
       "capital": "Vienna",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 120,
@@ -251,7 +270,8 @@
       "area": 86600,
       "capital": "Baku",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 161,
@@ -265,7 +285,8 @@
       "area": 13943,
       "capital": "Nassau",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 11,
@@ -279,7 +300,8 @@
       "area": 765,
       "capital": "Manama",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 220,
@@ -293,7 +315,8 @@
       "area": 147570,
       "capital": "Dhaka",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 221,
@@ -307,7 +330,8 @@
       "area": 430,
       "capital": "Bridgetown",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 32,
@@ -321,7 +345,8 @@
       "area": 207600,
       "capital": "Minsk",
       "apiRegion": "Europe",
-      "subregion": "Eastern Europe"
+      "subregion": "Eastern Europe",
+      "entityType": "country"
     },
     {
       "id": 224,
@@ -335,7 +360,8 @@
       "area": 30528,
       "capital": "Brussels",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 247,
@@ -349,7 +375,8 @@
       "area": 22966,
       "capital": "Belmopan",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 191,
@@ -363,7 +390,8 @@
       "area": 112622,
       "capital": "Porto-Novo",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 30,
@@ -377,7 +405,8 @@
       "area": 54,
       "capital": "Hamilton",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "territory"
     },
     {
       "id": 217,
@@ -391,7 +420,8 @@
       "area": 38394,
       "capital": "Thimphu",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 112,
@@ -405,7 +435,8 @@
       "area": 1098581,
       "capital": "Sucre",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 10,
@@ -419,7 +450,8 @@
       "area": 51209,
       "capital": "Sarajevo",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 174,
@@ -433,7 +465,8 @@
       "area": 582000,
       "capital": "Gaborone",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     },
     {
       "id": 206,
@@ -447,7 +480,8 @@
       "area": 49,
       "capital": "N/A",
       "apiRegion": "Antarctic",
-      "subregion": ""
+      "subregion": "",
+      "entityType": "territory"
     },
     {
       "id": 106,
@@ -461,7 +495,8 @@
       "area": 8515767,
       "capital": "Brasília",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 163,
@@ -475,7 +510,8 @@
       "area": 60,
       "capital": "Diego Garcia",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "territory"
     },
     {
       "id": 56,
@@ -489,7 +525,8 @@
       "area": 151,
       "capital": "Road Town",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 158,
@@ -503,7 +540,8 @@
       "area": 5765,
       "capital": "Bandar Seri Begawan",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 149,
@@ -517,7 +555,8 @@
       "area": 110879,
       "capital": "Sofia",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 213,
@@ -531,7 +570,8 @@
       "area": 272967,
       "capital": "Ouagadougou",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 77,
@@ -545,7 +585,8 @@
       "area": 27834,
       "capital": "Gitega",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 214,
@@ -559,7 +600,8 @@
       "area": 181035,
       "capital": "Phnom Penh",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 102,
@@ -573,7 +615,8 @@
       "area": 475442,
       "capital": "Yaoundé",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 82,
@@ -587,7 +630,8 @@
       "area": 9984670,
       "capital": "Ottawa",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "country"
     },
     {
       "id": 177,
@@ -601,7 +645,8 @@
       "area": 4033,
       "capital": "Praia",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 176,
@@ -615,7 +660,8 @@
       "area": 328,
       "capital": "Kralendijk",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 15,
@@ -629,7 +675,8 @@
       "area": 264,
       "capital": "George Town",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 166,
@@ -643,7 +690,8 @@
       "area": 622984,
       "capital": "Bangui",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 189,
@@ -657,7 +705,8 @@
       "area": 1284000,
       "capital": "N'Djamena",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 119,
@@ -671,7 +720,8 @@
       "area": 756102,
       "capital": "Santiago",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 7,
@@ -685,7 +735,8 @@
       "area": 9706961,
       "capital": "Beijing",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 33,
@@ -699,7 +750,8 @@
       "area": 135,
       "capital": "Flying Fish Cove",
       "apiRegion": "Oceania",
-      "subregion": "Australia and New Zealand"
+      "subregion": "Australia and New Zealand",
+      "entityType": "territory"
     },
     {
       "id": 85,
@@ -713,7 +765,8 @@
       "area": 14,
       "capital": "West Island",
       "apiRegion": "Oceania",
-      "subregion": "Australia and New Zealand"
+      "subregion": "Australia and New Zealand",
+      "entityType": "territory"
     },
     {
       "id": 154,
@@ -727,7 +780,8 @@
       "area": 1141748,
       "capital": "Bogotá",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 9,
@@ -741,7 +795,8 @@
       "area": 1862,
       "capital": "Moroni",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 185,
@@ -755,7 +810,8 @@
       "area": 236,
       "capital": "Avarua",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 37,
@@ -769,7 +825,8 @@
       "area": 51100,
       "capital": "San José",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 90,
@@ -783,7 +840,8 @@
       "area": 56594,
       "capital": "Zagreb",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 105,
@@ -797,7 +855,8 @@
       "area": 109884,
       "capital": "Havana",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 127,
@@ -811,7 +870,8 @@
       "area": 444,
       "capital": "Willemstad",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 113,
@@ -825,7 +885,8 @@
       "area": 9251,
       "capital": "Nicosia",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 134,
@@ -839,7 +900,8 @@
       "area": 78865,
       "capital": "Prague",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 124,
@@ -853,7 +915,8 @@
       "area": 43094,
       "capital": "Copenhagen",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 25,
@@ -867,7 +930,8 @@
       "area": 23200,
       "capital": "Djibouti",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 232,
@@ -881,7 +945,8 @@
       "area": 751,
       "capital": "Roseau",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 218,
@@ -895,7 +960,8 @@
       "area": 48671,
       "capital": "Santo Domingo",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 36,
@@ -909,7 +975,8 @@
       "area": 2344858,
       "capital": "Kinshasa",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 47,
@@ -923,7 +990,8 @@
       "area": 276841,
       "capital": "Quito",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 210,
@@ -937,7 +1005,8 @@
       "area": 1002450,
       "capital": "Cairo",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 103,
@@ -951,7 +1020,8 @@
       "area": 21041,
       "capital": "San Salvador",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 153,
@@ -965,7 +1035,8 @@
       "area": 28051,
       "capital": "Malabo",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 151,
@@ -979,7 +1050,8 @@
       "area": 117600,
       "capital": "Asmara",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 59,
@@ -993,7 +1065,8 @@
       "area": 45227,
       "capital": "Tallinn",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 27,
@@ -1007,7 +1080,8 @@
       "area": 17364,
       "capital": "Mbabane",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     },
     {
       "id": 215,
@@ -1021,7 +1095,8 @@
       "area": 1104300,
       "capital": "Addis Ababa",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 183,
@@ -1035,7 +1110,8 @@
       "area": 12173,
       "capital": "Stanley",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "territory"
     },
     {
       "id": 237,
@@ -1049,7 +1125,8 @@
       "area": 1393,
       "capital": "Tórshavn",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 21,
@@ -1063,7 +1140,8 @@
       "area": 18272,
       "capital": "Suva",
       "apiRegion": "Oceania",
-      "subregion": "Melanesia"
+      "subregion": "Melanesia",
+      "entityType": "country"
     },
     {
       "id": 139,
@@ -1077,7 +1155,8 @@
       "area": 338424,
       "capital": "Helsinki",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 121,
@@ -1091,7 +1170,8 @@
       "area": 551695,
       "capital": "Paris",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 71,
@@ -1105,7 +1185,8 @@
       "area": 83534,
       "capital": "Cayenne",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "territory"
     },
     {
       "id": 35,
@@ -1119,7 +1200,8 @@
       "area": 4167,
       "capital": "Papeetē",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 117,
@@ -1133,7 +1215,8 @@
       "area": 7747,
       "capital": "Port-aux-Français",
       "apiRegion": "Antarctic",
-      "subregion": ""
+      "subregion": "",
+      "entityType": "territory"
     },
     {
       "id": 136,
@@ -1147,7 +1230,8 @@
       "area": 267668,
       "capital": "Libreville",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 34,
@@ -1161,7 +1245,8 @@
       "area": 10689,
       "capital": "Banjul",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 3,
@@ -1175,7 +1260,8 @@
       "area": 69700,
       "capital": "Tbilisi",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 147,
@@ -1189,7 +1275,8 @@
       "area": 357114,
       "capital": "Berlin",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 123,
@@ -1203,7 +1290,8 @@
       "area": 238533,
       "capital": "Accra",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 89,
@@ -1217,7 +1305,8 @@
       "area": 6,
       "capital": "Gibraltar",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "territory"
     },
     {
       "id": 108,
@@ -1231,7 +1320,8 @@
       "area": 131990,
       "capital": "Athens",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 223,
@@ -1245,7 +1335,8 @@
       "area": 2166086,
       "capital": "Nuuk",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "territory"
     },
     {
       "id": 52,
@@ -1259,7 +1350,8 @@
       "area": 344,
       "capital": "St. George's",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 148,
@@ -1273,7 +1365,8 @@
       "area": 1628,
       "capital": "Basse-Terre",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 180,
@@ -1287,7 +1380,8 @@
       "area": 549,
       "capital": "Hagåtña",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "territory"
     },
     {
       "id": 146,
@@ -1301,7 +1395,8 @@
       "area": 108889,
       "capital": "Guatemala City",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 249,
@@ -1315,7 +1410,8 @@
       "area": 78,
       "capital": "St. Peter Port",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 55,
@@ -1329,7 +1425,8 @@
       "area": 245857,
       "capital": "Conakry",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 133,
@@ -1343,7 +1440,8 @@
       "area": 36125,
       "capital": "Bissau",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 60,
@@ -1357,7 +1455,8 @@
       "area": 214969,
       "capital": "Georgetown",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 131,
@@ -1371,7 +1470,8 @@
       "area": 27750,
       "capital": "Port-au-Prince",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 99,
@@ -1385,7 +1485,8 @@
       "area": 412,
       "capital": "N/A",
       "apiRegion": "Antarctic",
-      "subregion": ""
+      "subregion": "",
+      "entityType": "territory"
     },
     {
       "id": 23,
@@ -1399,7 +1500,8 @@
       "area": 112492,
       "capital": "Tegucigalpa",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 235,
@@ -1413,7 +1515,8 @@
       "area": 1104,
       "capital": "City of Victoria",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "territory"
     },
     {
       "id": 186,
@@ -1427,7 +1530,8 @@
       "area": 93028,
       "capital": "Budapest",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 98,
@@ -1441,7 +1545,8 @@
       "area": 103000,
       "capital": "Reykjavik",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 229,
@@ -1455,7 +1560,8 @@
       "area": 3287590,
       "capital": "New Delhi",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 230,
@@ -1469,7 +1575,8 @@
       "area": 1904569,
       "capital": "Jakarta",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 46,
@@ -1483,7 +1590,8 @@
       "area": 1648195,
       "capital": "Tehran",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 41,
@@ -1497,7 +1605,8 @@
       "area": 438317,
       "capital": "Baghdad",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 198,
@@ -1511,7 +1620,8 @@
       "area": 70273,
       "capital": "Dublin",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 92,
@@ -1525,7 +1635,8 @@
       "area": 572,
       "capital": "Douglas",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 68,
@@ -1539,7 +1650,8 @@
       "area": 20770,
       "capital": "Jerusalem",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 138,
@@ -1553,7 +1665,8 @@
       "area": 301336,
       "capital": "Rome",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 203,
@@ -1567,7 +1680,8 @@
       "area": 322463,
       "capital": "Yamoussoukro",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 110,
@@ -1581,7 +1695,8 @@
       "area": 10991,
       "capital": "Kingston",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 142,
@@ -1595,7 +1710,8 @@
       "area": 377930,
       "capital": "Tokyo",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 24,
@@ -1609,7 +1725,8 @@
       "area": 116,
       "capital": "Saint Helier",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 211,
@@ -1623,7 +1740,8 @@
       "area": 89342,
       "capital": "Amman",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 81,
@@ -1637,7 +1755,8 @@
       "area": 2724900,
       "capital": "Astana",
       "apiRegion": "Asia",
-      "subregion": "Central Asia"
+      "subregion": "Central Asia",
+      "entityType": "country"
     },
     {
       "id": 19,
@@ -1651,7 +1770,8 @@
       "area": 580367,
       "capital": "Nairobi",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 216,
@@ -1665,7 +1785,8 @@
       "area": 811,
       "capital": "South Tarawa",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "country"
     },
     {
       "id": 63,
@@ -1679,7 +1800,8 @@
       "area": 10908,
       "capital": "Pristina",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 100,
@@ -1693,7 +1815,8 @@
       "area": 17818,
       "capital": "Kuwait City",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 5,
@@ -1707,7 +1830,8 @@
       "area": 199951,
       "capital": "Bishkek",
       "apiRegion": "Asia",
-      "subregion": "Central Asia"
+      "subregion": "Central Asia",
+      "entityType": "country"
     },
     {
       "id": 48,
@@ -1721,7 +1845,8 @@
       "area": 236800,
       "capital": "Vientiane",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 14,
@@ -1735,7 +1860,8 @@
       "area": 64559,
       "capital": "Riga",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 44,
@@ -1749,7 +1875,8 @@
       "area": 10452,
       "capital": "Beirut",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 17,
@@ -1763,7 +1890,8 @@
       "area": 30355,
       "capital": "Maseru",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     },
     {
       "id": 164,
@@ -1777,7 +1905,8 @@
       "area": 111369,
       "capital": "Monrovia",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 66,
@@ -1791,7 +1920,8 @@
       "area": 1759540,
       "capital": "Tripoli",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 197,
@@ -1805,7 +1935,8 @@
       "area": 160,
       "capital": "Vaduz",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 175,
@@ -1819,7 +1950,8 @@
       "area": 65300,
       "capital": "Vilnius",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 61,
@@ -1833,7 +1965,8 @@
       "area": 2586,
       "capital": "Luxembourg",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 104,
@@ -1847,7 +1980,8 @@
       "area": 30,
       "capital": "N/A",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "territory"
     },
     {
       "id": 234,
@@ -1861,7 +1995,8 @@
       "area": 587041,
       "capital": "Antananarivo",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 38,
@@ -1875,7 +2010,8 @@
       "area": 118484,
       "capital": "Lilongwe",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 73,
@@ -1889,7 +2025,8 @@
       "area": 330803,
       "capital": "Kuala Lumpur",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 199,
@@ -1903,7 +2040,8 @@
       "area": 300,
       "capital": "Malé",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 69,
@@ -1917,7 +2055,8 @@
       "area": 1240192,
       "capital": "Bamako",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 193,
@@ -1931,7 +2070,8 @@
       "area": 316,
       "capital": "Valletta",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 195,
@@ -1945,7 +2085,8 @@
       "area": 181,
       "capital": "Majuro",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "country"
     },
     {
       "id": 205,
@@ -1959,7 +2100,8 @@
       "area": 1128,
       "capital": "Fort-de-France",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 187,
@@ -1973,7 +2115,8 @@
       "area": 1030700,
       "capital": "Nouakchott",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 94,
@@ -1987,7 +2130,8 @@
       "area": 2040,
       "capital": "Port Louis",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 2,
@@ -2001,7 +2145,8 @@
       "area": 374,
       "capital": "Mamoudzou",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "territory"
     },
     {
       "id": 137,
@@ -2015,7 +2160,8 @@
       "area": 1964375,
       "capital": "Mexico City",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "country"
     },
     {
       "id": 75,
@@ -2029,7 +2175,8 @@
       "area": 702,
       "capital": "Palikir",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "country"
     },
     {
       "id": 145,
@@ -2043,7 +2190,8 @@
       "area": 33846,
       "capital": "Chișinău",
       "apiRegion": "Europe",
-      "subregion": "Eastern Europe"
+      "subregion": "Eastern Europe",
+      "entityType": "country"
     },
     {
       "id": 115,
@@ -2057,7 +2205,8 @@
       "area": 2.02,
       "capital": "Monaco",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 114,
@@ -2071,7 +2220,8 @@
       "area": 1564110,
       "capital": "Ulan Bator",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 156,
@@ -2085,7 +2235,8 @@
       "area": 13812,
       "capital": "Podgorica",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 53,
@@ -2099,7 +2250,8 @@
       "area": 102,
       "capital": "Plymouth",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 171,
@@ -2113,7 +2265,8 @@
       "area": 446550,
       "capital": "Rabat",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 242,
@@ -2127,7 +2280,8 @@
       "area": 801590,
       "capital": "Maputo",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 67,
@@ -2141,7 +2295,8 @@
       "area": 676578,
       "capital": "Naypyidaw",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 62,
@@ -2155,7 +2310,8 @@
       "area": 825615,
       "capital": "Windhoek",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     },
     {
       "id": 184,
@@ -2169,7 +2325,8 @@
       "area": 21,
       "capital": "Yaren",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "country"
     },
     {
       "id": 157,
@@ -2183,7 +2340,8 @@
       "area": 147181,
       "capital": "Kathmandu",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 16,
@@ -2197,7 +2355,8 @@
       "area": 41850,
       "capital": "Amsterdam",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 64,
@@ -2211,7 +2370,8 @@
       "area": 18575,
       "capital": "Nouméa",
       "apiRegion": "Oceania",
-      "subregion": "Melanesia"
+      "subregion": "Melanesia",
+      "entityType": "territory"
     },
     {
       "id": 31,
@@ -2225,7 +2385,8 @@
       "area": 270467,
       "capital": "Wellington",
       "apiRegion": "Oceania",
-      "subregion": "Australia and New Zealand"
+      "subregion": "Australia and New Zealand",
+      "entityType": "country"
     },
     {
       "id": 208,
@@ -2239,7 +2400,8 @@
       "area": 130373,
       "capital": "Managua",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 6,
@@ -2253,7 +2415,8 @@
       "area": 1267000,
       "capital": "Niamey",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 155,
@@ -2267,7 +2430,8 @@
       "area": 923768,
       "capital": "Abuja",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 42,
@@ -2281,7 +2445,8 @@
       "area": 260,
       "capital": "Alofi",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 226,
@@ -2295,7 +2460,8 @@
       "area": 36,
       "capital": "Kingston",
       "apiRegion": "Oceania",
-      "subregion": "Australia and New Zealand"
+      "subregion": "Australia and New Zealand",
+      "entityType": "territory"
     },
     {
       "id": 222,
@@ -2309,7 +2475,8 @@
       "area": 120538,
       "capital": "Pyongyang",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 129,
@@ -2323,7 +2490,8 @@
       "area": 25713,
       "capital": "Skopje",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 172,
@@ -2337,7 +2505,8 @@
       "area": 464,
       "capital": "Saipan",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "territory"
     },
     {
       "id": 109,
@@ -2351,7 +2520,8 @@
       "area": 323802,
       "capital": "Oslo",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 40,
@@ -2365,7 +2535,8 @@
       "area": 309500,
       "capital": "Muscat",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 202,
@@ -2379,7 +2550,8 @@
       "area": 881912,
       "capital": "Islamabad",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 225,
@@ -2393,7 +2565,8 @@
       "area": 459,
       "capital": "Ngerulmud",
       "apiRegion": "Oceania",
-      "subregion": "Micronesia"
+      "subregion": "Micronesia",
+      "entityType": "country"
     },
     {
       "id": 93,
@@ -2407,7 +2580,8 @@
       "area": 6220,
       "capital": "Ramallah",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 57,
@@ -2421,7 +2595,8 @@
       "area": 75417,
       "capital": "Panama City",
       "apiRegion": "Americas",
-      "subregion": "Central America"
+      "subregion": "Central America",
+      "entityType": "country"
     },
     {
       "id": 209,
@@ -2435,7 +2610,8 @@
       "area": 462840,
       "capital": "Port Moresby",
       "apiRegion": "Oceania",
-      "subregion": "Melanesia"
+      "subregion": "Melanesia",
+      "entityType": "country"
     },
     {
       "id": 150,
@@ -2449,7 +2625,8 @@
       "area": 406752,
       "capital": "Asunción",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 132,
@@ -2463,7 +2640,8 @@
       "area": 1285216,
       "capital": "Lima",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 228,
@@ -2477,7 +2655,8 @@
       "area": 342353,
       "capital": "Manila",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 238,
@@ -2491,7 +2670,8 @@
       "area": 47,
       "capital": "Adamstown",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 83,
@@ -2505,7 +2685,8 @@
       "area": 312679,
       "capital": "Warsaw",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 135,
@@ -2519,7 +2700,8 @@
       "area": 92090,
       "capital": "Lisbon",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 84,
@@ -2533,7 +2715,8 @@
       "area": 8870,
       "capital": "San Juan",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 88,
@@ -2547,7 +2730,8 @@
       "area": 11586,
       "capital": "Doha",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 39,
@@ -2561,7 +2745,8 @@
       "area": 342000,
       "capital": "Brazzaville",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 26,
@@ -2575,7 +2760,8 @@
       "area": 2511,
       "capital": "Saint-Denis",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "territory"
     },
     {
       "id": 169,
@@ -2589,7 +2775,8 @@
       "area": 238391,
       "capital": "Bucharest",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 204,
@@ -2603,7 +2790,8 @@
       "area": 17098242,
       "capital": "Moscow",
       "apiRegion": "Europe",
-      "subregion": "Eastern Europe"
+      "subregion": "Eastern Europe",
+      "entityType": "country"
     },
     {
       "id": 233,
@@ -2617,7 +2805,8 @@
       "area": 26338,
       "capital": "Kigali",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 13,
@@ -2631,7 +2820,8 @@
       "area": 21,
       "capital": "Gustavia",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 248,
@@ -2645,7 +2835,8 @@
       "area": 394,
       "capital": "Jamestown",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "territory"
     },
     {
       "id": 97,
@@ -2659,7 +2850,8 @@
       "area": 261,
       "capital": "Basseterre",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 168,
@@ -2673,7 +2865,8 @@
       "area": 616,
       "capital": "Castries",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 95,
@@ -2687,7 +2880,8 @@
       "area": 53,
       "capital": "Marigot",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 65,
@@ -2701,7 +2895,8 @@
       "area": 242,
       "capital": "Saint-Pierre",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "territory"
     },
     {
       "id": 194,
@@ -2715,7 +2910,8 @@
       "area": 389,
       "capital": "Kingstown",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 236,
@@ -2729,7 +2925,8 @@
       "area": 2842,
       "capital": "Apia",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "country"
     },
     {
       "id": 86,
@@ -2743,7 +2940,8 @@
       "area": 61,
       "capital": "City of San Marino",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 51,
@@ -2757,7 +2955,8 @@
       "area": 964,
       "capital": "São Tomé",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 29,
@@ -2771,7 +2970,8 @@
       "area": 2149690,
       "capital": "Riyadh",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 43,
@@ -2785,7 +2985,8 @@
       "area": 196722,
       "capital": "Dakar",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 78,
@@ -2799,7 +3000,8 @@
       "area": 88361,
       "capital": "Belgrade",
       "apiRegion": "Europe",
-      "subregion": "Southeast Europe"
+      "subregion": "Southeast Europe",
+      "entityType": "country"
     },
     {
       "id": 143,
@@ -2813,7 +3015,8 @@
       "area": 452,
       "capital": "Victoria",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 96,
@@ -2827,7 +3030,8 @@
       "area": 71740,
       "capital": "Freetown",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 192,
@@ -2841,7 +3045,8 @@
       "area": 710,
       "capital": "Singapore",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 125,
@@ -2855,7 +3060,8 @@
       "area": 34,
       "capital": "Philipsburg",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 76,
@@ -2869,7 +3075,8 @@
       "area": 49037,
       "capital": "Bratislava",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 188,
@@ -2883,7 +3090,8 @@
       "area": 20273,
       "capital": "Ljubljana",
       "apiRegion": "Europe",
-      "subregion": "Central Europe"
+      "subregion": "Central Europe",
+      "entityType": "country"
     },
     {
       "id": 107,
@@ -2897,7 +3105,8 @@
       "area": 28896,
       "capital": "Honiara",
       "apiRegion": "Oceania",
-      "subregion": "Melanesia"
+      "subregion": "Melanesia",
+      "entityType": "country"
     },
     {
       "id": 12,
@@ -2911,7 +3120,8 @@
       "area": 637657,
       "capital": "Mogadishu",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 80,
@@ -2925,7 +3135,8 @@
       "area": 1221037,
       "capital": "Pretoria",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     },
     {
       "id": 227,
@@ -2939,7 +3150,8 @@
       "area": 3903,
       "capital": "King Edward Point",
       "apiRegion": "Antarctic",
-      "subregion": ""
+      "subregion": "",
+      "entityType": "territory"
     },
     {
       "id": 122,
@@ -2953,7 +3165,8 @@
       "area": 100210,
       "capital": "Seoul",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 130,
@@ -2967,7 +3180,8 @@
       "area": 619745,
       "capital": "Juba",
       "apiRegion": "Africa",
-      "subregion": "Middle Africa"
+      "subregion": "Middle Africa",
+      "entityType": "country"
     },
     {
       "id": 141,
@@ -2981,7 +3195,8 @@
       "area": 505992,
       "capital": "Madrid",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 49,
@@ -2995,7 +3210,8 @@
       "area": 65610,
       "capital": "Sri Jayawardenepura Kotte",
       "apiRegion": "Asia",
-      "subregion": "Southern Asia"
+      "subregion": "Southern Asia",
+      "entityType": "country"
     },
     {
       "id": 152,
@@ -3009,7 +3225,8 @@
       "area": 1886068,
       "capital": "Khartoum",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 219,
@@ -3023,7 +3240,8 @@
       "area": 163820,
       "capital": "Paramaribo",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 91,
@@ -3037,7 +3255,8 @@
       "area": 61399,
       "capital": "Longyearbyen",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "territory"
     },
     {
       "id": 241,
@@ -3051,7 +3270,8 @@
       "area": 450295,
       "capital": "Stockholm",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 128,
@@ -3065,7 +3285,8 @@
       "area": 41284,
       "capital": "Bern",
       "apiRegion": "Europe",
-      "subregion": "Western Europe"
+      "subregion": "Western Europe",
+      "entityType": "country"
     },
     {
       "id": 118,
@@ -3079,7 +3300,8 @@
       "area": 185180,
       "capital": "Damascus",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 101,
@@ -3093,7 +3315,8 @@
       "area": 36193,
       "capital": "Taipei",
       "apiRegion": "Asia",
-      "subregion": "Eastern Asia"
+      "subregion": "Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 28,
@@ -3107,7 +3330,8 @@
       "area": 143100,
       "capital": "Dushanbe",
       "apiRegion": "Asia",
-      "subregion": "Central Asia"
+      "subregion": "Central Asia",
+      "entityType": "country"
     },
     {
       "id": 111,
@@ -3121,7 +3345,8 @@
       "area": 945087,
       "capital": "Dodoma",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 196,
@@ -3135,7 +3360,8 @@
       "area": 513120,
       "capital": "Bangkok",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 207,
@@ -3149,7 +3375,8 @@
       "area": 14874,
       "capital": "Dili",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 1,
@@ -3163,7 +3390,8 @@
       "area": 56785,
       "capital": "Lomé",
       "apiRegion": "Africa",
-      "subregion": "Western Africa"
+      "subregion": "Western Africa",
+      "entityType": "country"
     },
     {
       "id": 250,
@@ -3177,7 +3405,8 @@
       "area": 12,
       "capital": "Fakaofo",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 181,
@@ -3191,7 +3420,8 @@
       "area": 747,
       "capital": "Nuku'alofa",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "country"
     },
     {
       "id": 22,
@@ -3205,7 +3435,8 @@
       "area": 5130,
       "capital": "Port of Spain",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "country"
     },
     {
       "id": 116,
@@ -3219,7 +3450,8 @@
       "area": 163610,
       "capital": "Tunis",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "country"
     },
     {
       "id": 20,
@@ -3233,7 +3465,8 @@
       "area": 783562,
       "capital": "Ankara",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 79,
@@ -3247,7 +3480,8 @@
       "area": 488100,
       "capital": "Ashgabat",
       "apiRegion": "Asia",
-      "subregion": "Central Asia"
+      "subregion": "Central Asia",
+      "entityType": "country"
     },
     {
       "id": 160,
@@ -3261,7 +3495,8 @@
       "area": 948,
       "capital": "Cockburn Town",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 8,
@@ -3275,7 +3510,8 @@
       "area": 26,
       "capital": "Funafuti",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "country"
     },
     {
       "id": 72,
@@ -3289,7 +3525,8 @@
       "area": 241550,
       "capital": "Kampala",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 246,
@@ -3303,7 +3540,8 @@
       "area": 603500,
       "capital": "Kyiv",
       "apiRegion": "Europe",
-      "subregion": "Eastern Europe"
+      "subregion": "Eastern Europe",
+      "entityType": "country"
     },
     {
       "id": 170,
@@ -3317,7 +3555,8 @@
       "area": 83600,
       "capital": "Abu Dhabi",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 162,
@@ -3331,7 +3570,8 @@
       "area": 242900,
       "capital": "London",
       "apiRegion": "Europe",
-      "subregion": "Northern Europe"
+      "subregion": "Northern Europe",
+      "entityType": "country"
     },
     {
       "id": 178,
@@ -3345,7 +3585,8 @@
       "area": 9372610,
       "capital": "Washington, D.C.",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "country"
     },
     {
       "id": 173,
@@ -3359,7 +3600,8 @@
       "area": 34.2,
       "capital": "Washington DC",
       "apiRegion": "Americas",
-      "subregion": "North America"
+      "subregion": "North America",
+      "entityType": "territory"
     },
     {
       "id": 231,
@@ -3373,7 +3615,8 @@
       "area": 347,
       "capital": "Charlotte Amalie",
       "apiRegion": "Americas",
-      "subregion": "Caribbean"
+      "subregion": "Caribbean",
+      "entityType": "territory"
     },
     {
       "id": 212,
@@ -3387,7 +3630,8 @@
       "area": 181034,
       "capital": "Montevideo",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 243,
@@ -3401,7 +3645,8 @@
       "area": 447400,
       "capital": "Tashkent",
       "apiRegion": "Asia",
-      "subregion": "Central Asia"
+      "subregion": "Central Asia",
+      "entityType": "country"
     },
     {
       "id": 4,
@@ -3415,7 +3660,8 @@
       "area": 12189,
       "capital": "Port Vila",
       "apiRegion": "Oceania",
-      "subregion": "Melanesia"
+      "subregion": "Melanesia",
+      "entityType": "country"
     },
     {
       "id": 190,
@@ -3429,7 +3675,8 @@
       "area": 0.44,
       "capital": "Vatican City",
       "apiRegion": "Europe",
-      "subregion": "Southern Europe"
+      "subregion": "Southern Europe",
+      "entityType": "country"
     },
     {
       "id": 18,
@@ -3443,7 +3690,8 @@
       "area": 916445,
       "capital": "Caracas",
       "apiRegion": "Americas",
-      "subregion": "South America"
+      "subregion": "South America",
+      "entityType": "country"
     },
     {
       "id": 200,
@@ -3457,7 +3705,8 @@
       "area": 331212,
       "capital": "Hanoi",
       "apiRegion": "Asia",
-      "subregion": "South-Eastern Asia"
+      "subregion": "South-Eastern Asia",
+      "entityType": "country"
     },
     {
       "id": 245,
@@ -3471,7 +3720,8 @@
       "area": 142,
       "capital": "Mata-Utu",
       "apiRegion": "Oceania",
-      "subregion": "Polynesia"
+      "subregion": "Polynesia",
+      "entityType": "territory"
     },
     {
       "id": 54,
@@ -3485,7 +3735,8 @@
       "area": 266000,
       "capital": "El Aaiún",
       "apiRegion": "Africa",
-      "subregion": "Northern Africa"
+      "subregion": "Northern Africa",
+      "entityType": "territory"
     },
     {
       "id": 58,
@@ -3499,7 +3750,8 @@
       "area": 527968,
       "capital": "Sana'a",
       "apiRegion": "Asia",
-      "subregion": "Western Asia"
+      "subregion": "Western Asia",
+      "entityType": "country"
     },
     {
       "id": 74,
@@ -3513,7 +3765,8 @@
       "area": 752612,
       "capital": "Lusaka",
       "apiRegion": "Africa",
-      "subregion": "Eastern Africa"
+      "subregion": "Eastern Africa",
+      "entityType": "country"
     },
     {
       "id": 140,
@@ -3527,7 +3780,8 @@
       "area": 390757,
       "capital": "Harare",
       "apiRegion": "Africa",
-      "subregion": "Southern Africa"
+      "subregion": "Southern Africa",
+      "entityType": "country"
     }
   ]
 }

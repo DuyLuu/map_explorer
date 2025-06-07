@@ -1,7 +1,13 @@
 import { QueryClient } from '@tanstack/react-query'
 import { Region, CountryWithRegion } from '../types/region'
 import { getCountryRegion, isCountryInRegion } from './regionService'
-import { getBundledCountries } from './bundledDataService'
+import {
+  getBundledCountries,
+  getBundledCountriesOnly,
+  getBundledTerritoriesOnly,
+  getBundledCountriesByEntityType,
+  getBundledCountriesByRegionAndEntityType,
+} from './bundledDataService'
 
 interface Country {
   id: number
@@ -218,29 +224,60 @@ export function getCountries(): CountryWithRegion[] | undefined {
 }
 
 /**
- * Get countries filtered by region
+ * Get all countries filtered by entity type
  */
-export function getCountriesByRegion(region: Region): CountryWithRegion[] {
-  const allCountries = getCountries()
-
-  if (!allCountries) {
-    return []
-  }
-
-  if (region === Region.WORLD) {
-    return allCountries
-  }
-
-  return allCountries.filter(country => isCountryInRegion(country.name, region))
+export function getCountriesByEntityType(entityType: 'country' | 'territory'): CountryWithRegion[] {
+  return getBundledCountriesByEntityType(entityType)
 }
 
 /**
- * Get countries filtered by both region and level
+ * Get only sovereign countries (excludes territories)
  */
-export function getCountriesByRegionAndLevel(region: Region, level?: number): CountryWithRegion[] {
-  let countries = getCountriesByRegion(region)
+export function getCountriesOnly(): CountryWithRegion[] {
+  return getBundledCountriesOnly()
+}
 
-  if (level !== undefined) {
+/**
+ * Get only territories and dependencies
+ */
+export function getTerritoriesOnly(): CountryWithRegion[] {
+  return getBundledTerritoriesOnly()
+}
+
+/**
+ * Get countries by region with optional entity type filtering
+ */
+export function getCountriesByRegion(
+  region: Region,
+  entityType?: 'country' | 'territory'
+): CountryWithRegion[] {
+  if (entityType) {
+    return getBundledCountriesByRegionAndEntityType(region, entityType)
+  }
+
+  // Keep existing behavior for backward compatibility
+  const allCountries = getCountries()
+  if (!allCountries) return []
+
+  return allCountries.filter(country => {
+    if (region === Region.WORLD) {
+      return true // All countries and territories are part of the world
+    }
+    return country.region === region
+  })
+}
+
+/**
+ * Get countries by region and level with optional entity type filtering
+ */
+export function getCountriesByRegionAndLevel(
+  region: Region,
+  level?: number,
+  entityType?: 'country' | 'territory'
+): CountryWithRegion[] {
+  let countries = getCountriesByRegion(region, entityType)
+
+  if (level) {
     countries = countries.filter(country => country.level === level)
   }
 

@@ -21,7 +21,6 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const ChallengeQuizScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>()
-  const [showNewRecordModal, setShowNewRecordModal] = useState(false)
 
   const {
     currentQuestion,
@@ -55,19 +54,7 @@ const ChallengeQuizScreen: React.FC = () => {
     return finalScore
   }
 
-  // Handle game over with new record modal
-  const handleGameOverModalClose = () => {
-    if (isNewRecord && finalChallengeScore) {
-      setShowNewRecordModal(true)
-    }
-  }
-
-  const handleNewRecordModalClose = () => {
-    setShowNewRecordModal(false)
-  }
-
   const handleViewRecords = () => {
-    setShowNewRecordModal(false)
     navigation.goBack()
   }
 
@@ -193,32 +180,24 @@ const ChallengeQuizScreen: React.FC = () => {
         </View>
       )}
 
-      {/* Game Over Modal */}
+      {/* Game Over Modal - Only show if no new record */}
       <ChallengeGameOverModal
-        visible={gameOver && !showNewRecordModal}
+        visible={gameOver && !isNewRecord}
         score={score}
         questionsAnswered={currentQuestionNumber}
         isNewRecord={isNewRecord}
         finalChallengeScore={finalChallengeScore}
         onRestart={restartChallenge}
-        onExit={() => {
-          handleGameOverModalClose()
-          if (!isNewRecord) {
-            exitChallenge()
-          }
-        }}
+        onExit={exitChallenge}
       />
 
-      {/* New Record Celebration Modal */}
+      {/* New Record Modal - Only show if new record */}
       {finalChallengeScore && (
         <NewRecordModal
-          visible={showNewRecordModal}
+          visible={gameOver && isNewRecord}
           challengeScore={finalChallengeScore}
           onViewRecords={handleViewRecords}
-          onClose={() => {
-            handleNewRecordModalClose()
-            exitChallenge()
-          }}
+          onClose={exitChallenge}
         />
       )}
     </SafeAreaView>

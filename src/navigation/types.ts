@@ -13,4 +13,5 @@ export type RootStackParamList = {
   Settings: undefined
   MapProgressDetail: undefined
   CountryDetail: { country: CountryWithRegion }
+  TopCountries: undefined
 }

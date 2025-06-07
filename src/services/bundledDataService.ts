@@ -15,6 +15,7 @@ interface CountryDataFile {
     countryCode: string
     flagUrl: string
     originalFlagUrl: string
+    entityType?: 'country' | 'territory'
     population?: number
     area?: number
     capital?: string
@@ -91,6 +92,7 @@ export function loadBundledCountryData(): Promise<CountryWithRegion[]> {
         flagUrl: country.flagUrl, // Will be replaced with local path by flagAssetService
         level: country.level,
         region: country.region as any, // Cast to Region enum
+        entityType: country.entityType || 'country', // Default to 'country' for backward compatibility
         // Include new fields from v2.0.0
         countryCode: country.countryCode,
         population: country.population,
@@ -216,6 +218,51 @@ export function getBundledCountriesByRegionAndLevel(
 
   if (level !== undefined) {
     filtered = filtered.filter(country => country.level === level)
+  }
+
+  return filtered
+}
+
+/**
+ * Get countries filtered by entity type
+ */
+export function getBundledCountriesByEntityType(
+  entityType: 'country' | 'territory'
+): CountryWithRegion[] {
+  const countries = getBundledCountriesSync()
+  if (!countries) return []
+
+  return countries.filter(country => (country.entityType || 'country') === entityType)
+}
+
+/**
+ * Get only sovereign countries (excludes territories)
+ */
+export function getBundledCountriesOnly(): CountryWithRegion[] {
+  return getBundledCountriesByEntityType('country')
+}
+
+/**
+ * Get only territories and dependencies
+ */
+export function getBundledTerritoriesOnly(): CountryWithRegion[] {
+  return getBundledCountriesByEntityType('territory')
+}
+
+/**
+ * Get countries filtered by region and entity type
+ */
+export function getBundledCountriesByRegionAndEntityType(
+  region: string,
+  entityType?: 'country' | 'territory'
+): CountryWithRegion[] {
+  const countries = getBundledCountriesSync()
+  if (!countries) return []
+
+  let filtered = countries.filter(country => country.region === region)
+
+  if (entityType) {
+    filtered = filtered.filter(country => (country.entityType || 'country') === entityType)
   }
 
   return filtered

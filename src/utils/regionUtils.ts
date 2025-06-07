@@ -9,6 +9,7 @@ export const getRegionDescription = (region: Region): string => {
     [Region.NORTH_AMERICA]: '23 North American countries',
     [Region.SOUTH_AMERICA]: '12 South American countries',
     [Region.OCEANIA]: '14 Oceanian countries',
+    [Region.TERRITORIES]: 'Dependencies & overseas territories',
   }
   return descriptions[region] || 'Explore this region'
 }

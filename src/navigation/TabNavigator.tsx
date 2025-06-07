@@ -2,6 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Platform } from 'react-native'
+import SettingsButton from '../components/SettingsButton'
 
 // Import screens for each tab
 import QuizTabScreen from '../screens/QuizTabScreen'
@@ -38,11 +39,22 @@ const TabNavigator: React.FC = () => {
         },
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8E8E93',
-        headerShown: false,
+        headerShown: true,
+        headerRight: () => <SettingsButton />,
+        headerStyle: {
+          backgroundColor: '#fff',
+        },
+        headerTitleStyle: {
+          color: '#000',
+          fontSize: 18,
+          fontWeight: '600',
+        },
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 88 : 60,
           paddingBottom: Platform.OS === 'ios' ? 20 : 8,
           paddingTop: 8,
+          borderTopWidth: 1,
+          borderTopColor: '#E5E5E5',
         },
         tabBarLabelStyle: {
           fontSize: 12,
