@@ -1,17 +1,11 @@
 import React, { useState, useMemo } from 'react'
-import {
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ActivityIndicator,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native'
+import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 import { CountryWithRegion } from '../../../types/region'
 import { useCountries } from '../../../hooks/useCountries'
 import {
@@ -49,11 +43,19 @@ const TopCountriesScreen: React.FC = () => {
     const info = getCategoryInfo(category)
     const isSelected = selectedCategory === category
 
+    const tabStyles = [styles.categoryTab, isSelected ? styles.selectedCategoryTab : null].filter(
+      Boolean
+    ) as import('react-native').ViewStyle[]
+
     return (
-      <TouchableOpacity
+      <Button
         key={category}
-        style={[styles.categoryTab, isSelected && styles.selectedCategoryTab]}
+        style={tabStyles}
         onPress={() => setSelectedCategory(category)}
+        padding="m"
+        borderRadius={12}
+        backgroundColor={isSelected ? '#007AFF' : '#f0f0f0'}
+        marginRight="xs"
       >
         <Text style={styles.categoryIcon}>{info.icon}</Text>
         <Text style={isSelected ? styles.selectedCategoryTitle : styles.categoryTitle}>
@@ -62,12 +64,19 @@ const TopCountriesScreen: React.FC = () => {
         <Text style={isSelected ? styles.selectedCategoryDescription : styles.categoryDescription}>
           {info.description}
         </Text>
-      </TouchableOpacity>
+      </Button>
     )
   }
 
   const renderCountryItem = ({ item }: { item: RankedCountry }) => (
-    <TouchableOpacity style={styles.countryItem} onPress={() => handleCountryPress(item)}>
+    <Button
+      style={styles.countryItem}
+      onPress={() => handleCountryPress(item)}
+      padding="m"
+      borderRadius={12}
+      backgroundColor="#fff"
+      marginBottom="sm"
+    >
       <Box centerItems style={{ minWidth: 50 }}>
         <Text variant="body" weight="bold" center marginTop="m">
           #{item.rank}
@@ -85,13 +94,13 @@ const TopCountriesScreen: React.FC = () => {
       </Box>
 
       <Text style={styles.chevron}>›</Text>
-    </TouchableOpacity>
+    </Button>
   )
 
   const BackButton = () => (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
+    <Button onPress={() => navigation.goBack()} variant="ghost" padding="xs">
       <Icon name="arrow-back" size={24} color="#007AFF" />
-    </TouchableOpacity>
+    </Button>
   )
 
   if (isLoading) {

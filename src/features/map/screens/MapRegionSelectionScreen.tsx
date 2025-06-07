@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
 import BackButton from '../../../components/BackButton'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 
 import MapRegionOption from '../components/MapRegionOption'
 
@@ -90,23 +92,24 @@ const MapRegionSelectionScreen: React.FC = () => {
           </Box>
           {/* Add View Progress Detail button */}
           {selectedRegion && (
-            <TouchableOpacity
+            <Button
+              variant="primary"
               style={[styles.confirmButton, styles.progressButton]}
               onPress={() => navigation.navigate('MapProgressDetail')}
             >
               <Text variant="body" weight="bold" style={styles.buttonText}>
                 View Progress Detail
               </Text>
-            </TouchableOpacity>
+            </Button>
           )}
         </Box>
       </ScrollView>
 
-      <TouchableOpacity style={[styles.confirmButton]} onPress={onConfirm}>
+      <Button style={[styles.confirmButton]} onPress={onConfirm}>
         <Text variant="body" weight="bold" style={styles.buttonText}>
           Start Map Quiz
         </Text>
-      </TouchableOpacity>
+      </Button>
     </SafeAreaView>
   )
 }

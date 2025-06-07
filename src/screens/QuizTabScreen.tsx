@@ -1,16 +1,11 @@
 import React from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-  Platform,
-} from 'react-native'
+import { StyleSheet, SafeAreaView, ActivityIndicator, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from '../hooks/useCountries'
 import { Text } from '../components/Text'
 import { Box } from '../components/Box'
+import { Button } from '../components/Button'
 
 type RootStackParamList = {
   FlagRegionSelection: undefined
@@ -34,14 +29,18 @@ const QuizTabScreen: React.FC = () => {
         </Text>
 
         <Box style={[styles.buttonContainer, { width: '100%' }]}>
-          <TouchableOpacity
+          <Button
             style={[styles.button, styles.flagButton]}
             onPress={() => navigation.navigate('FlagRegionSelection')}
             disabled={isLoading}
+            loading={isLoading}
+            padding="xl"
+            borderRadius={16}
+            backgroundColor="#007AFF"
+            fullWidth
+            center
           >
-            {isLoading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
+            {!isLoading && (
               <>
                 <Text size={24} style={styles.buttonIcon}>
                   🏳️
@@ -54,18 +53,22 @@ const QuizTabScreen: React.FC = () => {
                 </Text>
               </>
             )}
-          </TouchableOpacity>
+          </Button>
 
           {/* Map Quiz button - iOS only */}
           {Platform.OS === 'ios' && (
-            <TouchableOpacity
+            <Button
               style={[styles.button, styles.mapButton]}
               onPress={() => navigation.navigate('MapRegionSelection')}
               disabled={isLoading}
+              loading={isLoading}
+              padding="xl"
+              borderRadius={16}
+              backgroundColor="#34A853"
+              fullWidth
+              center
             >
-              {isLoading ? (
-                <ActivityIndicator color="#fff" />
-              ) : (
+              {!isLoading && (
                 <>
                   <Text size={24} style={styles.buttonIcon}>
                     🗺️
@@ -78,7 +81,7 @@ const QuizTabScreen: React.FC = () => {
                   </Text>
                 </>
               )}
-            </TouchableOpacity>
+            </Button>
           )}
         </Box>
       </Box>
@@ -91,23 +94,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  content: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   subtitle: {
-    marginBottom: 48,
+    marginBottom: 24,
   },
   buttonContainer: {
-    gap: 20,
+    gap: 16,
+    marginTop: 32,
   },
   button: {
     padding: 24,
     borderRadius: 16,
     alignItems: 'center',
-    width: 300,
+    width: '100%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -119,14 +117,22 @@ const styles = StyleSheet.create({
   },
   flagButton: {
     backgroundColor: '#007AFF',
+    borderWidth: 2,
+    borderColor: '#FFD700',
   },
   mapButton: {
-    backgroundColor: '#FF6B35',
+    backgroundColor: '#34A853',
+    borderWidth: 2,
+    borderColor: '#FFD700',
   },
   buttonIcon: {
+    fontSize: 24,
     marginBottom: 8,
   },
   buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
     marginBottom: 4,
   },
 })

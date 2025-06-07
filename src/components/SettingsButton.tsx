@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { Button } from './Button'
 import SvgUri from 'react-native-svg-uri'
 import IMAGES from '../assets/images'
 import { useNavigation } from '@react-navigation/native'
@@ -13,9 +13,9 @@ const SettingsButton = () => {
   const navigation = useNavigation<NavigationProp>()
   return (
     <Box marginRight="m">
-      <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+      <Button onPress={() => navigation.navigate('Settings')} variant="ghost" padding="xs">
         <SvgUri width="24" height="24" source={IMAGES.ic_settings} />
-      </TouchableOpacity>
+      </Button>
     </Box>
   )
 }

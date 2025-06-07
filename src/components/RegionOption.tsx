@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import ProgressRing from './ProgressRing'
 import { getRegionProgress } from '../services/quizService'
 import { getRegionDescription } from '../utils/regionUtils'
 import { Text } from './Text'
 import { Box } from './Box'
+import { Button } from './Button'
 
 interface RegionOptionProps {
   region: Region
@@ -42,9 +43,13 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
   }
 
   return (
-    <TouchableOpacity
-      style={[styles.optionButton, isSelected && styles.selectedOption]}
+    <Button
       onPress={onPress}
+      variant={isSelected ? 'primary' : 'outlined'}
+      style={[styles.optionButton, isSelected && styles.selectedOption]}
+      paddingVertical="sm"
+      paddingHorizontal="m"
+      fullWidth
     >
       <Box row spaceBetween centerItems>
         <Box flex alignStart>
@@ -93,40 +98,27 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
           )}
         </Box>
       </Box>
-    </TouchableOpacity>
+    </Button>
   )
 }
 
 const styles = StyleSheet.create({
   optionButton: {
-    backgroundColor: '#f8f8f8',
-    padding: 20,
-    borderRadius: 16,
-    borderWidth: 3,
-    borderColor: 'transparent',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 12,
+    marginBottom: 12,
+    alignItems: 'stretch',
   },
   selectedOption: {
-    backgroundColor: '#007AFF',
-    borderColor: '#0056CC',
+    // Additional selected styles if needed
   },
   optionName: {
-    marginBottom: 4,
-    textAlign: 'left',
+    marginBottom: 2,
   },
   optionDescription: {
-    textAlign: 'left',
     marginBottom: 2,
   },
   progressText: {
-    textAlign: 'left',
+    marginTop: 2,
   },
   progressPercentage: {
     marginTop: 2,

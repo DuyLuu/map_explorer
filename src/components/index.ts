@@ -26,4 +26,17 @@ export {
   type TextProps,
 } from './Text'
 
+// Export new Button component and convenience components
+export {
+  Button,
+  PrimaryButton,
+  SecondaryButton,
+  OutlinedButton,
+  GhostButton,
+  DangerButton,
+  type ButtonProps,
+  type ButtonVariant,
+  type ButtonSize,
+} from './Button'
+
 export { default } from './Text'

@@ -1,15 +1,10 @@
 import React, { useState, useMemo } from 'react'
-import {
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native'
+import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 import SearchBar from '../components/SearchBar'
 import RegionFilter from '../components/RegionFilter'
 import CountryCard from '../components/CountryCard'
@@ -131,10 +126,16 @@ const LearningTabScreen: React.FC = () => {
           <Text style={styles.title}>Learning Center</Text>
           <Text style={styles.subtitle}>{getSubtitle()}</Text>
         </Box>
-        <TouchableOpacity style={styles.topCountriesButton} onPress={handleTopCountriesPress}>
+        <Button
+          style={styles.topCountriesButton}
+          onPress={handleTopCountriesPress}
+          padding="sm"
+          borderRadius={8}
+          backgroundColor="#f8f8f8"
+        >
           <Text style={styles.topCountriesIcon}>🏆</Text>
           <Text style={styles.topCountriesText}>Top Countries</Text>
-        </TouchableOpacity>
+        </Button>
       </Box>
 
       <SearchBar

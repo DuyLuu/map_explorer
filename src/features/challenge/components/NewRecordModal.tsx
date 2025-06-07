@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, TouchableOpacity, Modal, Animated } from 'react-native'
+import { StyleSheet, Modal, Animated } from 'react-native'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 import {
   ChallengeScore,
   formatTime,
@@ -250,15 +251,29 @@ const NewRecordModal: React.FC<NewRecordModalProps> = ({
 
           {/* Action Buttons */}
           <Box marginTop="m" style={{ gap: 12 }}>
-            <TouchableOpacity style={[styles.button, styles.primaryButton]} onPress={onViewRecords}>
+            <Button
+              style={[styles.button, styles.primaryButton]}
+              onPress={onViewRecords}
+              padding="m"
+              borderRadius={12}
+              backgroundColor="#FF6B35"
+              fullWidth
+            >
               <Text style={styles.buttonText}>🏆 View All Records</Text>
-            </TouchableOpacity>
+            </Button>
 
-            <TouchableOpacity style={[styles.button, styles.secondaryButton]} onPress={onClose}>
+            <Button
+              style={[styles.button, styles.secondaryButton]}
+              onPress={onClose}
+              padding="m"
+              borderRadius={12}
+              backgroundColor="#fff"
+              fullWidth
+            >
               <Text style={[styles.buttonText, styles.secondaryButtonText]}>
                 {isPerfectScore ? 'Bask in Glory' : 'Continue'}
               </Text>
-            </TouchableOpacity>
+            </Button>
           </Box>
         </Animated.View>
       </Box>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from '../../../stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Region, REGION_INFO } from '../../../types/region'
 import { getSelectableRegions } from '../../../services/regionService'
 import RegionProgressCard from '../../../components/RegionProgressCard'
@@ -9,6 +10,8 @@ import { isLevelUnlocked } from '../../../services/quizService'
 import BackButton from '../../../components/BackButton'
 import { Box } from '../../../components/Box'
 import { Text } from '../../../components/Text'
+import { Button } from '../../../components/Button'
+import ProgressRing from '../../../components/ProgressRing'
 
 const FlagProgressDetailScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
@@ -126,41 +129,25 @@ const FlagProgressDetailScreen: React.FC = () => {
               const isSelected = selectedLevel === level.id
 
               return (
-                <TouchableOpacity
+                <Button
                   key={level.id}
-                  style={[
-                    styles.optionButton,
-                    isSelected && styles.selectedOption,
-                    !isUnlocked && styles.lockedOption,
-                  ]}
+                  style={
+                    [
+                      styles.levelButton,
+                      isUnlocked ? styles.unlockedLevel : false,
+                      !isUnlocked ? styles.lockedLevel : false,
+                    ].filter(Boolean) as import('react-native').ViewStyle[]
+                  }
                   onPress={() => handleLevelSelect(level.id)}
                   disabled={!isUnlocked}
                 >
-                  <Box row spaceBetween centerItems>
-                    <Text
-                      style={[
-                        styles.optionName,
-                        ...(isSelected ? [styles.selectedText] : []),
-                        ...(!isUnlocked ? [styles.lockedText] : []),
-                      ]}
-                    >
-                      {level.name} {!isUnlocked && '🔒'}
-                    </Text>
-                    {isUnlocked && isSelected && <Text style={styles.checkmark}>✓</Text>}
-                  </Box>
-                  <Text
-                    style={[
-                      styles.optionDescription,
-                      ...(isSelected ? [styles.selectedText] : []),
-                      ...(!isUnlocked ? [styles.lockedText] : []),
-                    ]}
-                  >
-                    {level.description}
+                  <Text style={styles.levelText}>
+                    {level.name} {!isUnlocked && '🔒'}
                   </Text>
                   {!isUnlocked && (
                     <Text style={styles.lockMessage}>{getLevelLockMessage(level.id)}</Text>
                   )}
-                </TouchableOpacity>
+                </Button>
               )
             })}
           </Box>
@@ -183,13 +170,17 @@ const FlagProgressDetailScreen: React.FC = () => {
         )}
       </ScrollView>
 
-      <TouchableOpacity
-        style={[styles.confirmButton, !canStart && styles.disabledButton]}
+      <Button
+        style={
+          [styles.confirmButton, !canStart ? styles.disabledButton : false].filter(
+            Boolean
+          ) as import('react-native').ViewStyle[]
+        }
         onPress={onConfirm}
         disabled={!canStart}
       >
         <Text style={styles.confirmButtonText}>Start Quiz</Text>
-      </TouchableOpacity>
+      </Button>
     </SafeAreaView>
   )
 }
@@ -233,7 +224,7 @@ const styles = StyleSheet.create({
   progressCardsContainer: {
     gap: 8,
   },
-  optionButton: {
+  levelButton: {
     backgroundColor: '#f0f0f0',
     padding: 16,
     borderRadius: 12,
@@ -241,34 +232,18 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     alignItems: 'center',
   },
-  selectedOption: {
+  unlockedLevel: {
     backgroundColor: '#25A278',
     borderColor: '#1a8c63',
   },
-  lockedOption: {
+  lockedLevel: {
     backgroundColor: '#ccc',
   },
-  optionName: {
+  levelText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 2,
-  },
-  optionDescription: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-  },
-  selectedText: {
-    color: '#fff',
-  },
-  lockedText: {
-    color: '#999',
-  },
-  checkmark: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#fff',
   },
   lockMessage: {
     fontSize: 12,

@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import BackButton from '../components/BackButton'
 import { Text } from '../components/Text'
 import { Box } from '../components/Box'
+import { Button } from '../components/Button'
 
 type RootStackParamList = {
   Home: undefined
@@ -26,23 +27,23 @@ const SettingsScreen: React.FC = () => {
         </Box>
 
         <Box style={styles.sectionContainer}>
-          <TouchableOpacity style={styles.section}>
+          <Button style={styles.section} padding="l" borderRadius={12} backgroundColor="#f8f8f8">
             <Text variant="h6" weight="bold" primary>
               Purchase Pro
             </Text>
             <Text variant="bodySmall" muted>
               Unlock all features and remove ads
             </Text>
-          </TouchableOpacity>
+          </Button>
 
-          <TouchableOpacity style={styles.section}>
+          <Button style={styles.section} padding="l" borderRadius={12} backgroundColor="#f8f8f8">
             <Text variant="h6" weight="bold" primary>
               About
             </Text>
             <Text variant="bodySmall" muted>
               Learn more about World Explorer
             </Text>
-          </TouchableOpacity>
+          </Button>
         </Box>
       </Box>
     </SafeAreaView>

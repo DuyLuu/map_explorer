@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
+import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useQuiz } from '../hooks/useQuiz'
 import Flag from '../components/Flag'
 import { Text } from '../components/Text'
 import { Box } from '../components/Box'
+import { Button } from '../components/Button'
 
 const QuizScreen: React.FC = () => {
   const {
@@ -92,52 +93,75 @@ const QuizScreen: React.FC = () => {
           <Flag flagAsset={currentQuestion.flagAsset} />
 
           <Box style={styles.optionsContainer}>
-            {currentQuestion.options.map((option, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.optionButton,
-                  selectedAnswer === option && styles.selectedOption,
-                  showFeedback && option === currentQuestion.correctAnswer && styles.correctOption,
-                  showFeedback &&
-                    selectedAnswer === option &&
-                    option !== currentQuestion.correctAnswer &&
-                    styles.wrongOption,
-                ]}
-                onPress={() => handleSelectAnswer(option)}
-                disabled={showFeedback}
-              >
-                <Text
-                  style={[
-                    styles.optionText,
-                    ...(showFeedback && option === currentQuestion.correctAnswer
-                      ? [styles.correctText]
-                      : []),
-                    ...(showFeedback &&
-                    selectedAnswer === option &&
-                    option !== currentQuestion.correctAnswer
-                      ? [styles.wrongText]
-                      : []),
-                  ]}
+            {currentQuestion.options.map((option, index) => {
+              const optionStyles = [
+                styles.optionButton,
+                selectedAnswer === option ? styles.selectedOption : null,
+                showFeedback && option === currentQuestion.correctAnswer
+                  ? styles.correctOption
+                  : null,
+                showFeedback &&
+                selectedAnswer === option &&
+                option !== currentQuestion.correctAnswer
+                  ? styles.wrongOption
+                  : null,
+              ].filter(Boolean) as import('react-native').ViewStyle[]
+              return (
+                <Button
+                  key={index}
+                  style={optionStyles}
+                  onPress={() => handleSelectAnswer(option)}
+                  disabled={showFeedback}
+                  padding="m"
+                  borderRadius={8}
+                  fullWidth
                 >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.optionText,
+                      ...(showFeedback && option === currentQuestion.correctAnswer
+                        ? [styles.correctText]
+                        : []),
+                      ...(showFeedback &&
+                      selectedAnswer === option &&
+                      option !== currentQuestion.correctAnswer
+                        ? [styles.wrongText]
+                        : []),
+                    ]}
+                  >
+                    {option}
+                  </Text>
+                </Button>
+              )
+            })}
           </Box>
 
           {selectedAnswer && !showFeedback && (
-            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+            <Button
+              style={styles.submitButton}
+              onPress={handleSubmit}
+              padding="m"
+              borderRadius={8}
+              backgroundColor="#007AFF"
+              fullWidth
+            >
               <Text style={styles.submitButtonText}>Submit Answer</Text>
-            </TouchableOpacity>
+            </Button>
           )}
 
           {showFeedback && (
-            <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
+            <Button
+              style={styles.nextButton}
+              onPress={handleNextQuestion}
+              padding="m"
+              borderRadius={8}
+              backgroundColor="#007AFF"
+              fullWidth
+            >
               <Text style={styles.nextButtonText}>
                 {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
               </Text>
-            </TouchableOpacity>
+            </Button>
           )}
         </Box>
       )}

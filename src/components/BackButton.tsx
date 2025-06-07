@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native'
+import { Button } from './Button'
 import { useNavigation } from '@react-navigation/native'
 import SvgUri from 'react-native-svg-uri'
 import IMAGES from '../assets/images'
@@ -8,9 +8,14 @@ const BackButton = ({ onBack }: { onBack?: () => void }) => {
   const navigation = useNavigation()
 
   return (
-    <TouchableOpacity onPress={() => (onBack ? onBack() : navigation.goBack())}>
+    <Button
+      onPress={() => (onBack ? onBack() : navigation.goBack())}
+      variant="ghost"
+      padding="xs"
+      accessibilityLabel="Back"
+    >
       <SvgUri fill={Theme.colors.danger} width="24" height="24" source={IMAGES.ic_back} />
-    </TouchableOpacity>
+    </Button>
   )
 }
 

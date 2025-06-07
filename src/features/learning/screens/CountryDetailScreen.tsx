@@ -10,6 +10,7 @@ import CountryMapSection from '../components/CountryMapSection'
 import CountryTabs from '../components/CountryTabs'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data
@@ -55,9 +56,14 @@ const CountryDetailScreen: React.FC = () => {
         paddingVertical="m"
         style={styles.headerBorder}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Button
+          onPress={() => navigation.goBack()}
+          variant="ghost"
+          padding="xs"
+          style={styles.backButton}
+        >
           <Icon name="arrow-back" size={24} color="#007AFF" />
-        </TouchableOpacity>
+        </Button>
         <Text style={styles.headerTitle}>{country.name}</Text>
         <Box style={{ width: 32 }} />
       </Box>

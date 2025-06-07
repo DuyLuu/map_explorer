@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { TouchableOpacity } from 'react-native'
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
 import { getRegionLevelProgress } from '../services/quizService'
@@ -7,6 +6,7 @@ import ProgressRing from './ProgressRing'
 import ProgressBar from './ProgressBar'
 import { Text } from './Text'
 import { Box } from './Box'
+import { Button } from './Button'
 
 interface RegionProgressCardProps {
   region: Region
@@ -148,9 +148,9 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
   if (onPress) {
     return (
       <Box marginBottom="sm">
-        <TouchableOpacity onPress={onPress}>
+        <Button onPress={onPress} variant="ghost" fullWidth style={{ alignItems: 'flex-start' }}>
           <CardContent />
-        </TouchableOpacity>
+        </Button>
       </Box>
     )
   }

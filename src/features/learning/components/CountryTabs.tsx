@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 import { CountryWithRegion, REGION_INFO } from '../../../types/region'
 
 interface CountryDetailData {
@@ -121,22 +122,32 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
       {/* Tabs */}
       <Box paddingVertical="m" style={styles.tabsContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {tabs.map(tab => (
-            <TouchableOpacity
-              key={tab.key}
-              style={[styles.tab, selectedTab === tab.key && styles.selectedTab]}
-              onPress={() => onTabSelect(tab.key as any)}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  ...(selectedTab === tab.key ? [styles.selectedTabText] : []),
-                ]}
+          {tabs.map(tab => {
+            const tabStyles = [
+              styles.tab,
+              selectedTab === tab.key ? styles.selectedTab : null,
+            ].filter(Boolean) as import('react-native').ViewStyle[]
+            return (
+              <Button
+                key={tab.key}
+                style={tabStyles}
+                onPress={() => onTabSelect(tab.key as any)}
+                padding="sm"
+                borderRadius={8}
+                backgroundColor={selectedTab === tab.key ? '#007AFF' : '#f0f0f0'}
+                marginRight="xs"
               >
-                {tab.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={[
+                    styles.tabText,
+                    ...(selectedTab === tab.key ? [styles.selectedTabText] : []),
+                  ]}
+                >
+                  {tab.label}
+                </Text>
+              </Button>
+            )
+          })}
         </ScrollView>
       </Box>
 

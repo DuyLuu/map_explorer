@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
 import { useCountryStore } from '../../../stores/countryStore'
@@ -9,6 +9,7 @@ import { getSelectableRegions } from '../../../services/regionService'
 import RegionProgressCard from '../../../components/RegionProgressCard'
 import { isLevelUnlocked } from '../../../services/quizService'
 import BackButton from '../../../components/BackButton'
+import { Button } from '../../../components/Button'
 
 const MapProgressDetailScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
@@ -117,13 +118,15 @@ const MapProgressDetailScreen: React.FC = () => {
               const isSelected = selectedLevel === level.id
 
               return (
-                <TouchableOpacity
+                <Button
                   key={level.id}
-                  style={[
-                    styles.levelOptionButton,
-                    isSelected && styles.selectedLevelOption,
-                    !isUnlocked && styles.lockedOption,
-                  ]}
+                  style={
+                    [
+                      styles.levelOptionButton,
+                      isSelected && styles.selectedLevelOption,
+                      !isUnlocked && styles.lockedOption,
+                    ].filter(Boolean) as import('react-native').ViewStyle[]
+                  }
                   onPress={() => handleLevelSelect(level.id)}
                   disabled={!isUnlocked}
                 >
@@ -151,7 +154,7 @@ const MapProgressDetailScreen: React.FC = () => {
                   {!isUnlocked && (
                     <Text style={styles.lockMessage}>{getLevelLockMessage(level.id)}</Text>
                   )}
-                </TouchableOpacity>
+                </Button>
               )
             })}
           </Box>
@@ -174,13 +177,17 @@ const MapProgressDetailScreen: React.FC = () => {
         )}
       </ScrollView>
 
-      <TouchableOpacity
-        style={[styles.confirmButton, !canStart && styles.disabledButton]}
+      <Button
+        style={
+          [styles.confirmButton, !canStart ? styles.disabledButton : false].filter(
+            Boolean
+          ) as import('react-native').ViewStyle[]
+        }
         onPress={onConfirm}
         disabled={!canStart}
       >
         <Text style={styles.confirmButtonText}>Start Map Quiz</Text>
-      </TouchableOpacity>
+      </Button>
     </SafeAreaView>
   )
 }

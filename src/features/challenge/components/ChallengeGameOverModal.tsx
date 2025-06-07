@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native'
+import { StyleSheet, Modal, ScrollView } from 'react-native'
 import { Text } from '../../../components/Text'
 import { Box } from '../../../components/Box'
+import { Button } from '../../../components/Button'
 import {
   ChallengeScore,
   formatTime,
@@ -172,15 +173,15 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
 
             {/* Buttons */}
             <Box marginTop="m">
-              <TouchableOpacity style={[styles.button, styles.primaryButton]} onPress={onRestart}>
+              <Button style={[styles.button, styles.primaryButton]} onPress={onRestart}>
                 <Text style={styles.buttonText}>
                   {isPerfectScore ? 'Can You Do It Again?' : 'Try Again'}
                 </Text>
-              </TouchableOpacity>
+              </Button>
 
-              <TouchableOpacity style={[styles.button, styles.secondaryButton]} onPress={onExit}>
+              <Button style={[styles.button, styles.secondaryButton]} onPress={onExit}>
                 <Text style={[styles.buttonText, styles.secondaryButtonText]}>Exit Challenge</Text>
-              </TouchableOpacity>
+              </Button>
             </Box>
           </ScrollView>
         </Box>
