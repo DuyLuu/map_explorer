@@ -1,4 +1,4 @@
-import { CountryDetailData } from '../features/learning/services/countryDataService'
+import { CountryDetailData } from 'features/learning/services/countryDataService'
 
 /**
  * Raw response structure from REST Countries API v3.1

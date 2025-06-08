@@ -2,12 +2,12 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Platform } from 'react-native'
-import SettingsButton from '../components/SettingsButton'
+import SettingsButton from 'components/SettingsButton'
 
 // Import screens for each tab
-import QuizTabScreen from '../screens/QuizTabScreen'
-import LearningTabScreen from '../features/learning/screens/LearningTabScreen'
-import ChallengeTabScreen from '../screens/ChallengeTabScreen'
+import QuizTabScreen from 'screens/QuizTabScreen'
+import LearningTabScreen from 'features/learning/screens/LearningTabScreen'
+import ChallengeTabScreen from 'screens/ChallengeTabScreen'
 
 // Tab navigator types
 export type TabParamList = {

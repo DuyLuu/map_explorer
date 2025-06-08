@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native'
-import { useQuiz } from '../hooks/useQuiz'
-import Flag from '../components/Flag'
-import { Text } from '../components/Text'
-import { Box } from '../components/Box'
-import { Button } from '../components/Button'
+import { useQuiz } from 'hooks/useQuiz'
+import Flag from 'components/Flag'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
 
 const QuizScreen: React.FC = () => {
   const {

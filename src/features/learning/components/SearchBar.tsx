@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 interface SearchBarProps {

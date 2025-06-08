@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Region } from '../../../types/region'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Region } from 'types/region'
 
 interface RegionFilterProps {
   selectedRegion: Region | 'all' | 'territories'

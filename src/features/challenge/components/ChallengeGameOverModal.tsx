@@ -1,13 +1,16 @@
 import React from 'react'
-import { StyleSheet, Modal, ScrollView } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
+import { StyleSheet, Modal, ScrollView, Platform, Dimensions } from 'react-native'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { BlurView } from '@react-native-community/blur'
 import {
   ChallengeScore,
+  getDifficultyForScore,
+  getCompetitiveBestScore,
   formatTime,
   getScoreDescription,
-} from '../../../services/challengeScoringService'
+} from 'services/challengeScoringService'
 
 interface ChallengeGameOverModalProps {
   visible: boolean

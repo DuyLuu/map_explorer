@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
-import { getRegionLevelProgress } from '../services/quizService'
+import { getRegionLevelProgress } from 'services/quizService'
 import ProgressRing from './ProgressRing'
 import ProgressBar from './ProgressBar'
 import { Text } from './Text'

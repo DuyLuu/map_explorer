@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Alert, Platform, TouchableOpacity } from 'react-native'
-import { Text } from '../../../components/Text'
+import { Text } from 'components/Text'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
-import { detectCountryFromCoordinates } from '../../../services/geocodingService'
-import { getCountryMapRegion } from '../../../services/countryCoordinatesService'
-import { Box } from '../../../components/Box'
+import { detectCountryFromCoordinates } from 'services/geocodingService'
+import { getCountryMapRegion } from 'services/countryCoordinatesService'
+import { Box } from 'components/Box'
 
 interface Question {
   correctAnswer: string

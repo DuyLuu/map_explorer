@@ -1,20 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { QuizQuestion } from '../../../types/quiz'
+import { QuizQuestion } from 'types/quiz'
 import {
-  generateQuizQuestion,
-  saveQuizProgress,
-  getQuizProgress,
-} from '../../../services/quizService'
-import { useCountryStore } from '../../../stores/countryStore'
-import { initializeTts, speakText } from '../../../services/speechService'
-import { useCountries } from '../../../hooks/useCountries'
+  createQuizSession,
+  generateRandomQuestionForRegion,
+  checkAnswer,
+  isSessionComplete,
+} from 'services/quizService'
+import { useCountryStore } from 'stores/countryStore'
+import { initializeTts, speakText } from 'services/speechService'
+import { useCountries } from 'hooks/useCountries'
 import {
-  saveChallengeScore,
+  calculateChallengeScore,
+  updateChallengeProgress,
   getChallengeScore,
-  ChallengeScore,
-} from '../../../services/challengeScoringService'
+  storePersonalBest,
+} from 'services/challengeScoringService'
 
 type RootStackParamList = {
   ChallengeQuiz: undefined

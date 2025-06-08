@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import BackButton from '../components/BackButton'
-import { Text } from '../components/Text'
-import { Box } from '../components/Box'
-import { Button } from '../components/Button'
+import BackButton from 'components/BackButton'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
 
 type RootStackParamList = {
   Home: undefined

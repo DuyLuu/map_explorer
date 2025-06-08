@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { CountryWithRegion, REGION_INFO } from '../../../types/region'
-import { getFlagAssetByName } from '../../../services/flagAssetService'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { CountryWithRegion, REGION_INFO } from 'types/region'
+import { getFlagAssetByName } from 'services/flagAssetService'
 
 interface CountryHeaderProps {
   country: CountryWithRegion

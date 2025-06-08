@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { CountryWithRegion, REGION_INFO } from '../../../types/region'
-import { getFlagAssetByName } from '../../../services/flagAssetService'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
+import { CountryWithRegion, REGION_INFO } from 'types/region'
+import { getFlagAssetByName } from 'services/flagAssetService'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { useNavigation } from '@react-navigation/native'
 
 interface CountryCardProps {
   country: CountryWithRegion

@@ -5,12 +5,12 @@ import ChallengeGameOverModal from '../components/ChallengeGameOverModal'
 import NewRecordModal from '../components/NewRecordModal'
 import FlagQuizUI from '../components/FlagQuizUI'
 import MapQuizUI from '../components/MapQuizUI'
-import { calculateChallengeScore, formatTime } from '../../../services/challengeScoringService'
+import { calculateChallengeScore, formatTime } from 'services/challengeScoringService'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../../navigation/types'
-import Text from '../../../components'
-import { Box } from '../../../components/Box'
+import { RootStackParamList } from 'navigation/types'
+import Text from 'components'
+import { Box } from 'components/Box'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 

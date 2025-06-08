@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Region, REGION_INFO } from '../../../types/region'
-import ProgressRing from '../../../components/ProgressRing'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Region, REGION_INFO } from 'types/region'
+import ProgressRing from 'components/ProgressRing'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
 
 interface MapRegionOptionProps {
   region: Region

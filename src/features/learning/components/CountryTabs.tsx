@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
-import { CountryWithRegion, REGION_INFO } from '../../../types/region'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { CountryWithRegion, REGION_INFO } from 'types/region'
 
 interface CountryDetailData {
   capital: string

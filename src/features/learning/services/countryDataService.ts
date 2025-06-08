@@ -1,4 +1,4 @@
-import { getCountryMapRegion } from '../../../services/countryCoordinatesService'
+import { getCountryMapRegion } from 'services/countryCoordinatesService'
 
 export interface CountryDetailData {
   capital: string

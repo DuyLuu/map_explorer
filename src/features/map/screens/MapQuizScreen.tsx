@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
   Alert,
   Platform,
+  Dimensions,
+  TouchableOpacity,
+  SafeAreaView,
   ActivityIndicator,
 } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
-import { useQuiz } from '../../../hooks/useQuiz'
-import { detectCountryFromCoordinates } from '../../../services/geocodingService'
-import { useCountryStore } from '../../../stores/countryStore'
-import { REGION_INFO } from '../../../types/region'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useQuiz } from 'hooks/useQuiz'
+import { detectCountryFromCoordinates } from 'services/geocodingService'
+import { useCountryStore } from 'stores/countryStore'
+import { REGION_INFO } from 'types/region'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
 
 const MapQuizScreen: React.FC = () => {
   const {

@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useCountries } from '../hooks/useCountries'
+import { useCountries } from 'hooks/useCountries'
 import {
   getChallengeStats,
   getChallengeHistory,
@@ -16,9 +16,16 @@ import {
   getScoreDescription,
   ChallengeStats,
   ChallengeScore,
-} from '../services/challengeScoringService'
-import Text from '../components'
-import { Box } from '../components/Box'
+  getDifficultyForScore,
+  getNextPersonalBest,
+  getCompetitiveBestScore,
+  getChallengeScore,
+  getTotalChallengesCompleted,
+  getStreakCount,
+  getLastChallengeDate,
+} from 'services/challengeScoringService'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
 
 type RootStackParamList = {
   ChallengeQuiz: undefined

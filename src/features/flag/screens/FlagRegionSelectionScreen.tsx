@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
-import { useCountryStore } from '../../../stores/countryStore'
+import { useCountryStore } from 'stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
-import { Region, REGION_INFO } from '../../../types/region'
-import { getSelectableRegions } from '../../../services/regionService'
-import RegionOption from '../../../components/RegionOption'
-import BackButton from '../../../components/BackButton'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
+import { Region, REGION_INFO } from 'types/region'
+import { getSelectableRegions } from 'services/regionService'
+import RegionOption from 'components/RegionOption'
+import BackButton from 'components/BackButton'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
 
 const FlagRegionSelectionScreen: React.FC = () => {
   const { selectedRegion, setSelectedRegion } = useCountryStore()

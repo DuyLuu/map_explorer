@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchCountriesData } from '../services/countryService'
-import { isBundledDataLoaded } from '../services/bundledDataService'
+import { fetchCountriesData } from 'services/countryService'
+import { isBundledDataLoaded } from 'services/bundledDataService'
 
 interface Country {
   id: number

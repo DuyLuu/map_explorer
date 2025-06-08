@@ -9,9 +9,9 @@ import {
   recordLearnedCountry,
   getRegionLevelProgress,
   getNextQuizLevel,
-} from '../services/quizService'
-import { useCountryStore } from '../stores/countryStore'
-import { initializeTts, speakText } from '../services/speechService'
+} from 'services/quizService'
+import { useCountryStore } from 'stores/countryStore'
+import { initializeTts, speakText } from 'services/speechService'
 import { useCountries } from './useCountries'
 
 export const useQuiz = () => {

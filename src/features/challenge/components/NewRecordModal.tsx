@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, Modal, Animated } from 'react-native'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
-import {
-  ChallengeScore,
-  formatTime,
-  getScoreDescription,
-} from '../../../services/challengeScoringService'
+import { StyleSheet, Modal, Animated, Dimensions, Platform } from 'react-native'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { BlurView } from '@react-native-community/blur'
+import { ChallengeScore, formatTime, getScoreDescription } from 'services/challengeScoringService'
 
 interface NewRecordModalProps {
   visible: boolean

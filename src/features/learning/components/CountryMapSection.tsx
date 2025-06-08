@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Platform } from 'react-native'
 import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps'
-import { CountryWithRegion, REGION_INFO } from '../../../types/region'
-import { getCountryMapRegion } from '../../../services/countryCoordinatesService'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
+import { CountryWithRegion, REGION_INFO } from 'types/region'
+import { getCountryMapRegion } from 'services/countryCoordinatesService'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
 
 interface CountryDetailData {
   coordinates: { latitude: number; longitude: number }

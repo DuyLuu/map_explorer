@@ -3,14 +3,14 @@ import { StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-na
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { CountryWithRegion } from '../../../types/region'
+import { CountryWithRegion } from 'types/region'
 import { getCountryDetails } from '../services/countryDataService'
 import CountryHeader from '../components/CountryHeader'
 import CountryMapSection from '../components/CountryMapSection'
 import CountryTabs from '../components/CountryTabs'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data

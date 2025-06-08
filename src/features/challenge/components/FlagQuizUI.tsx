@@ -1,8 +1,9 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native'
-import { Text } from '../../../components/Text'
-import Flag from '../../../components/Flag'
-import { Box } from '../../../components/Box'
+import { StyleSheet, TouchableOpacity, Platform, Dimensions } from 'react-native'
+import { Text } from 'components/Text'
+import Flag from 'components/Flag'
+import { Box } from 'components/Box'
+import { ImageSourcePropType } from 'react-native'
 
 interface Question {
   flagAsset: ImageSourcePropType

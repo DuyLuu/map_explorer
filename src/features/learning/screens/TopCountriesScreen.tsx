@@ -3,18 +3,18 @@ import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator, ScrollView } fro
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Text } from '../../../components/Text'
-import { Box } from '../../../components/Box'
-import { Button } from '../../../components/Button'
-import { CountryWithRegion } from '../../../types/region'
-import { useCountries } from '../../../hooks/useCountries'
+import { Text } from 'components/Text'
+import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { CountryWithRegion } from 'types/region'
+import { useCountries } from 'hooks/useCountries'
 import {
   getRankedCountries,
   RankingCategory,
   RankedCountry,
   RANKING_CATEGORIES,
   getCategoryInfo,
-} from '../../../utils/countryRankings'
+} from 'utils/countryRankings'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
