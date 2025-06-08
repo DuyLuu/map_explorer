@@ -1,6 +1,5 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Icon from 'react-native-vector-icons/Ionicons'
 import { Platform } from 'react-native'
 import SettingsButton from 'components/SettingsButton'
 
@@ -8,6 +7,7 @@ import SettingsButton from 'components/SettingsButton'
 import QuizTabScreen from 'screens/QuizTabScreen'
 import LearningTabScreen from 'features/learning/screens/LearningTabScreen'
 import ChallengeTabScreen from 'screens/ChallengeTabScreen'
+import { FontAwesomeIcon, IoniconsIcon } from 'components/Icon'
 
 // Tab navigator types
 export type TabParamList = {
@@ -23,19 +23,20 @@ const TabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: string
-
           if (route.name === 'QuizTab') {
-            iconName = focused ? 'help-circle' : 'help-circle-outline'
+            return <FontAwesomeIcon name={focused ? 'flag' : 'flag-o'} size={size} color={color} />
           } else if (route.name === 'LearningTab') {
-            iconName = focused ? 'book' : 'book-outline'
+            return <FontAwesomeIcon name="wpexplorer" size={size} color={color} />
           } else if (route.name === 'ChallengeTab') {
-            iconName = focused ? 'trophy' : 'trophy-outline'
-          } else {
-            iconName = 'help-circle-outline'
+            return (
+              <IoniconsIcon
+                name={focused ? 'rocket' : 'rocket-outline'}
+                size={size}
+                color={color}
+              />
+            )
           }
-
-          return <Icon name={iconName} size={size} color={color} />
+          return <FontAwesomeIcon name="wpexplorer" size={size} color={color} />
         },
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8E8E93',

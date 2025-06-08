@@ -39,4 +39,17 @@ export {
   type ButtonSize,
 } from './Button'
 
+// Export Icon component and convenience components
+export {
+  Icon,
+  FontAwesomeIcon,
+  FontAwesome5Icon,
+  MaterialIcon,
+  MaterialCommunityIcon,
+  AntDesignIcon,
+  EntypoIcon,
+  type IconProps,
+  type IconFamily,
+} from './Icon'
+
 export { default } from './Text'

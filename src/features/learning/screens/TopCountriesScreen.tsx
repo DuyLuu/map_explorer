@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react'
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import Icon from 'react-native-vector-icons/Ionicons'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
@@ -15,6 +14,7 @@ import {
   RANKING_CATEGORIES,
   getCategoryInfo,
 } from 'utils/countryRankings'
+import BackButton from 'components/BackButton'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -94,12 +94,6 @@ const TopCountriesScreen: React.FC = () => {
       </Box>
 
       <Text style={styles.chevron}>›</Text>
-    </Button>
-  )
-
-  const BackButton = () => (
-    <Button onPress={() => navigation.goBack()} variant="ghost" padding="xs">
-      <Icon name="arrow-back" size={24} color="#007AFF" />
     </Button>
   )
 

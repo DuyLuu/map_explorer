@@ -1,8 +1,7 @@
 import React from 'react'
 import { StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Text } from 'components/Text'
 import { Box } from 'components/Box'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { AntDesignIcon } from 'components/Icon'
 
 interface SearchBarProps {
   value: string
@@ -26,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       paddingHorizontal="m"
       paddingVertical="sm"
     >
-      <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
+      <AntDesignIcon name="search1" size={20} color="#999" style={styles.searchIcon} />
       <TextInput
         style={styles.searchInput}
         placeholder={placeholder}
@@ -36,7 +35,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       />
       {value.length > 0 && (
         <TouchableOpacity onPress={() => onChangeText('')} style={styles.clearButton}>
-          <Icon name="close-circle" size={20} color="#999" />
+          <AntDesignIcon name="close" size={20} color="#999" />
         </TouchableOpacity>
       )}
     </Box>

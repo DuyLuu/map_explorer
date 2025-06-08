@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import Icon from 'react-native-vector-icons/Ionicons'
 import { CountryWithRegion } from 'types/region'
 import { getCountryDetails } from '../services/countryDataService'
 import CountryHeader from '../components/CountryHeader'
@@ -11,6 +10,7 @@ import CountryTabs from '../components/CountryTabs'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
+import BackButton from 'components/BackButton'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data
@@ -56,14 +56,7 @@ const CountryDetailScreen: React.FC = () => {
         paddingVertical="m"
         style={styles.headerBorder}
       >
-        <Button
-          onPress={() => navigation.goBack()}
-          variant="ghost"
-          padding="xs"
-          style={styles.backButton}
-        >
-          <Icon name="arrow-back" size={24} color="#007AFF" />
-        </Button>
+        <BackButton />
         <Text style={styles.headerTitle}>{country.name}</Text>
         <Box style={{ width: 32 }} />
       </Box>

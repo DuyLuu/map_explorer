@@ -1,8 +1,7 @@
 import { Button } from './Button'
 import { useNavigation } from '@react-navigation/native'
-import SvgUri from 'react-native-svg-uri'
-import IMAGES from '../assets/images'
 import { Theme } from '../theme/constants'
+import { AntDesignIcon } from './Icon'
 
 const BackButton = ({ onBack }: { onBack?: () => void }) => {
   const navigation = useNavigation()
@@ -14,7 +13,7 @@ const BackButton = ({ onBack }: { onBack?: () => void }) => {
       padding="xs"
       accessibilityLabel="Back"
     >
-      <SvgUri fill={Theme.colors.danger} width="24" height="24" source={IMAGES.ic_back} />
+      <AntDesignIcon name="left" size={24} color={Theme.colors.baseBlack} />
     </Button>
   )
 }
