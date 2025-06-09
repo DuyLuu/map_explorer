@@ -1,16 +1,17 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
-import { useChallengeQuiz } from '../hooks/useChallengeQuiz'
-import ChallengeGameOverModal from '../components/ChallengeGameOverModal'
-import NewRecordModal from '../components/NewRecordModal'
-import FlagQuizUI from '../components/FlagQuizUI'
-import MapQuizUI from '../components/MapQuizUI'
 import { calculateChallengeScore, formatTime } from 'services/challengeScoringService'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from 'navigation/types'
-import Text from 'components'
+import Text from 'components/Text'
 import { Box } from 'components/Box'
+
+import MapQuizUI from '../components/MapQuizUI'
+import FlagQuizUI from '../components/FlagQuizUI'
+import NewRecordModal from '../components/NewRecordModal'
+import ChallengeGameOverModal from '../components/ChallengeGameOverModal'
+import { useChallengeQuiz } from '../hooks/useChallengeQuiz'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
@@ -39,7 +40,7 @@ const ChallengeQuizScreen: React.FC = () => {
     handleSubmit,
     handleNextQuestion,
     restartChallenge,
-    exitChallenge,
+    exitChallenge
   } = useChallengeQuiz()
 
   // Calculate current potential score with bonuses
@@ -81,22 +82,6 @@ const ChallengeQuizScreen: React.FC = () => {
     )
   }
 
-  const getLevelName = (level: number): string => {
-    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
-    return levels[level as keyof typeof levels] || `Level ${level}`
-  }
-
-  const getLevelColor = (level: number): string => {
-    const colors = { 1: '#4CAF50', 2: '#FF9800', 3: '#F44336' }
-    return colors[level as keyof typeof colors] || '#666'
-  }
-
-  const getLevelProgress = (questionNumber: number): string => {
-    if (questionNumber <= 100) return `Easy (${questionNumber}/100)`
-    if (questionNumber <= 200) return `Medium (${questionNumber - 100}/100)`
-    return `Hard (${questionNumber - 200}/100)`
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <Box padding="m" backgroundColor="white" style={styles.headerBorder}>
@@ -121,36 +106,10 @@ const ChallengeQuizScreen: React.FC = () => {
         </Box>
       </Box>
 
-      <Box padding="m" centerItems backgroundColor="white" style={styles.progressBorder}>
+      <Box paddingTop="m" centerItems backgroundColor="white" style={styles.progressBorder}>
         <Text style={styles.progressText}>
           Question {currentQuestionNumber} of {questionCount}
         </Text>
-        <Box
-          backgroundColor="#f8f8f8"
-          paddingHorizontal="sm"
-          paddingVertical="xs"
-          borderRadius="xl"
-          marginBottom="xs"
-        >
-          <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
-            {getLevelProgress(currentQuestionNumber)}
-          </Text>
-        </Box>
-        <Box
-          backgroundColor="#f8f8f8"
-          paddingHorizontal="sm"
-          paddingVertical="xs"
-          borderRadius="xl"
-        >
-          <Text
-            style={[
-              styles.quizTypeText,
-              { color: currentQuizType === 'flag' ? '#007AFF' : '#FF6B35' },
-            ]}
-          >
-            {currentQuizType === 'flag' ? '🏳️ Flag Quiz' : '🗺️ Map Quiz'}
-          </Text>
-        </Box>
       </Box>
 
       {currentQuestion && (
@@ -213,81 +172,81 @@ const ChallengeQuizScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f5f5f5'
   },
   headerBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#eee'
   },
   progressBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#eee'
   },
   errorText: {
     fontSize: 18,
     color: '#F44336',
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 8
   },
   errorSubtext: {
     fontSize: 14,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   challengeLabel: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF6B35',
+    color: '#FF6B35'
   },
   challengeSubtext: {
     fontSize: 12,
     color: '#666',
-    marginTop: 2,
+    marginTop: 2
   },
   score: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   potentialScore: {
     fontSize: 12,
     color: '#4CAF50',
-    marginTop: 2,
+    marginTop: 2
   },
   highScore: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#4CAF50'
   },
   timeDisplay: {
     fontSize: 12,
     color: '#666',
-    marginTop: 2,
+    marginTop: 2
   },
   progressText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 8
   },
   levelText: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   quizTypeText: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   nextButton: {
     backgroundColor: '#4CAF50',
     padding: 16,
     borderRadius: 12,
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   nextButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default ChallengeQuizScreen

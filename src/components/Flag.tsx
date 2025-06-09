@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, StyleSheet, ImageSourcePropType } from 'react-native'
 import FastImage, { Source } from 'react-native-fast-image'
+
 import { Box } from './Box'
 
 interface FlagProps {
@@ -33,7 +34,7 @@ const Flag: React.FC<FlagProps> = React.memo(
         return {
           uri: flagAsset.uri,
           priority: FastImage.priority.high,
-          cache: FastImage.cacheControl.immutable,
+          cache: FastImage.cacheControl.immutable
         }
       } else {
         // Fallback for local assets
@@ -42,7 +43,7 @@ const Flag: React.FC<FlagProps> = React.memo(
     }
 
     return (
-      <Box center marginBottom="xl" style={{ width: 300, height: 200 }}>
+      <Box center alignSelf="center" marginBottom="m" style={{ width: 240, height: 160 }}>
         {isImageLoading && <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />}
         <FastImage
           style={styles.flagImage}
@@ -66,11 +67,11 @@ const Flag: React.FC<FlagProps> = React.memo(
 const styles = StyleSheet.create({
   flagImage: {
     width: '100%',
-    height: '100%',
+    height: '100%'
   },
   loader: {
-    position: 'absolute',
-  },
+    position: 'absolute'
+  }
 })
 
 export default Flag

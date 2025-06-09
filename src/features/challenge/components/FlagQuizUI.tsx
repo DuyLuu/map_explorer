@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Platform, Dimensions } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'components/Text'
 import Flag from 'components/Flag'
 import { Box } from 'components/Box'
@@ -24,10 +24,10 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
   selectedAnswer,
   showFeedback,
   onSelectAnswer,
-  onSubmit,
+  onSubmit
 }) => {
   return (
-    <>
+    <Box>
       <Flag flagAsset={currentQuestion.flagAsset} />
 
       <Box marginTop="ml" style={{ gap: 12 }}>
@@ -41,7 +41,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
               showFeedback &&
                 selectedAnswer === option &&
                 option !== currentQuestion.correctAnswer &&
-                styles.wrongOption,
+                styles.wrongOption
             ]}
             onPress={() => onSelectAnswer(option)}
             disabled={showFeedback}
@@ -56,7 +56,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
                 selectedAnswer === option &&
                 option !== currentQuestion.correctAnswer
                   ? [styles.wrongText]
-                  : []),
+                  : [])
               ]}
             >
               {option}
@@ -71,7 +71,7 @@ const FlagQuizUI: React.FC<FlagQuizUIProps> = ({
           <Text style={styles.submitButtonText}>Submit Answer</Text>
         </TouchableOpacity>
       )}
-    </>
+    </Box>
   )
 }
 
@@ -81,45 +81,45 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#e0e0e0',
+    borderColor: '#e0e0e0'
   },
   selectedOption: {
     borderColor: '#007AFF',
-    backgroundColor: '#f0f8ff',
+    backgroundColor: '#f0f8ff'
   },
   correctOption: {
     borderColor: '#4CAF50',
-    backgroundColor: '#f0fff0',
+    backgroundColor: '#f0fff0'
   },
   wrongOption: {
     borderColor: '#F44336',
-    backgroundColor: '#fff0f0',
+    backgroundColor: '#fff0f0'
   },
   optionText: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#333',
+    color: '#333'
   },
   correctText: {
     color: '#4CAF50',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   wrongText: {
     color: '#F44336',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   submitButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 20
   },
   submitButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default FlagQuizUI

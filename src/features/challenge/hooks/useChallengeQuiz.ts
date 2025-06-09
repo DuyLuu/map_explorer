@@ -1,22 +1,15 @@
-import { useState, useEffect, useRef } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { QuizQuestion } from 'types/quiz'
-import {
-  createQuizSession,
-  generateRandomQuestionForRegion,
-  checkAnswer,
-  isSessionComplete,
-} from 'services/quizService'
+import { generateQuizQuestion, saveQuizProgress } from 'services/quizService'
 import { useCountryStore } from 'stores/countryStore'
 import { initializeTts, speakText } from 'services/speechService'
 import { useCountries } from 'hooks/useCountries'
 import {
-  calculateChallengeScore,
-  updateChallengeProgress,
   getChallengeScore,
-  storePersonalBest,
+  saveChallengeScore,
+  ChallengeScore
 } from 'services/challengeScoringService'
 
 type RootStackParamList = {
@@ -30,7 +23,7 @@ export const useChallengeQuiz = () => {
   const {
     data: countriesData,
     isLoading: isLoadingCountries,
-    error: countriesError,
+    error: countriesError
   } = useCountries()
 
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
@@ -54,7 +47,7 @@ export const useChallengeQuiz = () => {
     mediumCorrect: 0,
     hardCorrect: 0,
     flagQuestions: 0,
-    mapQuestions: 0,
+    mapQuestions: 0
   })
   const [isNewRecord, setIsNewRecord] = useState(false)
   const [finalChallengeScore, setFinalChallengeScore] = useState<ChallengeScore | null>(null)
@@ -141,7 +134,7 @@ export const useChallengeQuiz = () => {
         totalQuestions: currentQuestionNumber,
         timeSpent,
         levelReached: currentLevel,
-        breakdown: scoreBreakdown,
+        breakdown: scoreBreakdown
       })
 
       setIsNewRecord(result.isNewRecord)
@@ -151,7 +144,7 @@ export const useChallengeQuiz = () => {
         score,
         isNewRecord: result.isNewRecord,
         finalScore: result.challengeScore.finalScore,
-        bonusPoints: result.challengeScore.bonusPoints,
+        bonusPoints: result.challengeScore.bonusPoints
       })
     } catch (error) {
       console.error('Error saving challenge score:', error)
@@ -221,6 +214,7 @@ export const useChallengeQuiz = () => {
 
         for (const region of unusedRegions) {
           try {
+            // eslint-disable-next-line no-await-in-loop
             return await generateQuizQuestion(level, region as any, usedFlags, [])
           } catch (regionError) {
             console.warn(`Failed to generate question for ${region}`)
@@ -250,7 +244,7 @@ export const useChallengeQuiz = () => {
       console.error('Error loading next question:', error)
       // If we can't generate more questions, end the quiz
       setGameOver(true)
-      await saveQuizProgress(-1, score)
+      await saveQuizProgress(currentLevel, score)
     }
   }
 
@@ -285,7 +279,7 @@ export const useChallengeQuiz = () => {
       mediumCorrect: 0,
       hardCorrect: 0,
       flagQuestions: 0,
-      mapQuestions: 0,
+      mapQuestions: 0
     })
     setIsNewRecord(false)
     setFinalChallengeScore(null)
@@ -309,7 +303,7 @@ export const useChallengeQuiz = () => {
       mediumCorrect: 0,
       hardCorrect: 0,
       flagQuestions: 0,
-      mapQuestions: 0,
+      mapQuestions: 0
     })
     setIsNewRecord(false)
     setFinalChallengeScore(null)
@@ -338,6 +332,6 @@ export const useChallengeQuiz = () => {
     handleSubmit,
     handleNextQuestion,
     restartChallenge,
-    exitChallenge,
+    exitChallenge
   }
 }

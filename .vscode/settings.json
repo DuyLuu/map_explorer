@@ -15,5 +15,6 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
-} 
+  },
+  "markdown.validate.unusedLinkDefinitions.enabled": "warning"
+}

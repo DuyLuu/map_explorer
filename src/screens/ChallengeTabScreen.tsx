@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
-  ScrollView,
+  ScrollView
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -15,14 +15,7 @@ import {
   formatTime,
   getScoreDescription,
   ChallengeStats,
-  ChallengeScore,
-  getDifficultyForScore,
-  getNextPersonalBest,
-  getCompetitiveBestScore,
-  getChallengeScore,
-  getTotalChallengesCompleted,
-  getStreakCount,
-  getLastChallengeDate,
+  ChallengeScore
 } from 'services/challengeScoringService'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
@@ -49,7 +42,7 @@ const ChallengeTabScreen: React.FC = () => {
       setLoadingStats(true)
       const [challengeStats, challengeHistory] = await Promise.all([
         getChallengeStats(),
-        getChallengeHistory(),
+        getChallengeHistory()
       ])
       setStats(challengeStats)
       setHistory(challengeHistory)
@@ -371,43 +364,43 @@ const ChallengeTabScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f5f5f5'
   },
   scrollContainer: {
-    flex: 1,
+    flex: 1
   },
   header: {
     backgroundColor: '#fff',
     padding: 24,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#eee'
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#007AFF',
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
     marginBottom: 24,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   content: {
-    padding: 16,
+    padding: 16
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   loadingText: {
     fontSize: 16,
     color: '#666',
-    marginTop: 16,
+    marginTop: 16
   },
   button: {
     padding: 24,
@@ -417,31 +410,31 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 5
   },
   challengeButton: {
     backgroundColor: '#FF6B35',
     borderWidth: 2,
-    borderColor: '#FFD700',
+    borderColor: '#FFD700'
   },
   buttonIcon: {
     fontSize: 24,
-    marginBottom: 8,
+    marginBottom: 8
   },
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 4,
+    marginBottom: 4
   },
   buttonSubtext: {
     fontSize: 14,
     color: 'rgba(255, 255, 255, 0.8)',
-    textAlign: 'center',
+    textAlign: 'center'
   },
 
   // Best Score Card
@@ -454,86 +447,86 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 16
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#333'
   },
   recordDate: {
     fontSize: 14,
-    color: '#666',
+    color: '#666'
   },
   scoreDisplayContainer: {
-    marginBottom: 16,
+    marginBottom: 16
   },
   mainScoreDisplay: {
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 16
   },
   finalScoreLabel: {
     fontSize: 16,
     color: '#666',
-    marginBottom: 4,
+    marginBottom: 4
   },
   finalScoreValue: {
     fontSize: 48,
     fontWeight: 'bold',
     color: '#007AFF',
-    marginBottom: 8,
+    marginBottom: 8
   },
   scoreDescription: {
     fontSize: 16,
     color: '#4CAF50',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   scoreBreakdown: {
     backgroundColor: '#f8f9fa',
     borderRadius: 12,
-    padding: 16,
+    padding: 16
   },
   breakdownRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 8
   },
   breakdownLabel: {
     fontSize: 14,
-    color: '#666',
+    color: '#666'
   },
   breakdownValue: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#333'
   },
   performanceGrid: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#f0f8ff',
     borderRadius: 12,
-    padding: 16,
+    padding: 16
   },
   performanceItem: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   performanceValue: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#007AFF',
-    marginBottom: 4,
+    marginBottom: 4
   },
   performanceLabel: {
     fontSize: 12,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
 
   // Empty State
@@ -547,18 +540,18 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   emptyTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
+    marginBottom: 8
   },
   emptySubtitle: {
     fontSize: 16,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
 
   // Stats Card
@@ -571,61 +564,61 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   statsGrid: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 20,
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   statItem: {
     alignItems: 'center',
     minWidth: '23%',
-    marginBottom: 12,
+    marginBottom: 12
   },
   statValue: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#007AFF',
-    marginBottom: 4,
+    marginBottom: 4
   },
   statLabel: {
     fontSize: 12,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   completionStats: {
     borderTopWidth: 1,
     borderTopColor: '#eee',
-    paddingTop: 16,
+    paddingTop: 16
   },
   completionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 12,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   completionGrid: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   completionItem: {
     alignItems: 'center',
-    minWidth: '23%',
+    minWidth: '23%'
   },
   completionValue: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#4CAF50',
-    marginBottom: 4,
+    marginBottom: 4
   },
   completionLabel: {
     fontSize: 11,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
 
   // History Card
@@ -638,42 +631,42 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   historyItem: {
     backgroundColor: '#f8f9fa',
     borderRadius: 12,
     padding: 12,
-    marginBottom: 8,
+    marginBottom: 8
   },
   historyHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: 4
   },
   historyScore: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#007AFF'
   },
   historyDate: {
     fontSize: 12,
-    color: '#666',
+    color: '#666'
   },
   historyDetails: {
-    gap: 2,
+    gap: 2
   },
   historyDetail: {
     fontSize: 12,
-    color: '#666',
+    color: '#666'
   },
   emptyText: {
     textAlign: 'center',
     fontSize: 16,
     color: '#666',
-    marginTop: 16,
-  },
+    marginTop: 16
+  }
 })
 
 export default ChallengeTabScreen

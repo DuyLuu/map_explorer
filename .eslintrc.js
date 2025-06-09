@@ -1,8 +1,24 @@
 module.exports = {
   root: true,
-  extends: ['@react-native', 'plugin:prettier/recommended', 'prettier'],
+  extends: ['plugin:prettier/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'unused-imports', '@typescript-eslint', 'prettier'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: ['react', 'react-hooks', 'import', 'unused-imports', '@typescript-eslint', 'prettier'],
+  env: {
+    es6: true,
+    node: true
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   rules: {
     'prettier/prettier': [
       'error',
@@ -16,9 +32,9 @@ module.exports = {
         objectPropertyNewline: true,
         objectCurlyNewline: {
           multiline: true,
-          minProperties: 2,
-        },
-      },
+          minProperties: 2
+        }
+      }
     ],
     'no-await-in-loop': 2,
     '@typescript-eslint/no-unused-vars': 'off',
@@ -32,12 +48,12 @@ module.exports = {
         pathGroups: [
           {
             pattern: '**/*',
-            group: 'parent',
-          },
+            group: 'parent'
+          }
         ],
         groups: ['external', 'builtin', 'parent', 'sibling', 'index', 'type', 'object'],
-        'newlines-between': 'always',
-      },
+        'newlines-between': 'always'
+      }
     ],
     'unused-imports/no-unused-imports': 'warn',
     'unused-imports/no-unused-vars': [
@@ -46,18 +62,25 @@ module.exports = {
         vars: 'all',
         varsIgnorePattern: '^_',
         args: 'after-used',
-        argsIgnorePattern: '^_',
-      },
+        argsIgnorePattern: '^_'
+      }
     ],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
+    'react/prop-types': 'off'
   },
   overrides: [
     {
       files: ['src/**/*.{js,jsx,ts,tsx}'],
       rules: {
-        'no-undef': 'off',
-      },
+        'no-undef': 'off'
+      }
     },
-  ],
+    {
+      files: ['**/__tests__/**/*', '**/*.test.{ts,tsx,js,jsx}'],
+      env: {
+        jest: true
+      }
+    }
+  ]
 }
