@@ -11,6 +11,7 @@ import RegionFilter from '../components/RegionFilter'
 import CountryCard from '../components/CountryCard'
 import { CountryWithRegion, Region } from 'types/region'
 import { useCountries } from 'hooks/useCountries'
+import { Theme } from 'theme/constants'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -79,7 +80,7 @@ const LearningTabScreen: React.FC = () => {
       return intl.formatMessage(
         {
           id: 'learning.screen.subtitleTerritories',
-          defaultMessage: 'Explore {count} territories and dependencies',
+          defaultMessage: '{count} territories and dependencies',
         },
         { count: filteredCountries.length }
       )
@@ -87,7 +88,7 @@ const LearningTabScreen: React.FC = () => {
     return intl.formatMessage(
       {
         id: 'learning.screen.subtitle',
-        defaultMessage: 'Explore {count} countries around the world',
+        defaultMessage: '{count} countries',
       },
       { count: filteredCountries.length }
     )
@@ -153,21 +154,14 @@ const LearningTabScreen: React.FC = () => {
         backgroundColor="white"
         style={styles.headerBorder}
       >
-        <Box flex>
-          <Text style={styles.title}>
-            <FormattedMessage id="learning.screen.title" defaultMessage="Learning Center" />
-          </Text>
-          <Text style={styles.subtitle}>{getSubtitle()}</Text>
-        </Box>
         <Button
           style={styles.topCountriesButton}
           onPress={handleTopCountriesPress}
           padding="sm"
           borderRadius={8}
-          backgroundColor="#f8f8f8"
+          backgroundColor={Theme.colors.lightDark}
         >
-          <Text style={styles.topCountriesIcon}>🏆</Text>
-          <Text style={styles.topCountriesText}>
+          <Text variant="bodySmall" weight="bold" color={Theme.colors.mainText}>
             <FormattedMessage id="learning.screen.topCountries" defaultMessage="Top Countries" />
           </Text>
         </Button>
@@ -190,7 +184,9 @@ const LearningTabScreen: React.FC = () => {
       />
 
       <RegionFilter selectedRegion={selectedRegion} onRegionSelect={setSelectedRegion} />
-
+      <Text marginLeft="m" marginBottom="m" variant="h6" muted color={Theme.colors.primary}>
+        {getSubtitle()}
+      </Text>
       <FlatList
         data={filteredCountries}
         keyExtractor={item => `country-${item.id}`}
@@ -226,9 +222,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#007AFF',
     borderRadius: 12,
     marginLeft: 16,
+    borderWidth: 1,
+    borderColor: Theme.colors.breakLine,
   },
   topCountriesIcon: {
     fontSize: 20,

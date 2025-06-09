@@ -1,5 +1,12 @@
 import React, { useState, useMemo } from 'react'
-import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  ActivityIndicator,
+  ScrollView,
+  Image,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Text } from 'components/Text'
@@ -15,6 +22,9 @@ import {
   getCategoryInfo,
 } from 'utils/countryRankings'
 import BackButton from 'components/BackButton'
+import { FontAwesomeIcon } from 'components/Icon'
+import { getFlagAssetByName } from 'services/flagAssetService'
+import { Theme } from 'theme/constants'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -33,6 +43,22 @@ const TopCountriesScreen: React.FC = () => {
     return getRankedCountries(countries, selectedCategory, 50)
   }, [countries, selectedCategory])
 
+  // Get top country for each category (for tab images)
+  const topCountriesByCategory = useMemo((): Record<RankingCategory, RankedCountry | null> => {
+    if (!countries) return {} as Record<RankingCategory, RankedCountry | null>
+    const topCountries: Record<RankingCategory, RankedCountry | null> = {} as Record<
+      RankingCategory,
+      RankedCountry | null
+    >
+
+    RANKING_CATEGORIES.forEach(category => {
+      const ranked = getRankedCountries(countries, category.id, 1)
+      topCountries[category.id] = ranked.length > 0 ? ranked[0] : null
+    })
+
+    return topCountries
+  }, [countries])
+
   const categoryInfo = getCategoryInfo(selectedCategory)
 
   const handleCountryPress = (country: CountryWithRegion) => {
@@ -42,6 +68,8 @@ const TopCountriesScreen: React.FC = () => {
   const renderCategoryTab = (category: RankingCategory) => {
     const info = getCategoryInfo(category)
     const isSelected = selectedCategory === category
+    const topCountry = topCountriesByCategory[category]
+    const flagAsset = topCountry ? getFlagAssetByName(topCountry.name) : null
 
     const tabStyles = [styles.categoryTab, isSelected ? styles.selectedCategoryTab : null].filter(
       Boolean
@@ -54,48 +82,80 @@ const TopCountriesScreen: React.FC = () => {
         onPress={() => setSelectedCategory(category)}
         padding="m"
         borderRadius={12}
-        backgroundColor={isSelected ? '#007AFF' : '#f0f0f0'}
+        backgroundColor={isSelected ? Theme.colors.primary : '#f0f0f0'}
         marginRight="xs"
       >
-        <Text style={styles.categoryIcon}>{info.icon}</Text>
-        <Text style={isSelected ? styles.selectedCategoryTitle : styles.categoryTitle}>
-          {info.title}
-        </Text>
-        <Text style={isSelected ? styles.selectedCategoryDescription : styles.categoryDescription}>
-          {info.description}
-        </Text>
+        <Box row centerItems paddingVertical="s">
+          {flagAsset && (
+            <Box marginRight="xs">
+              <Image source={flagAsset} style={styles.categoryFlagImage} resizeMode="contain" />
+            </Box>
+          )}
+          <Box flex marginLeft="s">
+            <Text
+              variant="bodySmall"
+              weight="bold"
+              color={isSelected ? '#fff' : Theme.colors.baseBlack}
+            >
+              {info.title}
+            </Text>
+            <Text
+              marginTop="xs"
+              variant="label"
+              muted
+              color={isSelected ? '#fff' : Theme.colors.subText}
+            >
+              {info.description}
+            </Text>
+          </Box>
+        </Box>
       </Button>
     )
   }
 
-  const renderCountryItem = ({ item }: { item: RankedCountry }) => (
-    <Button
-      style={styles.countryItem}
-      onPress={() => handleCountryPress(item)}
-      padding="m"
-      borderRadius={12}
-      backgroundColor="#fff"
-      marginBottom="sm"
-    >
-      <Box centerItems style={{ minWidth: 50 }}>
-        <Text variant="body" weight="bold" center marginTop="m">
-          #{item.rank}
-        </Text>
-        {item.rank <= 3 && (
-          <Text variant="body" weight="bold" center marginTop="m">
-            {item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : '🥉'}
-          </Text>
-        )}
-      </Box>
+  const renderCountryItem = ({ item }: { item: RankedCountry }) => {
+    const flagAsset = getFlagAssetByName(item.name)
 
-      <Box flex marginLeft="m">
-        <Text style={styles.countryName}>{item.name}</Text>
-        <Text style={styles.countryValue}>{item.formattedValue}</Text>
-      </Box>
+    return (
+      <Button
+        style={styles.countryItem}
+        onPress={() => handleCountryPress(item)}
+        borderRadius={12}
+        backgroundColor="#fff"
+        marginBottom="sm"
+        shadow="default"
+      >
+        <Box row flex fullWidth spaceBetween center>
+          {item.rank <= 3 ? (
+            <Text variant="body" weight="bold" center>
+              {item.rank === 1 ? '🥇' : item.rank === 2 ? '🥈' : '🥉'}
+            </Text>
+          ) : (
+            <Text variant="body" weight="bold" center>
+              #{item.rank}
+            </Text>
+          )}
+          <Box row flex marginLeft="m">
+            <Box>
+              {flagAsset ? (
+                <Image source={flagAsset} style={styles.flagImage} resizeMode="contain" />
+              ) : (
+                <Box marginLeft="m" backgroundColor="#f0f0f0" center>
+                  <Text size={16}>🏳️</Text>
+                </Box>
+              )}
+            </Box>
+            <Box marginLeft="m">
+              <Text style={styles.countryName}>{item.name}</Text>
+              <Text style={styles.countryValue}>{item.formattedValue}</Text>
+            </Box>
+          </Box>
 
-      <Text style={styles.chevron}>›</Text>
-    </Button>
-  )
+          <FontAwesomeIcon name="angle-right" size={20} color="#999" />
+        </Box>
+      </Button>
+    )
+  }
 
   if (isLoading) {
     return (
@@ -151,34 +211,20 @@ const TopCountriesScreen: React.FC = () => {
         style={styles.headerBorder}
       >
         <BackButton />
-        <Text style={styles.title}>Top Countries</Text>
+        <Text variant="h5" weight="bold">
+          Top Countries
+        </Text>
       </Box>
 
       {/* Category Tabs */}
-      <ScrollView
+      <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.categoriesContainer}
         contentContainerStyle={styles.categoriesContent}
-      >
-        {RANKING_CATEGORIES.map(category => renderCategoryTab(category.id))}
-      </ScrollView>
-
-      {/* Current Category Info */}
-      <Box
-        row
-        centerItems
-        paddingHorizontal="m"
-        paddingVertical="m"
-        backgroundColor="white"
-        marginBottom="xs"
-      >
-        <Text style={styles.currentCategoryIcon}>{categoryInfo.icon}</Text>
-        <Box flex marginLeft="sm">
-          <Text style={styles.currentCategoryTitle}>{categoryInfo.title}</Text>
-          <Text style={styles.currentCategoryDescription}>{categoryInfo.description}</Text>
-        </Box>
-      </Box>
+        data={RANKING_CATEGORIES}
+        renderItem={({ item }) => renderCategoryTab(item.id)}
+      />
 
       {/* Rankings List */}
       <FlatList
@@ -201,6 +247,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
+  },
+  flagImage: {
+    height: 64,
+    aspectRatio: 1.2,
+    borderRadius: 6,
+  },
+  categoryFlagImage: {
+    height: 24,
+    aspectRatio: 1.2,
+    borderRadius: 3,
   },
   header: {
     flexDirection: 'row',
@@ -288,23 +344,11 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 16,
+    marginTop: 16,
   },
   countryItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
     marginBottom: 8,
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
   },
   rankContainer: {
     alignItems: 'center',

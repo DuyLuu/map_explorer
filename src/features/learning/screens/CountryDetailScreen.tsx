@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import React from 'react'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { useRoute, RouteProp } from '@react-navigation/native'
 import { CountryWithRegion } from 'types/region'
 import { getCountryDetails } from '../services/countryDataService'
 import CountryHeader from '../components/CountryHeader'
 import CountryMapSection from '../components/CountryMapSection'
-import CountryTabs from '../components/CountryTabs'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
-import { Button } from 'components/Button'
 import BackButton from 'components/BackButton'
 
 /**
@@ -32,16 +29,10 @@ type RootStackParamList = {
 }
 
 type CountryDetailRouteProp = RouteProp<RootStackParamList, 'CountryDetail'>
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const CountryDetailScreen: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>()
   const route = useRoute<CountryDetailRouteProp>()
   const { country } = route.params
-
-  const [selectedTab, setSelectedTab] = useState<'overview' | 'culture' | 'history' | 'geography'>(
-    'overview'
-  )
 
   const countryDetails = getCountryDetails(country.name)
 
@@ -57,7 +48,9 @@ const CountryDetailScreen: React.FC = () => {
         style={styles.headerBorder}
       >
         <BackButton />
-        <Text style={styles.headerTitle}>{country.name}</Text>
+        <Text variant="h5" weight="bold">
+          {country.name}
+        </Text>
         <Box style={{ width: 32 }} />
       </Box>
 
@@ -65,13 +58,6 @@ const CountryDetailScreen: React.FC = () => {
         <CountryHeader country={country} />
 
         <CountryMapSection country={country} countryDetails={countryDetails} />
-
-        <CountryTabs
-          country={country}
-          countryDetails={countryDetails}
-          selectedTab={selectedTab}
-          onTabSelect={setSelectedTab}
-        />
       </ScrollView>
     </SafeAreaView>
   )

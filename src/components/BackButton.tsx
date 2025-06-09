@@ -13,7 +13,7 @@ const BackButton = ({ onBack }: { onBack?: () => void }) => {
       padding="xs"
       accessibilityLabel="Back"
     >
-      <AntDesignIcon name="left" size={24} color={Theme.colors.baseBlack} />
+      <AntDesignIcon name="left" size={20} color={Theme.colors.baseBlack} />
     </Button>
   )
 }

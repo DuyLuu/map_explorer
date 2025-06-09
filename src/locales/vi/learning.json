@@ -83,12 +83,12 @@
   },
   "screen": {
     "title": "Trung Tâm Học Tập",
-    "subtitle": "Khám phá {count} quốc gia trên thế giới",
-    "subtitleTerritories": "Khám phá {count} lãnh thổ và phụ thuộc",
+    "subtitle": "{count} quốc gia",
+    "subtitleTerritories": "{count} lãnh thổ và phụ thuộc",
     "loading": "Đang tải quốc gia...",
     "error": "Không thể tải quốc gia",
-    "topCountries": "Quốc Gia Hàng Đầu",
-    "topCountriesScreen": "Quốc Gia Hàng Đầu"
+    "topCountries": "Bảng xếp hạng",
+    "topCountriesScreen": "Bảng xếp hạng"
   },
   "region": {
     "allCountries": "Tất Cả Quốc Gia",

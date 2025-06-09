@@ -4,6 +4,7 @@ import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { CountryWithRegion, REGION_INFO } from 'types/region'
 import { getFlagAssetByName } from 'services/flagAssetService'
+import { Theme } from 'theme/constants'
 
 interface CountryHeaderProps {
   country: CountryWithRegion
@@ -47,12 +48,16 @@ const CountryHeader: React.FC<CountryHeaderProps> = ({ country }) => {
           </Box>
         )}
       </Box>
-      <Text style={styles.countryName}>{country.name}</Text>
-      <Text style={styles.countryRegion}>{regionInfo?.displayName || country.region}</Text>
+      <Text variant="h3" weight="bold">
+        {country.name}
+      </Text>
+      <Text variant="bodySmall" muted color={Theme.colors.subText} marginTop="s">
+        {regionInfo?.displayName || country.region}
+      </Text>
 
       {/* Enhanced: Show new data from updated countries.json */}
       {country.capital && (
-        <Box row centerItems marginBottom="sm">
+        <Box row centerItems marginVertical="sm">
           <Text style={styles.infoLabel}>Capital:</Text>
           <Text style={styles.infoValue}>{country.capital}</Text>
         </Box>
