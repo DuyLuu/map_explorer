@@ -1,0 +1,112 @@
+{
+  "country": {
+    "capital": "Capital",
+    "population": "Population",
+    "language": "Language",
+    "languages": "Languages",
+    "currency": "Currency",
+    "region": "Region",
+    "subregion": "Subregion",
+    "area": "Area",
+    "borders": "Borders",
+    "timezone": "Timezone",
+    "callingCode": "Calling Code",
+    "independence": "Independence",
+    "government": "Government Type",
+    "economy": "Economy",
+    "gdp": "GDP",
+    "lifeExpectancy": "Life Expectancy",
+    "difficultyLevel": "Difficulty Level"
+  },
+  "info": {
+    "geography": "Geography",
+    "culture": "Culture",
+    "history": "History",
+    "facts": "Fun Facts",
+    "overview": "Overview",
+    "demographics": "Demographics",
+    "economy": "Economy",
+    "politics": "Politics",
+    "landmarks": "Famous Landmarks",
+    "cuisine": "Cuisine",
+    "traditions": "Traditions",
+    "climate": "Climate"
+  },
+  "section": {
+    "basicInfo": "Basic Information",
+    "geographicInfo": "Geographic Information",
+    "culturalInfo": "Cultural Information",
+    "economicInfo": "Economic Information",
+    "additionalInfo": "Additional Information",
+    "relatedCountries": "Related Countries",
+    "nearbyCountries": "Nearby Countries",
+    "culturalFacts": "Cultural Facts",
+    "historicalHighlights": "Historical Highlights",
+    "geographicFeatures": "Geographic Features"
+  },
+  "action": {
+    "learnMore": "Learn More",
+    "viewDetails": "View Details",
+    "exploreCountry": "Explore Country",
+    "viewOnMap": "View on Map",
+    "compareCountries": "Compare Countries",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "shareCountry": "Share Country Info"
+  },
+  "filter": {
+    "region": "Filter by Region",
+    "population": "Filter by Population",
+    "area": "Filter by Area",
+    "language": "Filter by Language",
+    "continent": "Filter by Continent",
+    "all": "All Countries",
+    "clear": "Clear Filters",
+    "apply": "Apply Filters"
+  },
+  "search": {
+    "placeholder": "Search countries...",
+    "placeholderTerritories": "Search territories...",
+    "noResults": "No countries found",
+    "noResultsTerritories": "No territories found",
+    "searching": "Searching...",
+    "suggestions": "Suggestions",
+    "recent": "Recent Searches",
+    "tryAdjusting": "Try adjusting your search or filter"
+  },
+  "progress": {
+    "countriesLearned": "Countries Learned",
+    "totalCountries": "Total Countries",
+    "completion": "Completion",
+    "nextToLearn": "Next to Learn",
+    "recommended": "Recommended for You"
+  },
+  "screen": {
+    "title": "Learning Center",
+    "subtitle": "Explore {count} countries around the world",
+    "subtitleTerritories": "Explore {count} territories and dependencies",
+    "loading": "Loading countries...",
+    "error": "Failed to load countries",
+    "topCountries": "Top Countries",
+    "topCountriesScreen": "Top Countries"
+  },
+  "region": {
+    "allCountries": "All Countries",
+    "territories": "Territories",
+    "europe": "Europe",
+    "asia": "Asia",
+    "northAmerica": "North America",
+    "southAmerica": "South America",
+    "africa": "Africa",
+    "oceania": "Oceania"
+  },
+  "tab": {
+    "overview": "Overview",
+    "culture": "Culture",
+    "history": "History",
+    "geography": "Geography"
+  },
+  "level": {
+    "label": "Level {level}"
+  }
+}

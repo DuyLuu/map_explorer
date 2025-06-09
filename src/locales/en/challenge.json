@@ -1,0 +1,72 @@
+{
+  "mode": {
+    "title": "Challenge Mode",
+    "description": "Test your knowledge with time-limited challenges",
+    "rules": "Challenge Rules",
+    "timeAttack": "Time Attack",
+    "endless": "Endless Mode",
+    "survival": "Survival Mode",
+    "perfectRun": "Perfect Run",
+    "speedRun": "Speed Run"
+  },
+  "rules": {
+    "timeAttack": "Answer as many questions as possible within the time limit",
+    "endless": "Keep answering questions until you make 3 mistakes",
+    "survival": "One mistake and you're out! How far can you go?",
+    "perfectRun": "Complete all questions without any mistakes",
+    "speedRun": "Complete the challenge as fast as possible"
+  },
+  "progress": {
+    "question": "Question {{current}} of {{total}}",
+    "remaining": "{{count}} remaining",
+    "streak": "{{count}} streak",
+    "lives": "{{count}} lives left",
+    "mistakes": "{{count}} mistakes",
+    "timeLeft": "{{time}} left",
+    "completed": "{{count}} completed",
+    "percentage": "{{percent}}% complete"
+  },
+  "status": {
+    "inProgress": "Challenge in Progress",
+    "completed": "Challenge Completed",
+    "failed": "Challenge Failed",
+    "paused": "Challenge Paused",
+    "ready": "Ready to Start",
+    "preparing": "Preparing Challenge..."
+  },
+  "result": {
+    "success": "Challenge Completed!",
+    "failure": "Challenge Failed",
+    "newRecord": "New Personal Record!",
+    "almostThere": "Almost there! Try again",
+    "perfect": "Perfect! No mistakes",
+    "impressive": "Impressive performance!",
+    "goodAttempt": "Good attempt!",
+    "keepTrying": "Keep trying!"
+  },
+  "leaderboard": {
+    "title": "Challenge Leaderboard",
+    "yourRank": "Your Rank",
+    "topPlayers": "Top Players",
+    "thisWeek": "This Week",
+    "allTime": "All Time",
+    "noData": "No scores yet",
+    "loading": "Loading leaderboard...",
+    "refresh": "Refresh"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert",
+    "master": "Master"
+  },
+  "achievement": {
+    "unlocked": "Achievement Unlocked!",
+    "firstWin": "First Victory",
+    "perfectGame": "Perfect Game",
+    "speedDemon": "Speed Demon",
+    "persistent": "Never Give Up",
+    "scholar": "Geography Scholar"
+  }
+}

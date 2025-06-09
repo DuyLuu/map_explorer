@@ -7,12 +7,15 @@
 
 import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { LanguageProvider } from './src/i18n'
 import RootNavigator from 'navigation/RootNavigator'
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      <RootNavigator />
+      <LanguageProvider>
+        <RootNavigator />
+      </LanguageProvider>
     </SafeAreaProvider>
   )
 }

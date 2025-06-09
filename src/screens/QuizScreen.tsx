@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useQuiz } from 'hooks/useQuiz'
 import Flag from 'components/Flag'
 import { Text } from 'components/Text'
@@ -7,6 +8,7 @@ import { Box } from 'components/Box'
 import { Button } from 'components/Button'
 
 const QuizScreen: React.FC = () => {
+  const intl = useIntl()
   const {
     currentQuestion,
     score,
@@ -25,8 +27,13 @@ const QuizScreen: React.FC = () => {
   } = useQuiz()
 
   const getLevelName = (level: number): string => {
-    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
-    return levels[level as keyof typeof levels] || `Level ${level}`
+    const levelKeys = {
+      1: 'quiz.question.difficulty.easy',
+      2: 'quiz.question.difficulty.medium',
+      3: 'quiz.question.difficulty.hard',
+    }
+    const key = levelKeys[level as keyof typeof levelKeys]
+    return key ? intl.formatMessage({ id: key }) : `Level ${level}`
   }
 
   const getLevelColor = (level: number): string => {
@@ -41,7 +48,17 @@ const QuizScreen: React.FC = () => {
         <Box flex center padding="l">
           <ActivityIndicator size="large" color="#2196F3" />
           <Text style={styles.loadingText}>
-            {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
+            {isLoadingCountries ? (
+              <FormattedMessage
+                id="quiz.instruction.loading"
+                defaultMessage="Loading quiz questions..."
+              />
+            ) : (
+              <FormattedMessage
+                id="quiz.instruction.loading"
+                defaultMessage="Loading quiz questions..."
+              />
+            )}
           </Text>
         </Box>
       </SafeAreaView>
@@ -53,9 +70,17 @@ const QuizScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.container}>
         <Box flex center padding="l">
-          <Text style={styles.errorText}>Error loading countries data</Text>
+          <Text style={styles.errorText}>
+            <FormattedMessage
+              id="common.error.loadingData"
+              defaultMessage="Error loading countries data"
+            />
+          </Text>
           <Text style={styles.errorSubtext}>
-            Please check your internet connection and try again
+            <FormattedMessage
+              id="common.error.checkConnection"
+              defaultMessage="Please check your internet connection and try again"
+            />
           </Text>
         </Box>
       </SafeAreaView>
@@ -72,14 +97,22 @@ const QuizScreen: React.FC = () => {
         style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}
       >
         <Box flex>
-          <Text style={styles.score}>Score: {score}</Text>
-          <Text style={styles.highScore}>High Score: {highScore}</Text>
+          <Text style={styles.score}>
+            <FormattedMessage id="quiz.score.current" defaultMessage="Current Score" />: {score}
+          </Text>
+          <Text style={styles.highScore}>
+            <FormattedMessage id="quiz.score.best" defaultMessage="Best Score" />: {highScore}
+          </Text>
         </Box>
       </Box>
 
       <Box padding="m" centerItems>
         <Text style={styles.progressText}>
-          Question {currentQuestionNumber} of {questionCount}
+          <FormattedMessage
+            id="quiz.question.number"
+            defaultMessage="Question {current} of {total}"
+            values={{ current: currentQuestionNumber, total: questionCount }}
+          />
         </Text>
         <Box style={styles.levelIndicator}>
           <Text style={[styles.levelText, { color: getLevelColor(currentLevel) }]}>
@@ -145,7 +178,9 @@ const QuizScreen: React.FC = () => {
               backgroundColor="#007AFF"
               fullWidth
             >
-              <Text style={styles.submitButtonText}>Submit Answer</Text>
+              <Text style={styles.submitButtonText}>
+                <FormattedMessage id="common.action.submit" defaultMessage="Submit Answer" />
+              </Text>
             </Button>
           )}
 
@@ -159,7 +194,11 @@ const QuizScreen: React.FC = () => {
               fullWidth
             >
               <Text style={styles.nextButtonText}>
-                {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
+                {currentQuestionNumber < questionCount ? (
+                  <FormattedMessage id="common.action.next" defaultMessage="Next Question" />
+                ) : (
+                  <FormattedMessage id="quiz.result.finish" defaultMessage="Finish Quiz" />
+                )}
               </Text>
             </Button>
           )}

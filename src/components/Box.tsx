@@ -11,7 +11,7 @@ import {
 } from '../theme'
 import { BoxKey } from '../theme/constants'
 
-export interface BoxProps extends Omit<ViewProps, 'style'> {
+export interface BoxProps extends React.PropsWithChildren<any>, Omit<ViewProps, 'style'> {
   /** Child components */
   children?: ReactNode
   /** Custom styles to apply */

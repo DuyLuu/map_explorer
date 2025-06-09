@@ -11,6 +11,7 @@ import {
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useQuiz } from 'hooks/useQuiz'
 import { detectCountryFromCoordinates } from 'services/geocodingService'
 import { useCountryStore } from 'stores/countryStore'
@@ -19,6 +20,7 @@ import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 
 const MapQuizScreen: React.FC = () => {
+  const intl = useIntl()
   const {
     currentQuestion,
     score,
@@ -60,8 +62,13 @@ const MapQuizScreen: React.FC = () => {
   const mapProvider = Platform.OS === 'ios' ? PROVIDER_DEFAULT : PROVIDER_GOOGLE
 
   const getLevelName = (level: number): string => {
-    const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
-    return levels[level as keyof typeof levels] || `Level ${level}`
+    const levelKeys = {
+      1: 'quiz.question.difficulty.easy',
+      2: 'quiz.question.difficulty.medium',
+      3: 'quiz.question.difficulty.hard',
+    }
+    const key = levelKeys[level as keyof typeof levelKeys]
+    return key ? intl.formatMessage({ id: key }) : `Level ${level}`
   }
 
   const getLevelColor = (level: number): string => {
@@ -76,7 +83,10 @@ const MapQuizScreen: React.FC = () => {
         <Box flex center>
           <ActivityIndicator size="large" color="#2196F3" />
           <Text variant="h6" weight="bold" marginTop="m">
-            {isLoadingCountries ? 'Loading countries...' : 'Initializing quiz...'}
+            <FormattedMessage
+              id="quiz.instruction.loading"
+              defaultMessage="Loading quiz questions..."
+            />
           </Text>
         </Box>
       </SafeAreaView>
@@ -89,10 +99,16 @@ const MapQuizScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <Box flex center>
           <Text variant="h6" weight="bold" marginBottom="m">
-            Error loading countries data
+            <FormattedMessage
+              id="common.error.loadingData"
+              defaultMessage="Error loading countries data"
+            />
           </Text>
           <Text variant="body" muted>
-            Please check your internet connection and try again
+            <FormattedMessage
+              id="common.error.checkConnection"
+              defaultMessage="Please check your internet connection and try again"
+            />
           </Text>
         </Box>
       </SafeAreaView>
@@ -110,11 +126,23 @@ const MapQuizScreen: React.FC = () => {
         setSelectedCountry(detectedCountry)
         await handleSelectAnswer(detectedCountry)
       } else {
-        Alert.alert('Error', 'Could not detect country at this location')
+        Alert.alert(
+          intl.formatMessage({ id: 'common.label.error', defaultMessage: 'Error' }),
+          intl.formatMessage({
+            id: 'quiz.error.countryNotDetected',
+            defaultMessage: 'Could not detect country at this location',
+          })
+        )
       }
     } catch (error) {
       console.error('Error detecting country:', error)
-      Alert.alert('Error', 'Could not detect country at this location')
+      Alert.alert(
+        intl.formatMessage({ id: 'common.label.error', defaultMessage: 'Error' }),
+        intl.formatMessage({
+          id: 'quiz.error.countryNotDetected',
+          defaultMessage: 'Could not detect country at this location',
+        })
+      )
     } finally {
       setIsDetecting(false)
     }
@@ -130,16 +158,20 @@ const MapQuizScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <Box row spaceBetween padding="m" style={{ borderBottomWidth: 1, borderBottomColor: '#eee' }}>
         <Text variant="h6" weight="bold">
-          Score: {score}
+          <FormattedMessage id="quiz.score.current" defaultMessage="Current Score" />: {score}
         </Text>
         <Text variant="h6" weight="bold" success>
-          High Score: {highScore}
+          <FormattedMessage id="quiz.score.best" defaultMessage="Best Score" />: {highScore}
         </Text>
       </Box>
 
       <Box padding="m" centerItems>
         <Text variant="body" muted>
-          Question {currentQuestionNumber} of {questionCount}
+          <FormattedMessage
+            id="quiz.question.number"
+            defaultMessage="Question {current} of {total}"
+            values={{ current: currentQuestionNumber, total: questionCount }}
+          />
         </Text>
         <Box backgroundColor="#eee" padding="xxs" borderRadius={8} marginTop="xxs">
           <Text variant="body" weight="bold" style={{ color: getLevelColor(currentLevel) }}>
@@ -151,7 +183,11 @@ const MapQuizScreen: React.FC = () => {
       {currentQuestion && (
         <Box flex padding="m">
           <Text variant="h5" weight="bold" center marginBottom="m" style={styles.questionTextColor}>
-            Find the country: {currentQuestion.correctAnswer}
+            <FormattedMessage
+              id="quiz.instruction.findCountry"
+              defaultMessage="Find the country: {country}"
+              values={{ country: currentQuestion.correctAnswer }}
+            />
           </Text>
 
           <Box flex borderRadius={12} style={{ overflow: 'hidden' }} marginBottom="m">
@@ -167,7 +203,10 @@ const MapQuizScreen: React.FC = () => {
               />
             ) : (
               <Text danger center marginTop="l">
-                Map cannot be displayed: Region info is missing or invalid.
+                <FormattedMessage
+                  id="quiz.error.mapNotAvailable"
+                  defaultMessage="Map cannot be displayed: Region info is missing or invalid."
+                />
               </Text>
             )}
           </Box>
@@ -175,13 +214,17 @@ const MapQuizScreen: React.FC = () => {
           <Box centerItems marginBottom="m">
             {isDetecting && (
               <Text variant="body" muted marginBottom="s">
-                Detecting country...
+                <FormattedMessage id="quiz.map.detecting" defaultMessage="Detecting country..." />
               </Text>
             )}
 
             {selectedCountry && !isDetecting && (
               <Text variant="body" primary marginBottom="s">
-                Selected: {selectedCountry}
+                <FormattedMessage
+                  id="quiz.map.selected"
+                  defaultMessage="Selected: {country}"
+                  values={{ country: selectedCountry }}
+                />
               </Text>
             )}
 
@@ -191,9 +234,18 @@ const MapQuizScreen: React.FC = () => {
                 weight="bold"
                 color={selectedAnswer === currentQuestion.correctAnswer ? '#4CAF50' : '#F44336'}
               >
-                {selectedAnswer === currentQuestion.correctAnswer
-                  ? 'Correct!'
-                  : `Wrong! It was ${currentQuestion.correctAnswer}`}
+                {selectedAnswer === currentQuestion.correctAnswer ? (
+                  <FormattedMessage
+                    id="quiz.feedback.correct"
+                    defaultMessage="Correct! Well done!"
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="quiz.feedback.incorrect"
+                    defaultMessage="Incorrect. The correct answer is: {answer}"
+                    values={{ answer: currentQuestion.correctAnswer }}
+                  />
+                )}
               </Text>
             )}
           </Box>
@@ -201,7 +253,7 @@ const MapQuizScreen: React.FC = () => {
           {selectedCountry && !showFeedback && !isDetecting && (
             <TouchableOpacity style={styles.submitButton} onPress={handleMapSubmit}>
               <Text variant="body" weight="bold" style={styles.buttonText}>
-                Submit Answer
+                <FormattedMessage id="common.action.submit" defaultMessage="Submit Answer" />
               </Text>
             </TouchableOpacity>
           )}
@@ -209,7 +261,11 @@ const MapQuizScreen: React.FC = () => {
           {showFeedback && (
             <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
               <Text variant="body" weight="bold" style={styles.buttonText}>
-                {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Quiz'}
+                {currentQuestionNumber < questionCount ? (
+                  <FormattedMessage id="common.action.next" defaultMessage="Next Question" />
+                ) : (
+                  <FormattedMessage id="quiz.result.finish" defaultMessage="Finish Quiz" />
+                )}
               </Text>
             </TouchableOpacity>
           )}

@@ -1,0 +1,112 @@
+{
+  "country": {
+    "capital": "Thủ Đô",
+    "population": "Dân Số",
+    "language": "Ngôn Ngữ",
+    "languages": "Ngôn Ngữ",
+    "currency": "Tiền Tệ",
+    "region": "Khu Vực",
+    "subregion": "Tiểu Vùng",
+    "area": "Diện Tích",
+    "borders": "Biên Giới",
+    "timezone": "Múi Giờ",
+    "callingCode": "Mã Quốc Gia",
+    "independence": "Độc Lập",
+    "government": "Hình Thức Chính Phủ",
+    "economy": "Kinh Tế",
+    "gdp": "GDP",
+    "lifeExpectancy": "Tuổi Thọ Trung Bình",
+    "difficultyLevel": "Mức Độ Khó"
+  },
+  "info": {
+    "geography": "Địa Lý",
+    "culture": "Văn Hóa",
+    "history": "Lịch Sử",
+    "facts": "Sự Thật Thú Vị",
+    "overview": "Tổng Quan",
+    "demographics": "Nhân Khẩu Học",
+    "economy": "Kinh Tế",
+    "politics": "Chính Trị",
+    "landmarks": "Địa Danh Nổi Tiếng",
+    "cuisine": "Ẩm Thực",
+    "traditions": "Truyền Thống",
+    "climate": "Khí Hậu"
+  },
+  "section": {
+    "basicInfo": "Thông Tin Cơ Bản",
+    "geographicInfo": "Thông Tin Địa Lý",
+    "culturalInfo": "Thông Tin Văn Hóa",
+    "economicInfo": "Thông Tin Kinh Tế",
+    "additionalInfo": "Thông Tin Bổ Sung",
+    "relatedCountries": "Quốc Gia Liên Quan",
+    "nearbyCountries": "Quốc Gia Lân Cận",
+    "culturalFacts": "Sự Thật Văn Hóa",
+    "historicalHighlights": "Điểm Nổi Bật Lịch Sử",
+    "geographicFeatures": "Đặc Điểm Địa Lý"
+  },
+  "action": {
+    "learnMore": "Tìm Hiểu Thêm",
+    "viewDetails": "Xem Chi Tiết",
+    "exploreCountry": "Khám Phá Quốc Gia",
+    "viewOnMap": "Xem Trên Bản Đồ",
+    "compareCountries": "So Sánh Quốc Gia",
+    "addToFavorites": "Thêm Vào Yêu Thích",
+    "removeFromFavorites": "Xóa Khỏi Yêu Thích",
+    "shareCountry": "Chia Sẻ Thông Tin Quốc Gia"
+  },
+  "filter": {
+    "region": "Lọc Theo Khu Vực",
+    "population": "Lọc Theo Dân Số",
+    "area": "Lọc Theo Diện Tích",
+    "language": "Lọc Theo Ngôn Ngữ",
+    "continent": "Lọc Theo Châu Lục",
+    "all": "Tất Cả Quốc Gia",
+    "clear": "Xóa Bộ Lọc",
+    "apply": "Áp Dụng Bộ Lọc"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm quốc gia...",
+    "placeholderTerritories": "Tìm kiếm lãnh thổ...",
+    "noResults": "Không tìm thấy quốc gia nào",
+    "noResultsTerritories": "Không tìm thấy lãnh thổ nào",
+    "searching": "Đang tìm kiếm...",
+    "suggestions": "Gợi Ý",
+    "recent": "Tìm Kiếm Gần Đây",
+    "tryAdjusting": "Thử điều chỉnh tìm kiếm hoặc bộ lọc của bạn"
+  },
+  "progress": {
+    "countriesLearned": "Quốc Gia Đã Học",
+    "totalCountries": "Tổng Số Quốc Gia",
+    "completion": "Hoàn Thành",
+    "nextToLearn": "Tiếp Theo Để Học",
+    "recommended": "Gợi Ý Cho Bạn"
+  },
+  "screen": {
+    "title": "Trung Tâm Học Tập",
+    "subtitle": "Khám phá {count} quốc gia trên thế giới",
+    "subtitleTerritories": "Khám phá {count} lãnh thổ và phụ thuộc",
+    "loading": "Đang tải quốc gia...",
+    "error": "Không thể tải quốc gia",
+    "topCountries": "Quốc Gia Hàng Đầu",
+    "topCountriesScreen": "Quốc Gia Hàng Đầu"
+  },
+  "region": {
+    "allCountries": "Tất Cả Quốc Gia",
+    "territories": "Lãnh Thổ",
+    "europe": "Châu Âu",
+    "asia": "Châu Á",
+    "northAmerica": "Bắc Mỹ",
+    "southAmerica": "Nam Mỹ",
+    "africa": "Châu Phi",
+    "oceania": "Châu Đại Dương"
+  },
+  "tab": {
+    "overview": "Tổng Quan",
+    "culture": "Văn Hóa",
+    "history": "Lịch Sử",
+    "geography": "Địa Lý"
+  },
+  "level": {
+    "label": "Cấp {level}"
+  }
+}

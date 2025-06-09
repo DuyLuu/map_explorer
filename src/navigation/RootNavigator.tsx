@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ActivityIndicator, StyleSheet } from 'react-native'
+import { FormattedMessage } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { ThemeProvider } from 'theme/context'
 import TabNavigator from './TabNavigator'
 import FlagRegionSelectionScreen from 'features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from 'features/flag/screens/FlagProgressDetailScreen'
-import FlagQuizScreen from 'screens/FlagQuizScreen'
 import MapRegionSelectionScreen from 'features/map/screens/MapRegionSelectionScreen'
 import MapQuizScreen from 'features/map/screens/MapQuizScreen'
 import ChallengeQuizScreen from 'features/challenge/screens/ChallengeQuizScreen'
@@ -37,10 +37,13 @@ const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
     <Box centerItems paddingHorizontal="xl">
       <ActivityIndicator size="large" color="#007AFF" style={styles.spinner} />
       <Text variant="h2" color="#fff" weight="bold" center style={styles.loadingTitle}>
-        World Explorer
+        <FormattedMessage id="navigation.appTitle" defaultMessage="World Explorer" />
       </Text>
       <Text variant="body" color="#ccc" center style={styles.loadingSubtitle}>
-        Preparing your world journey...
+        <FormattedMessage
+          id="navigation.loading.subtitle"
+          defaultMessage="Preparing your world journey..."
+        />
       </Text>
       <Text variant="bodySmall" color="#007AFF" center weight="medium">
         {state.progress}
@@ -49,13 +52,16 @@ const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
       {state.error && (
         <Box style={styles.errorContainer}>
           <Text variant="h6" color="#ff3b30" weight="bold" style={styles.errorTitle}>
-            Loading Error
+            <FormattedMessage id="navigation.loading.error" defaultMessage="Loading Error" />
           </Text>
           <Text variant="bodySmall" color="#ccc" style={styles.errorText}>
             {state.error}
           </Text>
           <Text variant="caption" color="#888" style={styles.retryText}>
-            Please restart the app to try again
+            <FormattedMessage
+              id="navigation.loading.retryMessage"
+              defaultMessage="Please restart the app to try again"
+            />
           </Text>
         </Box>
       )}

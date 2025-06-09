@@ -6,6 +6,7 @@ import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
 import { FontAwesomeIcon } from 'components/Icon'
+import { Theme } from 'theme/constants'
 
 interface CountryCardProps {
   country: CountryWithRegion
@@ -17,69 +18,50 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
 
   return (
     <Button
-      style={styles.countryCard}
       onPress={() => onPress(country)}
       activeOpacity={0.7}
-      padding="m"
       borderRadius={12}
       backgroundColor="#fff"
       marginBottom="sm"
       shadow="default"
     >
-      <Box marginRight="m" borderRadius="xs" style={{ width: 48, height: 32 }}>
-        {flagAsset ? (
-          <Image source={flagAsset} style={styles.flagImage} resizeMode="cover" />
-        ) : (
-          <Box fullWidth fullHeight backgroundColor="#f0f0f0" center>
-            <Text size={16}>🏳️</Text>
+      <Box flex row fullWidth padding="xs">
+        <Box marginRight="m" fullHeight borderRadius="xs" hidden style={styles.flagImageContainer}>
+          {flagAsset ? (
+            <Image source={flagAsset} style={styles.flagImage} resizeMode="contain" />
+          ) : (
+            <Box marginLeft="m" backgroundColor="#f0f0f0" center>
+              <Text size={16}>🏳️</Text>
+            </Box>
+          )}
+        </Box>
+
+        <Box row centerItems marginLeft="s" flex spaceBetween>
+          <Box>
+            <Text variant="h6" weight="bold">
+              {country.name}
+            </Text>
+            <Text variant="bodySmall" muted color={Theme.colors.subText}>
+              {REGION_INFO[country.region]?.displayName || country.region}
+            </Text>
           </Box>
-        )}
+          <FontAwesomeIcon name="angle-right" size={20} color="#999" />
+        </Box>
       </Box>
-
-      <Box marginLeft="m">
-        <Text variant="h6" weight="semi-bold" style={styles.countryName}>
-          {country.name}
-        </Text>
-        <Text variant="bodySmall" muted style={styles.countryRegion}>
-          {REGION_INFO[country.region]?.displayName || country.region}
-        </Text>
-      </Box>
-
-      <FontAwesomeIcon name="angle-right" size={20} color="#999" />
     </Button>
   )
 }
 
 const styles = StyleSheet.create({
-  countryCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    marginBottom: 12,
-    justifyContent: 'space-between',
-  },
-  flagImage: {
-    width: 48,
-    height: 32,
+  flagImageContainer: {
+    height: 64,
+    aspectRatio: 1.2,
     borderRadius: 6,
   },
-  countryName: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 2,
-  },
-  countryRegion: {
-    color: '#888',
-    fontSize: 13,
-    marginBottom: 2,
-  },
-  level1: {
-    backgroundColor: '#E3F2FD',
-  },
-  level2: {
-    backgroundColor: '#FFF3E0',
+  flagImage: {
+    height: 64,
+    aspectRatio: 1.2,
+    borderRadius: 6,
   },
 })
 

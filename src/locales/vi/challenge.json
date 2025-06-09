@@ -1,0 +1,72 @@
+{
+  "mode": {
+    "title": "Chế Độ Thử Thách",
+    "description": "Kiểm tra kiến thức của bạn với các thử thách có giới hạn thời gian",
+    "rules": "Luật Chơi Thử Thách",
+    "timeAttack": "Tấn Công Thời Gian",
+    "endless": "Chế Độ Vô Tận",
+    "survival": "Chế Độ Sinh Tồn",
+    "perfectRun": "Hoàn Hảo",
+    "speedRun": "Tốc Độ"
+  },
+  "rules": {
+    "timeAttack": "Trả lời càng nhiều câu hỏi càng tốt trong thời gian cho phép",
+    "endless": "Tiếp tục trả lời câu hỏi cho đến khi bạn mắc 3 lỗi",
+    "survival": "Một lỗi là bị loại! Bạn có thể đi được bao xa?",
+    "perfectRun": "Hoàn thành tất cả câu hỏi mà không mắc lỗi nào",
+    "speedRun": "Hoàn thành thử thách càng nhanh càng tốt"
+  },
+  "progress": {
+    "question": "Câu hỏi {{current}} / {{total}}",
+    "remaining": "Còn {{count}}",
+    "streak": "Chuỗi {{count}}",
+    "lives": "Còn {{count}} mạng",
+    "mistakes": "{{count}} lỗi",
+    "timeLeft": "Còn {{time}}",
+    "completed": "Đã hoàn thành {{count}}",
+    "percentage": "{{percent}}% hoàn thành"
+  },
+  "status": {
+    "inProgress": "Thử Thách Đang Diễn Ra",
+    "completed": "Thử Thách Hoàn Thành",
+    "failed": "Thử Thách Thất Bại",
+    "paused": "Thử Thách Tạm Dừng",
+    "ready": "Sẵn Sàng Bắt Đầu",
+    "preparing": "Chuẩn Bị Thử Thách..."
+  },
+  "result": {
+    "success": "Thử Thách Hoàn Thành!",
+    "failure": "Thử Thách Thất Bại",
+    "newRecord": "Kỷ Lục Cá Nhân Mới!",
+    "almostThere": "Gần rồi! Thử lại nhé",
+    "perfect": "Hoàn hảo! Không có lỗi nào",
+    "impressive": "Thể hiện ấn tượng!",
+    "goodAttempt": "Nỗ lực tốt!",
+    "keepTrying": "Tiếp tục cố gắng!"
+  },
+  "leaderboard": {
+    "title": "Bảng Xếp Hạng Thử Thách",
+    "yourRank": "Xếp Hạng Của Bạn",
+    "topPlayers": "Người Chơi Hàng Đầu",
+    "thisWeek": "Tuần Này",
+    "allTime": "Mọi Thời Đại",
+    "noData": "Chưa có điểm số nào",
+    "loading": "Đang tải bảng xếp hạng...",
+    "refresh": "Làm Mới"
+  },
+  "difficulty": {
+    "beginner": "Người Mới Bắt Đầu",
+    "intermediate": "Trung Cấp",
+    "advanced": "Nâng Cao",
+    "expert": "Chuyên Gia",
+    "master": "Bậc Thầy"
+  },
+  "achievement": {
+    "unlocked": "Thành Tích Mở Khóa!",
+    "firstWin": "Chiến Thắng Đầu Tiên",
+    "perfectGame": "Trò Chơi Hoàn Hảo",
+    "speedDemon": "Quỷ Tốc Độ",
+    "persistent": "Không Bao Giờ Bỏ Cuộc",
+    "scholar": "Học Giả Địa Lý"
+  }
+}

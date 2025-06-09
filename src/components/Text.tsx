@@ -9,7 +9,6 @@ import {
   FontFamily,
   Spacing,
 } from '../theme'
-import { BoxKey } from '../theme/constants'
 
 export interface TextProps extends Omit<RNTextProps, 'style'> {
   /** Text variant from the design system */

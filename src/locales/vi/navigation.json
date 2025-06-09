@@ -1,0 +1,57 @@
+{
+  "appTitle": "World Explorer",
+  "loading": {
+    "subtitle": "Chuẩn bị hành trình khám phá thế giới...",
+    "error": "Lỗi Tải Dữ Liệu",
+    "retryMessage": "Vui lòng khởi động lại ứng dụng để thử lại"
+  },
+  "tab": {
+    "quiz": "Đố Vui",
+    "learning": "Học Tập",
+    "challenge": "Thử Thách",
+    "profile": "Hồ Sơ",
+    "leaderboard": "Bảng Xếp Hạng"
+  },
+  "screen": {
+    "title": {
+      "home": "World Explorer",
+      "quiz": "Đố Vui",
+      "mapQuiz": "Đố Bản Đồ",
+      "flagQuiz": "Đố Cờ",
+      "capitalQuiz": "Đố Thủ Đô",
+      "learning": "Học Tập",
+      "countryDetails": "Chi Tiết Quốc Gia",
+      "challenge": "Chế Độ Thử Thách",
+      "leaderboard": "Bảng Xếp Hạng",
+      "settings": "Cài Đặt",
+      "profile": "Hồ Sơ",
+      "statistics": "Thống Kê",
+      "achievements": "Thành Tích"
+    },
+    "description": {
+      "quiz": "Kiểm tra kiến thức địa lý của bạn!"
+    },
+    "header": {
+      "back": "Quay Lại",
+      "close": "Đóng",
+      "menu": "Menu",
+      "settings": "Cài Đặt",
+      "help": "Trợ Giúp"
+    }
+  },
+  "drawer": {
+    "home": "Trang Chủ",
+    "quiz": "Trò Chơi Đố Vui",
+    "learning": "Tìm Hiểu Các Quốc Gia",
+    "challenge": "Chế Độ Thử Thách",
+    "leaderboard": "Bảng Xếp Hạng",
+    "settings": "Cài Đặt",
+    "help": "Trợ Giúp & Hỗ Trợ",
+    "about": "Giới Thiệu",
+    "signOut": "Đăng Xuất"
+  },
+  "bottomSheet": {
+    "title": "Menu",
+    "close": "Đóng menu"
+  }
+}

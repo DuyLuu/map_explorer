@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Platform } from 'react-native'
+import { useIntl } from 'react-intl'
 import SettingsButton from 'components/SettingsButton'
 
 // Import screens for each tab
@@ -19,6 +20,8 @@ export type TabParamList = {
 const Tab = createBottomTabNavigator<TabParamList>()
 
 const TabNavigator: React.FC = () => {
+  const intl = useIntl()
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -63,16 +66,35 @@ const TabNavigator: React.FC = () => {
         },
       })}
     >
-      <Tab.Screen name="QuizTab" component={QuizTabScreen} options={{ title: 'Quiz' }} />
+      <Tab.Screen
+        name="QuizTab"
+        component={QuizTabScreen}
+        options={{
+          title: intl.formatMessage({
+            id: 'navigation.tab.quiz',
+            defaultMessage: 'Quiz',
+          }),
+        }}
+      />
       <Tab.Screen
         name="LearningTab"
         component={LearningTabScreen}
-        options={{ title: 'Learning' }}
+        options={{
+          title: intl.formatMessage({
+            id: 'navigation.tab.learning',
+            defaultMessage: 'Learning',
+          }),
+        }}
       />
       <Tab.Screen
         name="ChallengeTab"
         component={ChallengeTabScreen}
-        options={{ title: 'Challenge' }}
+        options={{
+          title: intl.formatMessage({
+            id: 'navigation.tab.challenge',
+            defaultMessage: 'Challenge',
+          }),
+        }}
       />
     </Tab.Navigator>
   )

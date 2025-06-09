@@ -1,0 +1,81 @@
+{
+  "action": {
+    "submit": "Submit Answer",
+    "next": "Next Question",
+    "start": "Start",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "back": "Back",
+    "done": "Done",
+    "retry": "Try Again",
+    "restart": "Restart",
+    "skip": "Skip",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "reset": "Reset"
+  },
+  "error": {
+    "loadingData": "Error loading data",
+    "checkConnection": "Please check your internet connection and try again",
+    "general": "Something went wrong. Please try again.",
+    "networkError": "Please check your internet connection and try again.",
+    "noData": "No data available"
+  },
+  "button": {
+    "start": "Start",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "next": "Next",
+    "back": "Back",
+    "done": "Done",
+    "retry": "Try Again",
+    "restart": "Restart",
+    "skip": "Skip",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "reset": "Reset"
+  },
+  "label": {
+    "score": "Score",
+    "progress": "Progress",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "points": "Points",
+    "level": "Level",
+    "streak": "Streak",
+    "best": "Best",
+    "total": "Total",
+    "remaining": "Remaining",
+    "completed": "Completed"
+  },
+  "message": {
+    "welcome": "Welcome to World Explorer!",
+    "success": "Great job!",
+    "error": "Something went wrong. Please try again.",
+    "noData": "No data available",
+    "loading": "Please wait while we load your content...",
+    "networkError": "Please check your internet connection and try again.",
+    "tryAgain": "Please try again later.",
+    "comingSoon": "Coming soon!",
+    "maintenance": "We're currently performing maintenance. Please check back later."
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalid": "Invalid input",
+    "tooShort": "Input is too short",
+    "tooLong": "Input is too long"
+  },
+  "accessibility": {
+    "back": "Go back",
+    "close": "Close this screen",
+    "menu": "Open menu",
+    "settings": "Open settings",
+    "help": "Get help"
+  }
+}

@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, ActivityIndicator, Platform } from 'react-native'
+import { StyleSheet, SafeAreaView, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { FormattedMessage } from 'react-intl'
 import { useCountries } from 'hooks/useCountries'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
@@ -25,7 +26,10 @@ const QuizTabScreen: React.FC = () => {
           Quiz Mode
         </Text>
         <Text variant="body" muted center style={styles.subtitle}>
-          Test your geography knowledge!
+          <FormattedMessage
+            id="navigation.screen.description.quiz"
+            defaultMessage="Test your geography knowledge!"
+          />
         </Text>
 
         <Box style={[styles.buttonContainer, { width: '100%' }]}>

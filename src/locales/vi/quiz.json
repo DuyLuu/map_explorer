@@ -1,0 +1,71 @@
+{
+  "instruction": {
+    "selectCountry": "Chọn quốc gia đúng trên bản đồ",
+    "chooseFlag": "Chọn lá cờ đúng cho quốc gia này:",
+    "selectCapital": "Thủ đô của quốc gia này là gì?",
+    "identifyCountry": "Đây là quốc gia nào?",
+    "findCountry": "Tìm quốc gia: {country}",
+    "tapToStart": "Chạm để bắt đầu đố vui",
+    "chooseAnswer": "Chọn câu trả lời của bạn",
+    "timeRemaining": "Thời gian còn lại",
+    "loading": "Đang tải câu hỏi đố vui..."
+  },
+  "feedback": {
+    "correct": "Chính xác! Làm tốt lắm!",
+    "incorrect": "Sai rồi. Câu trả lời đúng là: {answer}",
+    "gameOver": "Hoàn Thành Đố Vui!",
+    "completed": "Chúc mừng! Bạn đã hoàn thành đố vui.",
+    "perfect": "Điểm số hoàn hảo! Tuyệt vời!",
+    "excellent": "Xuất sắc!",
+    "good": "Làm tốt lắm!",
+    "needsPractice": "Hãy tiếp tục luyện tập!",
+    "timeUp": "Hết giờ!",
+    "almostThere": "Gần rồi! Thử lại nhé."
+  },
+  "score": {
+    "current": "Điểm Hiện Tại",
+    "final": "Điểm Cuối",
+    "best": "Điểm Cao Nhất",
+    "percentage": "{{score}}% chính xác",
+    "outOf": "{{correct}} trên {{total}}",
+    "points": "{{points}} điểm",
+    "newRecord": "Kỷ Lục Mới!",
+    "streak": "{{count}} câu liên tiếp",
+    "accuracy": "Độ Chính Xác"
+  },
+  "timer": {
+    "seconds": "{{count}} giây",
+    "timeUp": "Hết Giờ!",
+    "hurryUp": "Nhanh lên!",
+    "remaining": "Còn {{time}}"
+  },
+  "question": {
+    "number": "Câu hỏi {{current}} / {{total}}",
+    "skip": "Bỏ qua câu hỏi này",
+    "hint": "Hiển thị gợi ý",
+    "difficulty": {
+      "easy": "Dễ",
+      "medium": "Trung Bình",
+      "hard": "Khó"
+    }
+  },
+  "result": {
+    "summary": "Tóm Tắt Đố Vui",
+    "correctAnswers": "Câu Trả Lời Đúng",
+    "wrongAnswers": "Câu Trả Lời Sai",
+    "totalTime": "Tổng Thời Gian",
+    "averageTime": "Thời Gian Trung Bình Mỗi Câu",
+    "playAgain": "Chơi Lại",
+    "nextLevel": "Cấp Độ Tiếp Theo",
+    "shareScore": "Chia Sẻ Điểm Số",
+    "finish": "Kết Thúc Đố Vui"
+  },
+  "error": {
+    "countryNotDetected": "Không thể phát hiện quốc gia tại vị trí này",
+    "mapNotAvailable": "Không thể hiển thị bản đồ: Thiếu thông tin khu vực hoặc không hợp lệ."
+  },
+  "map": {
+    "detecting": "Đang phát hiện quốc gia...",
+    "selected": "Đã chọn: {country}"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "action": {
+    "submit": "Gửi Câu Trả Lời",
+    "next": "Câu Hỏi Tiếp Theo",
+    "start": "Bắt Đầu",
+    "cancel": "Hủy",
+    "continue": "Tiếp Tục",
+    "back": "Quay Lại",
+    "done": "Hoàn Thành",
+    "retry": "Thử Lại",
+    "restart": "Khởi Động Lại",
+    "skip": "Bỏ Qua",
+    "confirm": "Xác Nhận",
+    "close": "Đóng",
+    "save": "Lưu",
+    "reset": "Đặt Lại"
+  },
+  "error": {
+    "loadingData": "Lỗi khi tải dữ liệu",
+    "checkConnection": "Vui lòng kiểm tra kết nối internet và thử lại",
+    "general": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "networkError": "Vui lòng kiểm tra kết nối internet và thử lại.",
+    "noData": "Không có dữ liệu"
+  },
+  "button": {
+    "start": "Bắt Đầu",
+    "cancel": "Hủy",
+    "continue": "Tiếp Tục",
+    "next": "Tiếp Theo",
+    "back": "Quay Lại",
+    "done": "Hoàn Thành",
+    "retry": "Thử Lại",
+    "restart": "Khởi Động Lại",
+    "skip": "Bỏ Qua",
+    "submit": "Gửi",
+    "confirm": "Xác Nhận",
+    "close": "Đóng",
+    "save": "Lưu",
+    "reset": "Đặt Lại"
+  },
+  "label": {
+    "score": "Điểm Số",
+    "progress": "Tiến Trình",
+    "loading": "Đang Tải...",
+    "error": "Lỗi",
+    "success": "Thành Công",
+    "warning": "Cảnh Báo",
+    "info": "Thông Tin",
+    "points": "Điểm",
+    "level": "Cấp Độ",
+    "streak": "Chuỗi",
+    "best": "Tốt Nhất",
+    "total": "Tổng Cộng",
+    "remaining": "Còn Lại",
+    "completed": "Hoàn Thành"
+  },
+  "message": {
+    "welcome": "Chào mừng đến với World Explorer!",
+    "success": "Làm tốt lắm!",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "noData": "Không có dữ liệu",
+    "loading": "Vui lòng đợi trong khi chúng tôi tải nội dung...",
+    "networkError": "Vui lòng kiểm tra kết nối internet và thử lại.",
+    "tryAgain": "Vui lòng thử lại sau.",
+    "comingSoon": "Sắp ra mắt!",
+    "maintenance": "Chúng tôi đang bảo trì hệ thống. Vui lòng quay lại sau."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "invalid": "Dữ liệu không hợp lệ",
+    "tooShort": "Dữ liệu quá ngắn",
+    "tooLong": "Dữ liệu quá dài"
+  },
+  "accessibility": {
+    "back": "Quay lại",
+    "close": "Đóng màn hình này",
+    "menu": "Mở menu",
+    "settings": "Mở cài đặt",
+    "help": "Nhận trợ giúp"
+  }
+}

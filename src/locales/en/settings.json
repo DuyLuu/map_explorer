@@ -1,0 +1,16 @@
+{
+  "title": "Settings",
+  "language": {
+    "title": "Language",
+    "description": "Choose your preferred language",
+    "loading": "Changing language..."
+  },
+  "purchasePro": {
+    "title": "Purchase Pro",
+    "description": "Unlock all features and remove ads"
+  },
+  "about": {
+    "title": "About",
+    "description": "Learn more about World Explorer"
+  }
+}

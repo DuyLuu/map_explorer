@@ -1,0 +1,57 @@
+{
+  "appTitle": "World Explorer",
+  "loading": {
+    "subtitle": "Preparing your world journey...",
+    "error": "Loading Error",
+    "retryMessage": "Please restart the app to try again"
+  },
+  "tab": {
+    "quiz": "Quiz",
+    "learning": "Learning",
+    "challenge": "Challenge",
+    "profile": "Profile",
+    "leaderboard": "Leaderboard"
+  },
+  "screen": {
+    "title": {
+      "home": "World Explorer",
+      "quiz": "Quiz",
+      "mapQuiz": "Map Quiz",
+      "flagQuiz": "Flag Quiz",
+      "capitalQuiz": "Capital Quiz",
+      "learning": "Learning",
+      "countryDetails": "Country Details",
+      "challenge": "Challenge Mode",
+      "leaderboard": "Leaderboard",
+      "settings": "Settings",
+      "profile": "Profile",
+      "statistics": "Statistics",
+      "achievements": "Achievements"
+    },
+    "description": {
+      "quiz": "Test your geography knowledge!"
+    },
+    "header": {
+      "back": "Back",
+      "close": "Close",
+      "menu": "Menu",
+      "settings": "Settings",
+      "help": "Help"
+    }
+  },
+  "drawer": {
+    "home": "Home",
+    "quiz": "Quiz Games",
+    "learning": "Learn About Countries",
+    "challenge": "Challenge Mode",
+    "leaderboard": "Leaderboard",
+    "settings": "Settings",
+    "help": "Help & Support",
+    "about": "About",
+    "signOut": "Sign Out"
+  },
+  "bottomSheet": {
+    "title": "Menu",
+    "close": "Close menu"
+  }
+}

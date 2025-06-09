@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
@@ -29,13 +30,38 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
   selectedTab,
   onTabSelect,
 }) => {
+  const intl = useIntl()
   const regionInfo = REGION_INFO[country.region]
 
   const tabs = [
-    { key: 'overview', label: 'Overview' },
-    { key: 'culture', label: 'Culture' },
-    { key: 'history', label: 'History' },
-    { key: 'geography', label: 'Geography' },
+    {
+      key: 'overview',
+      label: intl.formatMessage({
+        id: 'learning.tab.overview',
+        defaultMessage: 'Overview',
+      }),
+    },
+    {
+      key: 'culture',
+      label: intl.formatMessage({
+        id: 'learning.tab.culture',
+        defaultMessage: 'Culture',
+      }),
+    },
+    {
+      key: 'history',
+      label: intl.formatMessage({
+        id: 'learning.tab.history',
+        defaultMessage: 'History',
+      }),
+    },
+    {
+      key: 'geography',
+      label: intl.formatMessage({
+        id: 'learning.tab.geography',
+        defaultMessage: 'Geography',
+      }),
+    },
   ]
 
   const renderTabContent = () => {
@@ -44,34 +70,63 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
         return (
           <Box padding="ml">
             <Box backgroundColor="#f8f9fa" padding="m" borderRadius="sm">
-              <Text style={styles.sectionTitle}>Basic Information</Text>
+              <Text style={styles.sectionTitle}>
+                <FormattedMessage
+                  id="learning.section.basicInfo"
+                  defaultMessage="Basic Information"
+                />
+              </Text>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Capital:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.capital" defaultMessage="Capital" />:
+                </Text>
                 <Text style={styles.infoValue}>{countryDetails.capital}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Population:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.population" defaultMessage="Population" />:
+                </Text>
                 <Text style={styles.infoValue}>{countryDetails.population}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Languages:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.languages" defaultMessage="Languages" />:
+                </Text>
                 <Text style={styles.infoValue}>{countryDetails.languages.join(', ')}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Currency:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.currency" defaultMessage="Currency" />:
+                </Text>
                 <Text style={styles.infoValue}>{countryDetails.currency}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Area:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.area" defaultMessage="Area" />:
+                </Text>
                 <Text style={styles.infoValue}>{countryDetails.area}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Region:</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage id="learning.country.region" defaultMessage="Region" />:
+                </Text>
                 <Text style={styles.infoValue}>{regionInfo?.displayName || country.region}</Text>
               </Box>
               <Box row spaceBetween centerItems paddingVertical="xs" style={styles.infoRowBorder}>
-                <Text style={styles.infoLabel}>Difficulty Level:</Text>
-                <Text style={styles.infoValue}>Level {country.level}</Text>
+                <Text style={styles.infoLabel}>
+                  <FormattedMessage
+                    id="learning.country.difficultyLevel"
+                    defaultMessage="Difficulty Level"
+                  />
+                  :
+                </Text>
+                <Text style={styles.infoValue}>
+                  <FormattedMessage
+                    id="learning.level.label"
+                    defaultMessage="Level {level}"
+                    values={{ level: country.level }}
+                  />
+                </Text>
               </Box>
             </Box>
           </Box>
@@ -79,7 +134,12 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
       case 'culture':
         return (
           <Box padding="ml">
-            <Text style={styles.sectionTitle}>Cultural Facts</Text>
+            <Text style={styles.sectionTitle}>
+              <FormattedMessage
+                id="learning.section.culturalFacts"
+                defaultMessage="Cultural Facts"
+              />
+            </Text>
             {countryDetails.culturalFacts.map((fact: string, index: number) => (
               <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>
@@ -91,7 +151,12 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
       case 'history':
         return (
           <Box padding="ml">
-            <Text style={styles.sectionTitle}>Historical Highlights</Text>
+            <Text style={styles.sectionTitle}>
+              <FormattedMessage
+                id="learning.section.historicalHighlights"
+                defaultMessage="Historical Highlights"
+              />
+            </Text>
             {countryDetails.historicalHighlights.map((highlight: string, index: number) => (
               <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>
@@ -103,7 +168,12 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
       case 'geography':
         return (
           <Box padding="ml">
-            <Text style={styles.sectionTitle}>Geographic Features</Text>
+            <Text style={styles.sectionTitle}>
+              <FormattedMessage
+                id="learning.section.geographicFeatures"
+                defaultMessage="Geographic Features"
+              />
+            </Text>
             {countryDetails.geographicFeatures.map((feature: string, index: number) => (
               <Box key={index} row alignStart marginBottom="sm">
                 <Text style={styles.factBullet}>•</Text>

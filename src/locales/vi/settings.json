@@ -1,0 +1,16 @@
+{
+  "title": "Cài Đặt",
+  "language": {
+    "title": "Ngôn Ngữ",
+    "description": "Chọn ngôn ngữ ưa thích của bạn",
+    "loading": "Đang thay đổi ngôn ngữ..."
+  },
+  "purchasePro": {
+    "title": "Mua Phiên Bản Pro",
+    "description": "Mở khóa tất cả tính năng và xóa quảng cáo"
+  },
+  "about": {
+    "title": "Giới Thiệu",
+    "description": "Tìm hiểu thêm về World Explorer"
+  }
+}

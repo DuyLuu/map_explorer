@@ -1,0 +1,71 @@
+{
+  "instruction": {
+    "selectCountry": "Select the correct country on the map",
+    "chooseFlag": "Choose the correct flag for this country:",
+    "selectCapital": "What is the capital of this country?",
+    "identifyCountry": "Which country is this?",
+    "findCountry": "Find the country: {country}",
+    "tapToStart": "Tap to start the quiz",
+    "chooseAnswer": "Choose your answer",
+    "timeRemaining": "Time remaining",
+    "loading": "Loading quiz questions..."
+  },
+  "feedback": {
+    "correct": "Correct! Well done!",
+    "incorrect": "Incorrect. The correct answer is: {answer}",
+    "gameOver": "Quiz Complete!",
+    "completed": "Congratulations! You've completed the quiz.",
+    "perfect": "Perfect score! Amazing!",
+    "excellent": "Excellent work!",
+    "good": "Good job!",
+    "needsPractice": "Keep practicing!",
+    "timeUp": "Time's up!",
+    "almostThere": "So close! Try again."
+  },
+  "score": {
+    "current": "Current Score",
+    "final": "Final Score",
+    "best": "Best Score",
+    "percentage": "{{score}}% correct",
+    "outOf": "{{correct}} out of {{total}}",
+    "points": "{{points}} points",
+    "newRecord": "New Record!",
+    "streak": "{{count}} in a row",
+    "accuracy": "Accuracy"
+  },
+  "timer": {
+    "seconds": "{{count}} seconds",
+    "timeUp": "Time's Up!",
+    "hurryUp": "Hurry up!",
+    "remaining": "{{time}} remaining"
+  },
+  "question": {
+    "number": "Question {{current}} of {{total}}",
+    "skip": "Skip this question",
+    "hint": "Show hint",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    }
+  },
+  "result": {
+    "summary": "Quiz Summary",
+    "correctAnswers": "Correct Answers",
+    "wrongAnswers": "Wrong Answers",
+    "totalTime": "Total Time",
+    "averageTime": "Average Time per Question",
+    "playAgain": "Play Again",
+    "nextLevel": "Next Level",
+    "shareScore": "Share Score",
+    "finish": "Finish Quiz"
+  },
+  "error": {
+    "countryNotDetected": "Could not detect country at this location",
+    "mapNotAvailable": "Map cannot be displayed: Region info is missing or invalid."
+  },
+  "map": {
+    "detecting": "Detecting country...",
+    "selected": "Selected: {country}"
+  }
+}

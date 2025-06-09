@@ -52,4 +52,7 @@ export {
   type IconFamily,
 } from './Icon'
 
+// Export LanguageSelector component
+export { LanguageSelector } from './LanguageSelector'
+
 export { default } from './Text'

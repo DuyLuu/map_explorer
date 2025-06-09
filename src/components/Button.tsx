@@ -14,7 +14,9 @@ import { Text } from './Text'
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'danger'
 export type ButtonSize = 'small' | 'medium' | 'large'
 
-export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
+export interface ButtonProps
+  extends React.PropsWithChildren<any>,
+    Omit<TouchableOpacityProps, 'style'> {
   /** Button content */
   children?: ReactNode
   /** Custom styles to apply */

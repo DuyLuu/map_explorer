@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
@@ -19,6 +20,7 @@ type RootStackParamList = {
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const LearningTabScreen: React.FC = () => {
+  const intl = useIntl()
   const navigation = useNavigation<NavigationProp>()
   const { data: countries, isLoading, error } = useCountries()
   const [searchQuery, setSearchQuery] = useState('')
@@ -74,18 +76,40 @@ const LearningTabScreen: React.FC = () => {
   // Update the subtitle to be more descriptive
   const getSubtitle = () => {
     if (selectedRegion === 'territories') {
-      return `Explore ${filteredCountries.length} territories and dependencies`
+      return intl.formatMessage(
+        {
+          id: 'learning.screen.subtitleTerritories',
+          defaultMessage: 'Explore {count} territories and dependencies',
+        },
+        { count: filteredCountries.length }
+      )
     }
-    return `Explore ${filteredCountries.length} countries around the world`
+    return intl.formatMessage(
+      {
+        id: 'learning.screen.subtitle',
+        defaultMessage: 'Explore {count} countries around the world',
+      },
+      { count: filteredCountries.length }
+    )
   }
 
   const EmptyState = () => (
     <Box paddingVertical="xl" centerItems>
       <Text variant="body" weight="bold" center marginTop="m">
-        {selectedRegion === 'territories' ? 'No territories found' : 'No countries found'}
+        {selectedRegion === 'territories' ? (
+          <FormattedMessage
+            id="learning.search.noResultsTerritories"
+            defaultMessage="No territories found"
+          />
+        ) : (
+          <FormattedMessage id="learning.search.noResults" defaultMessage="No countries found" />
+        )}
       </Text>
       <Text variant="body" center marginTop="m">
-        Try adjusting your search or filter
+        <FormattedMessage
+          id="learning.search.tryAdjusting"
+          defaultMessage="Try adjusting your search or filter"
+        />
       </Text>
     </Box>
   )
@@ -95,7 +119,9 @@ const LearningTabScreen: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <Box flex center>
           <ActivityIndicator size="large" color="#007AFF" />
-          <Text style={styles.loadingText}>Loading countries...</Text>
+          <Text style={styles.loadingText}>
+            <FormattedMessage id="learning.screen.loading" defaultMessage="Loading countries..." />
+          </Text>
         </Box>
       </SafeAreaView>
     )
@@ -105,7 +131,12 @@ const LearningTabScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.container}>
         <Box flex center>
-          <Text style={styles.errorText}>Failed to load countries</Text>
+          <Text style={styles.errorText}>
+            <FormattedMessage
+              id="learning.screen.error"
+              defaultMessage="Failed to load countries"
+            />
+          </Text>
         </Box>
       </SafeAreaView>
     )
@@ -123,7 +154,9 @@ const LearningTabScreen: React.FC = () => {
         style={styles.headerBorder}
       >
         <Box flex>
-          <Text style={styles.title}>Learning Center</Text>
+          <Text style={styles.title}>
+            <FormattedMessage id="learning.screen.title" defaultMessage="Learning Center" />
+          </Text>
           <Text style={styles.subtitle}>{getSubtitle()}</Text>
         </Box>
         <Button
@@ -134,7 +167,9 @@ const LearningTabScreen: React.FC = () => {
           backgroundColor="#f8f8f8"
         >
           <Text style={styles.topCountriesIcon}>🏆</Text>
-          <Text style={styles.topCountriesText}>Top Countries</Text>
+          <Text style={styles.topCountriesText}>
+            <FormattedMessage id="learning.screen.topCountries" defaultMessage="Top Countries" />
+          </Text>
         </Button>
       </Box>
 
@@ -142,7 +177,15 @@ const LearningTabScreen: React.FC = () => {
         value={searchQuery}
         onChangeText={setSearchQuery}
         placeholder={
-          selectedRegion === 'territories' ? 'Search territories...' : 'Search countries...'
+          selectedRegion === 'territories'
+            ? intl.formatMessage({
+                id: 'learning.search.placeholderTerritories',
+                defaultMessage: 'Search territories...',
+              })
+            : intl.formatMessage({
+                id: 'learning.search.placeholder',
+                defaultMessage: 'Search countries...',
+              })
         }
       />
 
