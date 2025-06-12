@@ -3,12 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Platform } from 'react-native'
 import { useIntl } from 'react-intl'
 import SettingsButton from 'components/SettingsButton'
-
-// Import screens for each tab
 import QuizTabScreen from 'screens/QuizTabScreen'
 import LearningTabScreen from 'features/learning/screens/LearningTabScreen'
 import ChallengeTabScreen from 'screens/ChallengeTabScreen'
-import { FontAwesomeIcon, IoniconsIcon } from 'components/Icon'
+import Icon, { AntDesignIcon, FontAwesomeIcon, IoniconsIcon } from 'components/Icon'
 
 // Tab navigator types
 export type TabParamList = {
@@ -27,43 +25,37 @@ const TabNavigator: React.FC = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'QuizTab') {
-            return <FontAwesomeIcon name={focused ? 'flag' : 'flag-o'} size={size} color={color} />
+            return <FontAwesomeIcon name="flag" size={size} color={color} />
           } else if (route.name === 'LearningTab') {
-            return <FontAwesomeIcon name="wpexplorer" size={size} color={color} />
+            return <FontAwesomeIcon name="globe" size={size} color={color} />
           } else if (route.name === 'ChallengeTab') {
-            return (
-              <IoniconsIcon
-                name={focused ? 'rocket' : 'rocket-outline'}
-                size={size}
-                color={color}
-              />
-            )
+            return <Icon name={'rocket'} family="Fontisto" size={size} color={color} />
           }
-          return <FontAwesomeIcon name="wpexplorer" size={size} color={color} />
+          return <FontAwesomeIcon name="home" size={size} color={color} />
         },
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8E8E93',
         headerShown: true,
         headerRight: () => <SettingsButton />,
         headerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: '#fff'
         },
         headerTitleStyle: {
           color: '#000',
           fontSize: 18,
-          fontWeight: '600',
+          fontWeight: '600'
         },
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 88 : 60,
           paddingBottom: Platform.OS === 'ios' ? 20 : 8,
           paddingTop: 8,
           borderTopWidth: 1,
-          borderTopColor: '#E5E5E5',
+          borderTopColor: '#E5E5E5'
         },
         tabBarLabelStyle: {
           fontSize: 12,
-          fontWeight: '600',
-        },
+          fontWeight: '600'
+        }
       })}
     >
       <Tab.Screen
@@ -72,8 +64,8 @@ const TabNavigator: React.FC = () => {
         options={{
           title: intl.formatMessage({
             id: 'navigation.tab.quiz',
-            defaultMessage: 'Quiz',
-          }),
+            defaultMessage: 'Quiz'
+          })
         }}
       />
       <Tab.Screen
@@ -82,8 +74,8 @@ const TabNavigator: React.FC = () => {
         options={{
           title: intl.formatMessage({
             id: 'navigation.tab.learning',
-            defaultMessage: 'Learning',
-          }),
+            defaultMessage: 'Learning'
+          })
         }}
       />
       <Tab.Screen
@@ -92,8 +84,8 @@ const TabNavigator: React.FC = () => {
         options={{
           title: intl.formatMessage({
             id: 'navigation.tab.challenge',
-            defaultMessage: 'Challenge',
-          }),
+            defaultMessage: 'Challenge'
+          })
         }}
       />
     </Tab.Navigator>

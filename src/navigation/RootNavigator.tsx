@@ -7,7 +7,6 @@ import { FormattedMessage } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { ThemeProvider } from 'theme/context'
-import TabNavigator from './TabNavigator'
 import FlagRegionSelectionScreen from 'features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from 'features/flag/screens/FlagProgressDetailScreen'
 import MapRegionSelectionScreen from 'features/map/screens/MapRegionSelectionScreen'
@@ -21,6 +20,9 @@ import CountryDetailScreen from 'features/learning/screens/CountryDetailScreen'
 import TopCountriesScreen from 'features/learning/screens/TopCountriesScreen'
 import { loadBundledCountryData, isBundledDataLoaded } from 'services/bundledDataService'
 import { preloadCommonFlags } from 'services/flagAssetService'
+import { Theme } from 'theme/constants'
+
+import TabNavigator from './TabNavigator'
 import { RootStackParamList } from './types'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -33,13 +35,13 @@ interface AppLoadingState {
 }
 
 const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
-  <Box flex center backgroundColor="#000">
+  <Box flex center backgroundColor="#fff">
     <Box centerItems paddingHorizontal="xl">
       <ActivityIndicator size="large" color="#007AFF" style={styles.spinner} />
-      <Text variant="h2" color="#fff" weight="bold" center style={styles.loadingTitle}>
+      <Text variant="h2" color="#000" weight="bold" center style={styles.loadingTitle}>
         <FormattedMessage id="navigation.appTitle" defaultMessage="World Explorer" />
       </Text>
-      <Text variant="body" color="#ccc" center style={styles.loadingSubtitle}>
+      <Text variant="body" color={Theme.colors.subText} center style={styles.loadingSubtitle}>
         <FormattedMessage
           id="navigation.loading.subtitle"
           defaultMessage="Preparing your world journey..."
@@ -73,7 +75,7 @@ const AppNavigator: React.FC = () => {
   const [loadingState, setLoadingState] = useState<AppLoadingState>({
     isLoading: true,
     error: null,
-    progress: 'Initializing...',
+    progress: 'Initializing...'
   })
 
   useEffect(() => {
@@ -132,7 +134,7 @@ const AppNavigator: React.FC = () => {
       setLoadingState({
         isLoading: true, // Keep loading screen visible to show error
         error: errorMessage,
-        progress: 'Initialization failed',
+        progress: 'Initialization failed'
       })
     }
   }
@@ -148,7 +150,7 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator
         initialRouteName="MainTabs"
         screenOptions={{
-          headerShown: false,
+          headerShown: false
         }}
       >
         <Stack.Screen name="MainTabs" component={TabNavigator} />
@@ -182,20 +184,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   loadingContent: {
     alignItems: 'center',
-    paddingHorizontal: 40,
+    paddingHorizontal: 40
   },
   spinner: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   loadingTitle: {
-    marginBottom: 8,
+    marginBottom: 8
   },
   loadingSubtitle: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   errorContainer: {
     marginTop: 32,
@@ -203,18 +205,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a1a1a',
     borderRadius: 8,
     borderLeftWidth: 4,
-    borderLeftColor: '#ff3b30',
+    borderLeftColor: '#ff3b30'
   },
   errorTitle: {
-    marginBottom: 8,
+    marginBottom: 8
   },
   errorText: {
     marginBottom: 8,
-    lineHeight: 20,
+    lineHeight: 20
   },
   retryText: {
-    fontStyle: 'italic',
-  },
+    fontStyle: 'italic'
+  }
 })
 
 export default RootNavigator

@@ -16,9 +16,9 @@
     "title": {
       "home": "World Explorer",
       "quiz": "Đố Vui",
-      "mapQuiz": "Đố Bản Đồ",
-      "flagQuiz": "Đố Cờ",
-      "capitalQuiz": "Đố Thủ Đô",
+      "mapQuiz": "Đoán Quốc Gia",
+      "flagQuiz": "Đoán Quốc Gia",
+      "capitalQuiz": "Đoán Thủ Đô",
       "learning": "Học Tập",
       "countryDetails": "Chi Tiết Quốc Gia",
       "challenge": "Chế Độ Thử Thách",
@@ -29,7 +29,10 @@
       "achievements": "Thành Tích"
     },
     "description": {
-      "quiz": "Kiểm tra kiến thức địa lý của bạn!"
+      "quiz": "Kiểm tra kiến thức địa lý của bạn!",
+      "mapQuiz": "Đoán quốc gia trên bản đồ",
+      "flagQuiz": "Đoán quốc gia từ cờ",
+      "capitalQuiz": "Đoán thủ đô từ quốc gia"
     },
     "header": {
       "back": "Quay Lại",

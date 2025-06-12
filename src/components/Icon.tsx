@@ -1,12 +1,8 @@
 // Search for icons here:
 // https://oblador.github.io/react-native-vector-icons/
 import React from 'react'
-import { TextStyle } from 'react-native'
-import { useTheme, IconSize, Spacing } from '../theme'
-
-// Import different icon families from react-native-vector-icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -19,11 +15,15 @@ import Octicons from 'react-native-vector-icons/Octicons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import Zocial from 'react-native-vector-icons/Zocial'
 import Fontisto from 'react-native-vector-icons/Fontisto'
+import { TextStyle } from 'react-native'
+
+import { useTheme, IconSize, Spacing } from '../theme'
 
 export type IconFamily =
   | 'Ionicons'
   | 'FontAwesome'
   | 'FontAwesome5'
+  | 'FontAwesome6'
   | 'MaterialIcons'
   | 'MaterialCommunityIcons'
   | 'AntDesign'
@@ -132,7 +132,7 @@ export const Icon: React.FC<IconProps> = ({
   black,
   // Accessibility
   accessibilityLabel,
-  accessibilityIgnoresInvertColors,
+  accessibilityIgnoresInvertColors
 }) => {
   const { theme } = useTheme()
 
@@ -151,7 +151,7 @@ export const Icon: React.FC<IconProps> = ({
       xl: 32,
       '2xl': 40,
       '3xl': 48,
-      '4xl': 64,
+      '4xl': 64
     }
     return iconSizes[size as keyof typeof iconSizes] || 20
   }
@@ -208,16 +208,18 @@ export const Icon: React.FC<IconProps> = ({
       color: getIconColor(),
       style: combinedStyle,
       accessibilityLabel,
-      accessibilityIgnoresInvertColors,
+      accessibilityIgnoresInvertColors
     }
 
     switch (family) {
       case 'Ionicons':
         return <Ionicons {...iconProps} />
       case 'FontAwesome':
-        return <FontAwesome {...iconProps} />
+        return <FontAwesome6 {...iconProps} />
       case 'FontAwesome5':
         return <FontAwesome5 {...iconProps} />
+      case 'FontAwesome6':
+        return <FontAwesome6 {...iconProps} />
       case 'MaterialIcons':
         return <MaterialIcons {...iconProps} />
       case 'MaterialCommunityIcons':

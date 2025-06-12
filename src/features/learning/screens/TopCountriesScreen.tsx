@@ -1,12 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import {
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ActivityIndicator,
-  ScrollView,
-  Image,
-} from 'react-native'
+import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Text } from 'components/Text'
@@ -19,7 +12,7 @@ import {
   RankingCategory,
   RankedCountry,
   RANKING_CATEGORIES,
-  getCategoryInfo,
+  getCategoryInfo
 } from 'utils/countryRankings'
 import BackButton from 'components/BackButton'
 import { FontAwesomeIcon } from 'components/Icon'
@@ -151,7 +144,7 @@ const TopCountriesScreen: React.FC = () => {
             </Box>
           </Box>
 
-          <FontAwesomeIcon name="angle-right" size={20} color="#999" />
+          <FontAwesomeIcon name="chevron-right" size={20} color="#999" />
         </Box>
       </Button>
     )
@@ -246,17 +239,17 @@ const TopCountriesScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f8f9fa'
   },
   flagImage: {
     height: 64,
     aspectRatio: 1.2,
-    borderRadius: 6,
+    borderRadius: 6
   },
   categoryFlagImage: {
     height: 24,
     aspectRatio: 1.2,
-    borderRadius: 3,
+    borderRadius: 3
   },
   header: {
     flexDirection: 'row',
@@ -265,22 +258,22 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e1e1e1',
+    borderBottomColor: '#e1e1e1'
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginLeft: 16,
+    marginLeft: 16
   },
   categoriesContainer: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e1e1e1',
+    borderBottomColor: '#e1e1e1'
   },
   categoriesContent: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 12
   },
   categoryTab: {
     alignItems: 'center',
@@ -289,33 +282,33 @@ const styles = StyleSheet.create({
     marginRight: 12,
     backgroundColor: '#f0f0f0',
     borderRadius: 12,
-    minWidth: 120,
+    minWidth: 120
   },
   selectedCategoryTab: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#007AFF'
   },
   categoryIcon: {
     fontSize: 24,
-    marginBottom: 4,
+    marginBottom: 4
   },
   categoryTitle: {
     fontSize: 12,
     fontWeight: '600',
     color: '#333',
     textAlign: 'center',
-    marginBottom: 2,
+    marginBottom: 2
   },
   selectedCategoryTitle: {
-    color: '#fff',
+    color: '#fff'
   },
   categoryDescription: {
     fontSize: 10,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   selectedCategoryDescription: {
     color: '#fff',
-    opacity: 0.9,
+    opacity: 0.9
   },
   currentCategoryContainer: {
     flexDirection: 'row',
@@ -323,101 +316,101 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     backgroundColor: '#fff',
-    marginBottom: 8,
+    marginBottom: 8
   },
   currentCategoryIcon: {
     fontSize: 32,
-    marginRight: 12,
+    marginRight: 12
   },
   currentCategoryInfo: {
-    flex: 1,
+    flex: 1
   },
   currentCategoryTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 2,
+    marginBottom: 2
   },
   currentCategoryDescription: {
     fontSize: 14,
-    color: '#666',
+    color: '#666'
   },
   listContainer: {
     paddingHorizontal: 16,
-    marginTop: 16,
+    marginTop: 16
   },
   countryItem: {
     marginBottom: 8,
-    borderRadius: 12,
+    borderRadius: 12
   },
   rankContainer: {
     alignItems: 'center',
     marginRight: 16,
-    minWidth: 50,
+    minWidth: 50
   },
   rankText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#666',
+    color: '#666'
   },
   topRankText: {
     color: '#007AFF',
-    fontSize: 18,
+    fontSize: 18
   },
   medalEmoji: {
     fontSize: 16,
-    marginTop: 2,
+    marginTop: 2
   },
   countryInfo: {
-    flex: 1,
+    flex: 1
   },
   countryName: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
-    marginBottom: 2,
+    marginBottom: 2
   },
   countryValue: {
     fontSize: 14,
     color: '#007AFF',
-    fontWeight: '500',
+    fontWeight: '500'
   },
   chevron: {
     fontSize: 18,
     color: '#ccc',
-    marginLeft: 8,
+    marginLeft: 8
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#666',
+    color: '#666'
   },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   errorText: {
     fontSize: 16,
-    color: '#f44336',
+    color: '#f44336'
   },
   emptyContainer: {
     paddingVertical: 40,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   emptyText: {
     fontSize: 16,
-    color: '#666',
+    color: '#666'
   },
   headerBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#e1e1e1',
-  },
+    borderBottomColor: '#e1e1e1'
+  }
 })
 
 export default TopCountriesScreen

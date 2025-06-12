@@ -45,7 +45,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
               {REGION_INFO[country.region]?.displayName || country.region}
             </Text>
           </Box>
-          <FontAwesomeIcon name="angle-right" size={20} color="#999" />
+          <FontAwesomeIcon name="chevron-right" size={20} color="#999" />
         </Box>
       </Box>
     </Button>
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   flagImageContainer: {
     height: 64,
     aspectRatio: 1.2,
-    borderRadius: 6,
+    borderRadius: 6
   },
   flagImage: {
     height: 64,
     aspectRatio: 1.2,
-    borderRadius: 6,
-  },
+    borderRadius: 6
+  }
 })
 
 export default CountryCard
