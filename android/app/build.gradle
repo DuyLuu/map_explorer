@@ -1,6 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
+apply plugin: "com.google.firebase.appdistribution"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -112,6 +114,22 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+}
+
+// Firebase App Distribution configuration
+firebaseAppDistribution {
+    serviceCredentialsFile = project.hasProperty('firebaseServiceAccountPath') 
+        ? project.property('firebaseServiceAccountPath') 
+        : null
+    groups = project.hasProperty('distributionGroups') 
+        ? project.property('distributionGroups') 
+        : "testers"
+    releaseNotesFile = project.hasProperty('releaseNotesFile') 
+        ? project.property('releaseNotesFile') 
+        : null
+    releaseNotes = project.hasProperty('releaseNotes') 
+        ? project.property('releaseNotes') 
+        : "New build available for testing"
 }
 
 dependencies {
