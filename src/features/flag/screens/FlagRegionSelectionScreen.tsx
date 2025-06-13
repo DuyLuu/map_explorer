@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from 'stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
@@ -92,21 +92,21 @@ const FlagRegionSelectionScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   headerBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#eee'
   },
   placeholder: {
-    width: 60, // Same width as back button to center title
+    width: 60 // Same width as back button to center title
   },
   scrollView: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   titleColor: {
-    color: '#007AFF',
+    color: '#007AFF'
   },
   progressButton: {
     backgroundColor: '#f0f0f0',
@@ -115,18 +115,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     alignSelf: 'center',
-    minWidth: 180,
+    minWidth: 180
   },
   progressButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#333'
   },
   infoTextStyle: {
-    fontStyle: 'italic',
+    fontStyle: 'italic'
   },
   sectionTitleColor: {
-    color: '#333',
+    color: '#333'
   },
   confirmButton: {
     backgroundColor: '#007AFF',
@@ -137,20 +137,20 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 4
     },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 5
   },
   disabledButton: {
     backgroundColor: '#ccc',
     shadowOpacity: 0,
-    elevation: 0,
+    elevation: 0
   },
   buttonText: {
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default FlagRegionSelectionScreen

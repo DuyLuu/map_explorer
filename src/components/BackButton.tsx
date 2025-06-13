@@ -1,7 +1,9 @@
-import { Button } from './Button'
 import { useNavigation } from '@react-navigation/native'
+
 import { Theme } from '../theme/constants'
-import { AntDesignIcon } from './Icon'
+
+import { Button } from './Button'
+import { Icon } from './Icon'
 
 const BackButton = ({ onBack }: { onBack?: () => void }) => {
   const navigation = useNavigation()
@@ -13,7 +15,7 @@ const BackButton = ({ onBack }: { onBack?: () => void }) => {
       padding="xs"
       accessibilityLabel="Back"
     >
-      <AntDesignIcon name="left" size={20} color={Theme.colors.baseBlack} />
+      <Icon name="arrow_left" size={20} color={Theme.colors.baseBlack} />
     </Button>
   )
 }

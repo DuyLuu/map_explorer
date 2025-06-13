@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Text as RNText, TextProps as RNTextProps, TextStyle } from 'react-native'
+
 import {
   useTheme,
   textVariants,
@@ -7,7 +8,7 @@ import {
   combineStyles,
   conditionalStyle,
   FontFamily,
-  Spacing,
+  Spacing
 } from '../theme'
 
 export interface TextProps extends Omit<RNTextProps, 'style'> {
@@ -207,7 +208,7 @@ export const Text: React.FC<TextProps> = ({
   const finalStyle = combineStyles(
     variantStyle,
     {
-      color: getTextColor(),
+      color: getTextColor()
     },
     getSpacingStyles(),
     conditionalStyle(!!center, { textAlign: 'center' as const }),
@@ -218,7 +219,7 @@ export const Text: React.FC<TextProps> = ({
     conditionalStyle(!!underline, { textDecorationLine: 'underline' as const }),
     conditionalStyle(!!strikethrough, { textDecorationLine: 'line-through' as const }),
     conditionalStyle(!!weight, {
-      fontFamily: getFontFamily(),
+      fontFamily: getFontFamily()
     }),
     conditionalStyle(!!size, { fontSize: size }),
     conditionalStyle(!!lineHeight, { lineHeight }),

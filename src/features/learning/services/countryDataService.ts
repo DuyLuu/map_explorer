@@ -24,19 +24,19 @@ const mockDetails: Record<string, CountryDetailData> = {
     culturalFacts: [
       'Home to Hollywood and the global entertainment industry',
       'Known for jazz, blues, and country music origins',
-      'Famous for diverse cuisine influenced by global immigration',
+      'Famous for diverse cuisine influenced by global immigration'
     ],
     historicalHighlights: [
       'Independence declared in 1776',
       'Civil War fought from 1861-1865',
-      'First moon landing achieved in 1969',
+      'First moon landing achieved in 1969'
     ],
     geographicFeatures: [
       'Grand Canyon in Arizona',
       'Yellowstone National Park',
       'Great Lakes region',
-      'Rocky Mountains',
-    ],
+      'Rocky Mountains'
+    ]
   },
   France: {
     capital: 'Paris',
@@ -48,19 +48,19 @@ const mockDetails: Record<string, CountryDetailData> = {
     culturalFacts: [
       'Birthplace of fine dining and culinary arts',
       'Home to world-renowned fashion and luxury brands',
-      'Rich tradition in art, literature, and philosophy',
+      'Rich tradition in art, literature, and philosophy'
     ],
     historicalHighlights: [
       'French Revolution began in 1789',
       'Napoleon Bonaparte ruled in early 1800s',
-      'Resistance during World War II',
+      'Resistance during World War II'
     ],
     geographicFeatures: [
       'Eiffel Tower in Paris',
       'French Riviera coastline',
       'Loire Valley castles',
-      'French Alps',
-    ],
+      'French Alps'
+    ]
   },
   Japan: {
     capital: 'Tokyo',
@@ -72,19 +72,19 @@ const mockDetails: Record<string, CountryDetailData> = {
     culturalFacts: [
       'Blend of ancient traditions and modern technology',
       'Famous for anime, manga, and gaming culture',
-      'Traditional arts include tea ceremony, calligraphy, and origami',
+      'Traditional arts include tea ceremony, calligraphy, and origami'
     ],
     historicalHighlights: [
       'Meiji Restoration in 1868',
       'Rapid modernization in late 19th century',
-      'Post-WWII economic miracle',
+      'Post-WWII economic miracle'
     ],
     geographicFeatures: [
       'Mount Fuji volcano',
       'Thousands of islands archipelago',
       'Cherry blossom (sakura) trees',
-      'Hot springs (onsen) throughout the country',
-    ],
+      'Hot springs (onsen) throughout the country'
+    ]
   },
   Germany: {
     capital: 'Berlin',
@@ -96,19 +96,19 @@ const mockDetails: Record<string, CountryDetailData> = {
     culturalFacts: [
       'Known for Oktoberfest and beer culture',
       'Rich musical heritage with classical composers',
-      'Strong engineering and automotive traditions',
+      'Strong engineering and automotive traditions'
     ],
     historicalHighlights: [
       'Fall of Berlin Wall in 1989',
       'Reunification in 1990',
-      'Industrial powerhouse of Europe',
+      'Industrial powerhouse of Europe'
     ],
     geographicFeatures: [
       'Black Forest region',
       'Rhine River valley',
       'Bavarian Alps',
-      'North and Baltic Sea coastlines',
-    ],
+      'North and Baltic Sea coastlines'
+    ]
   },
   'United Kingdom': {
     capital: 'London',
@@ -120,20 +120,20 @@ const mockDetails: Record<string, CountryDetailData> = {
     culturalFacts: [
       'Birthplace of Shakespeare and the Beatles',
       'Traditional afternoon tea culture',
-      'Rich literary and theatrical traditions',
+      'Rich literary and theatrical traditions'
     ],
     historicalHighlights: [
       'Industrial Revolution began here',
       'British Empire spanned the globe',
-      'Winston Churchill led during WWII',
+      'Winston Churchill led during WWII'
     ],
     geographicFeatures: [
       'Scottish Highlands',
       'Lake District',
       'White Cliffs of Dover',
-      'Stonehenge ancient monument',
-    ],
-  },
+      'Stonehenge ancient monument'
+    ]
+  }
 }
 
 // Enhanced country detail data - now uses fresh countries.json data as primary source
@@ -162,23 +162,23 @@ export const getCountryDetails = (countryName: string): CountryDetailData => {
             : 'Data not available',
           coordinates: {
             latitude: fallbackRegion.latitude,
-            longitude: fallbackRegion.longitude,
+            longitude: fallbackRegion.longitude
           },
           culturalFacts: [
             'Rich cultural heritage and traditions',
             'Unique local customs and practices',
-            'Traditional arts and crafts',
+            'Traditional arts and crafts'
           ],
           historicalHighlights: [
             'Ancient civilizations and early settlements',
             'Important historical events and periods',
-            'Modern development and progress',
+            'Modern development and progress'
           ],
           geographicFeatures: [
             'Diverse landscapes and natural beauty',
             'Unique geographical formations',
-            'Notable landmarks and attractions',
-          ],
+            'Notable landmarks and attractions'
+          ]
         }
       }
     } catch (freshDataError) {
@@ -203,23 +203,23 @@ export const getCountryDetails = (countryName: string): CountryDetailData => {
       area: 'Data not available',
       coordinates: {
         latitude: fallbackRegion.latitude,
-        longitude: fallbackRegion.longitude,
+        longitude: fallbackRegion.longitude
       },
       culturalFacts: [
         'Rich cultural heritage and traditions',
         'Unique local customs and practices',
-        'Traditional arts and crafts',
+        'Traditional arts and crafts'
       ],
       historicalHighlights: [
         'Ancient civilizations and early settlements',
         'Important historical events and periods',
-        'Modern development and progress',
+        'Modern development and progress'
       ],
       geographicFeatures: [
         'Diverse landscapes and natural beauty',
         'Unique geographical formations',
-        'Notable landmarks and attractions',
-      ],
+        'Notable landmarks and attractions'
+      ]
     }
   } catch (error) {
     console.error(`❌ Error getting country details for ${countryName}:`, error)
@@ -234,23 +234,23 @@ export const getCountryDetails = (countryName: string): CountryDetailData => {
       area: 'Data not available',
       coordinates: {
         latitude: fallbackRegion.latitude,
-        longitude: fallbackRegion.longitude,
+        longitude: fallbackRegion.longitude
       },
       culturalFacts: [
         'Rich cultural heritage and traditions',
         'Unique local customs and practices',
-        'Traditional arts and crafts',
+        'Traditional arts and crafts'
       ],
       historicalHighlights: [
         'Ancient civilizations and early settlements',
         'Important historical events and periods',
-        'Modern development and progress',
+        'Modern development and progress'
       ],
       geographicFeatures: [
         'Diverse landscapes and natural beauty',
         'Unique geographical formations',
-        'Notable landmarks and attractions',
-      ],
+        'Notable landmarks and attractions'
+      ]
     }
   }
 }

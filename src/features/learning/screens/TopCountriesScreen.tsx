@@ -15,9 +15,9 @@ import {
   getCategoryInfo
 } from 'utils/countryRankings'
 import BackButton from 'components/BackButton'
-import { FontAwesomeIcon } from 'components/Icon'
 import { getFlagAssetByName } from 'services/flagAssetService'
 import { Theme } from 'theme/constants'
+import { Icon } from 'components/index'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -51,8 +51,6 @@ const TopCountriesScreen: React.FC = () => {
 
     return topCountries
   }, [countries])
-
-  const categoryInfo = getCategoryInfo(selectedCategory)
 
   const handleCountryPress = (country: CountryWithRegion) => {
     navigation.navigate('CountryDetail', { country })
@@ -144,7 +142,7 @@ const TopCountriesScreen: React.FC = () => {
             </Box>
           </Box>
 
-          <FontAwesomeIcon name="chevron-right" size={20} color="#999" />
+          <Icon name="chevron_right" size={20} color="#999" />
         </Box>
       </Button>
     )

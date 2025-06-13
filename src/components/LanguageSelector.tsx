@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { FormattedMessage } from 'react-intl'
-import { Box } from './Box'
-import { Text } from './Text'
-import { Icon } from './Icon'
+import { Icon } from 'components/index'
+
 import { useLanguage } from '../i18n/LanguageContext'
 import { SUPPORTED_LOCALES, SupportedLocale } from '../i18n/config'
+
+import { Box } from './Box'
+import { Text } from './Text'
 
 interface LanguageOptionProps {
   locale: SupportedLocale
@@ -33,7 +35,7 @@ const LanguageOption: React.FC<LanguageOptionProps> = ({ locale, isSelected, onS
             {locale.toUpperCase()}
           </Text>
         </Box>
-        {isSelected && <Icon name="checkmark-circle" size={24} color="#4CAF50" />}
+        {isSelected && <Icon name="ic_check" size={24} color="#4CAF50" />}
       </Box>
     </TouchableOpacity>
   )
@@ -93,19 +95,19 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f8f8f8',
     borderRadius: 12,
-    padding: 16,
+    padding: 16
   },
   languageList: {
-    gap: 2,
+    gap: 2
   },
   languageOption: {
     backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e0e0e0'
   },
   selectedOption: {
     borderColor: '#4CAF50',
-    backgroundColor: '#f1f8e9',
-  },
+    backgroundColor: '#f1f8e9'
+  }
 })

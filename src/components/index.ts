@@ -1,16 +1,7 @@
-// Export existing components
-export { default as SettingsButton } from './SettingsButton'
-export { default as Flag } from './Flag'
-export { default as ProgressRing } from './ProgressRing'
-export { default as RegionOption } from './RegionOption'
-export { default as RegionProgressCard } from './RegionProgressCard'
-export { default as ProgressBar } from './ProgressBar'
-export { default as BackButton } from './BackButton'
-
-// Export Box component
+// Foundation layout system
 export { Box, default as BoxComponent, type BoxProps } from './Box'
 
-// Export new Text component and convenience components
+// Typography system
 export {
   Text,
   Title,
@@ -23,10 +14,10 @@ export {
   Caption,
   ButtonText,
   DisplayText,
-  type TextProps,
+  type TextProps
 } from './Text'
 
-// Export new Button component and convenience components
+// Interactive elements
 export {
   Button,
   PrimaryButton,
@@ -36,23 +27,34 @@ export {
   DangerButton,
   type ButtonProps,
   type ButtonVariant,
-  type ButtonSize,
+  type ButtonSize
 } from './Button'
 
-// Export Icon component and convenience components
-export {
-  Icon,
-  FontAwesomeIcon,
-  FontAwesome5Icon,
-  MaterialIcon,
-  MaterialCommunityIcon,
-  AntDesignIcon,
-  EntypoIcon,
-  type IconProps,
-  type IconFamily,
-} from './Icon'
+// Icon components
+export { default as Icon, CustomIcon } from './Icon/Icon'
+export { type IconProps } from './Icon'
 
-// Export LanguageSelector component
+// Progress components
+export { default as ProgressBar } from './ProgressBar'
+export { default as ProgressRing } from './ProgressRing'
+
+// Loading component
+export { default as LoadingScreen } from './LoadingScreen'
+
+// Card components
+export { default as RegionProgressCard } from './RegionProgressCard'
+export { default as RegionOption } from './RegionOption'
+
+// Language and locale components
+export { default as Flag } from './Flag'
 export { LanguageSelector } from './LanguageSelector'
 
+// Navigation components
+export { default as BackButton } from './BackButton'
+export { default as SettingsButton } from './SettingsButton'
+
+// Testing components
+export { default as I18nTest } from './I18nTest'
+
+// Legacy default export for backward compatibility
 export { default } from './Text'

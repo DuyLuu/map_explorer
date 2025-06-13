@@ -1,59 +1,66 @@
 import React from 'react'
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Box } from 'components/Box'
-import { AntDesignIcon } from 'components/Icon'
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { Icon } from 'components/index'
+import { Theme } from 'theme/constants'
 
 interface SearchBarProps {
-  value: string
-  onChangeText: (text: string) => void
   placeholder?: string
+  onSearchChange: (text: string) => void
+  value: string
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  value,
-  onChangeText,
   placeholder = 'Search countries...',
+  onSearchChange,
+  value
 }) => {
+  const clearSearch = () => {
+    onSearchChange('')
+  }
+
   return (
-    <Box
-      row
-      centerItems
-      marginHorizontal="ml"
-      marginBottom="m"
-      backgroundColor="#f5f5f5"
-      borderRadius="sm"
-      paddingHorizontal="m"
-      paddingVertical="sm"
-    >
-      <AntDesignIcon name="search1" size={20} color="#999" style={styles.searchIcon} />
+    <View style={styles.container}>
+      <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
       <TextInput
-        style={styles.searchInput}
+        style={styles.input}
         placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
         placeholderTextColor="#999"
+        value={value}
+        onChangeText={onSearchChange}
       />
       {value.length > 0 && (
-        <TouchableOpacity onPress={() => onChangeText('')} style={styles.clearButton}>
-          <AntDesignIcon name="close" size={20} color="#999" />
+        <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
+          <Icon name="close" size={20} color="#999" />
         </TouchableOpacity>
       )}
-    </Box>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  searchIcon: {
-    marginRight: 12,
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    padding: 12,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    borderColor: Theme.colors.breakLine,
+    borderWidth: 1
   },
-  searchInput: {
+
+  searchIcon: {
+    marginRight: 12
+  },
+  input: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: '#333'
   },
   clearButton: {
-    marginLeft: 8,
-  },
+    marginLeft: 8
+  }
 })
 
 export default SearchBar

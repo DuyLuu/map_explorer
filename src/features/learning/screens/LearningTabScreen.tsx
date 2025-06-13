@@ -6,12 +6,13 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
-import SearchBar from '../components/SearchBar'
-import RegionFilter from '../components/RegionFilter'
-import CountryCard from '../components/CountryCard'
 import { CountryWithRegion, Region } from 'types/region'
 import { useCountries } from 'hooks/useCountries'
 import { Theme } from 'theme/constants'
+
+import SearchBar from '../components/SearchBar'
+import RegionFilter from '../components/RegionFilter'
+import CountryCard from '../components/CountryCard'
 
 type RootStackParamList = {
   CountryDetail: { country: CountryWithRegion }
@@ -80,7 +81,7 @@ const LearningTabScreen: React.FC = () => {
       return intl.formatMessage(
         {
           id: 'learning.screen.subtitleTerritories',
-          defaultMessage: '{count} territories and dependencies',
+          defaultMessage: '{count} territories and dependencies'
         },
         { count: filteredCountries.length }
       )
@@ -88,7 +89,7 @@ const LearningTabScreen: React.FC = () => {
     return intl.formatMessage(
       {
         id: 'learning.screen.subtitle',
-        defaultMessage: '{count} countries',
+        defaultMessage: '{count} countries'
       },
       { count: filteredCountries.length }
     )
@@ -169,16 +170,16 @@ const LearningTabScreen: React.FC = () => {
 
       <SearchBar
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onSearchChange={setSearchQuery}
         placeholder={
           selectedRegion === 'territories'
             ? intl.formatMessage({
                 id: 'learning.search.placeholderTerritories',
-                defaultMessage: 'Search territories...',
+                defaultMessage: 'Search territories...'
               })
             : intl.formatMessage({
                 id: 'learning.search.placeholder',
-                defaultMessage: 'Search countries...',
+                defaultMessage: 'Search countries...'
               })
         }
       />
@@ -190,7 +191,9 @@ const LearningTabScreen: React.FC = () => {
       <FlatList
         data={filteredCountries}
         keyExtractor={item => `country-${item.id}`}
-        renderItem={({ item }) => <CountryCard country={item} onPress={handleCountryPress} />}
+        renderItem={({ item }) => (
+          <CountryCard country={item} onPress={() => handleCountryPress(item)} />
+        )}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyState />}
@@ -202,21 +205,21 @@ const LearningTabScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f8f9fa'
   },
   headerBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#e1e1e1',
+    borderBottomColor: '#e1e1e1'
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 4,
+    marginBottom: 4
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: '#666'
   },
   topCountriesButton: {
     alignItems: 'center',
@@ -225,31 +228,31 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginLeft: 16,
     borderWidth: 1,
-    borderColor: Theme.colors.breakLine,
+    borderColor: Theme.colors.breakLine
   },
   topCountriesIcon: {
     fontSize: 20,
-    marginBottom: 2,
+    marginBottom: 2
   },
   topCountriesText: {
     fontSize: 10,
     fontWeight: '600',
     color: '#fff',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   listContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingBottom: 20
   },
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#666',
+    color: '#666'
   },
   errorText: {
     fontSize: 16,
-    color: '#f44336',
-  },
+    color: '#f44336'
+  }
 })
 
 export default LearningTabScreen

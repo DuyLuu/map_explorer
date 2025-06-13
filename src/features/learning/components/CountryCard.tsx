@@ -1,66 +1,67 @@
 import React from 'react'
-import { StyleSheet, Image } from 'react-native'
-import { CountryWithRegion, REGION_INFO } from 'types/region'
-import { getFlagAssetByName } from 'services/flagAssetService'
-import { Text } from 'components/Text'
-import { Box } from 'components/Box'
-import { Button } from 'components/Button'
-import { FontAwesomeIcon } from 'components/Icon'
-import { Theme } from 'theme/constants'
+import { TouchableOpacity, StyleSheet } from 'react-native'
+import FastImage from 'react-native-fast-image'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { Box, Text } from 'components/index'
+import { Icon } from 'components/index'
+
+import { RootStackParamList } from '../../../navigation/types'
+import { CountryWithRegion } from '../../../types/region'
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 interface CountryCardProps {
   country: CountryWithRegion
-  onPress: (country: CountryWithRegion) => void
+  onPress?: () => void
 }
 
 const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
-  const flagAsset = getFlagAssetByName(country.name)
+  const navigation = useNavigation<NavigationProp>()
+
+  const handlePress = () => {
+    if (onPress) {
+      onPress()
+    } else {
+      navigation.navigate('CountryDetail', { country })
+    }
+  }
 
   return (
-    <Button
-      onPress={() => onPress(country)}
-      activeOpacity={0.7}
-      borderRadius={12}
-      backgroundColor="#fff"
-      marginBottom="sm"
-      shadow="default"
-    >
-      <Box flex row fullWidth padding="xs">
-        <Box marginRight="m" fullHeight borderRadius="xs" hidden style={styles.flagImageContainer}>
-          {flagAsset ? (
-            <Image source={flagAsset} style={styles.flagImage} resizeMode="contain" />
-          ) : (
-            <Box marginLeft="m" backgroundColor="#f0f0f0" center>
-              <Text size={16}>🏳️</Text>
-            </Box>
-          )}
+    <TouchableOpacity onPress={handlePress} style={styles.container}>
+      <Box row centerItems padding="m" backgroundColor="surface" borderRadius="md">
+        <FastImage source={{ uri: country.flagUrl }} style={styles.flag} />
+        <Box flex={1} marginLeft="m">
+          <Text variant="h6" numberOfLines={1}>
+            {country.name}
+          </Text>
+          <Text variant="body" color="subText" numberOfLines={1}>
+            {country.region} • {country.subregion}
+          </Text>
+          <Text variant="caption" color="subText">
+            Population: {country.population?.toLocaleString() || 'N/A'}
+          </Text>
         </Box>
-
-        <Box row centerItems marginLeft="s" flex spaceBetween>
-          <Box>
-            <Text variant="h6" weight="bold">
-              {country.name}
-            </Text>
-            <Text variant="bodySmall" muted color={Theme.colors.subText}>
-              {REGION_INFO[country.region]?.displayName || country.region}
-            </Text>
-          </Box>
-          <FontAwesomeIcon name="chevron-right" size={20} color="#999" />
-        </Box>
+        <Icon name="chevron_right" size={20} color="#999" />
       </Box>
-    </Button>
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  flagImageContainer: {
-    height: 64,
-    aspectRatio: 1.2,
-    borderRadius: 6
+  container: {
+    marginBottom: 12,
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5
   },
-  flagImage: {
+  flag: {
+    width: 64,
     height: 64,
-    aspectRatio: 1.2,
     borderRadius: 6
   }
 })

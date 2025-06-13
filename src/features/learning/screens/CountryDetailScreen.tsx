@@ -2,12 +2,13 @@ import React from 'react'
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useRoute, RouteProp } from '@react-navigation/native'
 import { CountryWithRegion } from 'types/region'
-import { getCountryDetails } from '../services/countryDataService'
-import CountryHeader from '../components/CountryHeader'
-import CountryMapSection from '../components/CountryMapSection'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import BackButton from 'components/BackButton'
+
+import { getCountryDetails } from '../services/countryDataService'
+import CountryHeader from '../components/CountryHeader'
+import CountryMapSection from '../components/CountryMapSection'
 
 /**
  * CountryDetailScreen - Enhanced to use fresh API data
@@ -66,23 +67,23 @@ const CountryDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   headerBorder: {
     borderBottomWidth: 0.5,
-    borderBottomColor: '#E1E1E1',
+    borderBottomColor: '#E1E1E1'
   },
   backButton: {
-    padding: 4,
+    padding: 4
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
+    color: '#333'
   },
   content: {
-    flex: 1,
-  },
+    flex: 1
+  }
 })
 
 export default CountryDetailScreen

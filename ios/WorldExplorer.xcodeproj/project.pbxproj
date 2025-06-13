@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		253B2A242DFC19AA0025353E /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 253B2A232DFC19AA0025353E /* icomoon.ttf */; };
 		25BF89A02DFA86B900B9A719 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25BF899F2DFA86B900B9A719 /* GoogleService-Info.plist */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = WorldExplorer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WorldExplorer/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = WorldExplorer/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		253B2A232DFC19AA0025353E /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = SOURCE_ROOT; };
 		25BF899F2DFA86B900B9A719 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-WorldExplorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorldExplorer.debug.xcconfig"; path = "Target Support Files/Pods-WorldExplorer/Pods-WorldExplorer.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-WorldExplorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorldExplorer.release.xcconfig"; path = "Target Support Files/Pods-WorldExplorer/Pods-WorldExplorer.release.xcconfig"; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 			name = WorldExplorer;
 			sourceTree = "<group>";
 		};
+		253B2A1B2DFC14170025353E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				253B2A232DFC19AA0025353E /* icomoon.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +83,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				253B2A1B2DFC14170025353E /* Resources */,
 				13B07FAE1A68108700A75B9A /* WorldExplorer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -166,6 +177,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				25BF89A02DFA86B900B9A719 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				253B2A242DFC19AA0025353E /* icomoon.ttf in Resources */,
 				D8DFE67C6892C506A7C4DAA0 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

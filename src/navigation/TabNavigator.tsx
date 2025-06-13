@@ -6,7 +6,7 @@ import SettingsButton from 'components/SettingsButton'
 import QuizTabScreen from 'screens/QuizTabScreen'
 import LearningTabScreen from 'features/learning/screens/LearningTabScreen'
 import ChallengeTabScreen from 'screens/ChallengeTabScreen'
-import Icon, { AntDesignIcon, FontAwesomeIcon, IoniconsIcon } from 'components/Icon'
+import { Icon } from 'components/index'
 
 // Tab navigator types
 export type TabParamList = {
@@ -17,6 +17,30 @@ export type TabParamList = {
 
 const Tab = createBottomTabNavigator<TabParamList>()
 
+// Define icon helper function outside component
+const getTabIcon = (route: any, focused: boolean, color: string, size: number) => {
+  let iconName: string
+
+  if (route.name === 'QuizTab') {
+    iconName = focused ? 'flag_filled' : 'flag_outline'
+  } else if (route.name === 'LearningTab') {
+    iconName = focused ? 'home_tab_fullfill' : 'home_tab'
+  } else {
+    iconName = 'diamond' // Default icon
+  }
+
+  return (
+    <Icon
+      name={iconName}
+      size={size}
+      color={color}
+      style={{
+        marginBottom: focused ? 2 : 0
+      }}
+    />
+  )
+}
+
 const TabNavigator: React.FC = () => {
   const intl = useIntl()
 
@@ -24,14 +48,7 @@ const TabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          if (route.name === 'QuizTab') {
-            return <FontAwesomeIcon name="flag" size={size} color={color} />
-          } else if (route.name === 'LearningTab') {
-            return <FontAwesomeIcon name="globe" size={size} color={color} />
-          } else if (route.name === 'ChallengeTab') {
-            return <Icon name={'rocket'} family="Fontisto" size={size} color={color} />
-          }
-          return <FontAwesomeIcon name="home" size={size} color={color} />
+          return getTabIcon(route, focused, color, size)
         },
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8E8E93',

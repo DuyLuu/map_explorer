@@ -17,9 +17,9 @@ module.exports = {
           stores: './src/stores',
           theme: './src/theme',
           assets: './src/assets',
-          constants: './src/constants',
-        },
-      },
-    ],
-  ],
+          constants: './src/constants'
+        }
+      }
+    ]
+  ]
 }
