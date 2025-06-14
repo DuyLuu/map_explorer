@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ActivityIndicator,
-  ScrollView
-} from 'react-native'
+import { StyleSheet, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from 'hooks/useCountries'
@@ -19,6 +13,8 @@ import {
 } from 'services/challengeScoringService'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { Theme } from 'theme/constants'
 
 type RootStackParamList = {
   ChallengeQuiz: undefined
@@ -84,7 +80,7 @@ const ChallengeTabScreen: React.FC = () => {
             <Text variant="body" weight="bold" center marginTop="m">
               Final Score
             </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
+            <Text variant="h1" weight="bold" center marginTop="m" primary>
               {bestScore.finalScore}
             </Text>
             <Text variant="body" weight="bold" center marginTop="m">
@@ -101,14 +97,7 @@ const ChallengeTabScreen: React.FC = () => {
                 {bestScore.score}
               </Text>
             </Box>
-            <Box style={styles.breakdownRow}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Bonus Points:
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                +{bestScore.bonusPoints}
-              </Text>
-            </Box>
+
             <Box style={styles.breakdownRow}>
               <Text variant="body" weight="bold" center marginTop="m">
                 Time Spent:
@@ -117,188 +106,19 @@ const ChallengeTabScreen: React.FC = () => {
                 {formatTime(bestScore.timeSpent)}
               </Text>
             </Box>
-            <Box style={styles.breakdownRow}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Level Reached:
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                {bestScore.levelReached === 1
-                  ? 'Easy'
-                  : bestScore.levelReached === 2
-                  ? 'Medium'
-                  : 'Hard'}
-              </Text>
-            </Box>
+            {history.length > 1 && (
+              <Box style={styles.breakdownRow}>
+                <Text variant="body" weight="bold" center marginTop="m">
+                  Previous Record:
+                </Text>
+
+                <Text variant="body" weight="bold" center marginTop="m">
+                  {history[history.length - 1].finalScore}
+                </Text>
+              </Box>
+            )}
           </Box>
         </Box>
-
-        <Box style={styles.performanceGrid}>
-          <Box style={styles.performanceItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {bestScore.breakdown.easyCorrect}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Easy
-            </Text>
-          </Box>
-          <Box style={styles.performanceItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {bestScore.breakdown.mediumCorrect}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Medium
-            </Text>
-          </Box>
-          <Box style={styles.performanceItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {bestScore.breakdown.hardCorrect}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Hard
-            </Text>
-          </Box>
-          <Box style={styles.performanceItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {bestScore.breakdown.flagQuestions}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              🏳️ Flags
-            </Text>
-          </Box>
-          <Box style={styles.performanceItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {bestScore.breakdown.mapQuestions}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              🗺️ Maps
-            </Text>
-          </Box>
-        </Box>
-      </Box>
-    )
-  }
-
-  const renderOverallStats = () => {
-    if (!stats) return null
-
-    return (
-      <Box style={styles.statsCard}>
-        <Text style={styles.cardTitle}>📊 Overall Statistics</Text>
-
-        <Box style={styles.statsGrid}>
-          <Box style={styles.statItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {stats.totalAttempts}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Total Attempts
-            </Text>
-          </Box>
-          <Box style={styles.statItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {stats.averageScore}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Average Score
-            </Text>
-          </Box>
-          <Box style={styles.statItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {stats.bestStreak}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Best Streak
-            </Text>
-          </Box>
-          <Box style={styles.statItem}>
-            <Text variant="body" weight="bold" center marginTop="m">
-              {formatTime(stats.totalTimeSpent)}
-            </Text>
-            <Text variant="body" weight="bold" center marginTop="m">
-              Total Time
-            </Text>
-          </Box>
-        </Box>
-
-        <Box style={styles.completionStats}>
-          <Text variant="body" weight="bold" center marginTop="m">
-            Level Completions
-          </Text>
-          <Box style={styles.completionGrid}>
-            <Box style={styles.completionItem}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                {stats.completionStats.completedEasy}
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Easy Reached
-              </Text>
-            </Box>
-            <Box style={styles.completionItem}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                {stats.completionStats.completedMedium}
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Medium Reached
-              </Text>
-            </Box>
-            <Box style={styles.completionItem}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                {stats.completionStats.completedHard}
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Hard Reached
-              </Text>
-            </Box>
-            <Box style={styles.completionItem}>
-              <Text variant="body" weight="bold" center marginTop="m">
-                {stats.completionStats.perfect300}
-              </Text>
-              <Text variant="body" weight="bold" center marginTop="m">
-                Perfect Scores
-              </Text>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    )
-  }
-
-  const renderRecentAttempts = () => {
-    if (history.length === 0) {
-      return (
-        <Box style={styles.historyCard}>
-          <Text style={styles.cardTitle}>📈 Recent Attempts</Text>
-          <Text style={styles.emptyText}>No attempts yet</Text>
-        </Box>
-      )
-    }
-
-    return (
-      <Box style={styles.historyCard}>
-        <Text style={styles.cardTitle}>📈 Recent Attempts</Text>
-        {history.slice(0, 5).map((attempt, index) => (
-          <Box key={index} style={styles.historyItem}>
-            <Box style={styles.historyHeader}>
-              <Text style={styles.historyScore}>{attempt.finalScore}</Text>
-              <Text style={styles.historyDate}>
-                {new Date(attempt.achievedAt).toLocaleDateString()}
-              </Text>
-            </Box>
-            <Box style={styles.historyDetails}>
-              <Text style={styles.historyDetail}>
-                Base: {attempt.score} + Bonus: {attempt.bonusPoints}
-              </Text>
-              <Text style={styles.historyDetail}>
-                Time: {formatTime(attempt.timeSpent)} • Level:{' '}
-                {attempt.levelReached === 1
-                  ? 'Easy'
-                  : attempt.levelReached === 2
-                  ? 'Medium'
-                  : 'Hard'}
-              </Text>
-            </Box>
-          </Box>
-        ))}
       </Box>
     )
   }
@@ -320,42 +140,36 @@ const ChallengeTabScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <Box style={styles.header}>
-          <Text variant="h1" weight="bold" center marginTop="m" primary>
-            Challenge Mode
-          </Text>
-          <Text variant="body" center marginVertical="m">
-            Test your ultimate geography knowledge!
-          </Text>
-
           {/* Challenge Mode Button */}
-          <TouchableOpacity
-            style={[styles.button, styles.challengeButton]}
+          <Button
+            style={[styles.button]}
             onPress={() => navigation.navigate('ChallengeQuiz')}
             disabled={isLoading}
+            fullWidth
+            shadow="default"
+            backgroundColor={Theme.colors.blue}
           >
-            {isLoading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <>
-                <Text variant="body" weight="bold" center marginTop="m">
-                  🏆
-                </Text>
-                <Text variant="body" weight="bold" center marginTop="m">
-                  Ultimate Challenge
-                </Text>
-                <Text variant="body" center marginTop="m">
-                  300 questions across all regions and difficulties
-                </Text>
-              </>
-            )}
-          </TouchableOpacity>
+            <Box>
+              {isLoading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <>
+                  <Text variant="h1" weight="bold" center marginTop="m">
+                    🏆
+                  </Text>
+                  <Text variant="h2" weight="bold" center marginTop="m" primary>
+                    Challenge Mode
+                  </Text>
+                  <Text variant="body" center marginTop="m">
+                    Ultimate questions across all regions and difficulties
+                  </Text>
+                </>
+              )}
+            </Box>
+          </Button>
         </Box>
 
-        <Box style={styles.content}>
-          {renderBestScore()}
-          {renderOverallStats()}
-          {renderRecentAttempts()}
-        </Box>
+        <Box style={styles.content}>{renderBestScore()}</Box>
       </ScrollView>
     </SafeAreaView>
   )
@@ -416,11 +230,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  challengeButton: {
-    backgroundColor: '#FF6B35',
-    borderWidth: 2,
-    borderColor: '#FFD700'
-  },
+
   buttonIcon: {
     fontSize: 24,
     marginBottom: 8

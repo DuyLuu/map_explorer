@@ -53,6 +53,15 @@ export { LanguageSelector } from './LanguageSelector'
 export { default as BackButton } from './BackButton'
 export { default as SettingsButton } from './SettingsButton'
 
+// Modal/Overlay components
+export {
+  BottomSheet,
+  BottomSheetView,
+  BottomSheetScrollView,
+  default as BottomSheetComponent,
+  type BottomSheetProps
+} from './BottomSheet'
+
 // Testing components
 export { default as I18nTest } from './I18nTest'
 

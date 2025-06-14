@@ -7,6 +7,7 @@
 
 import React, { useEffect } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import RootNavigator from './src/navigation/RootNavigator'
 import { LanguageProvider } from './src/i18n'
@@ -39,11 +40,13 @@ const App = () => {
   }, [])
 
   return (
-    <SafeAreaProvider>
-      <LanguageProvider>
-        <RootNavigator />
-      </LanguageProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <LanguageProvider>
+          <RootNavigator />
+        </LanguageProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   )
 }
 

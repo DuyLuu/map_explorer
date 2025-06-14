@@ -23,7 +23,7 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
   selectedAnswer,
   showFeedback,
   onSelectAnswer,
-  onSubmit,
+  onSubmit
 }) => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [isDetecting, setIsDetecting] = useState(false)
@@ -35,7 +35,7 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
       latitude: 20,
       longitude: 0,
       latitudeDelta: 160,
-      longitudeDelta: 160,
+      longitudeDelta: 160
     }
   })
 
@@ -89,7 +89,6 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
   return (
     <>
       <Text style={styles.mapQuestionText}>Find the country: {currentQuestion.correctAnswer}</Text>
-
       <Box borderRadius="sm" hidden marginBottom="m" style={{ height: 300 }}>
         <MapView
           key={currentQuestion?.correctAnswer}
@@ -116,7 +115,7 @@ const MapQuizUI: React.FC<MapQuizUIProps> = ({
               styles.feedbackText,
               selectedAnswer === currentQuestion.correctAnswer
                 ? styles.correctFeedback
-                : styles.wrongFeedback,
+                : styles.wrongFeedback
             ]}
           >
             {selectedAnswer === currentQuestion.correctAnswer
@@ -142,44 +141,44 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
-    color: '#333',
+    color: '#333'
   },
   map: {
-    flex: 1,
+    flex: 1
   },
   detectingText: {
     fontSize: 16,
     color: '#FF6B35',
-    fontStyle: 'italic',
+    fontStyle: 'italic'
   },
   selectedText: {
     fontSize: 16,
     color: '#007AFF',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   feedbackText: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   correctFeedback: {
-    color: '#4CAF50',
+    color: '#4CAF50'
   },
   wrongFeedback: {
-    color: '#F44336',
+    color: '#F44336'
   },
   submitButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 12,
     marginTop: 20,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   submitButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default MapQuizUI

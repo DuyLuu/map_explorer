@@ -12,6 +12,8 @@ import {
   ChallengeScore
 } from 'services/challengeScoringService'
 
+import { CHALLENGE_QUESTIONS } from '../constants'
+
 type RootStackParamList = {
   ChallengeQuiz: undefined
 }
@@ -53,9 +55,6 @@ export const useChallengeQuiz = () => {
   const [finalChallengeScore, setFinalChallengeScore] = useState<ChallengeScore | null>(null)
 
   const navigation = useNavigation<NavigationProp>()
-
-  // Challenge mode: 300 questions total
-  const questionCount = 300
 
   useEffect(() => {
     // Only initialize quiz when countries data is loaded
@@ -254,7 +253,7 @@ export const useChallengeQuiz = () => {
       return
     }
 
-    if (currentQuestionNumber < questionCount) {
+    if (currentQuestionNumber < CHALLENGE_QUESTIONS) {
       setCurrentQuestionNumber(prev => prev + 1)
       await loadNextQuestion()
     } else {
@@ -307,6 +306,8 @@ export const useChallengeQuiz = () => {
     })
     setIsNewRecord(false)
     setFinalChallengeScore(null)
+
+    // Navigate back to the challenge tab
     navigation.goBack()
   }
 
@@ -317,7 +318,7 @@ export const useChallengeQuiz = () => {
     showFeedback,
     selectedAnswer,
     currentQuestionNumber,
-    questionCount,
+    questionCount: CHALLENGE_QUESTIONS,
     currentQuizType,
     currentLevel,
     isLoadingCountries,

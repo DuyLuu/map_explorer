@@ -5,7 +5,7 @@ export enum FontFamily {
   MEDIUM = 'SVN-GilroyMedium',
   LIGHT = 'SVN-GilroyLight',
   CAPITALIZE_MEDIUM = 'Bebas Neue Pro Regular',
-  CAPITALIZE_BOLD = 'Bebas Neue Pro Bold',
+  CAPITALIZE_BOLD = 'Bebas Neue Pro Bold'
 }
 
 export const PALLETS = {
@@ -26,6 +26,7 @@ export const PALLETS = {
   DARK_BLUE_OPACITY: (o: number) => `rgba(26,49,84, ${o})`,
   LIGHT_GRAY: '#A8B5C7',
   LIGHTER_GRAY: '#A5A7A9',
+  BLUE: '#9ECEF9',
   GRAY: '#778BA8',
   GRAY_DARK: '#6B80A0',
   GRAY_DARKER: '#53637F',
@@ -40,59 +41,59 @@ export const PALLETS = {
   PRO_PREMIUM_GRADIENT: ['#EE3E6F', '#662A94'],
   REGION: '#F27672',
   PRO: '#A76DEF',
-  DARK_BLACK_BLUE: '#1A1C20',
+  DARK_BLACK_BLUE: '#1A1C20'
 }
 
 export const Theme = {
   // define static theme here
   shadowColor: {
-    popupBackground: '#E8EAEE',
+    popupBackground: '#E8EAEE'
   },
   shadow: {
     default: {
       shadowColor: PALLETS.DARK_BLUE,
       shadowOffset: {
         width: 0.5,
-        height: 2,
+        height: 2
       },
       shadowRadius: 5,
       elevation: 2,
-      shadowOpacity: 0.15,
+      shadowOpacity: 0.15
     },
     light: {
       shadowColor: PALLETS.DARK_BLUE,
       shadowOffset: {
         width: 0.25,
-        height: 1,
+        height: 1
       },
       shadowRadius: 2,
       elevation: 1,
-      shadowOpacity: 0.125,
+      shadowOpacity: 0.125
     },
     dark: {
       shadowColor: PALLETS.DARK_BLUE,
       shadowOffset: {
         width: 0.25,
-        height: 2,
+        height: 2
       },
       shadowRadius: 2,
       elevation: 4,
-      shadowOpacity: 0.25,
+      shadowOpacity: 0.25
     },
     darker: {
       shadowColor: PALLETS.DARK_BLUE,
       shadowOffset: { width: 0.5, height: 6 },
       shadowRadius: 8,
       elevation: 4,
-      shadowOpacity: 0.25,
+      shadowOpacity: 0.25
     },
     blackDark: {
       shadowColor: PALLETS.BASE_BLACK,
       shadowOffset: { width: 0.5, height: 6 },
       shadowRadius: 8,
       elevation: 9,
-      shadowOpacity: 1,
-    },
+      shadowOpacity: 1
+    }
   },
   spacing: {
     xxl: 40,
@@ -103,17 +104,17 @@ export const Theme = {
     sm: 12,
     s: 8,
     xs: 4,
-    xxs: 2,
+    xxs: 2
   },
   breakpoints: {
     smallPhone: 0,
     phone: 321,
-    tablet: 768,
+    tablet: 768
   },
   responsiveLayout: {
     smallPhone: 0,
     phone: 0,
-    tablet: 576,
+    tablet: 576
   },
   font: {
     bold: FontFamily.BOLD,
@@ -122,7 +123,7 @@ export const Theme = {
     medium: FontFamily.MEDIUM,
     light: FontFamily.LIGHT,
     capitalizeMedium: FontFamily.CAPITALIZE_MEDIUM,
-    capitalizeBold: FontFamily.CAPITALIZE_BOLD,
+    capitalizeBold: FontFamily.CAPITALIZE_BOLD
   },
 
   // define dynamic theme here
@@ -174,6 +175,7 @@ export const Theme = {
     danger: 'rgba(249, 98, 98, 1)',
     success: '#FFF4E0',
     warning: PALLETS.YELLOW,
+    blue: PALLETS.BLUE,
     borderCover: 'rgba(26, 49, 84, 0.1)',
     iconButtonBackground: 'rgba(255, 255, 255, 0.1)',
     navy: {
@@ -181,12 +183,12 @@ export const Theme = {
       navy1: '#2B3E60',
       navy2: '#6B80A0',
       navy3: '#D6E4F3',
-      navy4: '#EBF2FA',
+      navy4: '#EBF2FA'
     },
     grey: {
       grey0: 'rgba(110, 127, 157, 0.5)',
       grey1: '#747F9F',
-      grey2: '#DDE6F1',
+      grey2: '#DDE6F1'
     },
     white: {
       white100: 'rgba(255, 255, 255, 1)',
@@ -197,15 +199,15 @@ export const Theme = {
       white20: 'rgba(255, 255, 255, 0.2)',
       white15: 'rgba(255, 255, 255, 0.15)',
       white10: 'rgba(255, 255, 255, 0.1)',
-      white5: 'rgba(255, 255, 255, 0.05)',
-    },
-  },
+      white5: 'rgba(255, 255, 255, 0.05)'
+    }
+  }
 }
 
 export const DarkTheme = {
   ...Theme,
   shadowColor: {
-    popupBackground: '#39414A',
+    popupBackground: '#39414A'
   },
   // define dynamic theme here
   colors: {
@@ -221,8 +223,8 @@ export const DarkTheme = {
     skeleton: Theme.colors.white.white15,
     borderCover: '#D2E7FF33',
     iconButtonBackground: 'rgba(255, 255, 255, 0.1)',
-    success: '#463F33',
-  },
+    success: '#463F33'
+  }
 }
 
 export type BreakPoint = keyof typeof Theme.breakpoints
@@ -250,5 +252,5 @@ export enum BoxKey {
   paddingTop = 'paddingTop',
   paddingBottom = 'paddingBottom',
   paddingRight = 'paddingRight',
-  paddingLeft = 'paddingLeft',
+  paddingLeft = 'paddingLeft'
 }

@@ -1,14 +1,15 @@
 import React, { ReactNode } from 'react'
 import { TouchableOpacity, TouchableOpacityProps, ViewStyle, ActivityIndicator } from 'react-native'
+
 import {
   useTheme,
   combineStyles,
   conditionalStyle,
   Spacing,
   BorderRadius,
-  ShadowType,
+  ShadowType
 } from '../theme'
-import { BoxKey } from '../theme/constants'
+
 import { Text } from './Text'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'danger'
@@ -202,18 +203,18 @@ export const Button: React.FC<ButtonProps> = ({
       small: {
         minHeight: 32,
         paddingHorizontal: theme.spacing.sm,
-        paddingVertical: theme.spacing.xs,
+        paddingVertical: theme.spacing.xs
       },
       medium: {
         minHeight: 44,
         paddingHorizontal: theme.spacing.m,
-        paddingVertical: theme.spacing.s,
+        paddingVertical: theme.spacing.s
       },
       large: {
         minHeight: 56,
         paddingHorizontal: theme.spacing.ml,
-        paddingVertical: theme.spacing.sm,
-      },
+        paddingVertical: theme.spacing.sm
+      }
     }
     return sizes[size]
   }
@@ -224,33 +225,33 @@ export const Button: React.FC<ButtonProps> = ({
       case 'primary':
         return {
           backgroundColor: theme.colors.primary,
-          borderWidth: 0,
+          borderWidth: 0
         }
       case 'secondary':
         return {
           backgroundColor: theme.colors.secondary,
-          borderWidth: 0,
+          borderWidth: 0
         }
       case 'outlined':
         return {
           backgroundColor: 'transparent',
           borderWidth: 1,
-          borderColor: theme.colors.primary,
+          borderColor: theme.colors.primary
         }
       case 'ghost':
         return {
           backgroundColor: 'transparent',
-          borderWidth: 0,
+          borderWidth: 0
         }
       case 'danger':
         return {
           backgroundColor: theme.colors.danger,
-          borderWidth: 0,
+          borderWidth: 0
         }
       default:
         return {
           backgroundColor: theme.colors.primary,
-          borderWidth: 0,
+          borderWidth: 0
         }
     }
   }
@@ -263,6 +264,7 @@ export const Button: React.FC<ButtonProps> = ({
       case 'danger':
         return theme.colors.light
       case 'outlined':
+        return theme.colors.baseBlack
       case 'ghost':
         return theme.colors.primary
       default:
@@ -347,7 +349,7 @@ export const Button: React.FC<ButtonProps> = ({
     const shadowStyle = theme.shadow[shadow]
     return {
       ...shadowStyle,
-      ...(shadowColor && { shadowColor }),
+      ...(shadowColor && { shadowColor })
     }
   }
 
@@ -358,7 +360,7 @@ export const Button: React.FC<ButtonProps> = ({
       flexDirection: 'row' as const,
       alignItems: 'center' as const,
       justifyContent: 'center' as const,
-      borderRadius: getBorderRadius(),
+      borderRadius: getBorderRadius()
     },
     // Size styles
     getSizeStyles(),
@@ -368,7 +370,7 @@ export const Button: React.FC<ButtonProps> = ({
     getSpacingStyles(),
     // Custom background color
     conditionalStyle(!!(backgroundColor || primary || secondary || success || warning || danger), {
-      backgroundColor: getBackgroundColor(),
+      backgroundColor: getBackgroundColor()
     }),
     // Border styles
     conditionalStyle(borderWidth !== undefined, { borderWidth }),
@@ -381,7 +383,7 @@ export const Button: React.FC<ButtonProps> = ({
     conditionalStyle(flex === true, { flex: 1 }),
     conditionalStyle(!!center, {
       alignItems: 'center' as const,
-      justifyContent: 'center' as const,
+      justifyContent: 'center' as const
     }),
     conditionalStyle(!!centerItems, { alignItems: 'center' as const }),
     conditionalStyle(!!centerContent, { justifyContent: 'center' as const }),
@@ -426,7 +428,7 @@ export const Button: React.FC<ButtonProps> = ({
           color={getTextColor()}
           style={{
             marginLeft: !loading && leftIcon ? theme.spacing.xs : 0,
-            marginRight: rightIcon ? theme.spacing.xs : 0,
+            marginRight: rightIcon ? theme.spacing.xs : 0
           }}
         >
           {content}

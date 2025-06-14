@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { CHALLENGE_QUESTIONS } from 'features/challenge/constants'
 
 export interface ChallengeScore {
   score: number
@@ -35,7 +36,7 @@ export interface ChallengeStats {
 const STORAGE_KEYS = {
   CHALLENGE_BEST_SCORE: '@challenge_best_score',
   CHALLENGE_STATS: '@challenge_stats',
-  CHALLENGE_HISTORY: '@challenge_history',
+  CHALLENGE_HISTORY: '@challenge_history'
 }
 
 /**
@@ -67,7 +68,7 @@ export const calculateChallengeScore = (
   }
 
   // Perfect completion bonus
-  if (questionsCorrect === 300) {
+  if (questionsCorrect === CHALLENGE_QUESTIONS) {
     bonusPoints += 50 // Perfect completion bonus
   }
 
@@ -110,7 +111,7 @@ export const saveChallengeScore = async (scoreData: {
       achievedAt: new Date().toISOString(),
       breakdown: scoreData.breakdown,
       bonusPoints,
-      finalScore,
+      finalScore
     }
 
     // Get current best score
@@ -170,8 +171,8 @@ export const getChallengeStats = async (): Promise<ChallengeStats> => {
         completedEasy: 0,
         completedMedium: 0,
         completedHard: 0,
-        perfect300: 0,
-      },
+        perfect300: 0
+      }
     }
   } catch (error) {
     console.error('Error getting challenge stats:', error)
@@ -187,8 +188,8 @@ export const getChallengeStats = async (): Promise<ChallengeStats> => {
         completedEasy: 0,
         completedMedium: 0,
         completedHard: 0,
-        perfect300: 0,
-      },
+        perfect300: 0
+      }
     }
   }
 }
@@ -220,8 +221,8 @@ const updateChallengeStats = async (newScore: ChallengeScore): Promise<void> => 
           currentStats.completionStats.completedMedium + (newScore.levelReached >= 2 ? 1 : 0),
         completedHard:
           currentStats.completionStats.completedHard + (newScore.levelReached >= 3 ? 1 : 0),
-        perfect300: currentStats.completionStats.perfect300 + (newScore.score === 300 ? 1 : 0),
-      },
+        perfect300: currentStats.completionStats.perfect300 + (newScore.score === 300 ? 1 : 0)
+      }
     }
 
     await AsyncStorage.setItem(STORAGE_KEYS.CHALLENGE_STATS, JSON.stringify(updatedStats))
@@ -271,7 +272,7 @@ export const clearChallengeData = async (): Promise<void> => {
     await AsyncStorage.multiRemove([
       STORAGE_KEYS.CHALLENGE_BEST_SCORE,
       STORAGE_KEYS.CHALLENGE_STATS,
-      STORAGE_KEYS.CHALLENGE_HISTORY,
+      STORAGE_KEYS.CHALLENGE_HISTORY
     ])
   } catch (error) {
     console.error('Error clearing challenge data:', error)
@@ -299,7 +300,7 @@ export const formatTime = (milliseconds: number): string => {
  * Get score description based on performance
  */
 export const getScoreDescription = (score: number): string => {
-  if (score === 300) return 'PERFECT! LEGENDARY!'
+  if (score === CHALLENGE_QUESTIONS) return 'PERFECT! LEGENDARY!'
   if (score >= 250) return 'Incredible! Master Explorer'
   if (score >= 200) return 'Amazing! Expert Navigator'
   if (score >= 150) return 'Great! Geography Guru'

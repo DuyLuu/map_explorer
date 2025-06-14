@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from 'navigation/types'
 import Text from 'components/Text'
 import { Box } from 'components/Box'
+import { Button } from 'components/Button'
+import { Theme } from 'theme/constants'
 
 import MapQuizUI from '../components/MapQuizUI'
 import FlagQuizUI from '../components/FlagQuizUI'
@@ -50,10 +52,6 @@ const ChallengeQuizScreen: React.FC = () => {
     return finalScore
   }
 
-  const handleViewRecords = () => {
-    navigation.goBack()
-  }
-
   // Show loading screen while countries are loading or quiz is initializing
   if (isLoadingCountries || isInitializing) {
     return (
@@ -89,6 +87,9 @@ const ChallengeQuizScreen: React.FC = () => {
           <Text style={styles.challengeLabel}>🏆 CHALLENGE MODE</Text>
           <Text style={styles.challengeSubtext}>Zero tolerance - One mistake ends it all!</Text>
         </Box>
+        <Button variant="outlined" onPress={exitChallenge} style={styles.exitButton}>
+          Exit
+        </Button>
 
         <Box row spaceBetween centerItems>
           <Box row spaceBetween centerItems fullWidth>
@@ -150,7 +151,6 @@ const ChallengeQuizScreen: React.FC = () => {
         visible={gameOver && !isNewRecord}
         score={score}
         questionsAnswered={currentQuestionNumber}
-        isNewRecord={isNewRecord}
         finalChallengeScore={finalChallengeScore}
         onRestart={restartChallenge}
         onExit={exitChallenge}
@@ -161,7 +161,6 @@ const ChallengeQuizScreen: React.FC = () => {
         <NewRecordModal
           visible={gameOver && isNewRecord}
           challengeScore={finalChallengeScore}
-          onViewRecords={handleViewRecords}
           onClose={exitChallenge}
         />
       )}
@@ -173,6 +172,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5'
+  },
+  exitButton: {
+    position: 'absolute',
+    top: 0,
+    right: 12,
+    borderWidth: 1,
+    borderColor: Theme.colors.breakLine
   },
   headerBorder: {
     borderBottomWidth: 1,
