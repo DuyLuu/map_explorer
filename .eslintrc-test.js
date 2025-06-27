@@ -5,12 +5,12 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   plugins: ['unused-imports'],
   rules: {
     'unused-imports/no-unused-imports': 'error',
-    'unused-imports/no-unused-vars': 'error',
-  },
+    'unused-imports/no-unused-vars': 'error'
+  }
 }

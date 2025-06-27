@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Region, REGION_INFO } from 'types/region'
 import ProgressRing from 'components/ProgressRing'
 import { Text } from 'components/Text'
@@ -21,7 +21,7 @@ const MapRegionOption: React.FC<MapRegionOptionProps> = ({
   onPress,
   correctAnswers,
   totalQuestions,
-  isUnlocked,
+  isUnlocked
 }) => {
   const regionInfo = REGION_INFO[region]
   const completion = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0
@@ -51,7 +51,7 @@ const MapRegionOption: React.FC<MapRegionOptionProps> = ({
         [
           styles.option,
           isSelected && styles.selectedOption,
-          completion === 100 && styles.completedOption,
+          completion === 100 && styles.completedOption
         ].filter(Boolean) as import('react-native').ViewStyle[]
       }
       onPress={onPress}
@@ -61,8 +61,8 @@ const MapRegionOption: React.FC<MapRegionOptionProps> = ({
       marginBottom="sm"
     >
       {/* Region Info and Progress Ring */}
-      <Box row centerItems flex>
-        <Box flex>
+      <Box row centerItems style={styles.optionContainer}>
+        <Box>
           <Box row centerItems marginBottom="xs">
             <Text style={styles.regionName}>{regionInfo.displayName}</Text>
           </Box>
@@ -96,45 +96,50 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 2
   },
   lockedOption: {
     backgroundColor: '#f0f0f0',
-    opacity: 0.7,
+    opacity: 0.7
   },
   selectedOption: {
     borderWidth: 2,
-    borderColor: '#007AFF',
+    borderColor: '#007AFF'
   },
   completedOption: {
     borderWidth: 2,
-    borderColor: '#4CAF50',
+    borderColor: '#4CAF50'
   },
   regionName: {
     fontWeight: 'bold',
     fontSize: 16,
-    marginBottom: 2,
+    marginBottom: 2
   },
   lockText: {
     fontSize: 24,
     color: '#888',
-    marginBottom: 2,
+    marginBottom: 2
   },
   lockSubtext: {
     fontSize: 12,
-    color: '#888',
+    color: '#888'
   },
   progressText: {
     fontSize: 12,
     color: '#888',
-    marginTop: 4,
+    marginTop: 4
   },
   completionBadge: {
     fontSize: 12,
     color: '#4CAF50',
     marginTop: 8,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
+  optionContainer: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'space-between'
+  }
 })
 
 export default MapRegionOption

@@ -246,7 +246,7 @@ export function transformApiDataToCountryDetail(
     area: formatArea(apiData.area || 0),
     coordinates: {
       latitude: apiData.latlng[0] || 0,
-      longitude: apiData.latlng[1] || 0,
+      longitude: apiData.latlng[1] || 0
     },
     culturalFacts: generateCulturalFacts(apiData),
     historicalHighlights: generateHistoricalHighlights(apiData),
@@ -257,7 +257,7 @@ export function transformApiDataToCountryDetail(
     subregion: apiData.subregion,
     borders: apiData.borders || [],
     timezones: apiData.timezones,
-    continents: apiData.continents,
+    continents: apiData.continents
   }
 }
 

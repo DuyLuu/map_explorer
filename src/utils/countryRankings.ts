@@ -30,7 +30,7 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
     description: 'Countries with the most land area',
     icon: '🌍',
     unit: 'km²',
-    formatValue: (value: number) => `${value.toLocaleString()} km²`,
+    formatValue: (value: number) => `${value.toLocaleString()} km²`
   },
   {
     id: 'smallest_area',
@@ -38,7 +38,7 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
     description: 'Countries with the least land area',
     icon: '🏝️',
     unit: 'km²',
-    formatValue: (value: number) => `${value.toLocaleString()} km²`,
+    formatValue: (value: number) => `${value.toLocaleString()} km²`
   },
   {
     id: 'most_populous',
@@ -55,7 +55,7 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
         return `${(value / 1_000).toFixed(1)}K`
       }
       return value.toLocaleString()
-    },
+    }
   },
   {
     id: 'least_populous',
@@ -70,7 +70,7 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
         return `${(value / 1_000).toFixed(1)}K`
       }
       return value.toLocaleString()
-    },
+    }
   },
   {
     id: 'most_dense',
@@ -78,7 +78,7 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
     description: 'Countries with highest population density',
     icon: '🏙️',
     unit: 'people/km²',
-    formatValue: (value: number) => `${Math.round(value).toLocaleString()}/km²`,
+    formatValue: (value: number) => `${Math.round(value).toLocaleString()}/km²`
   },
   {
     id: 'least_dense',
@@ -86,8 +86,8 @@ export const RANKING_CATEGORIES: RankingCategoryInfo[] = [
     description: 'Countries with lowest population density',
     icon: '🌾',
     unit: 'people/km²',
-    formatValue: (value: number) => `${value.toFixed(1)}/km²`,
-  },
+    formatValue: (value: number) => `${value.toFixed(1)}/km²`
+  }
 ]
 
 /**
@@ -158,7 +158,7 @@ export function getRankedCountries(
       ...country,
       value,
       formattedValue: categoryInfo.formatValue(value),
-      rank: 0, // Will be set after sorting
+      rank: 0 // Will be set after sorting
     }
   })
 
@@ -171,7 +171,7 @@ export function getRankedCountries(
   // Add rank and limit results
   return sorted.slice(0, limit).map((country, index) => ({
     ...country,
-    rank: index + 1,
+    rank: index + 1
   }))
 }
 

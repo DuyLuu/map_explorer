@@ -1,8 +1,8 @@
 import { Platform } from 'react-native'
+
 import {
   getBundledCountries,
-  isBundledDataLoaded,
-  getBundledDataStatus,
+  getBundledDataStatus
 } from './bundledDataService'
 import { getFlagAssetByCode, hasFlagAsset, getCountryCode } from './flagAssetService'
 
@@ -268,7 +268,7 @@ export async function simulateOfflineTest(): Promise<{
     return {
       success: errors.length === 0,
       errors,
-      functionalFeatures,
+      functionalFeatures
     }
   } catch (error) {
     console.error('❌ Offline simulation failed:', error)
@@ -277,7 +277,7 @@ export async function simulateOfflineTest(): Promise<{
     return {
       success: false,
       errors,
-      functionalFeatures,
+      functionalFeatures
     }
   }
 }
@@ -315,7 +315,7 @@ export async function measurePerformanceMetrics(): Promise<PerformanceMetrics> {
   return {
     dataLoadTime,
     flagPreloadTime,
-    totalStartupTime,
+    totalStartupTime
   }
 }
 
@@ -388,11 +388,11 @@ function createValidationResult(
       flagsMissing,
       totalSize: '1.1M', // Static size from our analysis
       platform: Platform.OS,
-      loadTime,
+      loadTime
     },
     issues,
     warnings,
-    recommendations,
+    recommendations
   }
 }
 

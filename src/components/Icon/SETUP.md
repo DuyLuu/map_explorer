@@ -4,7 +4,7 @@
 
 The runtime error `Cannot read property 'NativeModule' of undefined` was caused by mixing Expo modules in a React Native CLI project. This has been resolved by:
 
-1. ✅ Removed `expo-font`, `expo-modules-core`, and `expo-asset` 
+1. ✅ Removed `expo-font`, `expo-modules-core`, and `expo-asset`
 2. ✅ Updated Icon component to work with React Native CLI
 3. ✅ Metro cache cleared and project restarted
 
@@ -15,6 +15,7 @@ To properly use your IcoMoon font in React Native CLI, you need to configure it 
 ### iOS Setup
 
 1. **Add font to iOS project:**
+
    ```bash
    # Copy the font file to iOS project
    cp src/components/Icon/assets/icomoon.ttf ios/WorldExplorer/
@@ -22,6 +23,7 @@ To properly use your IcoMoon font in React Native CLI, you need to configure it 
 
 2. **Update Info.plist:**
    Add this to `ios/WorldExplorer/Info.plist`:
+
    ```xml
    <key>UIAppFonts</key>
    <array>
@@ -37,10 +39,11 @@ To properly use your IcoMoon font in React Native CLI, you need to configure it 
 ### Android Setup
 
 1. **Add font to Android project:**
+
    ```bash
    # Create fonts directory if it doesn't exist
    mkdir -p android/app/src/main/assets/fonts
-   
+
    # Copy the font file
    cp src/components/Icon/assets/icomoon.ttf android/app/src/main/assets/fonts/
    ```
@@ -54,7 +57,7 @@ After configuring the fonts:
 cd ios && pod install && cd ..
 npx react-native run-ios
 
-# Clean and rebuild Android  
+# Clean and rebuild Android
 cd android && ./gradlew clean && cd ..
 npx react-native run-android
 ```

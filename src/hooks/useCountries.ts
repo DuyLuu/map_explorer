@@ -46,7 +46,7 @@ export function useCountries() {
     },
     meta: {
       // Add metadata to help with debugging
-      description: 'Countries data loaded from bundled offline source',
-    },
+      description: 'Countries data loaded from bundled offline source'
+    }
   })
 }

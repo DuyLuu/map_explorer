@@ -1,191 +1,12 @@
-import { QueryClient } from '@tanstack/react-query'
 import { Region, CountryWithRegion } from '../types/region'
-import { getCountryRegion, isCountryInRegion } from './regionService'
+
 import {
   getBundledCountries,
   getBundledCountriesOnly,
   getBundledTerritoriesOnly,
   getBundledCountriesByEntityType,
-  getBundledCountriesByRegionAndEntityType,
+  getBundledCountriesByRegionAndEntityType
 } from './bundledDataService'
-
-interface Country {
-  id: number
-  name: string
-  flagUrl: string
-  level: number
-}
-
-interface CountryResponse {
-  name: {
-    common: string
-  }
-  flags: {
-    svg?: string
-    png?: string
-  }
-}
-
-let queryClient: QueryClient | null = null
-
-export function setQueryClient(client: QueryClient) {
-  queryClient = client
-}
-
-// Legacy level arrays - kept for compatibility but no longer used in bundled data approach
-// The levels are now stored directly in the bundled data from countries.json
-const LEVEL_1_COUNTRIES = [
-  // North America
-  'United States',
-  'Canada',
-  'Mexico',
-  // Europe
-  'United Kingdom',
-  'France',
-  'Germany',
-  'Italy',
-  'Spain',
-  'Netherlands',
-  'Sweden',
-  'Switzerland',
-  'Belgium',
-  'Austria',
-  'Denmark',
-  'Norway',
-  'Finland',
-  'Portugal',
-  'Greece',
-  'Poland',
-  'Ireland',
-  'Croatia',
-  'Czech Republic',
-  'Hungary',
-  'Romania',
-  'Ukraine',
-  'Bulgaria',
-  // Asia
-  'Japan',
-  'China',
-  'India',
-  'South Korea',
-  'Singapore',
-  'Malaysia',
-  'Thailand',
-  'Vietnam',
-  'Philippines',
-  'Indonesia',
-  'Pakistan',
-  'Bangladesh',
-  'Sri Lanka',
-  'Nepal',
-  'Mongolia',
-  // Oceania
-  'Australia',
-  'New Zealand',
-  'Fiji',
-  'Papua New Guinea',
-  // South America
-  'Brazil',
-  'Argentina',
-  'Chile',
-  'Colombia',
-  'Peru',
-  // Middle East
-  'Saudi Arabia',
-  'United Arab Emirates',
-  'Qatar',
-  'Kuwait',
-  'Bahrain',
-  // Africa
-  'South Africa',
-  'Egypt',
-  'Morocco',
-  'Kenya',
-  'Nigeria',
-]
-
-// List of moderately known countries (Level 2)
-const LEVEL_2_COUNTRIES = [
-  // Europe
-  'Slovakia',
-  'Slovenia',
-  'Estonia',
-  'Latvia',
-  'Lithuania',
-  'Serbia',
-  'Bosnia and Herzegovina',
-  'Albania',
-  'Montenegro',
-  'North Macedonia',
-  'Luxembourg',
-  'Iceland',
-  'Malta',
-  'Cyprus',
-  'Moldova',
-  // Asia
-  'Cambodia',
-  'Laos',
-  'Myanmar',
-  'Brunei',
-  'Timor-Leste',
-  'Bhutan',
-  'Maldives',
-  'Kazakhstan',
-  'Uzbekistan',
-  'Turkmenistan',
-  'Kyrgyzstan',
-  'Tajikistan',
-  'Azerbaijan',
-  'Georgia',
-  'Armenia',
-  // South America
-  'Venezuela',
-  'Ecuador',
-  'Bolivia',
-  'Paraguay',
-  'Uruguay',
-  'Guyana',
-  'Suriname',
-  'French Guiana',
-  // Middle East
-  'Oman',
-  'Yemen',
-  'Jordan',
-  'Lebanon',
-  'Syria',
-  'Iraq',
-  'Iran',
-  'Afghanistan',
-  'Israel',
-  'Palestine',
-  // Africa
-  'Tunisia',
-  'Algeria',
-  'Libya',
-  'Sudan',
-  'Ethiopia',
-  'Somalia',
-  'Tanzania',
-  'Uganda',
-  'Rwanda',
-  'Burundi',
-  'Democratic Republic of the Congo',
-  'Congo',
-  'Cameroon',
-  'Ghana',
-  'Senegal',
-  'Ivory Coast',
-  'Mali',
-  'Niger',
-  'Chad',
-  'Angola',
-  'Mozambique',
-  'Zimbabwe',
-  'Zambia',
-  'Botswana',
-  'Namibia',
-  'Madagascar',
-]
 
 /**
  * Fetch countries data from bundled local data instead of external API
@@ -216,13 +37,6 @@ export async function fetchCountriesData(): Promise<CountryWithRegion[]> {
   }
 }
 
-export function getCountries(): CountryWithRegion[] | undefined {
-  if (!queryClient) {
-    throw new Error('QueryClient not initialized')
-  }
-  return queryClient.getQueryData<CountryWithRegion[]>(['countries'])
-}
-
 /**
  * Get all countries filtered by entity type
  */
@@ -247,59 +61,39 @@ export function getTerritoriesOnly(): CountryWithRegion[] {
 /**
  * Get countries by region with optional entity type filtering
  */
-export function getCountriesByRegion(
+export async function getCountriesByRegion(
   region: Region,
   entityType?: 'country' | 'territory'
-): CountryWithRegion[] {
+): Promise<CountryWithRegion[]> {
   if (entityType) {
-    return getBundledCountriesByRegionAndEntityType(region, entityType)
+    return getBundledCountriesByRegionAndEntityType(region, entityType);
   }
 
-  // Keep existing behavior for backward compatibility
-  const allCountries = getCountries()
-  if (!allCountries) return []
-
+  const allCountries = await getBundledCountries();
   return allCountries.filter(country => {
     if (region === Region.WORLD) {
-      return true // All countries and territories are part of the world
+      return true;
     }
-    return country.region === region
-  })
+    return country.region === region;
+  });
 }
 
 /**
  * Get countries by region and level with optional entity type filtering
  */
-export function getCountriesByRegionAndLevel(
+export async function getCountriesByRegionAndLevel(
   region: Region,
   level?: number,
   entityType?: 'country' | 'territory'
-): CountryWithRegion[] {
-  let countries = getCountriesByRegion(region, entityType)
+): Promise<CountryWithRegion[]> {
+  let countries = await getCountriesByRegion(region, entityType);
 
   if (level) {
-    countries = countries.filter(country => country.level === level)
+    countries = countries.filter(country => country.level === level);
   }
 
-  return countries
+  return countries;
 }
 
-/**
- * Backward compatibility: Get countries without region information
- */
-export function getCountriesLegacy(): Country[] | undefined {
-  const countriesWithRegion = getCountries()
-  if (!countriesWithRegion) {
-    return undefined
-  }
-
-  return countriesWithRegion.map(country => ({
-    id: country.id,
-    name: country.name,
-    flagUrl: country.flagUrl,
-    level: country.level,
-  }))
-}
-
-// Export types for backward compatibility
-export type { Country, CountryWithRegion }
+// Export types
+export type { CountryWithRegion }

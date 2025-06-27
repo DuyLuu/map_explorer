@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Alert,
   Platform,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, PROVIDER_DEFAULT, Region } from 'react-native-maps'
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useQuiz } from 'hooks/useQuiz'
 import { detectCountryFromCoordinates } from 'services/geocodingService'
@@ -35,7 +32,7 @@ const MapQuizScreen: React.FC = () => {
     countriesError,
     handleSelectAnswer,
     handleSubmit,
-    handleNextQuestion,
+    handleNextQuestion
   } = useQuiz()
 
   const { selectedRegion } = useCountryStore()
@@ -49,7 +46,7 @@ const MapQuizScreen: React.FC = () => {
       latitude: REGION_INFO[selectedRegion].mapBounds.latitude,
       longitude: REGION_INFO[selectedRegion].mapBounds.longitude,
       latitudeDelta: REGION_INFO[selectedRegion].mapBounds.latitudeDelta,
-      longitudeDelta: REGION_INFO[selectedRegion].mapBounds.longitudeDelta,
+      longitudeDelta: REGION_INFO[selectedRegion].mapBounds.longitudeDelta
     }
   } else {
     console.warn(
@@ -65,7 +62,7 @@ const MapQuizScreen: React.FC = () => {
     const levelKeys = {
       1: 'quiz.question.difficulty.easy',
       2: 'quiz.question.difficulty.medium',
-      3: 'quiz.question.difficulty.hard',
+      3: 'quiz.question.difficulty.hard'
     }
     const key = levelKeys[level as keyof typeof levelKeys]
     return key ? intl.formatMessage({ id: key }) : `Level ${level}`
@@ -130,7 +127,7 @@ const MapQuizScreen: React.FC = () => {
           intl.formatMessage({ id: 'common.label.error', defaultMessage: 'Error' }),
           intl.formatMessage({
             id: 'quiz.error.countryNotDetected',
-            defaultMessage: 'Could not detect country at this location',
+            defaultMessage: 'Could not detect country at this location'
           })
         )
       }
@@ -140,7 +137,7 @@ const MapQuizScreen: React.FC = () => {
         intl.formatMessage({ id: 'common.label.error', defaultMessage: 'Error' }),
         intl.formatMessage({
           id: 'quiz.error.countryNotDetected',
-          defaultMessage: 'Could not detect country at this location',
+          defaultMessage: 'Could not detect country at this location'
         })
       )
     } finally {
@@ -278,29 +275,29 @@ const MapQuizScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   questionTextColor: {
-    color: '#333',
+    color: '#333'
   },
   map: {
-    flex: 1,
+    flex: 1
   },
   submitButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   nextButton: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default MapQuizScreen

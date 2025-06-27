@@ -373,7 +373,7 @@ function getFlagAssetPath(countryCode: string): ImageSourcePropType {
     yt: require('../data/flags/yt.png'),
     za: require('../data/flags/za.png'),
     zm: require('../data/flags/zm.png'),
-    zw: require('../data/flags/zw.png'),
+    zw: require('../data/flags/zw.png')
   }
 
   const asset = flagAssets[normalizedCode]
@@ -468,7 +468,7 @@ export function getFlagAssetCacheStats() {
   return {
     cachedAssets,
     cachedMappings,
-    totalMemoryEntries: cachedAssets + cachedMappings,
+    totalMemoryEntries: cachedAssets + cachedMappings
   }
 }
 
@@ -490,7 +490,7 @@ export function preloadCommonFlags(): void {
     'India',
     'Russia',
     'Italy',
-    'Spain',
+    'Spain'
   ]
 
   console.log('🔄 Preloading common flag assets...')

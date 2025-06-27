@@ -1,6 +1,7 @@
 import { ViewStyle, TextStyle, ImageStyle } from 'react-native'
+
 import { Theme, DarkTheme, ThemeMode, PALLETS } from './constants'
-import { layout, getResponsiveSize } from './layout'
+import { layout } from './layout'
 
 // Get theme based on mode
 export const getTheme = (mode: ThemeMode = 'light') => {
@@ -76,7 +77,7 @@ export const createSpacing = (top?: number, right?: number, bottom?: number, lef
     paddingTop: top !== undefined ? spacing.xs * top : undefined,
     paddingRight: right !== undefined ? spacing.xs * right : undefined,
     paddingBottom: bottom !== undefined ? spacing.xs * bottom : undefined,
-    paddingLeft: left !== undefined ? spacing.xs * left : undefined,
+    paddingLeft: left !== undefined ? spacing.xs * left : undefined
   }
 }
 
@@ -87,7 +88,7 @@ export const createMargin = (top?: number, right?: number, bottom?: number, left
     marginTop: top !== undefined ? spacing.xs * top : undefined,
     marginRight: right !== undefined ? spacing.xs * right : undefined,
     marginBottom: bottom !== undefined ? spacing.xs * bottom : undefined,
-    marginLeft: left !== undefined ? spacing.xs * left : undefined,
+    marginLeft: left !== undefined ? spacing.xs * left : undefined
   }
 }
 
@@ -103,7 +104,7 @@ export const createShadow = (
   shadowOffset: offset,
   shadowOpacity: opacity,
   shadowRadius: radius,
-  elevation: elevation,
+  elevation: elevation
 })
 
 // Platform-specific utilities
@@ -150,17 +151,17 @@ export const createTransition = (
   duration: number = 300,
   easing: string = 'ease-in-out'
 ) => ({
-  transition: `${property} ${duration}ms ${easing}`,
+  transition: `${property} ${duration}ms ${easing}`
 })
 
 // Layout utilities
 export const centerContent: ViewStyle = {
   justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'center'
 }
 
 export const fillContainer: ViewStyle = {
-  flex: 1,
+  flex: 1
 }
 
 export const absoluteFill: ViewStyle = {
@@ -168,51 +169,51 @@ export const absoluteFill: ViewStyle = {
   top: 0,
   left: 0,
   right: 0,
-  bottom: 0,
+  bottom: 0
 }
 
 export const row: ViewStyle = {
-  flexDirection: 'row',
+  flexDirection: 'row'
 }
 
 export const column: ViewStyle = {
-  flexDirection: 'column',
+  flexDirection: 'column'
 }
 
 export const spaceBetween: ViewStyle = {
-  justifyContent: 'space-between',
+  justifyContent: 'space-between'
 }
 
 export const spaceAround: ViewStyle = {
-  justifyContent: 'space-around',
+  justifyContent: 'space-around'
 }
 
 export const spaceEvenly: ViewStyle = {
-  justifyContent: 'space-evenly',
+  justifyContent: 'space-evenly'
 }
 
 export const alignStart: ViewStyle = {
-  alignItems: 'flex-start',
+  alignItems: 'flex-start'
 }
 
 export const alignEnd: ViewStyle = {
-  alignItems: 'flex-end',
+  alignItems: 'flex-end'
 }
 
 export const alignCenter: ViewStyle = {
-  alignItems: 'center',
+  alignItems: 'center'
 }
 
 export const justifyStart: ViewStyle = {
-  justifyContent: 'flex-start',
+  justifyContent: 'flex-start'
 }
 
 export const justifyEnd: ViewStyle = {
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-end'
 }
 
 export const justifyCenter: ViewStyle = {
-  justifyContent: 'center',
+  justifyContent: 'center'
 }
 
 // Style composition utilities
@@ -252,7 +253,7 @@ export const withSafeArea = (style: ViewStyle): ViewStyle => ({
   ...style,
   paddingTop: (typeof style.paddingTop === 'number' ? style.paddingTop : 0) + layout.safeArea.top,
   paddingBottom:
-    (typeof style.paddingBottom === 'number' ? style.paddingBottom : 0) + layout.safeArea.bottom,
+    (typeof style.paddingBottom === 'number' ? style.paddingBottom : 0) + layout.safeArea.bottom
 })
 
 // Typography utilities
@@ -263,7 +264,7 @@ export const createTextShadow = (
 ): TextStyle => ({
   textShadowColor: color,
   textShadowOffset: offset,
-  textShadowRadius: radius,
+  textShadowRadius: radius
 })
 
 // Utility type for style functions

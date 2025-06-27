@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
+
 import { Text } from './Text'
 import { Box } from './Box'
 
@@ -23,7 +24,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
   backgroundColor = '#f0f0f0',
   showPercentage = true,
   textSize = 16,
-  textColor = '#333',
+  textColor = '#333'
 }) => {
   const radius = (size - strokeWidth) / 2
   const circumference = radius * 2 * Math.PI
@@ -68,8 +69,8 @@ const ProgressRing: React.FC<ProgressRingProps> = ({
 
 const styles = StyleSheet.create({
   svg: {
-    position: 'absolute',
-  },
+    position: 'absolute'
+  }
 })
 
 export default ProgressRing

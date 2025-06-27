@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Text } from './Text'
 import { Box } from './Box'
 
@@ -22,8 +23,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   backgroundColor = '#f0f0f0',
   showLabel = false,
   label = '',
-  showPercentage = false,
-  animated = true,
+  showPercentage = false
 }) => {
   const clampedPercentage = Math.max(0, Math.min(100, percentage))
 
@@ -47,7 +47,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         style={{
           width,
           height,
-          backgroundColor,
+          backgroundColor
         }}
       >
         <Box
@@ -56,7 +56,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             width: `${clampedPercentage}%`,
             height: '100%',
             backgroundColor: color,
-            minWidth: 2, // Ensure minimum visible progress
+            minWidth: 2 // Ensure minimum visible progress
           }}
         />
       </Box>

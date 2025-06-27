@@ -1,20 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
 import { QuizQuestion } from '../types/quiz'
-import { Region } from '../types/region'
-import {
-  RegionLevelProgress,
-  generateProgressKey,
-  createEmptyProgress,
-  updateProgressWithCountry,
-  isCountryLearned,
-  PROGRESS_KEYS
-} from '../types/progress'
+import { Region, CountryWithRegion } from '../types/region'
+import { updateProgressWithCountry, isCountryLearned } from '../types/progress'
 
 import { getCountriesByRegionAndLevel } from './countryService'
 import { getFlagAssetByName } from './flagAssetService'
-
-const PROGRESS_KEY_PREFIX = '@quiz_progress_level_'
+import { QuizRepository } from './quizRepository'
 
 interface Country {
   id: number
@@ -31,7 +21,7 @@ export const generateQuizQuestion = async (
 ): Promise<QuizQuestion> => {
   try {
     // Get countries filtered by both region and level
-    const countries = getCountriesByRegionAndLevel(region, level)
+    const countries = await getCountriesByRegionAndLevel(region, level)
 
     if (!countries || countries.length === 0) {
       // Provide more specific error messages
@@ -76,18 +66,18 @@ export const generateQuizQuestion = async (
 
     // Generate wrong answers from the same region and level to make it challenging
     const wrongAnswerCountries = availableCountries
-      .filter(country => country.name !== correctCountry.name)
+      .filter((country: CountryWithRegion) => country.name !== correctCountry.name)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
 
     // If we don't have enough wrong answers from the same level, fill with any countries from same region
     if (wrongAnswerCountries.length < 3) {
-      const allRegionCountries = getCountriesByRegionAndLevel(region)
+      const allRegionCountries = await getCountriesByRegionAndLevel(region)
       const additionalWrongAnswers = allRegionCountries
         .filter(
-          country =>
+          (country: CountryWithRegion) =>
             country.name !== correctCountry.name &&
-            !wrongAnswerCountries.some(wac => wac.name === country.name) &&
+            !wrongAnswerCountries.some((wac: CountryWithRegion) => wac.name === country.name) &&
             !usedFlags.includes(country.id.toString()) &&
             !learnedCountryIds.includes(country.id)
         )
@@ -99,12 +89,11 @@ export const generateQuizQuestion = async (
 
     // If still not enough, fall back to any available countries from world region
     if (wrongAnswerCountries.length < 3) {
-      const allAvailableCountries = getCountriesByRegionAndLevel(Region.WORLD)
-      const fallbackWrongAnswers = allAvailableCountries
-        .filter(
-          country =>
+      const allAvailableCountries = await getCountriesByRegionAndLevel(Region.WORLD)
+      const fallbackWrongAnswers = allAvailableCountries.filter(
+          (country: CountryWithRegion) =>
             country.name !== correctCountry.name &&
-            !wrongAnswerCountries.some(wac => wac.name === country.name) &&
+            !wrongAnswerCountries.some((wac: CountryWithRegion) => wac.name === country.name) &&
             !usedFlags.includes(country.id.toString()) &&
             !learnedCountryIds.includes(country.id)
         )
@@ -156,183 +145,94 @@ export const generateQuizQuestion = async (
 }
 
 export const saveQuizProgress = async (level: number, score: number): Promise<void> => {
-  try {
-    const currentProgress = await getQuizProgress(level)
-    const newProgress = Math.max(currentProgress, score)
-    await AsyncStorage.setItem(`${PROGRESS_KEY_PREFIX}${level}`, newProgress.toString())
-  } catch (error) {
-    console.error('Error saving quiz progress:', error)
-  }
+  await QuizRepository.saveQuizProgress(level, score)
 }
 
 export const getQuizProgress = async (level: number): Promise<number> => {
-  try {
-    const progress = await AsyncStorage.getItem(`${PROGRESS_KEY_PREFIX}${level}`)
-    return progress ? parseInt(progress, 10) : 0
-  } catch (error) {
-    console.error('Error getting quiz progress:', error)
-    return 0
-  }
+  return QuizRepository.getQuizProgress(level)
 }
-
-// New progress tracking functions for learned countries per region/level
 
 /**
  * Get the progress data for a specific region and level
  */
-export const getRegionLevelProgress = async (
-  region: Region,
-  level: number
-): Promise<RegionLevelProgress> => {
-  try {
-    const key = generateProgressKey(region, level)
-    const storedData = await AsyncStorage.getItem(key)
-
-    if (storedData) {
-      return JSON.parse(storedData) as RegionLevelProgress
-    }
-
-    // If no data exists, create empty progress with total country count
-    const countries = getCountriesByRegionAndLevel(region, level)
-    const totalCountries = countries.length
-    return createEmptyProgress(totalCountries)
-  } catch (error) {
-    console.error('Error getting region level progress:', error)
-    // Return empty progress as fallback - use 0 as totalCountries if countries data isn't loaded
-    const countries = getCountriesByRegionAndLevel(region, level)
-    return createEmptyProgress(countries.length || 0)
-  }
+export const getRegionLevelProgress = async (region: Region, level: number) => {
+  return QuizRepository.getRegionLevelProgress(region, level)
 }
 
 /**
  * Save progress data for a specific region and level
  */
-export const saveRegionLevelProgress = async (
-  region: Region,
-  level: number,
-  progress: RegionLevelProgress
-): Promise<void> => {
-  try {
-    const key = generateProgressKey(region, level)
-    await AsyncStorage.setItem(key, JSON.stringify(progress))
-  } catch (error) {
-    console.error('Error saving region level progress:', error)
-  }
+export const saveRegionLevelProgress = async (region: Region, level: number, progress: any) => {
+  await QuizRepository.saveRegionLevelProgress(region, level, progress)
 }
 
 /**
  * Record that a country has been learned (answered correctly)
  * This should be called when a user correctly answers a quiz question
  */
-export const recordLearnedCountry = async (
-  region: Region,
-  level: number,
-  countryId: number
-): Promise<RegionLevelProgress> => {
-  try {
-    // Get current progress
-    const currentProgress = await getRegionLevelProgress(region, level)
-
-    // Update progress with the new learned country
-    const updatedProgress = updateProgressWithCountry(currentProgress, countryId)
-
-    // Save the updated progress
-    await saveRegionLevelProgress(region, level, updatedProgress)
-
-    return updatedProgress
-  } catch (error) {
-    console.error('Error recording learned country:', error)
-    // Return current progress on error
-    return await getRegionLevelProgress(region, level)
-  }
+export const recordLearnedCountry = async (region: Region, level: number, countryId: number) => {
+  const currentProgress = await QuizRepository.getRegionLevelProgress(region, level)
+  const updatedProgress = updateProgressWithCountry(currentProgress, countryId)
+  await QuizRepository.saveRegionLevelProgress(region, level, updatedProgress)
+  return updatedProgress
 }
 
 /**
  * Check if a specific country has been learned in a region/level
  */
-export const hasLearnedCountry = async (
-  region: Region,
-  level: number,
-  countryId: number
-): Promise<boolean> => {
-  try {
-    const progress = await getRegionLevelProgress(region, level)
-    return isCountryLearned(progress, countryId)
-  } catch (error) {
-    console.error('Error checking if country is learned:', error)
-    return false
-  }
+export const hasLearnedCountry = async (region: Region, level: number, countryId: number) => {
+  const progress = await QuizRepository.getRegionLevelProgress(region, level)
+  return isCountryLearned(progress, countryId)
 }
 
 /**
  * Get progress data for all region/level combinations that have been started
  */
-export const getAllRegionProgress = async (): Promise<Record<string, RegionLevelProgress>> => {
-  try {
-    const allKeys = await AsyncStorage.getAllKeys()
-    const progressKeys = allKeys.filter(key => key.startsWith(PROGRESS_KEYS.REGION_PROGRESS))
-
-    const progressData: Record<string, RegionLevelProgress> = {}
-
-    for (const key of progressKeys) {
-      const storedData = await AsyncStorage.getItem(key)
-      if (storedData) {
-        // Remove the prefix to get the region_level identifier
-        const identifier = key.replace(PROGRESS_KEYS.REGION_PROGRESS, '')
-        progressData[identifier] = JSON.parse(storedData)
-      }
-    }
-
-    return progressData
-  } catch (error) {
-    console.error('Error getting all region progress:', error)
-    return {}
-  }
+export const getAllRegionProgress = async () => {
+  return QuizRepository.getAllRegionProgress()
 }
 
 /**
  * Reset progress for a specific region and level
  */
-export const resetRegionLevelProgress = async (region: Region, level: number): Promise<void> => {
-  try {
-    const countries = getCountriesByRegionAndLevel(region, level)
-    const emptyProgress = createEmptyProgress(countries.length || 0)
-    await saveRegionLevelProgress(region, level, emptyProgress)
-  } catch (error) {
-    console.error('Error resetting region level progress:', error)
+export const resetRegionLevelProgress = async (region: Region, level: number) => {
+  const countries = await getCountriesByRegionAndLevel(region, level)
+  const emptyProgress = {
+    learnedCountries: [],
+    totalCountries: countries.length || 0,
+    completionPercentage: 0,
+    lastUpdated: new Date().toISOString()
   }
+  await QuizRepository.saveRegionLevelProgress(region, level, emptyProgress)
 }
 
 /**
  * Get aggregated progress data for a region across all levels
  */
-export const getRegionProgress = async (region: Region): Promise<RegionLevelProgress> => {
-  try {
-    let allLearnedCountries: number[] = []
-    let totalCountries = 0
+export const getRegionProgress = async (region: Region) => {
+  let allLearnedCountries: number[] = []
+  let totalCountries = 0
 
-    // Aggregate progress across all levels (1, 2, 3)
-    for (let level = 1; level <= 3; level++) {
-      const levelProgress = await getRegionLevelProgress(region, level)
-      allLearnedCountries = [...allLearnedCountries, ...levelProgress.learnedCountries]
-      totalCountries += levelProgress.totalCountries
-    }
+  const progressPromises = [];
+  for (let level = 1; level <= 3; level++) {
+    progressPromises.push(QuizRepository.getRegionLevelProgress(region, level));
+  }
+  const allLevelProgress = await Promise.all(progressPromises);
 
-    // Remove duplicates in case a country appears in multiple levels (shouldn't happen but safety check)
-    const uniqueLearnedCountries = [...new Set(allLearnedCountries)]
-    const completionPercentage =
-      totalCountries > 0 ? (uniqueLearnedCountries.length / totalCountries) * 100 : 0
+  allLevelProgress.forEach(levelProgress => {
+    allLearnedCountries = [...allLearnedCountries, ...levelProgress.learnedCountries];
+    totalCountries += levelProgress.totalCountries;
+  });
 
-    return {
-      learnedCountries: uniqueLearnedCountries,
-      totalCountries,
-      completionPercentage,
-      lastUpdated: new Date().toISOString()
-    }
-  } catch (error) {
-    console.error('Error getting region progress:', error)
-    // Return empty progress as fallback
-    return createEmptyProgress(0)
+  const uniqueLearnedCountries = [...new Set(allLearnedCountries)]
+  const completionPercentage =
+    totalCountries > 0 ? (uniqueLearnedCountries.length / totalCountries) * 100 : 0
+
+  return {
+    learnedCountries: uniqueLearnedCountries,
+    totalCountries,
+    completionPercentage,
+    lastUpdated: new Date().toISOString()
   }
 }
 
@@ -343,31 +243,18 @@ export const isLevelCompleted = async (
   region: Region,
   level: number,
   completionThreshold: number = 80
-): Promise<boolean> => {
-  try {
-    const progress = await getRegionLevelProgress(region, level)
-    return progress.completionPercentage >= completionThreshold
-  } catch (error) {
-    console.error('Error checking level completion:', error)
-    return false
-  }
+) => {
+  const progress = await QuizRepository.getRegionLevelProgress(region, level)
+  return progress.completionPercentage >= completionThreshold
 }
 
 /**
  * Check if a level is unlocked (previous level must be completed)
  */
-export const isLevelUnlocked = async (region: Region, level: number): Promise<boolean> => {
-  try {
-    // Level 1 (Easy) is always unlocked
-    if (level <= 1) return true
-
-    // Check if previous level is completed
-    const previousLevelCompleted = await isLevelCompleted(region, level - 1)
-    return previousLevelCompleted
-  } catch (error) {
-    console.error('Error checking level unlock status:', error)
-    return level <= 1 // Default to unlocking only level 1 on error
-  }
+export const isLevelUnlocked = async (region: Region, level: number) => {
+  if (level <= 1) return true
+  const previousLevelCompleted = await isLevelCompleted(region, level - 1)
+  return previousLevelCompleted
 }
 
 /**
@@ -379,43 +266,26 @@ export const getNextQuizLevel = async (
   questionsAnsweredAtLevel: number,
   minQuestionsPerLevel: number = 3
 ): Promise<number> => {
-  try {
-    // If we haven't answered enough questions at current level, stay at current level
-    if (questionsAnsweredAtLevel < minQuestionsPerLevel) {
-      return currentLevel
-    }
-
-    // Check if current level is completed and next level is unlocked
-    const currentLevelCompleted = await isLevelCompleted(region, currentLevel)
-    const nextLevel = currentLevel + 1
-
-    // If current level is completed and we haven't reached max level (3), progress
-    if (currentLevelCompleted && nextLevel <= 3) {
-      const nextLevelUnlocked = await isLevelUnlocked(region, nextLevel)
-      if (nextLevelUnlocked) {
-        return nextLevel
-      }
-    }
-
-    return currentLevel
-  } catch (error) {
-    console.error('Error determining next quiz level:', error)
+  if (questionsAnsweredAtLevel < minQuestionsPerLevel) {
     return currentLevel
   }
+
+  const currentLevelCompleted = await isLevelCompleted(region, currentLevel)
+  const nextLevel = currentLevel + 1
+
+  if (currentLevelCompleted && nextLevel <= 3) {
+    const nextLevelUnlocked = await isLevelUnlocked(region, nextLevel)
+    if (nextLevelUnlocked) {
+      return nextLevel
+    }
+  }
+
+  return currentLevel
 }
 
 /**
  * Clear all progress data (both high scores and learned countries)
  */
 export const clearAllProgress = async (): Promise<void> => {
-  try {
-    const allKeys = await AsyncStorage.getAllKeys()
-    const progressKeys = allKeys.filter(
-      key => key.startsWith(PROGRESS_KEY_PREFIX) || key.startsWith(PROGRESS_KEYS.REGION_PROGRESS)
-    )
-
-    await AsyncStorage.multiRemove(progressKeys)
-  } catch (error) {
-    console.error('Error clearing all progress:', error)
-  }
+  await QuizRepository.clearAllProgress()
 }

@@ -36,7 +36,7 @@ let cache: CachedData = {
   countries: [],
   isLoaded: false,
   loadError: null,
-  loadedAt: null,
+  loadedAt: null
 }
 
 /**
@@ -99,7 +99,7 @@ export function loadBundledCountryData(): Promise<CountryWithRegion[]> {
         area: country.area,
         capital: country.capital,
         apiRegion: country.apiRegion,
-        subregion: country.subregion,
+        subregion: country.subregion
       }))
 
       // Validate each country has required fields
@@ -119,7 +119,7 @@ export function loadBundledCountryData(): Promise<CountryWithRegion[]> {
         countries: transformedCountries,
         isLoaded: true,
         loadError: null,
-        loadedAt: new Date(),
+        loadedAt: new Date()
       }
 
       console.log(
@@ -287,7 +287,7 @@ export function getBundledDataStatus() {
       loadedAt: cache.loadedAt,
       totalCountries: cache.countries.length,
       version: countriesData.version,
-      generatedAt: countriesData.generatedAt,
+      generatedAt: countriesData.generatedAt
     }
   } catch (error) {
     return {
@@ -296,7 +296,7 @@ export function getBundledDataStatus() {
       loadedAt: cache.loadedAt,
       totalCountries: cache.countries.length,
       version: 'unknown',
-      generatedAt: 'unknown',
+      generatedAt: 'unknown'
     }
   }
 }
@@ -312,7 +312,7 @@ export function reloadBundledData(): Promise<CountryWithRegion[]> {
     countries: [],
     isLoaded: false,
     loadError: null,
-    loadedAt: null,
+    loadedAt: null
   }
 
   return loadBundledCountryData()
@@ -327,7 +327,7 @@ export function getBundledDataStats() {
     return {
       total: 0,
       byRegion: {},
-      byLevel: {},
+      byLevel: {}
     }
   }
 
@@ -342,6 +342,6 @@ export function getBundledDataStats() {
   return {
     total: countries.length,
     byRegion,
-    byLevel,
+    byLevel
   }
 }

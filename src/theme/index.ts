@@ -11,7 +11,7 @@ export {
   type ShadowType,
   type ThemeMode,
   type ThemeModeConfig,
-  type ThemeSource,
+  type ThemeSource
 } from './constants'
 
 // Import for internal use
@@ -27,7 +27,7 @@ export {
   type FontSize,
   type LineHeight,
   type LetterSpacing,
-  type TextVariant,
+  type TextVariant
 } from './typography'
 
 // Layout system
@@ -45,7 +45,7 @@ export {
   type IconSize,
   type Duration,
   type Easing,
-  type ZIndex,
+  type ZIndex
 } from './layout'
 
 // Component variants
@@ -67,7 +67,7 @@ export {
   type ChipSize,
   type ChipStyle,
   type LoadingSize,
-  type LoadingColor,
+  type LoadingColor
 } from './variants'
 
 // Utility functions
@@ -107,7 +107,7 @@ export {
   withSafeArea,
   createTextShadow,
   applyTheme,
-  type StyleFunction,
+  type StyleFunction
 } from './utils'
 
 // Theme context and hooks
@@ -118,7 +118,7 @@ export {
   withTheme,
   useResponsiveValue,
   useSystemTheme,
-  useStatusBarStyle,
+  useStatusBarStyle
 } from './context'
 
 // Re-export default theme for convenience
@@ -143,7 +143,7 @@ export const commonStyles = {
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: 0
   },
 
   // Text alignment
@@ -166,5 +166,5 @@ export const commonStyles = {
   // Common shadows
   shadowLight: Theme.shadow.light,
   shadowDefault: Theme.shadow.default,
-  shadowDark: Theme.shadow.dark,
+  shadowDark: Theme.shadow.dark
 } as const

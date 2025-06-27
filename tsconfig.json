@@ -16,5 +16,6 @@
       "stores/*": ["src/stores/*"],
       "theme/*": ["src/theme/*"]
     }
-  }
+  },
+  "exclude": ["__tests__"]
 }

@@ -81,7 +81,7 @@ export const TERRITORIES = [
   'Antarctica',
 
   // Other Dependencies and Special Cases
-  'Western Sahara', // Disputed territory
+  'Western Sahara' // Disputed territory
 ]
 
 /**

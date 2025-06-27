@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { StyleSheet } from 'react-native'
-import { Region, REGION_INFO } from '../types/region'
-import ProgressRing from './ProgressRing'
 import { getRegionProgress } from 'services/quizService'
 import { getRegionDescription } from 'utils/regionUtils'
+
+import { Region, REGION_INFO } from '../types/region'
+
+import ProgressRing from './ProgressRing'
 import { Text } from './Text'
 import { Box } from './Box'
 import { Button } from './Button'
@@ -19,11 +21,7 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
   const [learned, setLearned] = React.useState<number>(0)
   const [total, setTotal] = React.useState<number>(0)
 
-  React.useEffect(() => {
-    loadProgress()
-  }, [region])
-
-  const loadProgress = async () => {
+  const loadProgress = useCallback(async () => {
     try {
       // Load overall progress for the region across all levels
       const progressData = await getRegionProgress(region)
@@ -34,7 +32,11 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
     } catch (error) {
       console.error('Error loading progress for region:', region, error)
     }
-  }
+  }, [region])
+
+  React.useEffect(() => {
+    loadProgress()
+  }, [loadProgress])
 
   const getProgressColor = (percentage: number): string => {
     if (percentage === 100) return '#4CAF50' // Green for complete
@@ -51,7 +53,7 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
       paddingHorizontal="m"
       fullWidth
     >
-      <Box row spaceBetween centerItems>
+      <Box row flex style={styles.optionContainer}>
         <Box flex alignStart>
           <Text
             variant="h6"
@@ -105,24 +107,28 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
 const styles = StyleSheet.create({
   optionButton: {
     borderRadius: 12,
-    marginBottom: 12,
-    alignItems: 'stretch',
+    marginBottom: 12
   },
   selectedOption: {
     // Additional selected styles if needed
   },
   optionName: {
-    marginBottom: 2,
+    marginBottom: 2
   },
   optionDescription: {
-    marginBottom: 2,
+    marginBottom: 2
   },
   progressText: {
-    marginTop: 2,
+    marginTop: 2
   },
   progressPercentage: {
-    marginTop: 2,
+    marginTop: 2
   },
+  optionContainer: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'space-between'
+  }
 })
 
 export default RegionOption

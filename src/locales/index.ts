@@ -14,7 +14,7 @@ export const TRANSLATION_CATEGORIES = {
   QUIZ: 'quiz',
   LEARNING: 'learning',
   CHALLENGE: 'challenge',
-  SETTINGS: 'settings',
+  SETTINGS: 'settings'
 } as const
 
 export type TranslationCategory =
@@ -54,7 +54,7 @@ export const getLocaleFilePaths = (
     [TRANSLATION_CATEGORIES.SETTINGS]: getTranslationFilePath(
       locale,
       TRANSLATION_CATEGORIES.SETTINGS
-    ),
+    )
   }
 }
 
@@ -82,26 +82,26 @@ export const TRANSLATION_TEMPLATE = {
       next: '',
       back: '',
       done: '',
-      retry: '',
+      retry: ''
     },
     label: {
       score: '',
       progress: '',
       loading: '',
-      error: '',
+      error: ''
     },
     message: {
       welcome: '',
       success: '',
       error: '',
-      noData: '',
-    },
+      noData: ''
+    }
   },
   [TRANSLATION_CATEGORIES.NAVIGATION]: {
     tab: {
       quiz: '',
       learning: '',
-      challenge: '',
+      challenge: ''
     },
     screen: {
       title: {
@@ -111,28 +111,28 @@ export const TRANSLATION_TEMPLATE = {
         flagQuiz: '',
         learning: '',
         challenge: '',
-        leaderboard: '',
-      },
-    },
+        leaderboard: ''
+      }
+    }
   },
   [TRANSLATION_CATEGORIES.QUIZ]: {
     instruction: {
       selectCountry: '',
       chooseFlag: '',
       correctAnswer: '',
-      wrongAnswer: '',
+      wrongAnswer: ''
     },
     feedback: {
       correct: '',
       incorrect: '',
       gameOver: '',
-      completed: '',
+      completed: ''
     },
     score: {
       current: '',
       final: '',
-      best: '',
-    },
+      best: ''
+    }
   },
   [TRANSLATION_CATEGORIES.LEARNING]: {
     country: {
@@ -140,43 +140,43 @@ export const TRANSLATION_TEMPLATE = {
       population: '',
       language: '',
       currency: '',
-      region: '',
+      region: ''
     },
     info: {
       geography: '',
       culture: '',
       history: '',
-      facts: '',
-    },
+      facts: ''
+    }
   },
   [TRANSLATION_CATEGORIES.CHALLENGE]: {
     mode: {
       title: '',
       description: '',
-      rules: '',
+      rules: ''
     },
     progress: {
       question: '',
       remaining: '',
-      streak: '',
-    },
+      streak: ''
+    }
   },
   [TRANSLATION_CATEGORIES.SETTINGS]: {
     title: '',
     language: {
       title: '',
       description: '',
-      loading: '',
+      loading: ''
     },
     purchasePro: {
       title: '',
-      description: '',
+      description: ''
     },
     about: {
       title: '',
-      description: '',
-    },
-  },
+      description: ''
+    }
+  }
 } as const
 
 // Re-export loader utilities
@@ -184,5 +184,5 @@ export {
   loadLocaleMessages,
   loadCategoryMessages,
   getAvailableLocales,
-  validateTranslations,
+  validateTranslations
 } from './loader'

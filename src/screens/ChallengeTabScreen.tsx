@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useCountries } from 'hooks/useCountries'
-import {
-  getChallengeStats,
-  getChallengeHistory,
-  formatTime,
-  getScoreDescription,
-  ChallengeStats,
-  ChallengeScore
-} from 'services/challengeScoringService'
+import { useChallengeData } from 'hooks/useChallengeData'
+import { formatTime, getScoreDescription } from 'services/challengeScoringService'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
@@ -24,30 +18,8 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const ChallengeTabScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>()
-  const { isLoading } = useCountries()
-  const [stats, setStats] = useState<ChallengeStats | null>(null)
-  const [history, setHistory] = useState<ChallengeScore[]>([])
-  const [loadingStats, setLoadingStats] = useState(true)
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  const loadData = async () => {
-    try {
-      setLoadingStats(true)
-      const [challengeStats, challengeHistory] = await Promise.all([
-        getChallengeStats(),
-        getChallengeHistory()
-      ])
-      setStats(challengeStats)
-      setHistory(challengeHistory)
-    } catch (error) {
-      console.error('Error loading challenge data:', error)
-    } finally {
-      setLoadingStats(false)
-    }
-  }
+  const { isLoading: isLoadingCountries } = useCountries()
+  const { stats, history, loading: loadingStats } = useChallengeData()
 
   const renderBestScore = () => {
     if (!stats?.bestScore) {
@@ -144,13 +116,13 @@ const ChallengeTabScreen: React.FC = () => {
           <Button
             style={[styles.button]}
             onPress={() => navigation.navigate('ChallengeQuiz')}
-            disabled={isLoading}
+            disabled={isLoadingCountries}
             fullWidth
             shadow="default"
             backgroundColor={Theme.colors.blue}
           >
             <Box>
-              {isLoading ? (
+              {isLoadingCountries ? (
                 <ActivityIndicator color="#fff" />
               ) : (
                 <>

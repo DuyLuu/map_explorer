@@ -13,7 +13,7 @@ export const borderRadius = {
   xl: 16,
   '2xl': 20,
   '3xl': 24,
-  full: 9999,
+  full: 9999
 } as const
 
 // Icon sizes
@@ -26,7 +26,7 @@ export const iconSizes = {
   xl: 32,
   '2xl': 40,
   '3xl': 48,
-  '4xl': 64,
+  '4xl': 64
 } as const
 
 // Common layout dimensions
@@ -34,20 +34,20 @@ export const layout = {
   // Screen dimensions
   screen: {
     width: screenWidth,
-    height: screenHeight,
+    height: screenHeight
   },
 
   // Header heights
   header: {
     default: 56,
     large: 80,
-    small: 44,
+    small: 44
   },
 
   // Tab bar
   tabBar: {
     height: 60,
-    iconSize: iconSizes.md,
+    iconSize: iconSizes.md
   },
 
   // Button heights
@@ -55,41 +55,41 @@ export const layout = {
     small: 32,
     medium: 40,
     large: 48,
-    extraLarge: 56,
+    extraLarge: 56
   },
 
   // Input heights
   input: {
     small: 36,
     medium: 44,
-    large: 52,
+    large: 52
   },
 
   // Card dimensions
   card: {
     minHeight: 80,
     borderRadius: borderRadius.lg,
-    padding: 16,
+    padding: 16
   },
 
   // Modal dimensions
   modal: {
     maxWidth: screenWidth * 0.9,
     borderRadius: borderRadius.xl,
-    padding: 24,
+    padding: 24
   },
 
   // Bottom sheet
   bottomSheet: {
     borderRadius: borderRadius['2xl'],
     handleWidth: 36,
-    handleHeight: 4,
+    handleHeight: 4
   },
 
   // List item
   listItem: {
     height: 56,
-    padding: 16,
+    padding: 16
   },
 
   // Avatar sizes
@@ -100,7 +100,7 @@ export const layout = {
     md: 48,
     lg: 64,
     xl: 80,
-    '2xl': 96,
+    '2xl': 96
   },
 
   // Common widths and heights
@@ -108,13 +108,13 @@ export const layout = {
     top: 10,
     bottom: 10,
     left: 10,
-    right: 10,
+    right: 10
   },
 
   // Safe area padding
   safeArea: {
     top: 44, // iOS status bar height
-    bottom: 34, // iOS home indicator height
+    bottom: 34 // iOS home indicator height
   },
 
   // Container max widths
@@ -122,8 +122,8 @@ export const layout = {
     sm: 640,
     md: 768,
     lg: 1024,
-    xl: 1280,
-  },
+    xl: 1280
+  }
 } as const
 
 // Z-index values for layering
@@ -139,7 +139,7 @@ export const zIndex = {
   popover: 1500,
   skipLink: 1600,
   toast: 1700,
-  tooltip: 1800,
+  tooltip: 1800
 } as const
 
 // Animation durations
@@ -148,7 +148,7 @@ export const duration = {
   fast: 200,
   normal: 300,
   slow: 500,
-  slowest: 800,
+  slowest: 800
 } as const
 
 // Animation easing curves
@@ -160,7 +160,7 @@ export const easing = {
   easeInOut: [0.42, 0, 0.58, 1] as const,
   // Custom easing for smooth animations
   smooth: [0.4, 0, 0.2, 1] as const,
-  spring: [0.68, -0.55, 0.265, 1.55] as const,
+  spring: [0.68, -0.55, 0.265, 1.55] as const
 } as const
 
 // Utility types

@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+
 import { Region, CountryWithRegion } from '../types/region'
 
 interface Country {
@@ -30,7 +31,7 @@ export const useCountryStore = create<CountryStore>(set => ({
   selectedLevel: 1, // default to easy level
   setSelectedLevel: level => set({ selectedLevel: level }),
   selectedRegion: Region.WORLD, // default to world region
-  setSelectedRegion: region => set({ selectedRegion: region }),
+  setSelectedRegion: region => set({ selectedRegion: region })
 }))
 
 // Backward compatibility export

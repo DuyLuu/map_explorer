@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import { ColorValue, TextStyle } from 'react-native'
-import { useTheme, iconSizes } from '../../theme'
 import createIconSet from '@react-native-vector-icons/icomoon'
+
+import { useTheme, iconSizes } from '../../theme'
 
 import { IconProps } from './Icon.d'
 import icoMoonConfig from './assets/selection.json'

@@ -85,46 +85,46 @@ const CountryHeader: React.FC<CountryHeaderProps> = ({ country }) => {
 const styles = StyleSheet.create({
   flagImage: {
     width: '100%',
-    height: '100%',
+    height: '100%'
   },
   flagPlaceholderText: {
-    fontSize: 24,
+    fontSize: 24
   },
   countryName: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 4,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   countryRegion: {
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 16
   },
   infoLabel: {
     fontSize: 16,
     color: '#666',
     marginRight: 8,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   infoValue: {
     fontSize: 16,
     color: '#333',
-    fontWeight: '600',
+    fontWeight: '600'
   },
   statLabel: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 4,
+    marginBottom: 4
   },
   statValue: {
     fontSize: 16,
     color: '#333',
     fontWeight: '600',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })
 
 export default CountryHeader

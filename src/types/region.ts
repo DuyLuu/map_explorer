@@ -6,7 +6,7 @@ export enum Region {
   SOUTH_AMERICA = 'south_america',
   AFRICA = 'africa',
   OCEANIA = 'oceania',
-  TERRITORIES = 'territories',
+  TERRITORIES = 'territories'
 }
 
 export interface RegionInfo {
@@ -47,8 +47,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 20,
       longitude: 0,
       latitudeDelta: 100,
-      longitudeDelta: 180,
-    },
+      longitudeDelta: 180
+    }
   },
   [Region.EUROPE]: {
     id: Region.EUROPE,
@@ -58,8 +58,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 54,
       longitude: 15,
       latitudeDelta: 25,
-      longitudeDelta: 35,
-    },
+      longitudeDelta: 35
+    }
   },
   [Region.ASIA]: {
     id: Region.ASIA,
@@ -69,8 +69,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 35,
       longitude: 100,
       latitudeDelta: 50,
-      longitudeDelta: 80,
-    },
+      longitudeDelta: 80
+    }
   },
   [Region.NORTH_AMERICA]: {
     id: Region.NORTH_AMERICA,
@@ -80,8 +80,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 45,
       longitude: -100,
       latitudeDelta: 40,
-      longitudeDelta: 60,
-    },
+      longitudeDelta: 60
+    }
   },
   [Region.SOUTH_AMERICA]: {
     id: Region.SOUTH_AMERICA,
@@ -91,8 +91,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: -15,
       longitude: -60,
       latitudeDelta: 50,
-      longitudeDelta: 40,
-    },
+      longitudeDelta: 40
+    }
   },
   [Region.AFRICA]: {
     id: Region.AFRICA,
@@ -102,8 +102,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 0,
       longitude: 20,
       latitudeDelta: 60,
-      longitudeDelta: 50,
-    },
+      longitudeDelta: 50
+    }
   },
   [Region.OCEANIA]: {
     id: Region.OCEANIA,
@@ -113,8 +113,8 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: -25,
       longitude: 140,
       latitudeDelta: 40,
-      longitudeDelta: 60,
-    },
+      longitudeDelta: 60
+    }
   },
   [Region.TERRITORIES]: {
     id: Region.TERRITORIES,
@@ -124,7 +124,7 @@ export const REGION_INFO: Record<Region, RegionInfo> = {
       latitude: 20,
       longitude: 0,
       latitudeDelta: 100,
-      longitudeDelta: 180,
-    },
-  },
+      longitudeDelta: 180
+    }
+  }
 }

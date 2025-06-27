@@ -46,9 +46,9 @@ const QuizTabScreen: React.FC = () => {
             center
           >
             {!isLoading && (
-              <Box row center flex>
+              <Box row center>
                 <Image source={IMAGES.flag} style={styles.flagImage} resizeMode="contain" />
-                <Box flex marginLeft="m">
+                <Box marginLeft="m">
                   <Text variant="h6" weight="bold" color={Theme.colors.baseBlack}>
                     <FormattedMessage
                       id="navigation.screen.title.flagQuiz"
@@ -81,7 +81,7 @@ const QuizTabScreen: React.FC = () => {
               {!isLoading && (
                 <Box row center>
                   <Image source={IMAGES.map} style={styles.mapImage} resizeMode="stretch" />
-                  <Box flex marginLeft="s">
+                  <Box marginLeft="s">
                     <Text variant="h6" weight="bold" color={Theme.colors.baseBlack}>
                       <FormattedMessage
                         id="navigation.screen.title.mapQuiz"

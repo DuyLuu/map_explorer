@@ -20,7 +20,7 @@ const REGION_MAPPING = {
   Americas: 'north_america', // Will be refined based on subregion
   Asia: 'asia',
   Europe: 'europe',
-  Oceania: 'oceania',
+  Oceania: 'oceania'
 }
 
 // Level classification based on population, GDP, and recognition
@@ -80,7 +80,7 @@ const LEVEL_1_COUNTRIES = [
   'Pakistan',
   'Algeria',
   'Ecuador',
-  'Sri Lanka',
+  'Sri Lanka'
 ]
 
 const LEVEL_2_COUNTRIES = [
@@ -169,7 +169,7 @@ const LEVEL_2_COUNTRIES = [
   'Monaco',
   'San Marino',
   'Andorra',
-  'Vatican City',
+  'Vatican City'
 ]
 
 /**
@@ -196,16 +196,16 @@ function determineCountryLevel(country) {
 function mapRegion(apiRegion, subregion, countryName) {
   switch (apiRegion) {
     case 'Africa':
-      return 'africa'
+      return REGION_MAPPING.Africa
 
     case 'Asia':
-      return 'asia'
+      return REGION_MAPPING.Asia
 
     case 'Europe':
-      return 'europe'
+      return REGION_MAPPING.Europe
 
     case 'Oceania':
-      return 'oceania'
+      return REGION_MAPPING.Oceania
 
     case 'Americas':
       // Refine Americas based on subregion
@@ -270,7 +270,7 @@ function transformCountryData(countries) {
         area: country.area || 0,
         capital: country.capital?.[0] || 'N/A',
         apiRegion: country.region,
-        subregion: country.subregion,
+        subregion: country.subregion
       }
     })
     .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically
@@ -291,8 +291,8 @@ function fetchCountriesFromAPI() {
       path: url.pathname + url.search, // Include query parameters
       method: 'GET',
       headers: {
-        'User-Agent': 'World Explorer App/1.0.0',
-      },
+        'User-Agent': 'World Explorer App/1.0.0'
+      }
     }
 
     const req = https.request(options, res => {
@@ -340,7 +340,7 @@ function saveCountriesToFile(countries, metadata) {
     source: 'REST Countries API v3.1',
     lastUpdated: new Date().toISOString(),
     metadata: metadata,
-    countries: countries,
+    countries: countries
   }
 
   // Ensure the directory exists
@@ -368,7 +368,7 @@ function generateMetadata(countries) {
     byLevel: {
       level1: countries.filter(c => c.level === 1).length,
       level2: countries.filter(c => c.level === 2).length,
-      level3: countries.filter(c => c.level === 3).length,
+      level3: countries.filter(c => c.level === 3).length
     },
     byRegion: {},
     statistics: {
@@ -376,8 +376,8 @@ function generateMetadata(countries) {
       totalPopulation: 0,
       averageArea: 0,
       totalArea: 0,
-      countriesWithCapital: countries.filter(c => c.capital !== 'N/A').length,
-    },
+      countriesWithCapital: countries.filter(c => c.capital !== 'N/A').length
+    }
   }
 
   // Count by region
@@ -447,5 +447,5 @@ module.exports = {
   fetchCountriesFromAPI,
   transformCountryData,
   saveCountriesToFile,
-  main,
+  main
 }

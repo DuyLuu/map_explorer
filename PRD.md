@@ -1,9 +1,11 @@
 # World Explorer - Product Requirements Document (PRD)
 
 ## 1. Product Overview
+
 World Explorer is an interactive mobile application designed to help students learn about countries and cities around the world through an engaging map-based interface. The application aims to make geography learning fun, interactive, and effective, optimized for mobile devices.
 
 ## 2. Target Users
+
 - Primary: Students aged 10-18
 - Secondary: Geography teachers and homeschooling parents
 - Tertiary: General users interested in learning about world geography
@@ -11,13 +13,16 @@ World Explorer is an interactive mobile application designed to help students le
 ## 3. Core Features
 
 ### 3.1 Interactive World Map
+
 - Interactive globe/map view with touch gestures (pinch-to-zoom, pan)
 - Color-coded regions for easy identification
 - Clickable countries and major cities
 - Basic animations for better user experience
 
 ### 3.2 Learning Modules
+
 - Country Profiles
+
   - Basic information (capital, population, languages)
   - Cultural facts
   - Historical highlights
@@ -31,7 +36,9 @@ World Explorer is an interactive mobile application designed to help students le
   - Historical importance
 
 ### 3.3 Learning Tools
+
 - Quiz System
+
   - Multiple choice questions
   - Map-based challenges
   - Basic difficulty levels (Beginner, Intermediate)
@@ -45,12 +52,14 @@ World Explorer is an interactive mobile application designed to help students le
 ## 4. User Experience
 
 ### 4.1 User Interface
+
 - Clean, native mobile design
 - Touch-optimized interactions
 - Responsive layout for different screen sizes
 - Basic accessibility support
 
 ### 4.2 User Flow
+
 1. User registration/login
 2. Basic tutorial
 3. Map exploration
@@ -61,18 +70,21 @@ World Explorer is an interactive mobile application designed to help students le
 ## 5. Technical Requirements
 
 ### 5.1 Mobile Application
+
 - React Native for cross-platform development
 - React Native Maps for interactive maps
 - Native UI components for better performance
 - Basic local storage for user data
 
 ### 5.2 Backend
+
 - Node.js/Express.js server
 - MongoDB for data storage
 - RESTful API architecture
 - Basic user authentication system
 
 ### 5.3 Data Requirements
+
 - Country and city databases
 - Geographic coordinates
 - Cultural and historical information
@@ -80,6 +92,7 @@ World Explorer is an interactive mobile application designed to help students le
 - User progress data
 
 ## 6. Success Metrics
+
 - User engagement metrics
   - Daily active users
   - Average session duration
@@ -90,6 +103,7 @@ World Explorer is an interactive mobile application designed to help students le
   - Progress tracking data
 
 ## 7. Future Enhancements
+
 - Multi-language support
 - Advanced quiz types
 - Social features
@@ -98,7 +112,9 @@ World Explorer is an interactive mobile application designed to help students le
 - Custom learning paths
 
 ## 8. Timeline and Milestones
+
 ### Phase 1 (MVP)
+
 - Basic map interface
 - Core country/city information
 - Simple quiz system
@@ -106,6 +122,7 @@ World Explorer is an interactive mobile application designed to help students le
 - Basic progress tracking
 
 ## 9. Constraints and Considerations
+
 - Data accuracy and verification
 - Performance optimization
 - Cross-platform consistency
@@ -113,8 +130,9 @@ World Explorer is an interactive mobile application designed to help students le
 - Content moderation
 
 ## 10. Risk Assessment
+
 - Data accuracy challenges
 - Technical implementation complexity
 - User adoption barriers
 - Content maintenance requirements
-- Basic security considerations 
+- Basic security considerations

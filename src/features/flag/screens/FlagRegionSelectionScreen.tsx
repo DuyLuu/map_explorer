@@ -30,7 +30,7 @@ const FlagRegionSelectionScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <Box row centerItems spaceBetween padding="m" style={styles.headerBorder}>
         <BackButton onBack={() => navigation.navigate('MainTabs')} />
-        <Box flex centerItems>
+        <Box centerItems>
           <Text variant="h3" weight="bold" style={styles.titleColor}>
             Flag Quiz
           </Text>

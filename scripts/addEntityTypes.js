@@ -89,7 +89,7 @@ const TERRITORIES = [
   'Antarctica',
 
   // Other Dependencies and Special Cases
-  'Western Sahara', // Disputed territory
+  'Western Sahara' // Disputed territory
 ]
 
 function isTerritory(name) {
@@ -117,7 +117,7 @@ function addEntityTypes() {
 
     return {
       ...country,
-      entityType,
+      entityType
     }
   })
 
@@ -126,8 +126,8 @@ function addEntityTypes() {
     ...countriesData.metadata,
     byEntityType: {
       countries: countryCount,
-      territories: territoryCount,
-    },
+      territories: territoryCount
+    }
   }
 
   // Update version

@@ -47,14 +47,14 @@ export const ExampleComponent = () => {
       style={{
         backgroundColor: theme.colors.background,
         padding: theme.spacing.m,
-        borderRadius: theme.borderRadius?.lg, // Using optional chaining for safety
+        borderRadius: theme.borderRadius?.lg // Using optional chaining for safety
       }}
     >
       <Text
         style={{
           ...textVariants.h2,
           color: theme.colors.mainText,
-          marginBottom: theme.spacing.sm,
+          marginBottom: theme.spacing.sm
         }}
       >
         Hello World!
@@ -63,7 +63,7 @@ export const ExampleComponent = () => {
       <Text
         style={{
           ...textVariants.body,
-          color: theme.colors.subText,
+          color: theme.colors.subText
         }}
       >
         Current mode: {isDark ? 'Dark' : 'Light'}
@@ -145,7 +145,7 @@ textVariants.displayLarge // Hero text
   style={{
     ...textVariants.h2,
     color: theme.colors.primary,
-    marginBottom: theme.spacing.m,
+    marginBottom: theme.spacing.m
   }}
 >
   Welcome Back!
@@ -345,13 +345,13 @@ const MyComponent = () => {
     container: {
       backgroundColor: theme.colors.background,
       padding: theme.spacing.m,
-      borderRadius: borderRadius.lg,
+      borderRadius: borderRadius.lg
     },
     title: {
       ...textVariants.h3,
       color: theme.colors.mainText,
-      marginBottom: theme.spacing.sm,
-    },
+      marginBottom: theme.spacing.sm
+    }
   }))
 
   return (
@@ -394,7 +394,7 @@ const MyComponent = () => {
     base: 14,
     sm: 16,
     md: 18,
-    lg: 20,
+    lg: 20
   })
 
   return <Text style={{ fontSize }}>Responsive Text</Text>

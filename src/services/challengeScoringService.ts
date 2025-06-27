@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CHALLENGE_QUESTIONS } from 'features/challenge/constants'
+
+import { ChallengeRepository } from './challengeRepository'
 
 export interface ChallengeScore {
   score: number
@@ -31,12 +32,6 @@ export interface ChallengeStats {
     completedHard: number
     perfect300: number
   }
-}
-
-const STORAGE_KEYS = {
-  CHALLENGE_BEST_SCORE: '@challenge_best_score',
-  CHALLENGE_STATS: '@challenge_stats',
-  CHALLENGE_HISTORY: '@challenge_history'
 }
 
 /**
@@ -115,12 +110,12 @@ export const saveChallengeScore = async (scoreData: {
     }
 
     // Get current best score
-    const currentBest = await getChallengeScore()
+    const currentBest = await ChallengeRepository.getChallengeScore()
     const isNewRecord = !currentBest || finalScore > currentBest.finalScore
 
     // Save if it's a new record
     if (isNewRecord) {
-      await AsyncStorage.setItem(STORAGE_KEYS.CHALLENGE_BEST_SCORE, JSON.stringify(challengeScore))
+      await ChallengeRepository.saveChallengeScore(challengeScore)
     }
 
     // Update stats regardless
@@ -140,13 +135,7 @@ export const saveChallengeScore = async (scoreData: {
  * Get the current best challenge score
  */
 export const getChallengeScore = async (): Promise<ChallengeScore | null> => {
-  try {
-    const scoreData = await AsyncStorage.getItem(STORAGE_KEYS.CHALLENGE_BEST_SCORE)
-    return scoreData ? JSON.parse(scoreData) : null
-  } catch (error) {
-    console.error('Error getting challenge score:', error)
-    return null
-  }
+  return ChallengeRepository.getChallengeScore()
 }
 
 /**
@@ -154,14 +143,14 @@ export const getChallengeScore = async (): Promise<ChallengeScore | null> => {
  */
 export const getChallengeStats = async (): Promise<ChallengeStats> => {
   try {
-    const statsData = await AsyncStorage.getItem(STORAGE_KEYS.CHALLENGE_STATS)
+    const statsData = await ChallengeRepository.getChallengeStats()
     if (statsData) {
-      return JSON.parse(statsData)
+      return statsData
     }
 
     // Return default stats if none exist
     return {
-      bestScore: await getChallengeScore(),
+      bestScore: await ChallengeRepository.getChallengeScore(),
       totalAttempts: 0,
       averageScore: 0,
       bestStreak: 0,
@@ -225,7 +214,7 @@ const updateChallengeStats = async (newScore: ChallengeScore): Promise<void> => 
       }
     }
 
-    await AsyncStorage.setItem(STORAGE_KEYS.CHALLENGE_STATS, JSON.stringify(updatedStats))
+    await ChallengeRepository.saveChallengeStats(updatedStats)
   } catch (error) {
     console.error('Error updating challenge stats:', error)
   }
@@ -236,8 +225,7 @@ const updateChallengeStats = async (newScore: ChallengeScore): Promise<void> => 
  */
 const addToHistory = async (score: ChallengeScore): Promise<void> => {
   try {
-    const historyData = await AsyncStorage.getItem(STORAGE_KEYS.CHALLENGE_HISTORY)
-    const history: ChallengeScore[] = historyData ? JSON.parse(historyData) : []
+    const history = await ChallengeRepository.getChallengeHistory()
 
     // Add new score to beginning of history
     history.unshift(score)
@@ -245,7 +233,7 @@ const addToHistory = async (score: ChallengeScore): Promise<void> => {
     // Keep only last 10 attempts
     const trimmedHistory = history.slice(0, 10)
 
-    await AsyncStorage.setItem(STORAGE_KEYS.CHALLENGE_HISTORY, JSON.stringify(trimmedHistory))
+    await ChallengeRepository.saveChallengeHistory(trimmedHistory)
   } catch (error) {
     console.error('Error adding to challenge history:', error)
   }
@@ -255,28 +243,14 @@ const addToHistory = async (score: ChallengeScore): Promise<void> => {
  * Get challenge history (last 10 attempts)
  */
 export const getChallengeHistory = async (): Promise<ChallengeScore[]> => {
-  try {
-    const historyData = await AsyncStorage.getItem(STORAGE_KEYS.CHALLENGE_HISTORY)
-    return historyData ? JSON.parse(historyData) : []
-  } catch (error) {
-    console.error('Error getting challenge history:', error)
-    return []
-  }
+  return ChallengeRepository.getChallengeHistory()
 }
 
 /**
  * Clear all challenge data (for testing or reset purposes)
  */
 export const clearChallengeData = async (): Promise<void> => {
-  try {
-    await AsyncStorage.multiRemove([
-      STORAGE_KEYS.CHALLENGE_BEST_SCORE,
-      STORAGE_KEYS.CHALLENGE_STATS,
-      STORAGE_KEYS.CHALLENGE_HISTORY
-    ])
-  } catch (error) {
-    console.error('Error clearing challenge data:', error)
-  }
+  await ChallengeRepository.clearChallengeData()
 }
 
 /**

@@ -13,7 +13,7 @@ import MapRegionSelectionScreen from 'features/map/screens/MapRegionSelectionScr
 import MapQuizScreen from 'features/map/screens/MapQuizScreen'
 import ChallengeQuizScreen from 'features/challenge/screens/ChallengeQuizScreen'
 import QuizScreen from 'screens/QuizScreen'
-import { setQueryClient } from 'services/countryService'
+
 import SettingsScreen from 'screens/SettingsScreen'
 import MapProgressDetailScreen from 'features/map/screens/MapProgressDetailScreen'
 import CountryDetailScreen from 'features/learning/screens/CountryDetailScreen'
@@ -88,7 +88,6 @@ const AppNavigator: React.FC = () => {
 
       // Step 1: Set up React Query client
       setLoadingState(prev => ({ ...prev, progress: 'Setting up data services...' }))
-      setQueryClient(queryClient)
 
       // Step 2: Check if data is already loaded (for app restarts)
       if (isBundledDataLoaded()) {

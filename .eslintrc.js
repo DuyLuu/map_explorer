@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
-  extends: ['plugin:prettier/recommended', 'prettier'],
+  extends: [],
+  ignorePatterns: ['ios/Pods/**'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -9,7 +10,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react', 'react-hooks', 'import', 'unused-imports', '@typescript-eslint', 'prettier'],
+  plugins: ['react', 'react-hooks', 'import', 'unused-imports', '@typescript-eslint'],
   env: {
     es6: true,
     node: true
@@ -20,22 +21,7 @@ module.exports = {
     }
   },
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        printWidth: 100,
-        tabWidth: 2,
-        singleQuote: true,
-        trailingComma: 'none',
-        bracketSpacing: true,
-        arrowParens: 'avoid',
-        objectPropertyNewline: true,
-        objectCurlyNewline: {
-          multiline: true,
-          minProperties: 2
-        }
-      }
-    ],
+    
     'no-await-in-loop': 2,
     '@typescript-eslint/no-unused-vars': 'off',
     'no-unused-vars': 'off',

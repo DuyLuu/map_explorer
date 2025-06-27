@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { Region } from 'types/region'
@@ -20,15 +20,15 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
       [Region.ASIA]: { id: 'learning.region.asia', defaultMessage: 'Asia' },
       [Region.NORTH_AMERICA]: {
         id: 'learning.region.northAmerica',
-        defaultMessage: 'North America',
+        defaultMessage: 'North America'
       },
       [Region.SOUTH_AMERICA]: {
         id: 'learning.region.southAmerica',
-        defaultMessage: 'South America',
+        defaultMessage: 'South America'
       },
       [Region.AFRICA]: { id: 'learning.region.africa', defaultMessage: 'Africa' },
       [Region.OCEANIA]: { id: 'learning.region.oceania', defaultMessage: 'Oceania' },
-      territories: { id: 'learning.region.territories', defaultMessage: 'Territories' },
+      territories: { id: 'learning.region.territories', defaultMessage: 'Territories' }
     }
 
     const labelInfo = labelMap[regionKey]
@@ -43,7 +43,7 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
     { key: Region.SOUTH_AMERICA, label: getRegionLabel(Region.SOUTH_AMERICA) },
     { key: Region.AFRICA, label: getRegionLabel(Region.AFRICA) },
     { key: Region.OCEANIA, label: getRegionLabel(Region.OCEANIA) },
-    { key: 'territories', label: getRegionLabel('territories') },
+    { key: 'territories', label: getRegionLabel('territories') }
   ]
 
   return (
@@ -57,14 +57,14 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
           <TouchableOpacity
             style={[
               styles.regionButton,
-              selectedRegion === item.key && styles.selectedRegionButton,
+              selectedRegion === item.key && styles.selectedRegionButton
             ]}
             onPress={() => onRegionSelect(item.key as Region | 'all' | 'territories')}
           >
             <Text
               style={[
                 styles.regionButtonText,
-                ...(selectedRegion === item.key ? [styles.selectedRegionButtonText] : []),
+                ...(selectedRegion === item.key ? [styles.selectedRegionButtonText] : [])
               ]}
             >
               {item.label}
@@ -79,26 +79,26 @@ const RegionFilter: React.FC<RegionFilterProps> = ({ selectedRegion, onRegionSel
 
 const styles = StyleSheet.create({
   regionList: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 16
   },
   regionButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginRight: 12,
     backgroundColor: '#f0f0f0',
-    borderRadius: 20,
+    borderRadius: 20
   },
   selectedRegionButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#007AFF'
   },
   regionButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: '#333'
   },
   selectedRegionButtonText: {
-    color: '#fff',
-  },
+    color: '#fff'
+  }
 })
 
 export default RegionFilter

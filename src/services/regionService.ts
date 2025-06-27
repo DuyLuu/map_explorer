@@ -56,7 +56,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
 
     // Transcontinental (European part)
     'Russia',
-    'Turkey',
+    'Turkey'
   ],
 
   [Region.ASIA]: [
@@ -121,7 +121,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     // Caucasus
     'Georgia',
     'Armenia',
-    'Azerbaijan',
+    'Azerbaijan'
   ],
 
   [Region.NORTH_AMERICA]: [
@@ -153,7 +153,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     'Antigua and Barbuda',
     'Dominica',
     'Saint Kitts and Nevis',
-    'Bahamas',
+    'Bahamas'
   ],
 
   [Region.SOUTH_AMERICA]: [
@@ -169,7 +169,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     'Uruguay',
     'Guyana',
     'Suriname',
-    'French Guiana',
+    'French Guiana'
   ],
 
   [Region.AFRICA]: [
@@ -235,7 +235,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     'Eswatini',
     'Angola',
     'Mozambique',
-    'Malawi',
+    'Malawi'
   ],
 
   [Region.OCEANIA]: [
@@ -262,7 +262,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     'Tonga',
     'Tuvalu',
     'Cook Islands',
-    'French Polynesia',
+    'French Polynesia'
   ],
 
   [Region.TERRITORIES]: [
@@ -270,7 +270,7 @@ export const REGION_COUNTRIES: Record<Region, string[]> = {
     // Listed here for reference but actual filtering is done by entityType field
   ],
 
-  [Region.WORLD]: [], // Will be populated with all countries
+  [Region.WORLD]: [] // Will be populated with all countries
 }
 
 /**
@@ -320,7 +320,7 @@ export function getSelectableRegions(): Region[] {
     Region.SOUTH_AMERICA,
     Region.AFRICA,
     Region.OCEANIA,
-    Region.TERRITORIES, // Add territories as selectable region
+    Region.TERRITORIES // Add territories as selectable region
   ]
 }
 
@@ -334,7 +334,7 @@ export function getSelectableCountryRegions(): Region[] {
     Region.NORTH_AMERICA,
     Region.SOUTH_AMERICA,
     Region.AFRICA,
-    Region.OCEANIA,
+    Region.OCEANIA
   ]
 }
 

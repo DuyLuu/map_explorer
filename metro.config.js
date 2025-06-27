@@ -1,4 +1,5 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
+
 const path = require('path')
 
 /**
@@ -21,9 +22,9 @@ const config = {
       stores: path.resolve(__dirname, 'src/stores'),
       theme: path.resolve(__dirname, 'src/theme'),
       assets: path.resolve(__dirname, 'src/assets'),
-      constants: path.resolve(__dirname, 'src/constants'),
-    },
-  },
+      constants: path.resolve(__dirname, 'src/constants')
+    }
+  }
 }
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config)

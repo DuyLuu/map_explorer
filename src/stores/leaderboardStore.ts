@@ -25,13 +25,12 @@ export const useLeaderboardStore = create<LeaderboardStore>(set => ({
     const newEntry = {
       ...entry,
       id: Date.now().toString(),
-      date: new Date().toISOString(),
+      date: new Date().toISOString()
     }
 
-    const updatedEntries = [
-      ...useLeaderboardStore.getState().entries,
-      newEntry,
-    ].sort((a, b) => b.score - a.score)
+    const updatedEntries = [...useLeaderboardStore.getState().entries, newEntry].sort(
+      (a, b) => b.score - a.score
+    )
 
     set({ entries: updatedEntries })
     await AsyncStorage.setItem(LEADERBOARD_KEY, JSON.stringify(updatedEntries))
@@ -52,5 +51,5 @@ export const useLeaderboardStore = create<LeaderboardStore>(set => ({
     } catch (error) {
       console.error('Error loading leaderboard:', error)
     }
-  },
+  }
 }))

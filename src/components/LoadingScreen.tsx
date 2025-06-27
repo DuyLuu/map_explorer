@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   message: {
     marginTop: 16,
     fontSize: 16,
     color: '#666666',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })
 
 export default LoadingScreen

@@ -6,7 +6,7 @@
 
 export const SUPPORTED_LOCALES = {
   en: 'English',
-  vi: 'Tiếng Việt',
+  vi: 'Tiếng Việt'
 } as const
 
 export type SupportedLocale = keyof typeof SUPPORTED_LOCALES
@@ -26,5 +26,5 @@ export const INTL_CONFIG = {
   },
   onWarn: (warning: string) => {
     console.warn('React Intl Warning:', warning)
-  },
+  }
 }

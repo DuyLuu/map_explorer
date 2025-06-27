@@ -26,4 +26,4 @@ export const speakText = async (text: string) => {
   } catch (error) {
     console.error('Failed to speak text:', error)
   }
-} 
+}

@@ -30,7 +30,7 @@ const getLearningMapRegion = (baseRegion: MapRegion) => {
     longitude: baseRegion.longitude,
     // Reduce delta values significantly for closer, more focused view
     latitudeDelta: Math.min(baseRegion.latitudeDelta * 0.3, 8), // Much closer zoom
-    longitudeDelta: Math.min(baseRegion.longitudeDelta * 0.3, 10), // Much closer zoom
+    longitudeDelta: Math.min(baseRegion.longitudeDelta * 0.3, 10) // Much closer zoom
   }
 
   return learningRegion
@@ -98,7 +98,7 @@ const CountryMapSection: React.FC<CountryMapSectionProps> = ({ country, countryD
           <Marker
             coordinate={{
               latitude: mapRegion.latitude,
-              longitude: mapRegion.longitude,
+              longitude: mapRegion.longitude
             }}
             title={country.name}
             description={`Located in ${regionInfo?.displayName || country.region}`}
@@ -114,23 +114,23 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 16,
+    marginBottom: 16
   },
   errorContainer: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderStyle: 'dashed',
+    borderStyle: 'dashed'
   },
   errorText: {
     fontSize: 16,
     color: '#999',
     textAlign: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   map: {
     height: 200,
-    width: '100%',
-  },
+    width: '100%'
+  }
 })
 
 export default CountryMapSection

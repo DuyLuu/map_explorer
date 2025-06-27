@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useCountryStore } from 'stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Region, REGION_INFO } from 'types/region'
 import { getSelectableRegions } from 'services/regionService'
 import RegionProgressCard from 'components/RegionProgressCard'
@@ -11,7 +10,6 @@ import BackButton from 'components/BackButton'
 import { Box } from 'components/Box'
 import { Text } from 'components/Text'
 import { Button } from 'components/Button'
-import ProgressRing from 'components/ProgressRing'
 
 const FlagProgressDetailScreen: React.FC = () => {
   const { selectedLevel, setSelectedLevel, selectedRegion, setSelectedRegion } = useCountryStore()
@@ -19,18 +17,18 @@ const FlagProgressDetailScreen: React.FC = () => {
   const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
     1: true, // Easy is always unlocked
     2: false,
-    3: false,
+    3: false
   })
 
   const levels = [
     { id: 1, name: 'Easy', description: 'Most popular countries' },
     { id: 2, name: 'Medium', description: 'Moderately known countries' },
-    { id: 3, name: 'Hard', description: 'Less known countries' },
+    { id: 3, name: 'Hard', description: 'Less known countries' }
   ]
 
   const regions = [
     REGION_INFO[Region.WORLD],
-    ...getSelectableRegions().map(region => REGION_INFO[region]),
+    ...getSelectableRegions().map(region => REGION_INFO[region])
   ]
 
   // Check level unlock status when region changes
@@ -46,7 +44,7 @@ const FlagProgressDetailScreen: React.FC = () => {
     const unlockStatus: Record<number, boolean> = {
       1: true, // Easy is always unlocked
       2: await isLevelUnlocked(selectedRegion, 2),
-      3: await isLevelUnlocked(selectedRegion, 3),
+      3: await isLevelUnlocked(selectedRegion, 3)
     }
 
     setUnlockedLevels(unlockStatus)
@@ -135,7 +133,7 @@ const FlagProgressDetailScreen: React.FC = () => {
                     [
                       styles.levelButton,
                       isUnlocked ? styles.unlockedLevel : false,
-                      !isUnlocked ? styles.lockedLevel : false,
+                      !isUnlocked ? styles.lockedLevel : false
                     ].filter(Boolean) as import('react-native').ViewStyle[]
                   }
                   onPress={() => handleLevelSelect(level.id)}
@@ -188,41 +186,41 @@ const FlagProgressDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   scrollView: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
-    marginTop: 16,
+    marginTop: 16
   },
   section: {
-    marginBottom: 24,
+    marginBottom: 24
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: '#333',
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   sectionSubtitle: {
     fontSize: 14,
     color: '#666',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 16
   },
   optionsContainer: {
     gap: 12,
-    marginHorizontal: 8,
+    marginHorizontal: 8
   },
   progressCardsContainer: {
-    gap: 8,
+    gap: 8
   },
   levelButton: {
     backgroundColor: '#f0f0f0',
@@ -230,41 +228,41 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 2,
     borderColor: 'transparent',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   unlockedLevel: {
     backgroundColor: '#25A278',
-    borderColor: '#1a8c63',
+    borderColor: '#1a8c63'
   },
   lockedLevel: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#ccc'
   },
   levelText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
-    marginBottom: 2,
+    marginBottom: 2
   },
   lockMessage: {
     fontSize: 12,
     color: '#999',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   confirmButton: {
     backgroundColor: '#F47D42',
     padding: 20,
     borderRadius: 12,
     alignItems: 'center',
-    margin: 16,
+    margin: 16
   },
   disabledButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#ccc'
   },
   confirmButtonText: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 })
 
 export default FlagProgressDetailScreen

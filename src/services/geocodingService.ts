@@ -58,7 +58,7 @@ export async function detectCountryFromCoordinates(
     // Cache the result
     geocodingCache.set(cacheKey, {
       country,
-      timestamp: Date.now(),
+      timestamp: Date.now()
     })
 
     return country
@@ -91,8 +91,8 @@ async function tryNominatimGeocoding(latitude: number, longitude: number): Promi
 
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'WorldExplorer/1.0',
-      },
+        'User-Agent': 'WorldExplorer/1.0'
+      }
     })
 
     console.log(`📡 Nominatim response status: ${response.status}`)
@@ -212,7 +212,7 @@ function normalizeCountryName(countryName: string): string {
     'American Samoa': 'United States',
     'Virgin Islands': 'United States',
     Greenland: 'Denmark',
-    'Faroe Islands': 'Denmark',
+    'Faroe Islands': 'Denmark'
   }
 
   // Clean up the country name (trim whitespace, handle case)

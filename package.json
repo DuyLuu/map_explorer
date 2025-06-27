@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "tsc": "tsc",
     "build": "npx react-native run-ios --simulator='iPhone 16 Pro'",
     "distribute": "./scripts/distribution/distribute.sh",
     "distribute:android": "./scripts/distribution/android-distribute.sh",

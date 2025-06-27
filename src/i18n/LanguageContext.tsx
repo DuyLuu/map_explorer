@@ -8,10 +8,11 @@ import { IntlProvider } from 'react-intl'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getLocales } from 'react-native-localize'
 
-import { SupportedLocale, DEFAULT_LOCALE, SUPPORTED_LOCALES, INTL_CONFIG } from './config'
-import { LanguageContextType, LanguagePack } from './types'
 import { loadLocaleMessages } from '../locales'
 import LoadingScreen from '../components/LoadingScreen'
+
+import { SupportedLocale, DEFAULT_LOCALE, SUPPORTED_LOCALES, INTL_CONFIG } from './config'
+import { LanguageContextType, LanguagePack } from './types'
 
 const LANGUAGE_STORAGE_KEY = '@WorldExplorer:selectedLanguage'
 
@@ -145,7 +146,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     currentLocale,
     setLocale,
     messages,
-    isLoading,
+    isLoading
   }
 
   // Flatten messages for react-intl
@@ -237,5 +238,5 @@ export const languageStorage = {
     } catch (error) {
       console.error('Failed to clear language preference:', error)
     }
-  },
+  }
 }

@@ -1,7 +1,9 @@
 import { Region as MapRegion } from 'react-native-maps'
-import { getCountryRegion } from './regionService'
-import { Region, REGION_INFO } from '../types/region'
+
+import { REGION_INFO } from '../types/region'
 import countryCoordinatesData from '../data/countryCoordinates.json'
+
+import { getCountryRegion } from './regionService'
 
 export interface CountryCoordinates {
   latitude: number
@@ -21,32 +23,32 @@ const COUNTRY_COORDINATES_FALLBACK: Record<string, CountryCoordinates> = {
     latitude: 39.8283,
     longitude: -98.5795,
     latitudeDelta: 45,
-    longitudeDelta: 60,
+    longitudeDelta: 60
   },
   China: {
     latitude: 35.8617,
     longitude: 104.1954,
     latitudeDelta: 30,
-    longitudeDelta: 40,
+    longitudeDelta: 40
   },
   Russia: {
     latitude: 61.524,
     longitude: 105.3188,
     latitudeDelta: 50,
-    longitudeDelta: 80,
+    longitudeDelta: 80
   },
   Canada: {
     latitude: 56.1304,
     longitude: -106.3468,
     latitudeDelta: 50,
-    longitudeDelta: 70,
+    longitudeDelta: 70
   },
   Australia: {
     latitude: -25.2744,
     longitude: 133.7751,
     latitudeDelta: 30,
-    longitudeDelta: 40,
-  },
+    longitudeDelta: 40
+  }
 }
 
 /**
@@ -62,7 +64,7 @@ export function getCountryMapRegion(countryName: string): MapRegion {
       latitude: fallbackCoords.latitude,
       longitude: fallbackCoords.longitude,
       latitudeDelta: fallbackCoords.latitudeDelta,
-      longitudeDelta: fallbackCoords.longitudeDelta,
+      longitudeDelta: fallbackCoords.longitudeDelta
     }
   }
 
@@ -74,7 +76,7 @@ export function getCountryMapRegion(countryName: string): MapRegion {
       latitude: bundledCoords.latitude,
       longitude: bundledCoords.longitude,
       latitudeDelta: bundledCoords.latitudeDelta,
-      longitudeDelta: bundledCoords.longitudeDelta,
+      longitudeDelta: bundledCoords.longitudeDelta
     }
   }
 
@@ -90,7 +92,7 @@ export function getCountryMapRegion(countryName: string): MapRegion {
       latitude: baseRegion.latitude,
       longitude: baseRegion.longitude,
       latitudeDelta: Math.min(baseRegion.latitudeDelta * 1.2, 80), // Cap at reasonable max
-      longitudeDelta: Math.min(baseRegion.longitudeDelta * 1.2, 120), // Cap at reasonable max
+      longitudeDelta: Math.min(baseRegion.longitudeDelta * 1.2, 120) // Cap at reasonable max
     }
   }
 
@@ -100,7 +102,7 @@ export function getCountryMapRegion(countryName: string): MapRegion {
     latitude: 20,
     longitude: 0,
     latitudeDelta: 100,
-    longitudeDelta: 140,
+    longitudeDelta: 140
   }
 }
 
@@ -148,6 +150,6 @@ export function getCoordinateStats(): {
     fallbackCount: fallbackCountries.length,
     totalCount: bundledCountries.length + fallbackCountries.length,
     bundledCountries,
-    fallbackCountries,
+    fallbackCountries
   }
 }

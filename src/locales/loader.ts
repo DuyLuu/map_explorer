@@ -6,7 +6,7 @@
 
 import { SupportedLocale } from '../i18n/config'
 import { LanguagePack } from '../i18n/types'
-import { TRANSLATION_CATEGORIES, TranslationCategory } from './index'
+
 
 // Static imports for English
 import enCommon from './en/common.json'
@@ -24,6 +24,8 @@ import viLearning from './vi/learning.json'
 import viChallenge from './vi/challenge.json'
 import viSettings from './vi/settings.json'
 
+import { TRANSLATION_CATEGORIES, TranslationCategory } from './index'
+
 // Translation map for static imports - MVP languages only
 const translationsMap: Record<SupportedLocale, Record<TranslationCategory, any>> = {
   en: {
@@ -32,7 +34,7 @@ const translationsMap: Record<SupportedLocale, Record<TranslationCategory, any>>
     [TRANSLATION_CATEGORIES.QUIZ]: enQuiz,
     [TRANSLATION_CATEGORIES.LEARNING]: enLearning,
     [TRANSLATION_CATEGORIES.CHALLENGE]: enChallenge,
-    [TRANSLATION_CATEGORIES.SETTINGS]: enSettings,
+    [TRANSLATION_CATEGORIES.SETTINGS]: enSettings
   },
   vi: {
     [TRANSLATION_CATEGORIES.COMMON]: viCommon,
@@ -40,8 +42,8 @@ const translationsMap: Record<SupportedLocale, Record<TranslationCategory, any>>
     [TRANSLATION_CATEGORIES.QUIZ]: viQuiz,
     [TRANSLATION_CATEGORIES.LEARNING]: viLearning,
     [TRANSLATION_CATEGORIES.CHALLENGE]: viChallenge,
-    [TRANSLATION_CATEGORIES.SETTINGS]: viSettings,
-  },
+    [TRANSLATION_CATEGORIES.SETTINGS]: viSettings
+  }
 }
 
 /**
@@ -115,12 +117,12 @@ export const validateTranslations = (
 
     return {
       isValid: missingKeys.length === 0,
-      missingKeys,
+      missingKeys
     }
   } catch (error) {
     return {
       isValid: false,
-      missingKeys: [`Error validating translations: ${error}`],
+      missingKeys: [`Error validating translations: ${error}`]
     }
   }
 }

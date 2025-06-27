@@ -1,4 +1,5 @@
 import { ViewStyle, TextStyle } from 'react-native'
+
 import { PALLETS } from './constants'
 import { borderRadius, layout } from './layout'
 import { textVariants } from './typography'
@@ -11,34 +12,34 @@ export const buttonVariants = {
       container: {
         height: layout.button.small,
         paddingHorizontal: 12,
-        borderRadius: borderRadius.base,
+        borderRadius: borderRadius.base
       } as ViewStyle,
-      text: textVariants.buttonSmall,
+      text: textVariants.buttonSmall
     },
     medium: {
       container: {
         height: layout.button.medium,
         paddingHorizontal: 16,
-        borderRadius: borderRadius.md,
+        borderRadius: borderRadius.md
       } as ViewStyle,
-      text: textVariants.button,
+      text: textVariants.button
     },
     large: {
       container: {
         height: layout.button.large,
         paddingHorizontal: 20,
-        borderRadius: borderRadius.lg,
+        borderRadius: borderRadius.lg
       } as ViewStyle,
-      text: textVariants.buttonLarge,
+      text: textVariants.buttonLarge
     },
     extraLarge: {
       container: {
         height: layout.button.extraLarge,
         paddingHorizontal: 24,
-        borderRadius: borderRadius.lg,
+        borderRadius: borderRadius.lg
       } as ViewStyle,
-      text: textVariants.buttonLarge,
-    },
+      text: textVariants.buttonLarge
+    }
   },
 
   // Style variants
@@ -50,73 +51,73 @@ export const buttonVariants = {
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 4,
+        elevation: 4
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
     secondary: {
       container: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: PALLETS.ORANGE,
+        borderColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.ORANGE,
-      } as TextStyle,
+        color: PALLETS.ORANGE
+      } as TextStyle
     },
     ghost: {
       container: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
       } as ViewStyle,
       text: {
-        color: PALLETS.ORANGE,
-      } as TextStyle,
+        color: PALLETS.ORANGE
+      } as TextStyle
     },
     danger: {
       container: {
-        backgroundColor: PALLETS.RED,
+        backgroundColor: PALLETS.RED
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
     success: {
       container: {
-        backgroundColor: PALLETS.GREEN,
+        backgroundColor: PALLETS.GREEN
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
     warning: {
       container: {
-        backgroundColor: PALLETS.YELLOW,
+        backgroundColor: PALLETS.YELLOW
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
     },
     dark: {
       container: {
-        backgroundColor: PALLETS.DARK_BLUE,
+        backgroundColor: PALLETS.DARK_BLUE
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
     light: {
       container: {
         backgroundColor: PALLETS.WHITE,
         borderWidth: 1,
-        borderColor: PALLETS.LIGHT_GRAY,
+        borderColor: PALLETS.LIGHT_GRAY
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
-    },
-  },
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
+    }
+  }
 } as const
 
 // Input variants
@@ -126,26 +127,26 @@ export const inputVariants = {
       container: {
         height: layout.input.small,
         paddingHorizontal: 12,
-        borderRadius: borderRadius.base,
+        borderRadius: borderRadius.base
       } as ViewStyle,
-      text: textVariants.bodySmall,
+      text: textVariants.bodySmall
     },
     medium: {
       container: {
         height: layout.input.medium,
         paddingHorizontal: 16,
-        borderRadius: borderRadius.md,
+        borderRadius: borderRadius.md
       } as ViewStyle,
-      text: textVariants.body,
+      text: textVariants.body
     },
     large: {
       container: {
         height: layout.input.large,
         paddingHorizontal: 20,
-        borderRadius: borderRadius.lg,
+        borderRadius: borderRadius.lg
       } as ViewStyle,
-      text: textVariants.bodyLarge,
-    },
+      text: textVariants.bodyLarge
+    }
   },
 
   states: {
@@ -153,46 +154,46 @@ export const inputVariants = {
       container: {
         backgroundColor: PALLETS.WHITE,
         borderWidth: 1,
-        borderColor: PALLETS.LIGHT_GRAY,
+        borderColor: PALLETS.LIGHT_GRAY
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
+        color: PALLETS.DARK_BLUE
       } as TextStyle,
       placeholder: {
-        color: PALLETS.GRAY,
-      } as TextStyle,
+        color: PALLETS.GRAY
+      } as TextStyle
     },
     focused: {
       container: {
         backgroundColor: PALLETS.WHITE,
         borderWidth: 2,
-        borderColor: PALLETS.ORANGE,
+        borderColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
     },
     error: {
       container: {
         backgroundColor: PALLETS.WHITE,
         borderWidth: 1,
-        borderColor: PALLETS.RED,
+        borderColor: PALLETS.RED
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
     },
     disabled: {
       container: {
         backgroundColor: PALLETS.LIGHT_GRAY,
         borderWidth: 1,
-        borderColor: PALLETS.LIGHT_GRAY,
+        borderColor: PALLETS.LIGHT_GRAY
       } as ViewStyle,
       text: {
-        color: PALLETS.GRAY,
-      } as TextStyle,
-    },
-  },
+        color: PALLETS.GRAY
+      } as TextStyle
+    }
+  }
 } as const
 
 // Card variants
@@ -206,7 +207,7 @@ export const cardVariants = {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
-      elevation: 2,
+      elevation: 2
     } as ViewStyle,
 
     elevated: {
@@ -217,7 +218,7 @@ export const cardVariants = {
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.15,
       shadowRadius: 8,
-      elevation: 4,
+      elevation: 4
     } as ViewStyle,
 
     outlined: {
@@ -225,37 +226,37 @@ export const cardVariants = {
       borderRadius: borderRadius.lg,
       padding: layout.card.padding,
       borderWidth: 1,
-      borderColor: PALLETS.LIGHT_GRAY,
+      borderColor: PALLETS.LIGHT_GRAY
     } as ViewStyle,
 
     filled: {
       backgroundColor: PALLETS.LIGHT_BLUE,
       borderRadius: borderRadius.lg,
-      padding: layout.card.padding,
+      padding: layout.card.padding
     } as ViewStyle,
 
     gradient: {
       borderRadius: borderRadius.lg,
-      padding: layout.card.padding,
-    } as ViewStyle,
+      padding: layout.card.padding
+    } as ViewStyle
   },
 
   sizes: {
     small: {
       padding: 12,
-      borderRadius: borderRadius.md,
+      borderRadius: borderRadius.md
     } as ViewStyle,
 
     medium: {
       padding: layout.card.padding,
-      borderRadius: borderRadius.lg,
+      borderRadius: borderRadius.lg
     } as ViewStyle,
 
     large: {
       padding: 24,
-      borderRadius: borderRadius.xl,
-    } as ViewStyle,
-  },
+      borderRadius: borderRadius.xl
+    } as ViewStyle
+  }
 } as const
 
 // Badge variants
@@ -266,12 +267,12 @@ export const badgeVariants = {
         paddingHorizontal: 6,
         paddingVertical: 2,
         borderRadius: borderRadius.xs,
-        minHeight: 16,
+        minHeight: 16
       } as ViewStyle,
       text: {
         fontSize: 10,
-        lineHeight: 12,
-      } as TextStyle,
+        lineHeight: 12
+      } as TextStyle
     },
 
     medium: {
@@ -279,12 +280,12 @@ export const badgeVariants = {
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: borderRadius.sm,
-        minHeight: 20,
+        minHeight: 20
       } as ViewStyle,
       text: {
         fontSize: 11,
-        lineHeight: 13,
-      } as TextStyle,
+        lineHeight: 13
+      } as TextStyle
     },
 
     large: {
@@ -292,72 +293,72 @@ export const badgeVariants = {
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: borderRadius.base,
-        minHeight: 24,
+        minHeight: 24
       } as ViewStyle,
       text: {
         fontSize: 12,
-        lineHeight: 14,
-      } as TextStyle,
-    },
+        lineHeight: 14
+      } as TextStyle
+    }
   },
 
   styles: {
     primary: {
       container: {
-        backgroundColor: PALLETS.ORANGE,
+        backgroundColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
 
     secondary: {
       container: {
-        backgroundColor: PALLETS.LIGHT_GRAY,
+        backgroundColor: PALLETS.LIGHT_GRAY
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
     },
 
     success: {
       container: {
-        backgroundColor: PALLETS.GREEN,
+        backgroundColor: PALLETS.GREEN
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
 
     warning: {
       container: {
-        backgroundColor: PALLETS.YELLOW,
+        backgroundColor: PALLETS.YELLOW
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_BLUE,
-      } as TextStyle,
+        color: PALLETS.DARK_BLUE
+      } as TextStyle
     },
 
     danger: {
       container: {
-        backgroundColor: PALLETS.RED,
+        backgroundColor: PALLETS.RED
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
 
     outlined: {
       container: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: PALLETS.ORANGE,
+        borderColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.ORANGE,
-      } as TextStyle,
-    },
-  },
+        color: PALLETS.ORANGE
+      } as TextStyle
+    }
+  }
 } as const
 
 // Chip variants
@@ -368,9 +369,9 @@ export const chipVariants = {
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: borderRadius.full,
-        height: 24,
+        height: 24
       } as ViewStyle,
-      text: textVariants.caption,
+      text: textVariants.caption
     },
 
     medium: {
@@ -378,9 +379,9 @@ export const chipVariants = {
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: borderRadius.full,
-        height: 32,
+        height: 32
       } as ViewStyle,
-      text: textVariants.label,
+      text: textVariants.label
     },
 
     large: {
@@ -388,42 +389,42 @@ export const chipVariants = {
         paddingHorizontal: 16,
         paddingVertical: 8,
         borderRadius: borderRadius.full,
-        height: 40,
+        height: 40
       } as ViewStyle,
-      text: textVariants.body,
-    },
+      text: textVariants.body
+    }
   },
 
   styles: {
     filled: {
       container: {
-        backgroundColor: PALLETS.ORANGE,
+        backgroundColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.WHITE,
-      } as TextStyle,
+        color: PALLETS.WHITE
+      } as TextStyle
     },
 
     outlined: {
       container: {
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: PALLETS.ORANGE,
+        borderColor: PALLETS.ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.ORANGE,
-      } as TextStyle,
+        color: PALLETS.ORANGE
+      } as TextStyle
     },
 
     soft: {
       container: {
-        backgroundColor: PALLETS.LIGHT_ORANGE,
+        backgroundColor: PALLETS.LIGHT_ORANGE
       } as ViewStyle,
       text: {
-        color: PALLETS.DARK_ORANGE,
-      } as TextStyle,
-    },
-  },
+        color: PALLETS.DARK_ORANGE
+      } as TextStyle
+    }
+  }
 } as const
 
 // Loading variants
@@ -431,28 +432,28 @@ export const loadingVariants = {
   sizes: {
     small: {
       size: 16,
-      strokeWidth: 2,
+      strokeWidth: 2
     },
     medium: {
       size: 24,
-      strokeWidth: 2,
+      strokeWidth: 2
     },
     large: {
       size: 32,
-      strokeWidth: 3,
+      strokeWidth: 3
     },
     extraLarge: {
       size: 48,
-      strokeWidth: 4,
-    },
+      strokeWidth: 4
+    }
   },
 
   colors: {
     primary: PALLETS.ORANGE,
     secondary: PALLETS.GRAY,
     light: PALLETS.WHITE,
-    dark: PALLETS.DARK_BLUE,
-  },
+    dark: PALLETS.DARK_BLUE
+  }
 } as const
 
 // Export types for better TypeScript support

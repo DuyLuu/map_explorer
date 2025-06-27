@@ -16,7 +16,7 @@ export {
   FormattedRelativeTime,
   useIntl,
   defineMessages,
-  defineMessage,
+  defineMessage
 } from 'react-intl'
 
 // Export language context and hooks

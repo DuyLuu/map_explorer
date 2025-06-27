@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { useColorScheme } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Theme, DarkTheme, ThemeMode, ThemeModeConfig } from './constants'
+
+import { Theme, ThemeMode, ThemeModeConfig } from './constants'
 import { getTheme } from './utils'
 
 // Theme context type
@@ -31,7 +32,7 @@ const THEME_STORAGE_KEY = '@app_theme_mode'
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultMode = 'system',
-  storageKey = THEME_STORAGE_KEY,
+  storageKey = THEME_STORAGE_KEY
 }) => {
   const systemColorScheme = useColorScheme()
   const [modeConfig, setModeConfig] = useState<ThemeModeConfig>(defaultMode)
@@ -94,7 +95,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     isDark,
     modeConfig,
     setMode,
-    toggleTheme,
+    toggleTheme
   }
 
   return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>

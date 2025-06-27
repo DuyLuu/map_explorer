@@ -6,6 +6,7 @@
 import React from 'react'
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import { useLanguage } from '../i18n'
 import { SUPPORTED_LOCALES, SupportedLocale } from '../i18n/config'
 
@@ -66,7 +67,7 @@ const I18nTest: React.FC = () => {
             <Text
               style={[
                 styles.languageButtonText,
-                currentLocale === locale && styles.activeLanguageButtonText,
+                currentLocale === locale && styles.activeLanguageButtonText
               ]}
             >
               {locale} - {displayName}
@@ -81,7 +82,7 @@ const I18nTest: React.FC = () => {
           Welcome (via hook):{' '}
           {intl.formatMessage({
             id: 'common.message.welcome',
-            defaultMessage: 'Welcome to World Explorer!',
+            defaultMessage: 'Welcome to World Explorer!'
           })}
         </Text>
       </View>
@@ -99,14 +100,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f5f5f5'
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: '#333',
+    color: '#333'
   },
   section: {
     backgroundColor: 'white',
@@ -117,28 +118,28 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 10,
-    color: '#333',
+    color: '#333'
   },
   subtitle: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 10,
+    marginBottom: 10
   },
   currentLanguage: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#007AFF',
+    color: '#007AFF'
   },
   messageItem: {
     fontSize: 14,
     marginBottom: 8,
-    color: '#333',
+    color: '#333'
   },
   languageButton: {
     padding: 12,
@@ -146,26 +147,26 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#ddd'
   },
   activeLanguageButton: {
     backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    borderColor: '#007AFF'
   },
   languageButtonText: {
     fontSize: 14,
     color: '#333',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   activeLanguageButtonText: {
     color: 'white',
-    fontWeight: '600',
+    fontWeight: '600'
   },
   status: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 4,
-  },
+    marginBottom: 4
+  }
 })
 
 export default I18nTest

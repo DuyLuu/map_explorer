@@ -28,7 +28,7 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
   country,
   countryDetails,
   selectedTab,
-  onTabSelect,
+  onTabSelect
 }) => {
   const intl = useIntl()
   const regionInfo = REGION_INFO[country.region]
@@ -38,30 +38,30 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
       key: 'overview',
       label: intl.formatMessage({
         id: 'learning.tab.overview',
-        defaultMessage: 'Overview',
-      }),
+        defaultMessage: 'Overview'
+      })
     },
     {
       key: 'culture',
       label: intl.formatMessage({
         id: 'learning.tab.culture',
-        defaultMessage: 'Culture',
-      }),
+        defaultMessage: 'Culture'
+      })
     },
     {
       key: 'history',
       label: intl.formatMessage({
         id: 'learning.tab.history',
-        defaultMessage: 'History',
-      }),
+        defaultMessage: 'History'
+      })
     },
     {
       key: 'geography',
       label: intl.formatMessage({
         id: 'learning.tab.geography',
-        defaultMessage: 'Geography',
-      }),
-    },
+        defaultMessage: 'Geography'
+      })
+    }
   ]
 
   const renderTabContent = () => {
@@ -195,7 +195,7 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
           {tabs.map(tab => {
             const tabStyles = [
               styles.tab,
-              selectedTab === tab.key ? styles.selectedTab : null,
+              selectedTab === tab.key ? styles.selectedTab : null
             ].filter(Boolean) as import('react-native').ViewStyle[]
             return (
               <Button
@@ -210,7 +210,7 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
                 <Text
                   style={[
                     styles.tabText,
-                    ...(selectedTab === tab.key ? [styles.selectedTabText] : []),
+                    ...(selectedTab === tab.key ? [styles.selectedTabText] : [])
                   ]}
                 >
                   {tab.label}
@@ -230,40 +230,40 @@ const CountryTabs: React.FC<CountryTabsProps> = ({
 const styles = StyleSheet.create({
   tabsContainer: {
     borderBottomWidth: 0.5,
-    borderBottomColor: '#E1E1E1',
+    borderBottomColor: '#E1E1E1'
   },
   tab: {
     paddingHorizontal: 20,
     paddingVertical: 12,
     marginHorizontal: 4,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f0f0f0'
   },
   selectedTab: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#007AFF'
   },
   tabText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: '#333'
   },
   selectedTabText: {
-    color: '#fff',
+    color: '#fff'
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 16,
+    marginBottom: 16
   },
   infoRowBorder: {
     borderBottomWidth: 0.5,
-    borderBottomColor: '#E1E1E1',
+    borderBottomColor: '#E1E1E1'
   },
   infoLabel: {
     fontSize: 16,
     color: '#666',
-    fontWeight: '500',
+    fontWeight: '500'
   },
   infoValue: {
     fontSize: 16,
@@ -271,20 +271,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'right',
     flex: 1,
-    marginLeft: 12,
+    marginLeft: 12
   },
   factBullet: {
     fontSize: 16,
     color: '#007AFF',
     marginRight: 8,
-    marginTop: 2,
+    marginTop: 2
   },
   factText: {
     fontSize: 16,
     color: '#333',
     lineHeight: 24,
-    flex: 1,
-  },
+    flex: 1
+  }
 })
 
 export default CountryTabs

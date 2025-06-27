@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 import QuizScreen from '../screens/QuizScreen'
 
 export type RootStackParamList = {
@@ -19,12 +20,12 @@ const AppNavigator = () => {
           options={{
             title: 'Flag Quiz',
             headerStyle: {
-              backgroundColor: '#f4511e',
+              backgroundColor: '#f4511e'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+              fontWeight: 'bold'
+            }
           }}
         />
       </Stack.Navigator>

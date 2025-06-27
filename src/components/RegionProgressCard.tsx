@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { getRegionLevelProgress } from 'services/quizService'
+
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
-import { getRegionLevelProgress } from 'services/quizService'
+
 import ProgressRing from './ProgressRing'
 import ProgressBar from './ProgressBar'
 import { Text } from './Text'
@@ -21,14 +23,14 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
   level,
   onPress,
   showDetailedStats = true,
-  size = 'medium',
+  size = 'medium'
 }) => {
   const [progress, setProgress] = useState<RegionLevelProgress | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     loadProgress()
-  }, [region, level])
+  }, [region, level, loadProgress])
 
   const loadProgress = async () => {
     try {

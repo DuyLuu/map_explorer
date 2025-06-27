@@ -66,19 +66,19 @@ const SettingsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   title: {
-    marginLeft: 16,
+    marginLeft: 16
   },
   sectionContainer: {
-    gap: 16,
+    gap: 16
   },
   section: {
     backgroundColor: '#f8f8f8',
     padding: 20,
-    borderRadius: 12,
-  },
+    borderRadius: 12
+  }
 })
 
 export default SettingsScreen

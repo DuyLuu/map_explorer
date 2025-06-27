@@ -6,7 +6,7 @@ export const PROGRESS_KEYS = {
   LEVEL_SCORE: '@quiz_progress_level_',
 
   // New pattern for region-based country progress
-  REGION_PROGRESS: '@country_progress_',
+  REGION_PROGRESS: '@country_progress_'
 } as const
 
 // Structure for tracking learned countries in a specific region and level
@@ -52,7 +52,7 @@ export const createEmptyProgress = (totalCountries: number): RegionLevelProgress
   learnedCountries: [],
   totalCountries,
   lastUpdated: new Date().toISOString(),
-  completionPercentage: 0,
+  completionPercentage: 0
 })
 
 // Helper function to update progress with a new learned country
@@ -72,7 +72,7 @@ export const updateProgressWithCountry = (
     ...progress,
     learnedCountries: updatedCountries,
     lastUpdated: new Date().toISOString(),
-    completionPercentage: Math.round(completionPercentage * 100) / 100, // Round to 2 decimal places
+    completionPercentage: Math.round(completionPercentage * 100) / 100 // Round to 2 decimal places
   }
 }
 
@@ -102,6 +102,6 @@ export const getOverallProgress = (
   return {
     totalLearned,
     totalAvailable,
-    overallPercentage: Math.round(overallPercentage * 100) / 100,
+    overallPercentage: Math.round(overallPercentage * 100) / 100
   }
 }

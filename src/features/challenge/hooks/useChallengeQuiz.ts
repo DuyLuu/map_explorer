@@ -76,7 +76,7 @@ export const useChallengeQuiz = () => {
       console.error('Error loading countries:', countriesError)
       setIsInitializing(false)
     }
-  }, [isLoadingCountries, countriesData, countriesError])
+  }, [isLoadingCountries, countriesData, countriesError, loadNextQuestion])
 
   const loadHighScore = async () => {
     // Use new challenge scoring service
@@ -270,8 +270,6 @@ export const useChallengeQuiz = () => {
     setUsedFlags([])
     setGameOver(false)
     setCurrentLevel(1)
-    setQuestionsAtCurrentLevel(0)
-    setUsedRegions([])
     setStartTime(Date.now())
     setScoreBreakdown({
       easyCorrect: 0,
@@ -294,8 +292,6 @@ export const useChallengeQuiz = () => {
     setUsedFlags([])
     setGameOver(false)
     setCurrentLevel(1)
-    setQuestionsAtCurrentLevel(0)
-    setUsedRegions([])
     setStartTime(Date.now())
     setScoreBreakdown({
       easyCorrect: 0,
