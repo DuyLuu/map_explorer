@@ -5,6 +5,7 @@ import { Box } from 'components/Box'
 import { Button } from 'components/Button'
 import GorhomBottomSheet from '@gorhom/bottom-sheet'
 import { ChallengeScore, getScoreDescription } from 'services/challengeScoringService'
+import { Theme } from 'theme/constants'
 
 import { BottomSheet, BottomSheetScrollView } from '../../../components'
 import { CHALLENGE_QUESTIONS } from '../constants'
@@ -45,7 +46,7 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
   return (
     <BottomSheet
       ref={bottomSheetRef}
-      snapPoints={['80%', '95%']}
+      snapPoints={['60%', '75%']}
       index={-1}
       enableBackdrop
       backdropOpacity={0.6}
@@ -78,7 +79,9 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
           <Box>
             <Box centerItems marginBottom="m">
               <Text style={styles.scoreLabel}>Base Score</Text>
-              <Text style={styles.scoreValue}>{score}</Text>
+              <Text variant="h1" color={Theme.colors.blue}>
+                {score}
+              </Text>
               <Text style={styles.questionsLabel}>
                 Questions Answered: {questionsAnswered} / {CHALLENGE_QUESTIONS}
               </Text>
@@ -119,7 +122,9 @@ const ChallengeGameOverModal: React.FC<ChallengeGameOverModalProps> = ({
                 {/* Final Score */}
                 <Box centerItems marginBottom="m">
                   <Text style={styles.finalScoreLabel}>Final Score</Text>
-                  <Text style={styles.finalScoreValue}>{finalChallengeScore.finalScore}</Text>
+                  <Text variant="h1" primary>
+                    {finalChallengeScore.finalScore}
+                  </Text>
                   <Text style={styles.performanceText}>{getScoreDescription(score)}</Text>
                 </Box>
               </>

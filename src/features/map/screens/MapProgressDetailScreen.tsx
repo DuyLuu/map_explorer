@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
 import { useCountryStore } from 'stores/countryStore'
 import { useNavigation } from '@react-navigation/native'
-import { Region, REGION_INFO } from 'types/region'
-import { getSelectableRegions } from 'services/regionService'
+import { REGION_INFO } from 'types/region'
 import RegionProgressCard from 'components/RegionProgressCard'
 import { isLevelUnlocked } from 'services/quizService'
 import BackButton from 'components/BackButton'
@@ -17,29 +16,22 @@ const MapProgressDetailScreen: React.FC = () => {
   const [unlockedLevels, setUnlockedLevels] = useState<Record<number, boolean>>({
     1: true, // Easy is always unlocked
     2: false,
-    3: false,
+    3: false
   })
 
   const levels = [
     { id: 1, name: 'Easy', description: 'Most popular countries' },
     { id: 2, name: 'Medium', description: 'Moderately known countries' },
-    { id: 3, name: 'Hard', description: 'Less known countries' },
+    { id: 3, name: 'Hard', description: 'Less known countries' }
   ]
 
-  // Check level unlock status when region changes
-  useEffect(() => {
-    if (selectedRegion) {
-      checkLevelUnlockStatus()
-    }
-  }, [selectedRegion])
-
-  const checkLevelUnlockStatus = async () => {
+  const checkLevelUnlockStatus = useCallback(async () => {
     if (!selectedRegion) return
 
     const unlockStatus: Record<number, boolean> = {
       1: true, // Easy is always unlocked
       2: await isLevelUnlocked(selectedRegion, 2),
-      3: await isLevelUnlocked(selectedRegion, 3),
+      3: await isLevelUnlocked(selectedRegion, 3)
     }
 
     setUnlockedLevels(unlockStatus)
@@ -48,7 +40,14 @@ const MapProgressDetailScreen: React.FC = () => {
     if (selectedLevel && !unlockStatus[selectedLevel]) {
       setSelectedLevel(1)
     }
-  }
+  }, [selectedRegion, selectedLevel, setSelectedLevel])
+
+  // Check level unlock status when region changes
+  useEffect(() => {
+    if (selectedRegion) {
+      checkLevelUnlockStatus()
+    }
+  }, [selectedRegion, checkLevelUnlockStatus])
 
   const handleLevelSelect = (level: number) => {
     if (unlockedLevels[level]) {
@@ -124,7 +123,7 @@ const MapProgressDetailScreen: React.FC = () => {
                     [
                       styles.levelOptionButton,
                       isSelected && styles.selectedLevelOption,
-                      !isUnlocked && styles.lockedOption,
+                      !isUnlocked && styles.lockedOption
                     ].filter(Boolean) as import('react-native').ViewStyle[]
                   }
                   onPress={() => handleLevelSelect(level.id)}
@@ -135,7 +134,7 @@ const MapProgressDetailScreen: React.FC = () => {
                       style={[
                         styles.levelOptionName,
                         ...(isSelected ? [styles.selectedText] : []),
-                        ...(!isUnlocked ? [styles.lockedText] : []),
+                        ...(!isUnlocked ? [styles.lockedText] : [])
                       ]}
                     >
                       {level.name} {!isUnlocked && '🔒'}
@@ -146,7 +145,7 @@ const MapProgressDetailScreen: React.FC = () => {
                     style={[
                       styles.levelOptionDescription,
                       ...(isSelected ? [styles.selectedText] : []),
-                      ...(!isUnlocked ? [styles.lockedText] : []),
+                      ...(!isUnlocked ? [styles.lockedText] : [])
                     ]}
                   >
                     {level.description}
@@ -195,14 +194,14 @@ const MapProgressDetailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   scrollView: {
     flex: 1,
-    padding: 16,
+    padding: 16
   },
   lockedText: {
-    color: '#999',
+    color: '#999'
   },
   title: {
     fontSize: 28,
@@ -210,22 +209,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 8,
     marginTop: 16,
-    color: '#FF6B35',
+    color: '#FF6B35'
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
     color: '#333',
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   progressCardsContainer: {
     gap: 12,
-    marginHorizontal: 8,
+    marginHorizontal: 8
   },
   optionsContainer: {
     gap: 12,
-    marginHorizontal: 8,
+    marginHorizontal: 8
   },
   levelOptionButton: {
     backgroundColor: '#f8f8f8',
@@ -236,53 +235,53 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 3
   },
   selectedLevelOption: {
     backgroundColor: '#FF6B35',
-    borderColor: '#E55A2B',
+    borderColor: '#E55A2B'
   },
   lockedOption: {
     backgroundColor: '#ccc',
     shadowOpacity: 0,
-    elevation: 0,
+    elevation: 0
   },
   levelOptionName: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 4,
-    textAlign: 'left',
+    textAlign: 'left'
   },
   levelOptionDescription: {
     fontSize: 14,
     color: '#666',
     textAlign: 'left',
-    marginBottom: 2,
+    marginBottom: 2
   },
   lockMessage: {
     fontSize: 12,
     color: '#888',
-    textAlign: 'left',
+    textAlign: 'left'
   },
   checkmark: {
     fontSize: 12,
     color: '#fff',
     fontWeight: 'bold',
-    marginLeft: 8,
+    marginLeft: 8
   },
   sectionSubtitle: {
     fontSize: 16,
     color: '#666',
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 8
   },
   selectedText: {
-    color: '#fff',
+    color: '#fff'
   },
   confirmButton: {
     backgroundColor: '#FF6B35',
@@ -293,22 +292,22 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 4
     },
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 5
   },
   disabledButton: {
     backgroundColor: '#ccc',
     shadowOpacity: 0,
-    elevation: 0,
+    elevation: 0
   },
   confirmButtonText: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 })
 
 export default MapProgressDetailScreen

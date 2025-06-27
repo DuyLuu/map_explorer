@@ -1,7 +1,6 @@
-import { QuizQuestion } from '../types/quiz'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getCountriesByRegionAndLevel } from './countryService'
-import { getFlagAssetByName } from './flagAssetService'
+
+import { QuizQuestion } from '../types/quiz'
 import { Region } from '../types/region'
 import {
   RegionLevelProgress,
@@ -9,8 +8,11 @@ import {
   createEmptyProgress,
   updateProgressWithCountry,
   isCountryLearned,
-  PROGRESS_KEYS,
+  PROGRESS_KEYS
 } from '../types/progress'
+
+import { getCountriesByRegionAndLevel } from './countryService'
+import { getFlagAssetByName } from './flagAssetService'
 
 const PROGRESS_KEY_PREFIX = '@quiz_progress_level_'
 
@@ -85,7 +87,9 @@ export const generateQuizQuestion = async (
         .filter(
           country =>
             country.name !== correctCountry.name &&
-            !wrongAnswerCountries.some(wac => wac.name === country.name)
+            !wrongAnswerCountries.some(wac => wac.name === country.name) &&
+            !usedFlags.includes(country.id.toString()) &&
+            !learnedCountryIds.includes(country.id)
         )
         .sort(() => Math.random() - 0.5)
         .slice(0, 3 - wrongAnswerCountries.length)
@@ -100,7 +104,9 @@ export const generateQuizQuestion = async (
         .filter(
           country =>
             country.name !== correctCountry.name &&
-            !wrongAnswerCountries.some(wac => wac.name === country.name)
+            !wrongAnswerCountries.some(wac => wac.name === country.name) &&
+            !usedFlags.includes(country.id.toString()) &&
+            !learnedCountryIds.includes(country.id)
         )
         .sort(() => Math.random() - 0.5)
         .slice(0, 3 - wrongAnswerCountries.length)
@@ -133,7 +139,7 @@ export const generateQuizQuestion = async (
       id: correctCountry.id.toString(),
       flagAsset,
       correctAnswer: correctCountry.name,
-      options,
+      options
     }
   } catch (error) {
     // Re-throw with additional context if it's our custom error
@@ -321,7 +327,7 @@ export const getRegionProgress = async (region: Region): Promise<RegionLevelProg
       learnedCountries: uniqueLearnedCountries,
       totalCountries,
       completionPercentage,
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: new Date().toISOString()
     }
   } catch (error) {
     console.error('Error getting region progress:', error)
