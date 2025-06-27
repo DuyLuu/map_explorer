@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { FormattedMessage } from 'react-intl'
 import { Icon } from 'components/index'
 
 import { useLanguage } from '../i18n/LanguageContext'
 import { SUPPORTED_LOCALES, SupportedLocale } from '../i18n/config'
+import { useTheme } from '../theme'
 
 import { Box } from './Box'
 import { Text } from './Text'
@@ -16,26 +17,35 @@ interface LanguageOptionProps {
 }
 
 const LanguageOption: React.FC<LanguageOptionProps> = ({ locale, isSelected, onSelect }) => {
+  const { theme } = useTheme()
   const handlePress = () => {
     onSelect(locale)
   }
 
   return (
     <TouchableOpacity
-      style={[styles.languageOption, isSelected && styles.selectedOption]}
       onPress={handlePress}
       activeOpacity={0.7}
     >
-      <Box row centerItems justifySpaceBetween padding="m">
+      <Box
+        row
+        centerItems
+        spaceBetween
+        padding="m"
+        backgroundColor={isSelected ? "parchment" : "white"}
+        borderRadius="md"
+        borderWidth={1}
+        borderColor={isSelected ? "primary" : "breakLine"}
+      >
         <Box>
-          <Text variant="bodyLarge" weight="medium" primary>
+          <Text variant="bodyLarge" weight="medium" color="text">
             {SUPPORTED_LOCALES[locale]}
           </Text>
           <Text variant="bodySmall" muted>
             {locale.toUpperCase()}
           </Text>
         </Box>
-        {isSelected && <Icon name="ic_check" size={24} color="#4CAF50" />}
+        {isSelected && <Icon name="ic_check" size="md" color="success" />}
       </Box>
     </TouchableOpacity>
   )
@@ -43,6 +53,7 @@ const LanguageOption: React.FC<LanguageOptionProps> = ({ locale, isSelected, onS
 
 export const LanguageSelector: React.FC = () => {
   const { currentLocale, setLocale, isLoading } = useLanguage()
+  const { theme } = useTheme()
 
   const handleLanguageSelect = async (locale: SupportedLocale) => {
     if (locale !== currentLocale && !isLoading) {
@@ -53,9 +64,9 @@ export const LanguageSelector: React.FC = () => {
   const languageEntries = Object.entries(SUPPORTED_LOCALES) as [SupportedLocale, string][]
 
   return (
-    <Box style={styles.container}>
+    <Box backgroundColor="background" borderRadius="md" padding="m">
       <Box marginBottom="m">
-        <Text variant="h6" weight="bold" primary>
+        <Text variant="h6" weight="bold" color="text">
           <FormattedMessage id="settings.language.title" defaultMessage="Language" />
         </Text>
         <Text variant="bodySmall" muted>
@@ -66,7 +77,7 @@ export const LanguageSelector: React.FC = () => {
         </Text>
       </Box>
 
-      <Box style={styles.languageList}>
+      <Box>
         {languageEntries.map(([locale, _]) => (
           <LanguageOption
             key={locale}
@@ -90,24 +101,3 @@ export const LanguageSelector: React.FC = () => {
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f8f8f8',
-    borderRadius: 12,
-    padding: 16
-  },
-  languageList: {
-    gap: 2
-  },
-  languageOption: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e0e0e0'
-  },
-  selectedOption: {
-    borderColor: '#4CAF50',
-    backgroundColor: '#f1f8e9'
-  }
-})

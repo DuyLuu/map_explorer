@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
-
-import { Theme } from '../theme/constants'
+import { useTheme } from '../theme'
 
 import { Button } from './Button'
 import { Icon } from './Icon'
 
 const BackButton = ({ onBack }: { onBack?: () => void }) => {
+  const { theme } = useTheme()
   const navigation = useNavigation()
 
   return (
@@ -15,7 +15,7 @@ const BackButton = ({ onBack }: { onBack?: () => void }) => {
       padding="xs"
       accessibilityLabel="Back"
     >
-      <Icon name="arrow_left" size={20} color={Theme.colors.baseBlack} />
+      <Icon name="arrow_left" size={20} color={theme.colors.text} />
     </Button>
   )
 }

@@ -2,7 +2,7 @@ import { CountryWithRegion } from '../types/region'
 
 export type RootStackParamList = {
   MainTabs: undefined
-  Home: undefined
+  DashboardTab: undefined
   FlagRegionSelection: undefined
   FlagProgressDetail: undefined
   Quiz: undefined

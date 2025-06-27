@@ -4,14 +4,14 @@ import { Platform } from 'react-native'
 import { useIntl } from 'react-intl'
 import SettingsButton from 'components/SettingsButton'
 import QuizTabScreen from 'screens/QuizTabScreen'
-import LearningTabScreen from 'features/learning/screens/LearningTabScreen'
+import DashboardScreen from 'screens/DashboardScreen'
 import ChallengeTabScreen from 'screens/ChallengeTabScreen'
 import { Icon } from 'components/index'
 
 // Tab navigator types
 export type TabParamList = {
   QuizTab: undefined
-  LearningTab: undefined
+  DashboardTab: undefined
   ChallengeTab: undefined
 }
 
@@ -23,7 +23,7 @@ const getTabIcon = (route: any, focused: boolean, color: string, size: number) =
 
   if (route.name === 'QuizTab') {
     iconName = focused ? 'flag_filled' : 'flag_outline'
-  } else if (route.name === 'LearningTab') {
+  } else if (route.name === 'DashboardTab') {
     iconName = focused ? 'home_tab_fullfill' : 'home_tab'
   } else {
     iconName = 'diamond' // Default icon
@@ -86,12 +86,12 @@ const TabNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen
-        name="LearningTab"
-        component={LearningTabScreen}
+        name="DashboardTab"
+        component={DashboardScreen}
         options={{
           title: intl.formatMessage({
-            id: 'navigation.tab.learning',
-            defaultMessage: 'Learning'
+            id: 'navigation.tab.dashboard',
+            defaultMessage: 'Dashboard'
           })
         }}
       />

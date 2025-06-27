@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { QuizQuestion } from 'types/quiz'
@@ -55,6 +55,26 @@ export const useChallengeQuiz = () => {
   const [finalChallengeScore, setFinalChallengeScore] = useState<ChallengeScore | null>(null)
 
   const navigation = useNavigation<NavigationProp>()
+
+  const loadNextQuestion = useCallback(async () => {
+    try {
+      if (!countriesData) {
+        console.warn('Countries data not loaded yet, cannot generate question')
+        return
+      }
+
+      const newQuestion = await generateMixedQuestion()
+      setCurrentQuestion(newQuestion)
+      setUsedFlags(prev => [...prev, newQuestion.id])
+      setShowFeedback(false)
+      setSelectedAnswer(null)
+    } catch (error) {
+      console.error('Error loading next question:', error)
+      // If we can't generate more questions, end the quiz
+      setGameOver(true)
+      await saveQuizProgress(currentLevel, score)
+    }
+  }, [countriesData, currentLevel, score])
 
   useEffect(() => {
     // Only initialize quiz when countries data is loaded
@@ -224,26 +244,6 @@ export const useChallengeQuiz = () => {
         // If all regions fail, throw the original error
         throw error
       }
-    }
-  }
-
-  const loadNextQuestion = async () => {
-    try {
-      if (!countriesData) {
-        console.warn('Countries data not loaded yet, cannot generate question')
-        return
-      }
-
-      const newQuestion = await generateMixedQuestion()
-      setCurrentQuestion(newQuestion)
-      setUsedFlags(prev => [...prev, newQuestion.id])
-      setShowFeedback(false)
-      setSelectedAnswer(null)
-    } catch (error) {
-      console.error('Error loading next question:', error)
-      // If we can't generate more questions, end the quiz
-      setGameOver(true)
-      await saveQuizProgress(currentLevel, score)
     }
   }
 

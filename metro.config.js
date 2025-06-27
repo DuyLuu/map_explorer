@@ -10,6 +10,8 @@ const path = require('path')
  */
 const config = {
   resolver: {
+    assetExts: ['ttf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg'], // Add 'ttf' for fonts
+    sourceExts: ['js', 'json', 'ts', 'tsx', 'jsx', 'svg'], // Ensure 'svg' is here if you use react-native-svg-transformer
     extraNodeModules: {
       components: path.resolve(__dirname, 'src/components'),
       features: path.resolve(__dirname, 'src/features'),
@@ -24,6 +26,9 @@ const config = {
       assets: path.resolve(__dirname, 'src/assets'),
       constants: path.resolve(__dirname, 'src/constants')
     }
+  },
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-svg-transformer')
   }
 }
 

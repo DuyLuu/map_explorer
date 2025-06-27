@@ -1,37 +1,22 @@
-/**
- * Loading Screen Component
- * Displays a loading indicator while translations are being loaded
- */
-
 import React from 'react'
-import { View, ActivityIndicator, Text, StyleSheet } from 'react-native'
+import { ActivityIndicator } from 'react-native'
+import { Box, Text } from 'components/index'
+import { useTheme } from '../theme'
 
 interface LoadingScreenProps {
   message?: string
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ message = 'Loading...' }) => {
+  const { theme } = useTheme()
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#007AFF" />
-      <Text style={styles.message}>{message}</Text>
-    </View>
+    <Box flex={1} center backgroundColor="background">
+      <ActivityIndicator size="large" color={theme.colors.primary} />
+      <Text marginTop="m" variant="body" color="subText">
+        {message}
+      </Text>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff'
-  },
-  message: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#666666',
-    textAlign: 'center'
-  }
-})
 
 export default LoadingScreen

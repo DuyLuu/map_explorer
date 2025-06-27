@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
-import { StyleSheet } from 'react-native'
 import { getRegionProgress } from 'services/quizService'
 import { getRegionDescription } from 'utils/regionUtils'
 
+import { useTheme } from '../theme'
 import { Region, REGION_INFO } from '../types/region'
 
 import ProgressRing from './ProgressRing'
@@ -17,6 +17,7 @@ interface RegionOptionProps {
 }
 
 const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress }) => {
+  const { theme } = useTheme()
   const [progress, setProgress] = React.useState<number>(0)
   const [learned, setLearned] = React.useState<number>(0)
   const [total, setTotal] = React.useState<number>(0)
@@ -39,43 +40,33 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
   }, [loadProgress])
 
   const getProgressColor = (percentage: number): string => {
-    if (percentage === 100) return '#4CAF50' // Green for complete
-    if (percentage > 0) return '#007AFF' // Blue for in progress (flag quiz color)
-    return '#f0f0f0' // Gray for not started
+    if (percentage === 100) return theme.colors.success // Green for complete
+    if (percentage > 0) return theme.colors.primary // Blue for in progress (flag quiz color)
+    return theme.colors.lightGray // Gray for not started
   }
 
   return (
     <Button
       onPress={onPress}
       variant={isSelected ? 'primary' : 'outlined'}
-      style={[styles.optionButton, isSelected && styles.selectedOption]}
       paddingVertical="sm"
       paddingHorizontal="m"
       fullWidth
+      borderRadius="md"
+      marginBottom="m"
+      borderColor={isSelected ? theme.colors.primary : theme.colors.breakLine}
+      backgroundColor={isSelected ? theme.colors.primary : theme.colors.background}
     >
-      <Box row flex style={styles.optionContainer}>
+      <Box row flex spaceBetween centerItems>
         <Box flex alignStart>
-          <Text
-            variant="h6"
-            weight="bold"
-            color={isSelected ? '#fff' : '#333'}
-            style={styles.optionName}
-          >
+          <Text variant="h6" weight="bold" color={isSelected ? 'white' : 'text'} marginBottom="xxs">
             {REGION_INFO[region].displayName}
           </Text>
-          <Text
-            variant="bodySmall"
-            color={isSelected ? '#fff' : '#666'}
-            style={styles.optionDescription}
-          >
+          <Text variant="bodySmall" color={isSelected ? 'white' : 'subText'} marginBottom="xxs">
             {getRegionDescription(region)}
           </Text>
           {progress > 0 && (
-            <Text
-              variant="caption"
-              color={isSelected ? '#fff' : '#888'}
-              style={styles.progressText}
-            >
+            <Text variant="caption" color={isSelected ? 'white' : 'subText'} marginTop="xxs">
               {learned}/{total} countries learned
             </Text>
           )}
@@ -92,8 +83,8 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
             <Text
               variant="caption"
               weight="bold"
-              color={isSelected ? '#fff' : '#666'}
-              style={styles.progressPercentage}
+              color={isSelected ? 'white' : 'text'}
+              marginTop="xxs"
             >
               {Math.round(progress)}%
             </Text>
@@ -103,32 +94,5 @@ const RegionOption: React.FC<RegionOptionProps> = ({ region, isSelected, onPress
     </Button>
   )
 }
-
-const styles = StyleSheet.create({
-  optionButton: {
-    borderRadius: 12,
-    marginBottom: 12
-  },
-  selectedOption: {
-    // Additional selected styles if needed
-  },
-  optionName: {
-    marginBottom: 2
-  },
-  optionDescription: {
-    marginBottom: 2
-  },
-  progressText: {
-    marginTop: 2
-  },
-  progressPercentage: {
-    marginTop: 2
-  },
-  optionContainer: {
-    width: '100%',
-    flex: 1,
-    justifyContent: 'space-between'
-  }
-})
 
 export default RegionOption

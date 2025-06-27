@@ -2,25 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { FormattedMessage } from 'react-intl'
 import { Text } from 'components/Text'
 import { Box } from 'components/Box'
-import { ThemeProvider } from 'theme/context'
+import { ThemeProvider, useTheme } from 'theme/context'
 import FlagRegionSelectionScreen from 'features/flag/screens/FlagRegionSelectionScreen'
 import FlagProgressDetailScreen from 'features/flag/screens/FlagProgressDetailScreen'
 import MapRegionSelectionScreen from 'features/map/screens/MapRegionSelectionScreen'
 import MapQuizScreen from 'features/map/screens/MapQuizScreen'
 import ChallengeQuizScreen from 'features/challenge/screens/ChallengeQuizScreen'
 import QuizScreen from 'screens/QuizScreen'
-
 import SettingsScreen from 'screens/SettingsScreen'
 import MapProgressDetailScreen from 'features/map/screens/MapProgressDetailScreen'
 import CountryDetailScreen from 'features/learning/screens/CountryDetailScreen'
 import TopCountriesScreen from 'features/learning/screens/TopCountriesScreen'
 import { loadBundledCountryData, isBundledDataLoaded } from 'services/bundledDataService'
 import { preloadCommonFlags } from 'services/flagAssetService'
-import { Theme } from 'theme/constants'
 
 import TabNavigator from './TabNavigator'
 import { RootStackParamList } from './types'
@@ -34,42 +32,54 @@ interface AppLoadingState {
   progress: string
 }
 
-const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => (
-  <Box flex center backgroundColor="#fff">
-    <Box centerItems paddingHorizontal="xl">
-      <ActivityIndicator size="large" color="#007AFF" style={styles.spinner} />
-      <Text variant="h2" color="#000" weight="bold" center style={styles.loadingTitle}>
-        <FormattedMessage id="navigation.appTitle" defaultMessage="World Explorer" />
-      </Text>
-      <Text variant="body" color={Theme.colors.subText} center style={styles.loadingSubtitle}>
-        <FormattedMessage
-          id="navigation.loading.subtitle"
-          defaultMessage="Preparing your world journey..."
-        />
-      </Text>
-      <Text variant="bodySmall" color="#007AFF" center weight="medium">
-        {state.progress}
-      </Text>
-
-      {state.error && (
-        <Box style={styles.errorContainer}>
-          <Text variant="h6" color="#ff3b30" weight="bold" style={styles.errorTitle}>
-            <FormattedMessage id="navigation.loading.error" defaultMessage="Loading Error" />
-          </Text>
-          <Text variant="bodySmall" color="#ccc" style={styles.errorText}>
-            {state.error}
-          </Text>
-          <Text variant="caption" color="#888" style={styles.retryText}>
-            <FormattedMessage
-              id="navigation.loading.retryMessage"
-              defaultMessage="Please restart the app to try again"
-            />
-          </Text>
+const LoadingScreen: React.FC<{ state: AppLoadingState }> = ({ state }) => {
+  const { theme } = useTheme()
+  return (
+    <Box flex center backgroundColor="background">
+      <Box centerItems paddingHorizontal="xl">
+        <Box marginBottom="l">
+          <ActivityIndicator size="large" color={theme.colors.primary} />
         </Box>
-      )}
+        <Text variant="h2" color="text" weight="bold" center marginBottom="s">
+          <FormattedMessage id="navigation.appTitle" defaultMessage="World Explorer" />
+        </Text>
+        <Text variant="body" color="subText" center marginBottom="l">
+          <FormattedMessage
+            id="navigation.loading.subtitle"
+            defaultMessage="Preparing your world journey..."
+          />
+        </Text>
+        <Text variant="bodySmall" color="primary" center weight="medium">
+          {state.progress}
+        </Text>
+
+        {state.error && (
+          <Box
+            marginTop="xl"
+            padding="m"
+            backgroundColor="blackOpacity(0.1)"
+            borderRadius={8}
+            borderWidth={4}
+            borderColor="danger"
+          >
+            <Text variant="h6" color="danger" weight="bold" marginBottom="s">
+              <FormattedMessage id="navigation.loading.error" defaultMessage="Loading Error" />
+            </Text>
+            <Text variant="bodySmall" color="subText" marginBottom="s">
+              {state.error}
+            </Text>
+            <Text variant="caption" color="gray">
+              <FormattedMessage
+                id="navigation.loading.retryMessage"
+                defaultMessage="Please restart the app to try again"
+              />
+            </Text>
+          </Box>
+        )}
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 const AppNavigator: React.FC = () => {
   const [loadingState, setLoadingState] = useState<AppLoadingState>({
@@ -177,45 +187,5 @@ const RootNavigator: React.FC = () => {
     </ThemeProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loadingContent: {
-    alignItems: 'center',
-    paddingHorizontal: 40
-  },
-  spinner: {
-    marginBottom: 24
-  },
-  loadingTitle: {
-    marginBottom: 8
-  },
-  loadingSubtitle: {
-    marginBottom: 24
-  },
-  errorContainer: {
-    marginTop: 32,
-    padding: 20,
-    backgroundColor: '#1a1a1a',
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#ff3b30'
-  },
-  errorTitle: {
-    marginBottom: 8
-  },
-  errorText: {
-    marginBottom: 8,
-    lineHeight: 20
-  },
-  retryText: {
-    fontStyle: 'italic'
-  }
-})
 
 export default RootNavigator

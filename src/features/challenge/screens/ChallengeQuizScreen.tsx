@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
+import { SafeAreaView, ActivityIndicator } from 'react-native'
 import { calculateChallengeScore, formatTime } from 'services/challengeScoringService'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -7,8 +7,8 @@ import { RootStackParamList } from 'navigation/types'
 import Text from 'components/Text'
 import { Box } from 'components/Box'
 import { Button } from 'components/Button'
-import { Theme } from 'theme/constants'
 
+import { useTheme } from '../../../theme'
 import MapQuizUI from '../components/MapQuizUI'
 import FlagQuizUI from '../components/FlagQuizUI'
 import NewRecordModal from '../components/NewRecordModal'
@@ -19,6 +19,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const ChallengeQuizScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>()
+  const { theme } = useTheme()
 
   const {
     currentQuestion,
@@ -55,9 +56,9 @@ const ChallengeQuizScreen: React.FC = () => {
   // Show loading screen while countries are loading or quiz is initializing
   if (isLoadingCountries || isInitializing) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Box flex center padding="ml">
-          <ActivityIndicator size="large" color="#FF6B35" />
+          <ActivityIndicator size="large" color={theme.colors.primary} />
           <Text variant="body" weight="bold" center marginTop="m">
             {isLoadingCountries ? 'Loading countries...' : 'Initializing Challenge...'}
           </Text>
@@ -69,10 +70,12 @@ const ChallengeQuizScreen: React.FC = () => {
   // Show error screen if there was an error loading countries
   if (countriesError) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Box flex center padding="ml">
-          <Text style={styles.errorText}>Error loading countries data</Text>
-          <Text style={styles.errorSubtext}>
+          <Text variant="body" weight="bold" center marginTop="m" color="subText">
+            Error loading countries data
+          </Text>
+          <Text variant="body" center marginTop="s" color="subText">
             Please check your internet connection and try again
           </Text>
         </Box>
@@ -81,34 +84,44 @@ const ChallengeQuizScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Box padding="m" backgroundColor="white" style={styles.headerBorder}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <Box padding="m" backgroundColor="background" borderColor="breakLine">
         <Box centerItems marginBottom="sm">
-          <Text style={styles.challengeLabel}>🏆 CHALLENGE MODE</Text>
-          <Text style={styles.challengeSubtext}>Zero tolerance - One mistake ends it all!</Text>
+          <Text variant="h4" weight="bold" color="highlight">
+            🏆 CHALLENGE MODE
+          </Text>
+          <Text variant="bodySmall" color="subText" marginTop="xxs">
+            Zero tolerance - One mistake ends it all!
+          </Text>
         </Box>
-        <Button variant="outlined" onPress={exitChallenge} style={styles.exitButton}>
+        <Button variant="outlined" onPress={exitChallenge} absolute right="m" top="m">
           Exit
         </Button>
 
         <Box row spaceBetween centerItems>
           <Box row spaceBetween centerItems fullWidth>
             <Box alignStart>
-              <Text style={styles.score}>Score: {score}</Text>
-              <Text style={styles.potentialScore}>
+              <Text variant="h5" weight="bold" color="text">
+                Score: {score}
+              </Text>
+              <Text variant="bodySmall" color="success">
                 +Bonus: {getCurrentPotentialScore() - score} = {getCurrentPotentialScore()}
               </Text>
             </Box>
             <Box alignEnd>
-              <Text style={styles.highScore}>Best: {highScore}</Text>
-              <Text style={styles.timeDisplay}>{formatTime(timeSpent)}</Text>
+              <Text variant="h5" weight="bold" color="success">
+                Best: {highScore}
+              </Text>
+              <Text variant="bodySmall" color="subText">
+                {formatTime(timeSpent)}
+              </Text>
             </Box>
           </Box>
         </Box>
       </Box>
 
-      <Box paddingTop="m" centerItems backgroundColor="white" style={styles.progressBorder}>
-        <Text style={styles.progressText}>
+      <Box paddingTop="m" centerItems backgroundColor="background" borderColor="breakLine">
+        <Text variant="h5" weight="bold" color="text">
           Question {currentQuestionNumber} of {questionCount}
         </Text>
       </Box>
@@ -137,11 +150,18 @@ const ChallengeQuizScreen: React.FC = () => {
 
           {/* Next Button */}
           {showFeedback && !gameOver && (
-            <TouchableOpacity style={styles.nextButton} onPress={handleNextQuestion}>
-              <Text style={styles.nextButtonText}>
+            <Button
+              onPress={handleNextQuestion}
+              fullWidth
+              marginTop="m"
+              backgroundColor="success"
+              borderRadius="md"
+              padding="m"
+            >
+              <Text variant="button" weight="bold" color="white">
                 {currentQuestionNumber < questionCount ? 'Next Question' : 'Finish Challenge'}
               </Text>
-            </TouchableOpacity>
+            </Button>
           )}
         </Box>
       )}
@@ -167,92 +187,5 @@ const ChallengeQuizScreen: React.FC = () => {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5'
-  },
-  exitButton: {
-    position: 'absolute',
-    top: 0,
-    right: 12,
-    borderWidth: 1,
-    borderColor: Theme.colors.breakLine
-  },
-  headerBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee'
-  },
-  progressBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee'
-  },
-  errorText: {
-    fontSize: 18,
-    color: '#F44336',
-    textAlign: 'center',
-    marginBottom: 8
-  },
-  errorSubtext: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center'
-  },
-  challengeLabel: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FF6B35'
-  },
-  challengeSubtext: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 2
-  },
-  score: {
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  potentialScore: {
-    fontSize: 12,
-    color: '#4CAF50',
-    marginTop: 2
-  },
-  highScore: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#4CAF50'
-  },
-  timeDisplay: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 2
-  },
-  progressText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8
-  },
-  levelText: {
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
-  quizTypeText: {
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
-  nextButton: {
-    backgroundColor: '#4CAF50',
-    padding: 16,
-    borderRadius: 12,
-    marginTop: 20,
-    alignItems: 'center'
-  },
-  nextButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff'
-  }
-})
 
 export default ChallengeQuizScreen

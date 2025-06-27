@@ -1,59 +1,50 @@
-import React, { useState, useMemo } from 'react'
-import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
+import React, { useMemo, useState } from 'react'
+import { SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Text } from 'components/Text'
-import { Box } from 'components/Box'
-import { Button } from 'components/Button'
 import { CountryWithRegion, Region } from 'types/region'
+import { RootStackParamList } from 'navigation/types'
 import { useCountries } from 'hooks/useCountries'
-import { Theme } from 'theme/constants'
+import SearchBar from 'features/learning/components/SearchBar'
+import RegionFilter from 'features/learning/components/RegionFilter'
+import CountryCard from 'features/learning/components/CountryCard'
 
-import SearchBar from '../components/SearchBar'
-import RegionFilter from '../components/RegionFilter'
-import CountryCard from '../components/CountryCard'
-
-type RootStackParamList = {
-  CountryDetail: { country: CountryWithRegion }
-  TopCountries: undefined
-}
+import { useTheme } from '../theme'
+import { Button } from '../components/Button'
+import { Text } from '../components/Text'
+import { Box } from '../components/Box'
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
-const LearningTabScreen: React.FC = () => {
+const DashboardScreen: React.FC = () => {
   const intl = useIntl()
   const navigation = useNavigation<NavigationProp>()
+  const { theme } = useTheme()
   const { data: countries, isLoading, error } = useCountries()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedRegion, setSelectedRegion] = useState<Region | 'all' | 'territories'>('all')
 
-  // Filter and sort countries based on current selections
   const filteredCountries = useMemo(() => {
     if (!countries) return []
 
     let filtered = countries
 
-    // Handle special filters first
     if (selectedRegion === 'all') {
-      // Show only countries (no territories)
       filtered = filtered.filter(
         (country: CountryWithRegion) => (country.entityType || 'country') === 'country'
       )
     } else if (selectedRegion === 'territories') {
-      // Show only territories
       filtered = filtered.filter(
         (country: CountryWithRegion) => (country.entityType || 'country') === 'territory'
       )
     } else {
-      // Filter by specific region (only countries, not territories)
       filtered = filtered.filter(
         (country: CountryWithRegion) =>
           country.region === selectedRegion && (country.entityType || 'country') === 'country'
       )
     }
 
-    // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim()
       filtered = filtered.filter((country: CountryWithRegion) =>
@@ -61,7 +52,6 @@ const LearningTabScreen: React.FC = () => {
       )
     }
 
-    // Sort alphabetically
     return filtered.sort((a: CountryWithRegion, b: CountryWithRegion) =>
       a.name.localeCompare(b.name)
     )
@@ -75,7 +65,6 @@ const LearningTabScreen: React.FC = () => {
     navigation.navigate('TopCountries')
   }
 
-  // Update the subtitle to be more descriptive
   const getSubtitle = () => {
     if (selectedRegion === 'territories') {
       return intl.formatMessage(
@@ -97,7 +86,7 @@ const LearningTabScreen: React.FC = () => {
 
   const EmptyState = () => (
     <Box paddingVertical="xl" centerItems>
-      <Text variant="body" weight="bold" center marginTop="m">
+      <Text variant="body" weight="bold" center marginTop="m" color="text">
         {selectedRegion === 'territories' ? (
           <FormattedMessage
             id="learning.search.noResultsTerritories"
@@ -107,7 +96,7 @@ const LearningTabScreen: React.FC = () => {
           <FormattedMessage id="learning.search.noResults" defaultMessage="No countries found" />
         )}
       </Text>
-      <Text variant="body" center marginTop="m">
+      <Text variant="body" center marginTop="m" color="subText">
         <FormattedMessage
           id="learning.search.tryAdjusting"
           defaultMessage="Try adjusting your search or filter"
@@ -118,10 +107,10 @@ const LearningTabScreen: React.FC = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Box flex center>
-          <ActivityIndicator size="large" color="#007AFF" />
-          <Text style={styles.loadingText}>
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+          <Text variant="body" weight="bold" center marginTop="m" color="subText">
             <FormattedMessage id="learning.screen.loading" defaultMessage="Loading countries..." />
           </Text>
         </Box>
@@ -131,9 +120,9 @@ const LearningTabScreen: React.FC = () => {
 
   if (error) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <Box flex center>
-          <Text style={styles.errorText}>
+          <Text variant="body" weight="bold" center marginTop="m" color="danger">
             <FormattedMessage
               id="learning.screen.error"
               defaultMessage="Failed to load countries"
@@ -145,24 +134,22 @@ const LearningTabScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Box
         row
         centerItems
         spaceBetween
         paddingHorizontal="m"
         paddingVertical="m"
-        backgroundColor="white"
-        style={styles.headerBorder}
+        backgroundColor="background"
       >
         <Button
-          style={styles.topCountriesButton}
           onPress={handleTopCountriesPress}
           padding="sm"
-          borderRadius={8}
-          backgroundColor={Theme.colors.lightDark}
+          borderRadius="md"
+          backgroundColor="lightGray"
         >
-          <Text variant="bodySmall" weight="bold" color={Theme.colors.mainText}>
+          <Text variant="bodySmall" weight="bold" color="text">
             <FormattedMessage id="learning.screen.topCountries" defaultMessage="Top Countries" />
           </Text>
         </Button>
@@ -185,7 +172,7 @@ const LearningTabScreen: React.FC = () => {
       />
 
       <RegionFilter selectedRegion={selectedRegion} onRegionSelect={setSelectedRegion} />
-      <Text marginLeft="m" marginBottom="m" variant="h6" muted color={Theme.colors.primary}>
+      <Text marginLeft="m" marginBottom="m" variant="h6" color="primary">
         {getSubtitle()}
       </Text>
       <FlatList
@@ -194,7 +181,10 @@ const LearningTabScreen: React.FC = () => {
         renderItem={({ item }) => (
           <CountryCard country={item} onPress={() => handleCountryPress(item)} />
         )}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={{
+          paddingHorizontal: theme.spacing.m,
+          paddingBottom: theme.spacing.xl
+        }}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyState />}
       />
@@ -202,57 +192,4 @@ const LearningTabScreen: React.FC = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f9fa'
-  },
-  headerBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#e1e1e1'
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#666'
-  },
-  topCountriesButton: {
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 12,
-    marginLeft: 16,
-    borderWidth: 1,
-    borderColor: Theme.colors.breakLine
-  },
-  topCountriesIcon: {
-    fontSize: 20,
-    marginBottom: 2
-  },
-  topCountriesText: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: '#fff',
-    textAlign: 'center'
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 20
-  },
-  loadingText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#666'
-  },
-  errorText: {
-    fontSize: 16,
-    color: '#f44336'
-  }
-})
-
-export default LearningTabScreen
+export default DashboardScreen

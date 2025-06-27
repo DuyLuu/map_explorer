@@ -1,5 +1,4 @@
 // Screens
-export { default as LearningTabScreen } from './screens/LearningTabScreen'
 export { default as CountryDetailScreen } from './screens/CountryDetailScreen'
 export { default as TopCountriesScreen } from './screens/TopCountriesScreen'
 

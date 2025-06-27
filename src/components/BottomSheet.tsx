@@ -1,12 +1,14 @@
 import React, { forwardRef, useMemo } from 'react'
 import { ViewStyle } from 'react-native'
-import GorhomBottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-  BottomSheetView,
-  BottomSheetScrollView,
-  type BottomSheetProps as GorhomBottomSheetProps
-} from '@gorhom/bottom-sheet'
+import GorhomBottomSheet,
+  {
+    BottomSheetBackdrop,
+    BottomSheetBackdropProps,
+    BottomSheetView,
+    BottomSheetScrollView,
+    type BottomSheetProps as GorhomBottomSheetProps
+  } from '@gorhom/bottom-sheet'
+import { useTheme } from '../theme'
 
 export interface BottomSheetProps extends Omit<GorhomBottomSheetProps, 'snapPoints'> {
   /** Snap points for the bottom sheet. Can be percentages (e.g., ['25%', '50%', '90%']) or pixel values */
@@ -65,14 +67,21 @@ export const BottomSheet = forwardRef<GorhomBottomSheet, BottomSheetProps>(
     },
     ref
   ) => {
+    const { theme } = useTheme()
     // Memoize snap points to avoid unnecessary re-renders
     const memoizedSnapPoints = useMemo(() => snapPoints, [snapPoints])
 
     // Backdrop component
     const renderBackdrop = useMemo(
       () => (backdropProps: BottomSheetBackdropProps) =>
-        <BottomSheetBackdrop {...backdropProps} opacity={backdropOpacity} style={backdropStyle} />,
-      [backdropOpacity, backdropStyle]
+        <BottomSheetBackdrop
+          {...backdropProps}
+          opacity={backdropOpacity}
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          style={[{ backgroundColor: theme.colors.blackOpacity(backdropOpacity) }, backdropStyle]}
+        />,
+      [backdropOpacity, backdropStyle, theme.colors]
     )
 
     return (
@@ -80,6 +89,7 @@ export const BottomSheet = forwardRef<GorhomBottomSheet, BottomSheetProps>(
         ref={ref}
         snapPoints={memoizedSnapPoints}
         backdropComponent={enableBackdrop ? renderBackdrop : undefined}
+        backgroundStyle={{ backgroundColor: theme.colors.popupBackground }}
         style={containerStyle}
         {...props}
       >

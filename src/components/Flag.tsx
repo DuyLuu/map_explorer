@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet, ImageSourcePropType, Image } from 'react-native'
+import { ActivityIndicator, ImageSourcePropType, Image } from 'react-native'
+
+import { useTheme } from '../theme'
 
 import { Box } from './Box'
 
@@ -10,6 +12,7 @@ interface FlagProps {
 
 const Flag: React.FC<FlagProps> = React.memo(
   ({ flagAsset, onLoadEnd }) => {
+    const { theme } = useTheme()
     const [isImageLoading, setIsImageLoading] = useState(true)
 
     const handleLoadEnd = () => {
@@ -35,10 +38,16 @@ const Flag: React.FC<FlagProps> = React.memo(
     }
 
     return (
-      <Box center alignSelf="center" marginBottom="m" style={{ width: 240, height: 160 }}>
-        {isImageLoading && <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />}
+      <Box center marginBottom="m" style={{ width: 240, height: 160 }}>
+        {isImageLoading && (
+          <ActivityIndicator
+            size="large"
+            color={theme.colors.primary}
+            style={{ position: 'absolute' }}
+          />
+        )}
         <Image
-          style={styles.flagImage}
+          style={{ width: '100%', height: '100%' }}
           source={getFastImageSource()}
           resizeMode="contain"
           onLoadEnd={handleLoadEnd}
@@ -55,15 +64,5 @@ const Flag: React.FC<FlagProps> = React.memo(
     return prevProps.flagAsset === nextProps.flagAsset
   }
 )
-
-const styles = StyleSheet.create({
-  flagImage: {
-    width: '100%',
-    height: '100%'
-  },
-  loader: {
-    position: 'absolute'
-  }
-})
 
 export default Flag

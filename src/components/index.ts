@@ -1,5 +1,5 @@
 // Foundation layout system
-export { Box, default as BoxComponent, type BoxProps } from './Box'
+export { Box, type BoxProps } from './Box'
 
 // Typography system
 export {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getRegionLevelProgress } from 'services/quizService'
 
+import { useTheme } from '../theme'
 import { Region, REGION_INFO } from '../types/region'
 import { RegionLevelProgress } from '../types/progress'
 
@@ -25,12 +26,9 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
   showDetailedStats = true,
   size = 'medium'
 }) => {
+  const { theme } = useTheme()
   const [progress, setProgress] = useState<RegionLevelProgress | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    loadProgress()
-  }, [region, level, loadProgress])
 
   const loadProgress = async () => {
     try {
@@ -44,24 +42,36 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
     }
   }
 
+  useEffect(() => {
+    loadProgress()
+  }, [region, level, loadProgress])
+
   const getDifficultyName = (level: number): string => {
     const levels = { 1: 'Easy', 2: 'Medium', 3: 'Hard' }
     return levels[level as keyof typeof levels] || `Level ${level}`
   }
 
   const getDifficultyColor = (level: number): string => {
-    const colors = { 1: '#4CAF50', 2: '#FF9800', 3: '#F44336' }
-    return colors[level as keyof typeof colors] || '#666'
+    switch (level) {
+      case 1:
+        return theme.colors.success // Green for Easy
+      case 2:
+        return theme.colors.warning // Orange for Medium
+      case 3:
+        return theme.colors.danger // Red for Hard
+      default:
+        return theme.colors.gray // Default color
+    }
   }
 
   const getCardSize = () => {
     switch (size) {
       case 'small':
-        return { padding: 12, progressSize: 60 }
+        return { padding: 's' as const, progressSize: 60 }
       case 'large':
-        return { padding: 20, progressSize: 80 }
+        return { padding: 'l' as const, progressSize: 80 }
       default:
-        return { padding: 16, progressSize: 70 }
+        return { padding: 'm' as const, progressSize: 70 }
     }
   }
 
@@ -73,15 +83,15 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
 
   const CardContent = () => (
     <Box
-      backgroundColor="white"
+      backgroundColor="parchment"
       borderRadius="lg"
       shadow="light"
       marginBottom="sm"
-      style={{ padding: cardSize.padding }}
+      padding={cardSize.padding}
     >
       <Box row spaceBetween centerItems marginBottom="m">
         <Box flex>
-          <Text variant="h6" weight="bold" marginBottom="xs">
+          <Text variant="h6" weight="bold" marginBottom="xs" color="text">
             {regionInfo.displayName}
           </Text>
           <Text variant="bodySmall" weight="semi-bold" color={getDifficultyColor(level)}>
@@ -97,7 +107,7 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
       </Box>
 
       {showDetailedStats && !isLoading && (
-        <Box style={{ gap: 12 }}>
+        <Box gap="s">
           <ProgressBar
             percentage={percentage}
             width={150}
@@ -110,26 +120,26 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
 
           <Box row spaceAround paddingTop="xs">
             <Box centerItems>
-              <Text variant="body" weight="bold">
+              <Text variant="body" weight="bold" color="text">
                 {learnedCount}
               </Text>
-              <Text variant="caption" muted marginTop="xs">
+              <Text variant="caption" color="subText" marginTop="xs">
                 Learned
               </Text>
             </Box>
             <Box centerItems>
-              <Text variant="body" weight="bold">
+              <Text variant="body" weight="bold" color="text">
                 {totalCount - learnedCount}
               </Text>
-              <Text variant="caption" muted marginTop="xs">
+              <Text variant="caption" color="subText" marginTop="xs">
                 Remaining
               </Text>
             </Box>
             <Box centerItems>
-              <Text variant="body" weight="bold">
+              <Text variant="body" weight="bold" color="text">
                 {totalCount}
               </Text>
-              <Text variant="caption" muted marginTop="xs">
+              <Text variant="caption" color="subText" marginTop="xs">
                 Total
               </Text>
             </Box>
@@ -139,7 +149,7 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
 
       {isLoading && (
         <Box centerItems paddingVertical="m">
-          <Text variant="bodySmall" muted>
+          <Text variant="bodySmall" color="subText">
             Loading progress...
           </Text>
         </Box>
@@ -150,7 +160,7 @@ const RegionProgressCard: React.FC<RegionProgressCardProps> = ({
   if (onPress) {
     return (
       <Box marginBottom="sm">
-        <Button onPress={onPress} variant="ghost" fullWidth style={{ alignItems: 'flex-start' }}>
+        <Button onPress={onPress} variant="ghost" fullWidth alignItems="flex-start">
           <CardContent />
         </Button>
       </Box>

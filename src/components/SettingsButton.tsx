@@ -11,7 +11,7 @@ const SettingsButton = () => {
   return (
     <Box marginRight="m">
       <Button onPress={() => navigation.navigate('Settings')} variant="ghost" padding="xs">
-        <Icon name="setting" size="md" color="baseBlack" />
+        <Icon name="setting" size="md" color="text" />
       </Button>
     </Box>
   )

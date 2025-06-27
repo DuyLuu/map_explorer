@@ -48,42 +48,42 @@ export const letterSpacing = {
 export const textVariants = {
   // Headers
   h1: {
-    fontFamily: FontFamily.XBOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['5xl'],
     lineHeight: lineHeight['5xl'],
     letterSpacing: letterSpacing.tight
   } as TextStyle,
 
   h2: {
-    fontFamily: FontFamily.BOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['4xl'],
     lineHeight: lineHeight['4xl'],
     letterSpacing: letterSpacing.tight
   } as TextStyle,
 
   h3: {
-    fontFamily: FontFamily.BOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['3xl'],
     lineHeight: lineHeight['3xl'],
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   h4: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize['2xl'],
     lineHeight: lineHeight['2xl'],
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   h5: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.xl,
     lineHeight: lineHeight.xl,
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   h6: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.lg,
     lineHeight: lineHeight.lg,
     letterSpacing: letterSpacing.normal
@@ -91,21 +91,21 @@ export const textVariants = {
 
   // Body text
   bodyLarge: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.lg,
     lineHeight: lineHeight.lg,
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   body: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.md,
     lineHeight: lineHeight.md,
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   bodySmall: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.base,
     lineHeight: lineHeight.base,
     letterSpacing: letterSpacing.normal
@@ -113,14 +113,14 @@ export const textVariants = {
 
   // Labels and captions
   label: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.sm,
     lineHeight: lineHeight.sm,
     letterSpacing: letterSpacing.wide
   } as TextStyle,
 
   caption: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.xs,
     lineHeight: lineHeight.xs,
     letterSpacing: letterSpacing.normal
@@ -128,21 +128,21 @@ export const textVariants = {
 
   // Buttons
   buttonLarge: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.lg,
     lineHeight: lineHeight.lg,
     letterSpacing: letterSpacing.wide
   } as TextStyle,
 
   button: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.md,
     lineHeight: lineHeight.md,
     letterSpacing: letterSpacing.wide
   } as TextStyle,
 
   buttonSmall: {
-    fontFamily: FontFamily.SEMI_BOLD,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.sm,
     lineHeight: lineHeight.sm,
     letterSpacing: letterSpacing.wide
@@ -150,7 +150,7 @@ export const textVariants = {
 
   // Special text styles
   overline: {
-    fontFamily: FontFamily.CAPITALIZE_MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_BOLD,
     fontSize: fontSize.xs,
     lineHeight: lineHeight.xs,
     letterSpacing: letterSpacing.widest,
@@ -158,14 +158,14 @@ export const textVariants = {
   } as TextStyle,
 
   subtitle1: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.md,
     lineHeight: lineHeight.md,
     letterSpacing: letterSpacing.normal
   } as TextStyle,
 
   subtitle2: {
-    fontFamily: FontFamily.MEDIUM,
+    fontFamily: FontFamily.SANS_SERIF_REGULAR,
     fontSize: fontSize.base,
     lineHeight: lineHeight.base,
     letterSpacing: letterSpacing.normal
@@ -173,21 +173,21 @@ export const textVariants = {
 
   // Display text (for large hero text)
   displayLarge: {
-    fontFamily: FontFamily.XBOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['7xl'],
     lineHeight: lineHeight['7xl'],
     letterSpacing: letterSpacing.tighter
   } as TextStyle,
 
   displayMedium: {
-    fontFamily: FontFamily.XBOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['6xl'],
     lineHeight: lineHeight['6xl'],
     letterSpacing: letterSpacing.tight
   } as TextStyle,
 
   displaySmall: {
-    fontFamily: FontFamily.BOLD,
+    fontFamily: FontFamily.SERIF_BOLD,
     fontSize: fontSize['5xl'],
     lineHeight: lineHeight['5xl'],
     letterSpacing: letterSpacing.tight

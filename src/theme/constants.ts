@@ -1,57 +1,56 @@
 export enum FontFamily {
-  XBOLD = 'SVN-GilroyXBold',
-  BOLD = 'SVN-GilroyBold',
-  SEMI_BOLD = 'SVN-GilroySemiBold',
-  MEDIUM = 'SVN-GilroyMedium',
-  LIGHT = 'SVN-GilroyLight',
-  CAPITALIZE_MEDIUM = 'Bebas Neue Pro Regular',
-  CAPITALIZE_BOLD = 'Bebas Neue Pro Bold'
+  SERIF_BOLD = 'System', // Using system font for serif bold
+  SERIF_REGULAR = 'System', // Using system font for serif regular
+  SANS_SERIF_BOLD = 'System', // Using system font for sans-serif bold
+  SANS_SERIF_REGULAR = 'System', // Using system font for sans-serif regular
+  SANS_SERIF_LIGHT = 'System' // Using system font for sans-serif light
 }
 
 export const PALLETS = {
-  BASE_BLACK: '#121212',
-  BLACK_GRAY: '#272E35',
-  BLACK_GRAY_OPACITY: (o: number) => `rgba(39, 46, 53, ${o})`,
+  // Adventurer's Journal Palette
+  NAVY_BLUE: '#1A3154', // Primary: Deep navy blue
+  PARCHMENT: '#F5F0E1', // Primary: Off-white/parchment
+  SEPIA: '#704214', // Primary: Sepia tone
 
-  WHITE: '#fff',
-  WHITE_OPACITY: (o: number) => `rgba(255,255,255, ${o})`,
-  BLACK: '#000',
-  BLACK_OPACITY: (o: number) => `rgba(0,0,0, ${o})`,
-  LIGHT_ORANGE: '#FFBFA8',
-  ORANGE: '#F47D42',
-  DARK_ORANGE: '#ED7873',
-  ORANGE_OPACITY: (o: number) => `rgba(239,143,109, ${o})`,
-  SEA_GREEN: '#00f3c5',
-  DARK_BLUE: '#1a3154',
-  DARK_BLUE_OPACITY: (o: number) => `rgba(26,49,84, ${o})`,
+  ACCENT_TEAL: '#00A896', // Accent: Vibrant teal
+  ACCENT_ORANGE: '#FF6B35', // Accent: Burnt orange
+  ACCENT_RED: '#E63946', // Accent: Deep red
+
+  CHARCOAL: '#333333', // Text: Dark charcoal
+
+  // Existing colors that might still be useful or need re-evaluation
+  WHITE: '#FFFFFF',
+  BLACK: '#000000',
   LIGHT_GRAY: '#A8B5C7',
-  LIGHTER_GRAY: '#A5A7A9',
-  BLUE: '#9ECEF9',
   GRAY: '#778BA8',
-  GRAY_DARK: '#6B80A0',
-  GRAY_DARKER: '#53637F',
-  LIGHT_BLUE: '#F3F8FC',
-  LIGHT_DARK: '#DBEAFA',
-  RED: '#f8333c',
-  GREEN: '#25A278',
-  YELLOW: '#FDCC6D',
-  GRADIENT_DARK_BLUE: ['#9ECEF9', '#2B3D5F'],
-  GRADIENT_ORANGE: ['#F27672', '#F2A766'],
-  GRADIENT_SILVER: ['#7497C145', '#647093E6'],
-  PRO_PREMIUM_GRADIENT: ['#EE3E6F', '#662A94'],
-  REGION: '#F27672',
-  PRO: '#A76DEF',
-  DARK_BLACK_BLUE: '#1A1C20'
+  DARK_GRAY: '#6B80A0',
+  LIGHT_BLUE: '#F3F8FC', // Could be used for subtle backgrounds
+  RED: '#f8333c', // For danger/error
+  GREEN: '#25A278', // For success
+  YELLOW: '#FDCC6D', // For warning
+
+  // Add missing colors referenced in variants
+  ORANGE: '#FF6B35', // Same as ACCENT_ORANGE
+  DARK_BLUE: '#1A3154', // Same as NAVY_BLUE
+  LIGHT_ORANGE: '#FFB896', // Light version of orange
+  DARK_ORANGE: '#CC5228', // Dark version of orange
+
+  // Opacity functions
+  NAVY_BLUE_OPACITY: (o: number) => `rgba(26, 49, 84, ${o})`,
+  PARCHMENT_OPACITY: (o: number) => `rgba(245, 240, 225, ${o})`,
+  CHARCOAL_OPACITY: (o: number) => `rgba(51, 51, 51, ${o})`,
+  WHITE_OPACITY: (o: number) => `rgba(255, 255, 255, ${o})`,
+  BLACK_OPACITY: (o: number) => `rgba(0, 0, 0, ${o})`
 }
 
 export const Theme = {
   // define static theme here
   shadowColor: {
-    popupBackground: '#E8EAEE'
+    popupBackground: PALLETS.PARCHMENT // Adjusted for new theme
   },
   shadow: {
     default: {
-      shadowColor: PALLETS.DARK_BLUE,
+      shadowColor: PALLETS.NAVY_BLUE, // Using new primary dark color
       shadowOffset: {
         width: 0.5,
         height: 2
@@ -61,7 +60,7 @@ export const Theme = {
       shadowOpacity: 0.15
     },
     light: {
-      shadowColor: PALLETS.DARK_BLUE,
+      shadowColor: PALLETS.NAVY_BLUE,
       shadowOffset: {
         width: 0.25,
         height: 1
@@ -71,7 +70,7 @@ export const Theme = {
       shadowOpacity: 0.125
     },
     dark: {
-      shadowColor: PALLETS.DARK_BLUE,
+      shadowColor: PALLETS.NAVY_BLUE,
       shadowOffset: {
         width: 0.25,
         height: 2
@@ -81,14 +80,14 @@ export const Theme = {
       shadowOpacity: 0.25
     },
     darker: {
-      shadowColor: PALLETS.DARK_BLUE,
+      shadowColor: PALLETS.NAVY_BLUE,
       shadowOffset: { width: 0.5, height: 6 },
       shadowRadius: 8,
       elevation: 4,
       shadowOpacity: 0.25
     },
     blackDark: {
-      shadowColor: PALLETS.BASE_BLACK,
+      shadowColor: PALLETS.CHARCOAL, // Using new text color for dark shadows
       shadowOffset: { width: 0.5, height: 6 },
       shadowRadius: 8,
       elevation: 9,
@@ -117,113 +116,85 @@ export const Theme = {
     tablet: 576
   },
   font: {
-    bold: FontFamily.BOLD,
-    xbold: FontFamily.XBOLD,
-    semiBold: FontFamily.SEMI_BOLD,
-    medium: FontFamily.MEDIUM,
-    light: FontFamily.LIGHT,
-    capitalizeMedium: FontFamily.CAPITALIZE_MEDIUM,
-    capitalizeBold: FontFamily.CAPITALIZE_BOLD
+    serifBold: FontFamily.SERIF_BOLD,
+    serifRegular: FontFamily.SERIF_REGULAR,
+    sansSerifBold: FontFamily.SANS_SERIF_BOLD,
+    sansSerifRegular: FontFamily.SANS_SERIF_REGULAR,
+    sansSerifLight: FontFamily.SANS_SERIF_LIGHT
   },
 
   // define dynamic theme here
   colors: {
-    baseBlack: PALLETS.BASE_BLACK,
-    blackGray: PALLETS.BLACK_GRAY,
-    blackGrayOpacity: PALLETS.BLACK_GRAY_OPACITY,
+    // Core theme colors
+    primary: PALLETS.NAVY_BLUE,
+    secondary: PALLETS.PARCHMENT,
+    accent: PALLETS.ACCENT_TEAL, // Default accent
+    text: PALLETS.CHARCOAL,
+    subText: PALLETS.DARK_GRAY, // Lighter charcoal or dark gray
 
-    light: PALLETS.WHITE,
-    lightOpacity: PALLETS.WHITE_OPACITY,
+    // Backgrounds
+    background: PALLETS.PARCHMENT,
+    popupBackground: PALLETS.WHITE, // Still white for popups
 
+    // Specific UI elements
+    mainText: PALLETS.CHARCOAL,
+    breakLine: PALLETS.NAVY_BLUE_OPACITY(0.1),
+    headerGradient: [PALLETS.NAVY_BLUE, PALLETS.NAVY_BLUE], // Solid color for now, can be gradient later
+    loadingGradient: [PALLETS.PARCHMENT_OPACITY(0.5), PALLETS.PARCHMENT_OPACITY(0.1)],
+    highlight: PALLETS.ACCENT_ORANGE, // Using one of the accents for highlight
+    danger: PALLETS.RED,
+    success: PALLETS.GREEN,
+    warning: PALLETS.YELLOW,
+    borderCover: PALLETS.NAVY_BLUE_OPACITY(0.1),
+    iconButtonBackground: PALLETS.WHITE_OPACITY(0.1),
+
+    // Existing colors re-mapped or kept if still relevant
+    white: PALLETS.WHITE,
     black: PALLETS.BLACK,
+    lightGray: PALLETS.LIGHT_GRAY,
+    gray: PALLETS.GRAY,
+    darkGray: PALLETS.DARK_GRAY,
+    lightBlue: PALLETS.LIGHT_BLUE, // Can be used for subtle background elements
+
+    // Add commonly referenced colors
+    blue: PALLETS.NAVY_BLUE,
+    light: PALLETS.PARCHMENT,
+    baseBlack: PALLETS.CHARCOAL,
+
+    // Opacity variants for common colors
+    navyBlueOpacity: PALLETS.NAVY_BLUE_OPACITY,
+    parchmentOpacity: PALLETS.PARCHMENT_OPACITY,
+    charcoalOpacity: PALLETS.CHARCOAL_OPACITY,
+    whiteOpacity: PALLETS.WHITE_OPACITY,
     blackOpacity: PALLETS.BLACK_OPACITY,
 
-    lightPrimary: PALLETS.LIGHT_ORANGE,
-    darkPrimary: PALLETS.DARK_ORANGE,
-    primaryOpacity: PALLETS.ORANGE_OPACITY,
+    // Placeholder for gradients if needed later
+    primaryGradient: [PALLETS.NAVY_BLUE, PALLETS.SEPIA],
+    secondaryGradient: [PALLETS.PARCHMENT, PALLETS.WHITE]
 
-    region: PALLETS.REGION,
-    secondary: PALLETS.SEA_GREEN,
-    proPremiumGradient: PALLETS.PRO_PREMIUM_GRADIENT,
-    pro: PALLETS.PRO,
-
-    dark: PALLETS.DARK_BLUE,
-    darkOpacity: PALLETS.DARK_BLUE_OPACITY,
-    darkGradient: PALLETS.GRADIENT_DARK_BLUE,
-    silverGradient: PALLETS.GRADIENT_SILVER,
-
-    lightGray: PALLETS.LIGHT_GRAY,
-    lighterGray: PALLETS.LIGHTER_GRAY,
-    gray: PALLETS.GRAY,
-    grayDark: PALLETS.GRAY_DARK,
-    grayDarker: PALLETS.GRAY_DARKER,
-
-    lightDark: PALLETS.LIGHT_DARK,
-    skeleton: '#E1E8EB',
-
-    // theme colors
-    primaryGradient: PALLETS.GRADIENT_ORANGE,
-    mainText: PALLETS.DARK_BLUE,
-    subText: PALLETS.GRAY_DARK,
-    background: PALLETS.LIGHT_BLUE,
-    popupBackground: PALLETS.WHITE,
-    breakLine: 'rgba(26, 49, 84, 0.1)',
-    headerGradient: ['#779ECB', '#2B3D5F'],
-    loadingGradient: ['rgba(225, 232, 235, 0.5)', 'rgba(225, 232, 235, 0.1)'],
-    primary: PALLETS.ORANGE,
-    highlight: '#F47D42',
-    danger: 'rgba(249, 98, 98, 1)',
-    success: '#FFF4E0',
-    warning: PALLETS.YELLOW,
-    blue: PALLETS.BLUE,
-    borderCover: 'rgba(26, 49, 84, 0.1)',
-    iconButtonBackground: 'rgba(255, 255, 255, 0.1)',
-    navy: {
-      navy0: '#1A3154',
-      navy1: '#2B3E60',
-      navy2: '#6B80A0',
-      navy3: '#D6E4F3',
-      navy4: '#EBF2FA'
-    },
-    grey: {
-      grey0: 'rgba(110, 127, 157, 0.5)',
-      grey1: '#747F9F',
-      grey2: '#DDE6F1'
-    },
-    white: {
-      white100: 'rgba(255, 255, 255, 1)',
-      white80: 'rgba(255, 255, 255, 0.8)',
-      white60: 'rgba(255, 255, 255, 0.6)',
-      white40: 'rgba(255, 255, 255, 0.4)',
-      white25: 'rgba(255, 255, 255, 0.25)',
-      white20: 'rgba(255, 255, 255, 0.2)',
-      white15: 'rgba(255, 255, 255, 0.15)',
-      white10: 'rgba(255, 255, 255, 0.1)',
-      white5: 'rgba(255, 255, 255, 0.05)'
-    }
+    // Remove specific navy/grey/white objects if not needed, or re-evaluate
+    // For now, keeping them flat for simplicity
   }
 }
 
 export const DarkTheme = {
   ...Theme,
   shadowColor: {
-    popupBackground: '#39414A'
+    popupBackground: PALLETS.CHARCOAL // Darker background for popups in dark mode
   },
   // define dynamic theme here
   colors: {
     ...Theme.colors,
-    mainText: PALLETS.WHITE,
-    subText: PALLETS.LIGHTER_GRAY,
-    background: PALLETS.DARK_BLACK_BLUE,
-    popupBackground: '#272E35',
-    breakLine: '#D2E7FF33',
-    headerGradient: ['#1E252B', '#303B4D'],
-    loadingGradient: ['rgba(225, 232, 235, 0.2)', 'rgba(225, 232, 235, 0.1)'],
-    grayDark: 'rgba(255, 255, 255, 0.6)',
-    skeleton: Theme.colors.white.white15,
-    borderCover: '#D2E7FF33',
-    iconButtonBackground: 'rgba(255, 255, 255, 0.1)',
-    success: '#463F33'
+    mainText: PALLETS.PARCHMENT, // Light text on dark background
+    subText: PALLETS.LIGHT_GRAY,
+    background: PALLETS.CHARCOAL, // Dark background
+    popupBackground: PALLETS.SEPIA, // Sepia for popups in dark mode
+    breakLine: PALLETS.PARCHMENT_OPACITY(0.2),
+    headerGradient: [PALLETS.CHARCOAL, PALLETS.NAVY_BLUE],
+    loadingGradient: [PALLETS.CHARCOAL_OPACITY(0.5), PALLETS.CHARCOAL_OPACITY(0.1)],
+    borderCover: PALLETS.PARCHMENT_OPACITY(0.2),
+    iconButtonBackground: PALLETS.BLACK_OPACITY(0.2),
+    success: PALLETS.GREEN // Keep success green
   }
 }
 

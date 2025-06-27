@@ -163,19 +163,17 @@ export const Text: React.FC<TextProps> = ({
 
   // Get font family based on weight
   const getFontFamily = (): string | undefined => {
-    if (!weight) return undefined
-
     switch (weight) {
       case 'bold':
-        return FontFamily.BOLD
+        return FontFamily.SANS_SERIF_BOLD
       case 'semi-bold':
-        return FontFamily.SEMI_BOLD
+        return FontFamily.SANS_SERIF_BOLD
       case 'medium':
-        return FontFamily.MEDIUM
+        return FontFamily.SANS_SERIF_REGULAR
       case 'light':
-        return FontFamily.LIGHT
+        return FontFamily.SANS_SERIF_LIGHT
       default:
-        return FontFamily.MEDIUM
+        return undefined // Let variant define if no weight is specified
     }
   }
 

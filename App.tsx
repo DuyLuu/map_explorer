@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import RootNavigator from './src/navigation/RootNavigator'
 import { LanguageProvider } from './src/i18n'
+import { ThemeProvider } from './src/theme/context'
 import FirebaseService from './src/services/firebase'
 
 const App = () => {
@@ -42,9 +43,11 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <LanguageProvider>
-          <RootNavigator />
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <RootNavigator />
+          </LanguageProvider>
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   )

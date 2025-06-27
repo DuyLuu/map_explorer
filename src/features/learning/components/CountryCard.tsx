@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -28,42 +28,39 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, onPress }) => {
   }
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.container}>
-      <Box row centerItems padding="m" backgroundColor="surface" borderRadius="md">
-        <FastImage source={{ uri: country.flagUrl }} style={styles.flag} />
+    <TouchableOpacity onPress={handlePress}>
+      <Box
+        row
+        centerItems
+        padding="m"
+        backgroundColor="parchment"
+        borderRadius="md"
+        shadow="default"
+        marginBottom="m"
+      >
+        <FastImage
+          source={{ uri: country.flagUrl }}
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: 6
+          }}
+        />
         <Box flex={1} marginLeft="m">
-          <Text variant="h6" numberOfLines={1}>
+          <Text variant="h6" numberOfLines={1} color="text">
             {country.name}
           </Text>
-          <Text variant="body" color="subText" numberOfLines={1}>
+          <Text variant="body" numberOfLines={1} color="subText">
             {country.region} • {country.subregion}
           </Text>
           <Text variant="caption" color="subText">
             Population: {country.population?.toLocaleString() || 'N/A'}
           </Text>
         </Box>
-        <Icon name="chevron_right" size={20} color="#999" />
+        <Icon name="chevron_right" size="md" color="subText" />
       </Box>
     </TouchableOpacity>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 12,
-    borderRadius: 12,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 5
-  },
-  flag: {
-    width: 64,
-    height: 64,
-    borderRadius: 6
-  }
-})
 
 export default CountryCard

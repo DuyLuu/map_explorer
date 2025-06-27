@@ -9,10 +9,18 @@ import {
   BorderRadius,
   ShadowType
 } from '../theme'
+import { borderRadius } from '../theme/layout'
 
 import { Text } from './Text'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'danger'
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outlined'
+  | 'ghost'
+  | 'danger'
+  | 'success'
+  | 'warning'
 export type ButtonSize = 'small' | 'medium' | 'large'
 
 export interface ButtonProps
@@ -199,76 +207,37 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Get size-specific styles
   const getSizeStyles = (): ViewStyle => {
-    const sizes = {
-      small: {
-        minHeight: 32,
-        paddingHorizontal: theme.spacing.sm,
-        paddingVertical: theme.spacing.xs
-      },
-      medium: {
-        minHeight: 44,
-        paddingHorizontal: theme.spacing.m,
-        paddingVertical: theme.spacing.s
-      },
-      large: {
-        minHeight: 56,
-        paddingHorizontal: theme.spacing.ml,
-        paddingVertical: theme.spacing.sm
-      }
-    }
-    return sizes[size]
+    const { buttonVariants } = require('../theme/variants')
+    const sizeStyles = buttonVariants.sizes[size] || buttonVariants.sizes.medium
+    return sizeStyles.container
   }
 
   // Get variant-specific styles
   const getVariantStyles = (): ViewStyle => {
-    switch (variant) {
-      case 'primary':
-        return {
-          backgroundColor: theme.colors.primary,
-          borderWidth: 0
-        }
-      case 'secondary':
-        return {
-          backgroundColor: theme.colors.secondary,
-          borderWidth: 0
-        }
-      case 'outlined':
-        return {
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-          borderColor: theme.colors.primary
-        }
-      case 'ghost':
-        return {
-          backgroundColor: 'transparent',
-          borderWidth: 0
-        }
-      case 'danger':
-        return {
-          backgroundColor: theme.colors.danger,
-          borderWidth: 0
-        }
-      default:
-        return {
-          backgroundColor: theme.colors.primary,
-          borderWidth: 0
-        }
-    }
+    const { buttonVariants } = require('../theme/variants')
+    const variantStyles = buttonVariants.styles[variant] || buttonVariants.styles.primary
+    return variantStyles.container
   }
 
   // Get text color based on variant
   const getTextColor = (): string => {
     switch (variant) {
       case 'primary':
+        return theme.colors.white
       case 'secondary':
+        return theme.colors.primary
+      case 'success':
+        return theme.colors.white
+      case 'warning':
+        return theme.colors.text
       case 'danger':
-        return theme.colors.light
+        return theme.colors.white
       case 'outlined':
-        return theme.colors.baseBlack
+        return theme.colors.text
       case 'ghost':
         return theme.colors.primary
       default:
-        return theme.colors.light
+        return theme.colors.white
     }
   }
 
@@ -338,7 +307,7 @@ export const Button: React.FC<ButtonProps> = ({
         return borderRadiusProp
       }
       // Handle BorderRadius theme keys if needed
-      return 8 // default
+      return borderRadius[borderRadiusProp]
     }
     return 8 // default border radius
   }

@@ -72,7 +72,7 @@ const Icon = ({
     if (warning) return theme.colors.warning
     if (danger) return theme.colors.danger
     if (muted) return theme.colors.subText
-    if (light) return theme.colors.light
+    if (light) return theme.colors.white
     if (gray) return theme.colors.gray
 
     // Custom color or theme color key
